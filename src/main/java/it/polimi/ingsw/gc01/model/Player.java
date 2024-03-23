@@ -1,4 +1,4 @@
-package it.polimi.ingsw.gc01;
+package it.polimi.ingsw.gc01.model;
 
 import java.util.*;
 
