@@ -1,4 +1,5 @@
-package it.polimi.ingsw;
+package it.polimi.ingsw.gc01;
+
 import java.util.*;
 
 public class Room {
