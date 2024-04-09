@@ -9,10 +9,14 @@ import java.util.Map;
 public class PlayableCard extends Card{
     private Map<CornerPosition, Corner> cornerMap;
 
+    public PlayableCard (){
+        /*TODO*/
+    }
+
     /**
      * places the PlayableCard in the position passed by paramter into the playerfield
      */
     public void play(Position position){
-
+    /*TODO*/
     }
 }

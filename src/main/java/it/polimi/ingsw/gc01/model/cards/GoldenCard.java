@@ -1,5 +1,4 @@
 package it.polimi.ingsw.gc01.model.cards;
-
 import it.polimi.ingsw.gc01.model.Item;
 import it.polimi.ingsw.gc01.model.Resource;
 import it.polimi.ingsw.gc01.model.player.Player;
@@ -13,16 +12,11 @@ public class GoldenCard extends ResourceCard{
     private ScoreCondition scoreCondition;
 
     private Item itemCondition;
-
-
-    /**
-     *
-     * @return the number of points of the golden card, if the points are related
-     * to the position of the card in the field throws an exception.
-     */
-    public int getScore(){
-    return 0;
+    public GoldenCard(){
+        /*TODO*/
     }
+
+
 
     /**
      *

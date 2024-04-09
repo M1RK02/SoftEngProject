@@ -1,20 +1,24 @@
 package it.polimi.ingsw.gc01.model.player;
-import java.util.Collections;
-import java.util.HashSet;
-import java.util.Set;
+import it.polimi.ingsw.gc01.model.cards.PlayableCard;
+
+import java.util.*;
 
 public class Field {
     private Player player;
     private Set<Position> availablePosition;
-    private Position[][] positions;
+    private Map<Position, PlayableCard> positions;
 
     public Field(Player player) {
         this.player = player;
-        this.positions = new Position[81][81];
+        this.positions = new HashMap<Position, PlayableCard>();
         this.availablePosition = new HashSet<Position>();
     }
 
     public Set<Position> getAvailablePosition() {
         return availablePosition;
+    }
+
+    public void addAvailablePosition(Position position) {
+        availablePosition.add(position);
     }
 }

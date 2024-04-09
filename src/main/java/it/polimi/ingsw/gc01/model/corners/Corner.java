@@ -6,7 +6,9 @@ public class Corner {
 
     private CardResources object;
     private boolean covered;
-
+public Corner (){
+    /*TODO*/
+}
     /**
      *
      * @return the corner's object
@@ -22,5 +24,10 @@ public class Corner {
     public boolean isCovered(){
         return covered;
     }
+
+    public void cover(){
+        covered=true;
+    }
+
 
 }

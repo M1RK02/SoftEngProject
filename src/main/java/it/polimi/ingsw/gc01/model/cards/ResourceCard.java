@@ -5,6 +5,9 @@ public class ResourceCard extends PlayableCard{
     private CardColor color;
 
     private int score;
+    public ResourceCard(){
+        /*TODO*/
+    }
 
     /**
      *

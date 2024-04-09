@@ -2,6 +2,7 @@ package it.polimi.ingsw.gc01.model.room;
 
 import java.util.ArrayList;
 import java.util.List;
+
 import it.polimi.ingsw.gc01.model.player.Player;
 import it.polimi.ingsw.gc01.model.player.PlayerColor;
 
@@ -10,9 +11,6 @@ public class WaitingRoom {
     private List<PlayerColor> availableColors;
     private Room room;
 
-    /**
-     * Waiting room constructor
-     */
     public WaitingRoom() {
         players = new ArrayList<Player>();
         availableColors = new ArrayList<PlayerColor>();
@@ -34,8 +32,7 @@ public class WaitingRoom {
 
     /**
      * Return the list of available colors
-     *
-     * @return unmodifiable list of available colors
+     * @return list of available colors
      */
     public List<PlayerColor> getAvailableColors() {
         return availableColors;

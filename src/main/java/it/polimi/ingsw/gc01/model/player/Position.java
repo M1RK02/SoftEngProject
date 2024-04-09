@@ -1,25 +1,21 @@
 package it.polimi.ingsw.gc01.model.player;
 
-import it.polimi.ingsw.gc01.model.cards.PlayableCard;
-import it.polimi.ingsw.gc01.model.corners.CornerPosition;
-
-import java.util.Map;
-
 public class Position {
     private Field field;
-    private PlayableCard card;
-    private Boolean full;
+    private int x;
+    private int y;
 
-    public Position(Field field) {
+    public Position(Field field, int x, int y) {
         this.field = field;
-        this.full = false;
+        this.x = x;
+        this.y = y;
     }
 
-    public void setCard(PlayableCard card) {
-        this.card = card;
+    public int getX() {
+        return x;
     }
 
-    public Boolean isEmpty() {
-        return !full;
+    public int getY() {
+        return y;
     }
 }

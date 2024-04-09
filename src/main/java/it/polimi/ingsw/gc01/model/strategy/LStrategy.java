@@ -12,6 +12,7 @@ public class LStrategy implements Strategy {
     private boolean Up;
 
     public int check(Field field){
+        /*TODO*/
         return 0;
 
     }

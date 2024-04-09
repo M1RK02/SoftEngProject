@@ -6,13 +6,13 @@ import java.util.Random;
 
 import it.polimi.ingsw.gc01.model.cards.PlayableCard;
 import it.polimi.ingsw.gc01.model.decks.Deck;
-import it.polimi.ingsw.gc01.model.decks.PlayableDeck;
+import it.polimi.ingsw.gc01.model.decks.DeckType;
 import it.polimi.ingsw.gc01.model.player.Player;
 
 public class Room {
     private String roomId;
-    private PlayableDeck goldenDeck;
-    private PlayableDeck resourceDeck;
+    private Deck goldenDeck;
+    private Deck resourceDeck;
     private Deck objectiveDeck;
     private List<Player> players;
     private Player currentPlayer;
@@ -22,9 +22,9 @@ public class Room {
      */
     public Room() {
         roomId = generateRoomId();
-        goldenDeck = new PlayableDeck();
-        resourceDeck = new PlayableDeck();
-        objectiveDeck = new Deck();
+        goldenDeck = new Deck(DeckType.GOLDEN);
+        resourceDeck = new Deck(DeckType.RESOURCE);
+        objectiveDeck = new Deck(DeckType.OBJECTIVE);
         players = new ArrayList<Player>();
     }
 

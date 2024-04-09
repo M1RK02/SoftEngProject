@@ -8,6 +8,11 @@ public class BackRadixCard extends RadixCard {
 
     private Set<Resource> centerResources;
 
+    public BackRadixCard(){
+        /*TODO*/
+    }
+
+
     /**
      *
      * @return the centerResources

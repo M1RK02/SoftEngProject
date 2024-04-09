@@ -7,6 +7,7 @@ public class ItemStrategy implements Strategy{
     private Item item;
 
     public int check(Field field){
-    return 0;
+        /*TODO*/
+        return 0;
     }
 }
