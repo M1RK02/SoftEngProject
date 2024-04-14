@@ -4,5 +4,4 @@ public enum DeckType {
     OBJECTIVE,
     RESOURCE,
     GOLDEN,
-
 }

@@ -3,14 +3,14 @@ package it.polimi.ingsw.gc01.model.corners;
 import it.polimi.ingsw.gc01.model.cards.CardResources;
 
 public class Corner {
-
     private CardResources object;
     private boolean covered;
-public Corner (){
-    /*TODO*/
-}
+
+    public Corner (){
+        // TODO
+    }
+
     /**
-     *
      * @return the corner's object
      */
     public CardResources getObject(){
@@ -18,7 +18,6 @@ public Corner (){
     }
 
     /**
-     *
      * @return true or false depending on whether covered or not
      */
     public boolean isCovered(){
@@ -26,8 +25,6 @@ public Corner (){
     }
 
     public void cover(){
-        covered=true;
+        covered = true;
     }
-
-
 }

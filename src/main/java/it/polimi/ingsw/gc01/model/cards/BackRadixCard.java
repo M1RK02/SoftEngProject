@@ -1,20 +1,16 @@
 package it.polimi.ingsw.gc01.model.cards;
 
+import java.util.*;
 import it.polimi.ingsw.gc01.model.Resource;
 
-import java.util.Set;
-
 public class BackRadixCard extends RadixCard {
-
     private Set<Resource> centerResources;
 
     public BackRadixCard(){
-        /*TODO*/
+        // TODO
     }
 
-
     /**
-     *
      * @return the centerResources
      */
     public Set<Resource> getCenterResources(){

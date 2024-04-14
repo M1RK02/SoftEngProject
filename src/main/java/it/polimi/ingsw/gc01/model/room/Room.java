@@ -1,12 +1,8 @@
 package it.polimi.ingsw.gc01.model.room;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
-
+import java.util.*;
 import it.polimi.ingsw.gc01.model.cards.PlayableCard;
-import it.polimi.ingsw.gc01.model.decks.Deck;
-import it.polimi.ingsw.gc01.model.decks.DeckType;
+import it.polimi.ingsw.gc01.model.decks.*;
 import it.polimi.ingsw.gc01.model.player.Player;
 
 public class Room {
@@ -17,9 +13,6 @@ public class Room {
     private List<Player> players;
     private Player currentPlayer;
 
-    /**
-     * Room constructor
-     */
     public Room() {
         roomId = generateRoomId();
         goldenDeck = new Deck(DeckType.GOLDEN);
@@ -43,20 +36,20 @@ public class Room {
         return sb.toString();
     }
 
-    /**
-     * Get the room id
-     * @return the room id (string)
-     */
     public String getRoomId() {
         return roomId;
     }
 
-    /**
-     * Return the players
-     * @return the list of players in the game
-     */
     public List<Player> getPlayers() {
         return players;
+    }
+
+    public Player getCurrentPlayer() {
+        return currentPlayer;
+    }
+
+    public void setCurrentPlayer(Player currentPlayer) {
+        this.currentPlayer = currentPlayer;
     }
 
     /**
@@ -64,15 +57,13 @@ public class Room {
      * @return the next player
      */
     public Player getNextPlayer() {
-        return null;
-    }
-
-    /**
-     * Get the current player
-     * @return the current player
-     */
-    public Player getCurrentPlayer() {
-        return currentPlayer;
+        int currentPlayerIndex = players.indexOf(getCurrentPlayer());
+        ListIterator<Player> playersIterator = players.listIterator(currentPlayerIndex);
+        if (playersIterator.hasNext()) {
+            return playersIterator.next();
+        } else {
+            return players.get(0);
+        }
     }
 
     /**
@@ -80,6 +71,7 @@ public class Room {
      * @return the list of drawable cards
      */
     public List<PlayableCard> getDrawableCards() {
+        // TODO
         return null;
     }
 
@@ -88,15 +80,8 @@ public class Room {
      * @return winner player
      */
     public Player getWinner() {
+        // TODO
         return null;
-    }
-
-    /**
-     * Set whose turn is it
-     * @param currentPlayer
-     */
-    public void setCurrentPlayer(Player currentPlayer) {
-        this.currentPlayer = currentPlayer;
     }
 
     /**
@@ -105,12 +90,14 @@ public class Room {
      * @return points of the player
      */
     public int calculatePoints(Player player) {
+        // TODO
         return 0;
     }
 
     /**
-     * End game
+     * End the game
      */
     public void endGame() {
+        // TODO
     }
 }

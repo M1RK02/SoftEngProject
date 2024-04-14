@@ -1,7 +1,7 @@
 package it.polimi.ingsw.gc01.model.player;
-import it.polimi.ingsw.gc01.model.cards.PlayableCard;
 
 import java.util.*;
+import it.polimi.ingsw.gc01.model.cards.PlayableCard;
 
 public class Field {
     private Player player;

@@ -1,38 +1,30 @@
 package it.polimi.ingsw.gc01.model.decks;
-import it.polimi.ingsw.gc01.model.cards.Card;
-import it.polimi.ingsw.gc01.model.cards.GoldenCard;
-import it.polimi.ingsw.gc01.model.cards.ObjectiveCard;
-import it.polimi.ingsw.gc01.model.cards.ResourceCard;
+
 import java.util.*;
+import it.polimi.ingsw.gc01.model.cards.*;
 
 public class Deck {
-
     private List<Card> deck;
 
-    public Deck ( DeckType type) {
-
+    public Deck(DeckType type) {
         switch (type) {
             case OBJECTIVE:
-                /*TODO*/
+                // TODO
             case RESOURCE:
-                /*TODO*/
+                // TODO
             case GOLDEN:
-                /*TODO*/
-                break;
-
+                // TODO
         }
     }
 
     /**
-     * shuffles the deck
+     * Shuffles the deck
      */
-    public void shuffle(){
+    public void shuffle() {
         Collections.shuffle(deck, new Random(4909));
     }
 
-    public boolean isEmpty(){
-
+    public boolean isEmpty() {
         return deck.isEmpty();
     }
 }
-

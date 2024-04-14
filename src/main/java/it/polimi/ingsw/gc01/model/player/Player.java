@@ -1,13 +1,9 @@
 package it.polimi.ingsw.gc01.model.player;
-import it.polimi.ingsw.gc01.model.cards.ObjectiveCard;
-import it.polimi.ingsw.gc01.model.cards.PlayableCard;
-import it.polimi.ingsw.gc01.model.cards.RadixCard;
-import it.polimi.ingsw.gc01.model.room.Room;
 
 import java.util.*;
-
-import static it.polimi.ingsw.gc01.model.Item.*;
-import static it.polimi.ingsw.gc01.model.Resource.*;
+import it.polimi.ingsw.gc01.model.cards.*;
+import it.polimi.ingsw.gc01.model.room.Room;
+import it.polimi.ingsw.gc01.model.*;
 
 public class Player {
     private String playerName;
@@ -26,16 +22,20 @@ public class Player {
         this.color = color;
         this.hand = new ArrayList<PlayableCard>();
         this.objective = new HashSet<ObjectiveCard>();
-        Map<PlayerResources, Integer> resources = new HashMap<PlayerResources, Integer>();
-        resources.put(WOLF, 0);
-        resources.put(LEAF, 0);
-        resources.put(BUTTERFLY, 0);
-        resources.put(MUSHROOM, 0);
-        resources.put(QUILL, 0);
-        resources.put(INKWELL, 0);
-        resources.put(MANUSCRIPT, 0);
-        this.resources = resources;
+        this.resources = initResources();
         this.field = new Field(this);
+    }
+
+    private Map<PlayerResources, Integer> initResources() {
+        Map<PlayerResources, Integer> resources = new HashMap<>();
+        resources.put(Resource.WOLF, 0);
+        resources.put(Resource.LEAF, 0);
+        resources.put(Resource.BUTTERFLY, 0);
+        resources.put(Resource.MUSHROOM, 0);
+        resources.put(Item.QUILL, 0);
+        resources.put(Item.INKWELL, 0);
+        resources.put(Item.MANUSCRIPT, 0);
+        return resources;
     }
 
     public String getPlayerName() {

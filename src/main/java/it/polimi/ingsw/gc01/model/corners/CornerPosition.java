@@ -5,5 +5,4 @@ public enum CornerPosition {
     TOP_RIGHT,
     BOTTOM_LEFT,
     BOTTOM_RIGHT;
-
 }

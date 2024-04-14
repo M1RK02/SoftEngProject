@@ -1,10 +1,7 @@
 package it.polimi.ingsw.gc01.model.room;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import it.polimi.ingsw.gc01.model.player.Player;
-import it.polimi.ingsw.gc01.model.player.PlayerColor;
+import java.util.*;
+import it.polimi.ingsw.gc01.model.player.*;
 
 public class WaitingRoom {
     private List<Player> players;
@@ -21,6 +18,7 @@ public class WaitingRoom {
      * Start the game
      */
     public void startGame() {
+        // TODO
     }
 
     /**
@@ -28,6 +26,7 @@ public class WaitingRoom {
      * @param newPlayer new player to add
      */
     public void addPlayer(Player newPlayer){
+        // TODO
     }
 
     /**
