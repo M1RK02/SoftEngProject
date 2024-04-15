@@ -1,7 +1,7 @@
 package it.polimi.ingsw.gc01.model.cards;
 
-import it.polimi.ingsw.gc01.model.player.Field;
-import it.polimi.ingsw.gc01.model.strategy.Strategy;
+import it.polimi.ingsw.gc01.model.player.*;
+import it.polimi.ingsw.gc01.model.strategy.*;
 
 public class ObjectiveCard extends Card {
     private final int score;
@@ -13,11 +13,7 @@ public class ObjectiveCard extends Card {
         this.strategy = strategy;
     }
 
-    public int getScore(Field field){
-        return score;
-    }
-
-    public Strategy getStrategy(){
-        return strategy;
+    public int calculatePoints(Player player){
+        return strategy.check(player);
     }
 }

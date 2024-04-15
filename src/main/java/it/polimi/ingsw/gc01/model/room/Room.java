@@ -1,26 +1,31 @@
 package it.polimi.ingsw.gc01.model.room;
 
 import java.util.*;
-import it.polimi.ingsw.gc01.model.cards.PlayableCard;
+import it.polimi.ingsw.gc01.model.cards.*;
 import it.polimi.ingsw.gc01.model.decks.*;
-import it.polimi.ingsw.gc01.model.player.Player;
+import it.polimi.ingsw.gc01.model.player.*;
 
 public class Room {
-    private String roomId;
+    private final String roomId;
+    private final List<Player> players;
+    private Player currentPlayer;
     private Deck goldenDeck;
     private Deck resourceDeck;
     private Deck objectiveDeck;
-    private List<Player> players;
-    private Player currentPlayer;
 
-    public Room() {
+    public Room(List<Player> players) {
         roomId = generateRoomId();
-        goldenDeck = new Deck(DeckType.GOLDEN);
-        resourceDeck = new Deck(DeckType.RESOURCE);
-        objectiveDeck = new Deck(DeckType.OBJECTIVE);
-        players = new ArrayList<Player>();
+        this.players = players;
+        currentPlayer = players.get(0);
+        goldenDeck = new Deck();
+        resourceDeck = new Deck();
+        objectiveDeck = new Deck();
     }
 
+    /**
+     * Randomly generates a room id
+     * @return a 5 character string
+     */
     private String generateRoomId() {
         String alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
         String numbers = "0123456789";
@@ -42,10 +47,6 @@ public class Room {
 
     public List<Player> getPlayers() {
         return players;
-    }
-
-    public void setPlayers(List<Player> players) {
-        this.players = players;
     }
 
     public Player getCurrentPlayer() {
@@ -79,22 +80,12 @@ public class Room {
      * @return winner player
      */
     public Player getWinner() {
-        Player winner = players.stream().max(Comparator.comparingInt(Player::getScore)).orElse(null);
+        Player winner = players.stream().max(Comparator.comparingInt(Player::getPoints)).orElse(null);
         if (winner != null) {
             return winner;
         }
         return null;
         // TODO Deve fare qualcosa (tipo lanciare un'eccezione) se ritorna null (unico motivo per cui potrebbe ritornare null è se non ci sono giocatori)
-    }
-
-    /**
-     * Calculate the points for the selected player
-     * @param player to calculate points
-     * @return points of the player
-     */
-    public int calculatePoints(Player player) {
-        // TODO Serve sapere come controllare gli obiettivi
-        return 0;
     }
 
     /**

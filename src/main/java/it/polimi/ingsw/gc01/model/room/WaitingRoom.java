@@ -6,42 +6,34 @@ import it.polimi.ingsw.gc01.model.player.*;
 public class WaitingRoom {
     private List<Player> players;
     private List<PlayerColor> availableColors;
-    private Room room;
 
     public WaitingRoom() {
         players = new ArrayList<Player>();
-        availableColors = new ArrayList<>(Arrays.asList(PlayerColor.values()));;
-        room = new Room();
+        availableColors = new ArrayList<>(Arrays.asList(PlayerColor.values()));
     }
 
     /**
      * Start the game
      */
     public void startGame() {
-        // TODO
+        Room room = new Room(players);
+        // TODO Sicuramente deve fare altro
     }
 
     /**
-     * Add the new player to the list of players
-     * @param newPlayer new player to add
+     * Add the player to the waiting room
+     * @param playerName chosen player name
+     * @param playerColor chosen color
      */
-    public void addPlayer(Player newPlayer){
-        // TODO
+    public void addPlayer(String playerName, PlayerColor playerColor){
+        if (players.size() < 4) {
+            players.add(new Player(playerName, playerColor));
+            availableColors.remove(playerColor);
+        }
+        // TODO Deve fare qualcosa se siamo già 4
     }
 
-    /**
-     * Return the list of available colors
-     * @return list of available colors
-     */
     public List<PlayerColor> getAvailableColors() {
         return availableColors;
-    }
-
-    /**
-     * Remove the color from the available colors
-     * @param usedColor color chosen by a player
-     */
-    public void useColor(PlayerColor usedColor) {
-        availableColors.remove(usedColor);
     }
 }

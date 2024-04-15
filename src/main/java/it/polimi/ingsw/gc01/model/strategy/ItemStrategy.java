@@ -1,13 +1,13 @@
 package it.polimi.ingsw.gc01.model.strategy;
 
-import it.polimi.ingsw.gc01.model.player.Field;
-import it.polimi.ingsw.gc01.model.Item;
+import it.polimi.ingsw.gc01.model.*;
+import it.polimi.ingsw.gc01.model.player.*;
 
 public class ItemStrategy implements Strategy{
-    private boolean threePoint;
     private Item item;
+    private boolean threePoint;
 
-    public int check(Field field){
+    public int check(Player player){
         // TODO
         return 0;
     }

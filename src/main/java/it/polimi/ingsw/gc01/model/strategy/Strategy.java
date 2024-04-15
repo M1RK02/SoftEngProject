@@ -1,7 +1,7 @@
 package it.polimi.ingsw.gc01.model.strategy;
 
-import it.polimi.ingsw.gc01.model.player.Field;
+import it.polimi.ingsw.gc01.model.player.*;
 
 public interface Strategy {
-    public int check (Field field);
+    public int check (Player player);
 }

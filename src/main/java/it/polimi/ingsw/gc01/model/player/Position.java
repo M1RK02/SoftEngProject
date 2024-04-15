@@ -1,12 +1,10 @@
 package it.polimi.ingsw.gc01.model.player;
 
 public class Position {
-    private Field field;
-    private int x;
-    private int y;
+    private final int x;
+    private final int y;
 
-    public Position(Field field, int x, int y) {
-        this.field = field;
+    public Position(int x, int y) {
         this.x = x;
         this.y = y;
     }

@@ -1,8 +1,7 @@
 package it.polimi.ingsw.gc01.model.room;
 
 import java.util.*;
-import it.polimi.ingsw.gc01.model.player.Player;
-import it.polimi.ingsw.gc01.model.player.PlayerColor;
+import it.polimi.ingsw.gc01.model.player.*;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
@@ -14,12 +13,11 @@ class RoomTest {
 
     @BeforeAll
      static void beforeAll() {
-        testRoom = new Room();
         testPlayers = new ArrayList<>();
         for (int i = 0; i < 4; i++) {
-            testPlayers.add(new Player(testRoom, "Player" + i, PlayerColor.values()[i]));
+            testPlayers.add(new Player("Player" + i, PlayerColor.values()[i]));
         }
-        testRoom.setPlayers(testPlayers);
+        testRoom = new Room(testPlayers);
     }
 
     @Test
