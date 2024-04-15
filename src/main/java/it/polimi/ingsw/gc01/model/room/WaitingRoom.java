@@ -10,7 +10,7 @@ public class WaitingRoom {
 
     public WaitingRoom() {
         players = new ArrayList<Player>();
-        availableColors = new ArrayList<PlayerColor>();
+        availableColors = new ArrayList<>(Arrays.asList(PlayerColor.values()));;
         room = new Room();
     }
 
@@ -42,6 +42,6 @@ public class WaitingRoom {
      * @param usedColor color chosen by a player
      */
     public void useColor(PlayerColor usedColor) {
-        this.availableColors.remove(usedColor);
+        availableColors.remove(usedColor);
     }
 }

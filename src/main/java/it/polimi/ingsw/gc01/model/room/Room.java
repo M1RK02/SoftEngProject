@@ -44,6 +44,10 @@ public class Room {
         return players;
     }
 
+    public void setPlayers(List<Player> players) {
+        this.players = players;
+    }
+
     public Player getCurrentPlayer() {
         return currentPlayer;
     }
@@ -58,12 +62,7 @@ public class Room {
      */
     public Player getNextPlayer() {
         int currentPlayerIndex = players.indexOf(getCurrentPlayer());
-        ListIterator<Player> playersIterator = players.listIterator(currentPlayerIndex);
-        if (playersIterator.hasNext()) {
-            return playersIterator.next();
-        } else {
-            return players.get(0);
-        }
+        return currentPlayerIndex == players.size() - 1 ? players.get(0) : players.get(currentPlayerIndex+1);
     }
 
     /**
@@ -71,7 +70,7 @@ public class Room {
      * @return the list of drawable cards
      */
     public List<PlayableCard> getDrawableCards() {
-        // TODO
+        // TODO Serve sapere come funzionano i deck
         return null;
     }
 
@@ -80,8 +79,12 @@ public class Room {
      * @return winner player
      */
     public Player getWinner() {
-        // TODO
+        Player winner = players.stream().max(Comparator.comparingInt(Player::getScore)).orElse(null);
+        if (winner != null) {
+            return winner;
+        }
         return null;
+        // TODO Deve fare qualcosa (tipo lanciare un'eccezione) se ritorna null (unico motivo per cui potrebbe ritornare null è se non ci sono giocatori)
     }
 
     /**
@@ -90,7 +93,7 @@ public class Room {
      * @return points of the player
      */
     public int calculatePoints(Player player) {
-        // TODO
+        // TODO Serve sapere come controllare gli obiettivi
         return 0;
     }
 
@@ -98,6 +101,6 @@ public class Room {
      * End the game
      */
     public void endGame() {
-        // TODO
+        // TODO Va fatto alla fine
     }
 }
