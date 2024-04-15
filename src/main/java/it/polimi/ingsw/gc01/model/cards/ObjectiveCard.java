@@ -7,7 +7,8 @@ public class ObjectiveCard extends Card {
     private final int score;
     private final Strategy strategy;
 
-    public ObjectiveCard (int score, Strategy strategy){
+    public ObjectiveCard (int id, String info, int score, Strategy strategy){
+        super(id, info);
         this.score = score;
         this.strategy = strategy;
     }
@@ -16,9 +17,6 @@ public class ObjectiveCard extends Card {
         return score;
     }
 
-    /**
-     * @return the strategy to check if a field satisfies a certain objective
-     */
     public Strategy getStrategy(){
         return strategy;
     }

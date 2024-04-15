@@ -5,10 +5,11 @@ import it.polimi.ingsw.gc01.model.corners.*;
 import it.polimi.ingsw.gc01.model.player.Position;
 
 public class PlayableCard extends Card{
-    private Map<CornerPosition, Corner> cornerMap;
+    private final Map<CornerPosition, Corner> cornerMap;
 
-    public PlayableCard (){
-        // TODO
+    public PlayableCard(int id, String info, Map<CornerPosition, Corner> cornerMap) {
+        super(id, info);
+        this.cornerMap = cornerMap;
     }
 
     /**
