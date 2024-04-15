@@ -6,8 +6,8 @@ public class Corner {
     private CardResources object;
     private boolean covered;
 
-    public Corner (){
-        // TODO
+    public Corner (CardResources object){
+        this.object = object;
     }
 
     /**

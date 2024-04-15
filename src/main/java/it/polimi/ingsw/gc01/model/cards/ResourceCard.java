@@ -21,4 +21,8 @@ public class ResourceCard extends PlayableCard{
     public int getScore(){
         return score;
     }
+
+    public CardColor getColor() {
+        return color;
+    }
 }
