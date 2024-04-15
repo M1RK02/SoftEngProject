@@ -1,0 +1,300 @@
+[
+  {
+    "color": "RED",
+    "score": 0,
+    "cornerMap": {
+      "TOP_LEFT"    : {"object": "FUNGI"  , "covered": false},
+      "BOTTOM_LEFT" : {"object": "FUNGI"  , "covered": false},
+      "BOTTOM_RIGHT": {"object": "FULL"      , "covered": false},
+      "TOP_RIGHT"   : {"object": "EMPTY"     , "covered": false}
+    },
+    "id": 1,
+    "info": "Boh"
+  },
+
+  {
+    "color": "RED",
+    "score": 0,
+    "cornerMap": {
+      "TOP_LEFT"    : {"object": "FUNGI"  , "covered": false},
+      "BOTTOM_LEFT" : {"object": "FULL"      , "covered": false},
+      "BOTTOM_RIGHT": {"object": "EMPTY"     , "covered": false},
+      "TOP_RIGHT"   : {"object": "FUNGI"  , "covered": false}
+    },
+    "id": 2,
+    "info": "Boh"
+  },
+
+  {
+    "color": "RED",
+    "score": 0,
+    "cornerMap": {
+      "TOP_LEFT"    : {"object": "EMPTY"     , "covered": false},
+      "BOTTOM_LEFT" : {"object": "FUNGI"  , "covered": false},
+      "BOTTOM_RIGHT": {"object": "FUNGI"  , "covered": false},
+      "TOP_RIGHT"   : {"object": "FULL"      , "covered": false}
+    },
+    "id": 3,
+    "info": "Boh"
+  },
+
+  {
+    "color": "RED",
+    "score": 0,
+    "cornerMap": {
+      "TOP_LEFT"    : {"object": "FULL"      , "covered": false},
+      "BOTTOM_LEFT" : {"object": "EMPTY"     , "covered": false},
+      "BOTTOM_RIGHT": {"object": "FUNGI"  , "covered": false},
+      "TOP_RIGHT"   : {"object": "FUNGI"  , "covered": false}
+    },
+    "id": 4,
+    "info": "Boh"
+  },
+
+  {
+    "color": "RED",
+    "score": 0,
+    "cornerMap": {
+      "TOP_LEFT"    : {"object": "FULL"      , "covered": false},
+      "BOTTOM_LEFT" : {"object": "PLANT"      , "covered": false},
+      "BOTTOM_RIGHT": {"object": "FUNGI"  , "covered": false},
+      "TOP_RIGHT"   : {"object": "QUILL"     , "covered": false}
+    },
+    "id": 5,
+    "info": "Boh"
+  },
+
+  {
+    "color": "RED",
+    "score": 0,
+    "cornerMap": {
+      "TOP_LEFT"    : {"object": "INKWELL"   , "covered": false},
+      "BOTTOM_LEFT" : {"object": "FULL"      , "covered": false},
+      "BOTTOM_RIGHT": {"object": "ANIMAL"      , "covered": false},
+      "TOP_RIGHT"   : {"object": "FUNGI"  , "covered": false}
+    },
+    "id": 6,
+    "info": "Boh"
+  },
+
+  {
+    "color": "RED",
+    "score": 0,
+    "cornerMap": {
+      "TOP_LEFT"    : {"object": "FUNGI"  , "covered": false},
+      "BOTTOM_LEFT" : {"object": "MANUSCRIPT", "covered": false},
+      "BOTTOM_RIGHT": {"object": "EMPTY"     , "covered": false},
+      "TOP_RIGHT"   : {"object": "INSECT" , "covered": false}
+    },
+    "id": 7,
+    "info": "Boh"
+  },
+
+  {
+    "color": "RED",
+    "score": 1,
+    "cornerMap": {
+      "TOP_LEFT"    : {"object": "EMPTY"     , "covered": false},
+      "BOTTOM_LEFT" : {"object": "EMPTY"     , "covered": false},
+      "BOTTOM_RIGHT": {"object": "FULL"      , "covered": false},
+      "TOP_RIGHT"   : {"object": "FUNGI"  , "covered": false}
+    },
+    "id": 8,
+    "info": "Boh"
+  },
+
+  {
+    "color": "RED",
+    "score": 1,
+    "cornerMap": {
+      "TOP_LEFT"    : {"object": "FUNGI"  , "covered": false},
+      "BOTTOM_LEFT" : {"object": "EMPTY"     , "covered": false},
+      "BOTTOM_RIGHT": {"object": "EMPTY"     , "covered": false},
+      "TOP_RIGHT"   : {"object": "FULL"      , "covered": false}
+    },
+    "id": 9,
+    "info": "Boh"
+  },
+
+  {
+    "color": "RED",
+    "score": 1,
+    "cornerMap": {
+      "TOP_LEFT"    : {"object": "FULL"      , "covered": false},
+      "BOTTOM_LEFT" : {"object": "FUNGI"  , "covered": false},
+      "BOTTOM_RIGHT": {"object": "EMPTY"     , "covered": false},
+      "TOP_RIGHT"   : {"object": "EMPTY"     , "covered": false}
+    },
+    "id": 10,
+    "info": "Boh"
+  },
+
+  {
+    "color": "GREEN",
+    "score": 0,
+    "cornerMap": {
+      "TOP_LEFT"    : {"object": "PLANT"      , "covered": false},
+      "BOTTOM_LEFT" : {"object": "PLANT"      , "covered": false},
+      "BOTTOM_RIGHT": {"object": "FULL"      , "covered": false},
+      "TOP_RIGHT"   : {"object": "EMPTY"     , "covered": false}
+    },
+    "id": 11,
+    "info": "Boh"
+  },
+
+  {
+    "color": "GREEN",
+    "score": 0,
+    "cornerMap": {
+      "TOP_LEFT"    : {"object": "PLANT"      , "covered": false},
+      "BOTTOM_LEFT" : {"object": "FULL"      , "covered": false},
+      "BOTTOM_RIGHT": {"object": "EMPTY"     , "covered": false},
+      "TOP_RIGHT"   : {"object": "PLANT"      , "covered": false}
+    },
+    "id": 12,
+    "info": "Boh"
+  },
+
+  {
+    "color": "GREEN",
+    "score": 0,
+    "cornerMap": {
+      "TOP_LEFT"    : {"object": "EMPTY"     , "covered": false},
+      "BOTTOM_LEFT" : {"object": "PLANT"      , "covered": false},
+      "BOTTOM_RIGHT": {"object": "PLANT"      , "covered": false},
+      "TOP_RIGHT"   : {"object": "FULL"      , "covered": false}
+    },
+    "id": 13,
+    "info": "Boh"
+  },
+
+  {
+    "color": "GREEN",
+    "score": 0,
+    "cornerMap": {
+      "TOP_LEFT"    : {"object": "FULL"      , "covered": false},
+      "BOTTOM_LEFT" : {"object": "EMPTY"     , "covered": false},
+      "BOTTOM_RIGHT": {"object": "PLANT"      , "covered": false},
+      "TOP_RIGHT"   : {"object": "PLANT"      , "covered": false}
+    },
+    "id": 14,
+    "info": "Boh"
+  },
+
+  {
+    "color": "GREEN",
+    "score": 0,
+    "cornerMap": {
+      "TOP_LEFT"    : {"object": "FULL"      , "covered": false},
+      "BOTTOM_LEFT" : {"object": "QUILL"     , "covered": false},
+      "BOTTOM_RIGHT": {"object": "PLANT"      , "covered": false},
+      "TOP_RIGHT"   : {"object": "INSECT" , "covered": false}
+    },
+    "id": 15,
+    "info": "Boh"
+  },
+
+  {
+    "color": "GREEN",
+    "score": 0,
+    "cornerMap": {
+      "TOP_LEFT"    : {"object": "FUNGI"  , "covered": false},
+      "BOTTOM_LEFT" : {"object": "FULL"      , "covered": false},
+      "BOTTOM_RIGHT": {"object": "INKWELL"   , "covered": false},
+      "TOP_RIGHT"   : {"object": "PLANT"      , "covered": false}
+    },
+    "id": 16,
+    "info": "Boh"
+  },
+
+  {
+    "color": "GREEN",
+    "score": 0,
+    "cornerMap": {
+      "TOP_LEFT"    : {"object": "MANUSCRIPT", "covered": false},
+      "BOTTOM_LEFT" : {"object": "PLANT"      , "covered": false},
+      "BOTTOM_RIGHT": {"object": "ANIMAL"      , "covered": false},
+      "TOP_RIGHT"   : {"object": "FULL"      , "covered": false}
+    },
+    "id": 17,
+    "info": "Boh"
+  },
+
+  {
+    "color": "GREEN",
+    "score": 1,
+    "cornerMap": {
+      "TOP_LEFT"    : {"object": "EMPTY"     , "covered": false},
+      "BOTTOM_LEFT" : {"object": "PLANT"      , "covered": false},
+      "BOTTOM_RIGHT": {"object": "FULL"      , "covered": false},
+      "TOP_RIGHT"   : {"object": "EMPTY"     , "covered": false}
+    },
+    "id": 18,
+    "info": "Boh"
+  },
+
+  {
+    "color": "GREEN",
+    "score": 1,
+    "cornerMap": {
+      "TOP_LEFT"    : {"object": "EMPTY"     , "covered": false},
+      "BOTTOM_LEFT" : {"object": "FULL"      , "covered": false},
+      "BOTTOM_RIGHT": {"object": "PLANT"      , "covered": false},
+      "TOP_RIGHT"   : {"object": "EMPTY"     , "covered": false}
+    },
+    "id": 19,
+    "info": "Boh"
+  },
+
+  {
+    "color": "GREEN",
+    "score": 1,
+    "cornerMap": {
+      "TOP_LEFT"    : {"object": "FULL"      , "covered": false},
+      "BOTTOM_LEFT" : {"object": "EMPTY"     , "covered": false},
+      "BOTTOM_RIGHT": {"object": "EMPTY"     , "covered": false},
+      "TOP_RIGHT"   : {"object": "PLANT"      , "covered": false}
+    },
+    "id": 20,
+    "info": "Boh"
+  },
+
+  {
+    "color": "BLUE",
+    "score": 0,
+    "cornerMap": {
+      "TOP_LEFT"    : {"object": "ANIMAL"      , "covered": false},
+      "BOTTOM_LEFT" : {"object": "EMPTY"     , "covered": false},
+      "BOTTOM_RIGHT": {"object": "FULL"      , "covered": false},
+      "TOP_RIGHT"   : {"object": "ANIMAL"      , "covered": false}
+    },
+    "id": 21,
+    "info": "Boh"
+  },
+
+  {
+    "color": "BLUE",
+    "score": 0,
+    "cornerMap": {
+      "TOP_LEFT"    : {"object": "FULL"      , "covered": false},
+      "BOTTOM_LEFT" : {"object": "ANIMAL"      , "covered": false},
+      "BOTTOM_RIGHT": {"object": "ANIMAL"      , "covered": false},
+      "TOP_RIGHT"   : {"object": "EMPTY"     , "covered": false}
+    },
+    "id": 22,
+    "info": "Boh"
+  },
+
+  {
+    "color": "BLUE",
+    "score": 0,
+    "cornerMap": {
+      "TOP_LEFT"    : {"object": "ANIMAL"      , "covered": false},
+      "BOTTOM_LEFT" : {"object": "ANIMAL"      , "covered": false},
+      "BOTTOM_RIGHT": {"object": "EMPTY"     , "covered": false},
+      "TOP_RIGHT"   : {"object": "FULL"      , "covered": false}
+    },
+    "id": 23,
+    "info": "Boh"
+  }
+]
