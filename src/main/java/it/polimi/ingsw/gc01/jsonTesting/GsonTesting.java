@@ -61,8 +61,7 @@ public class GsonTesting {
                 CardColor.RED,
                 0,
                 generateSampleRequirementsMap(),
-                ScoreCondition.ITEM,
-                Item.INKWELL
+                ConditionType.CORNER
                 );
 
         List<Card> sampleCards = new ArrayList<>();

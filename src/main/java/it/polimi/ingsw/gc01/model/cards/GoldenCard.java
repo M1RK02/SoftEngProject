@@ -8,13 +8,11 @@ import it.polimi.ingsw.gc01.model.player.*;
 public class GoldenCard extends ResourceCard{
     private final Map<Resource, Integer> requirements;
     private final ScoreCondition scoreCondition;
-    private final Item itemCondition;
 
-    public GoldenCard(int id, String info, Map<CornerPosition, Corner> corners, CardColor color, int score, Map<Resource, Integer> requirements, ScoreCondition scoreCondition, Item itemCondition) {
+    public GoldenCard(int id, String info, Map<CornerPosition, Corner> corners, CardColor color, int score, Map<Resource, Integer> requirements, ScoreCondition scoreCondition) {
         super(id, info, corners, color, score);
         this.requirements = requirements;
         this.scoreCondition = scoreCondition;
-        this.itemCondition = itemCondition;
     }
 
     /**
