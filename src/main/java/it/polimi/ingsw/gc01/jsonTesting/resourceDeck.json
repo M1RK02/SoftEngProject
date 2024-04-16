@@ -2,7 +2,7 @@
   {
     "color": "RED",
     "score": 0,
-    "cornerMap": {
+    "corners": {
       "TOP_LEFT"    : {"object": "FUNGI"  , "covered": false},
       "BOTTOM_LEFT" : {"object": "FUNGI"  , "covered": false},
       "BOTTOM_RIGHT": {"object": "FULL"      , "covered": false},
@@ -15,7 +15,7 @@
   {
     "color": "RED",
     "score": 0,
-    "cornerMap": {
+    "corners": {
       "TOP_LEFT"    : {"object": "FUNGI"  , "covered": false},
       "BOTTOM_LEFT" : {"object": "FULL"      , "covered": false},
       "BOTTOM_RIGHT": {"object": "EMPTY"     , "covered": false},
@@ -28,7 +28,7 @@
   {
     "color": "RED",
     "score": 0,
-    "cornerMap": {
+    "corners": {
       "TOP_LEFT"    : {"object": "EMPTY"     , "covered": false},
       "BOTTOM_LEFT" : {"object": "FUNGI"  , "covered": false},
       "BOTTOM_RIGHT": {"object": "FUNGI"  , "covered": false},
@@ -41,7 +41,7 @@
   {
     "color": "RED",
     "score": 0,
-    "cornerMap": {
+    "corners": {
       "TOP_LEFT"    : {"object": "FULL"      , "covered": false},
       "BOTTOM_LEFT" : {"object": "EMPTY"     , "covered": false},
       "BOTTOM_RIGHT": {"object": "FUNGI"  , "covered": false},
@@ -54,7 +54,7 @@
   {
     "color": "RED",
     "score": 0,
-    "cornerMap": {
+    "corners": {
       "TOP_LEFT"    : {"object": "FULL"      , "covered": false},
       "BOTTOM_LEFT" : {"object": "PLANT"      , "covered": false},
       "BOTTOM_RIGHT": {"object": "FUNGI"  , "covered": false},
@@ -67,7 +67,7 @@
   {
     "color": "RED",
     "score": 0,
-    "cornerMap": {
+    "corners": {
       "TOP_LEFT"    : {"object": "INKWELL"   , "covered": false},
       "BOTTOM_LEFT" : {"object": "FULL"      , "covered": false},
       "BOTTOM_RIGHT": {"object": "ANIMAL"      , "covered": false},
@@ -80,7 +80,7 @@
   {
     "color": "RED",
     "score": 0,
-    "cornerMap": {
+    "corners": {
       "TOP_LEFT"    : {"object": "FUNGI"  , "covered": false},
       "BOTTOM_LEFT" : {"object": "MANUSCRIPT", "covered": false},
       "BOTTOM_RIGHT": {"object": "EMPTY"     , "covered": false},
@@ -93,7 +93,7 @@
   {
     "color": "RED",
     "score": 1,
-    "cornerMap": {
+    "corners": {
       "TOP_LEFT"    : {"object": "EMPTY"     , "covered": false},
       "BOTTOM_LEFT" : {"object": "EMPTY"     , "covered": false},
       "BOTTOM_RIGHT": {"object": "FULL"      , "covered": false},
@@ -106,7 +106,7 @@
   {
     "color": "RED",
     "score": 1,
-    "cornerMap": {
+    "corners": {
       "TOP_LEFT"    : {"object": "FUNGI"  , "covered": false},
       "BOTTOM_LEFT" : {"object": "EMPTY"     , "covered": false},
       "BOTTOM_RIGHT": {"object": "EMPTY"     , "covered": false},
@@ -119,7 +119,7 @@
   {
     "color": "RED",
     "score": 1,
-    "cornerMap": {
+    "corners": {
       "TOP_LEFT"    : {"object": "FULL"      , "covered": false},
       "BOTTOM_LEFT" : {"object": "FUNGI"  , "covered": false},
       "BOTTOM_RIGHT": {"object": "EMPTY"     , "covered": false},
@@ -132,7 +132,7 @@
   {
     "color": "GREEN",
     "score": 0,
-    "cornerMap": {
+    "corners": {
       "TOP_LEFT"    : {"object": "PLANT"      , "covered": false},
       "BOTTOM_LEFT" : {"object": "PLANT"      , "covered": false},
       "BOTTOM_RIGHT": {"object": "FULL"      , "covered": false},
@@ -145,7 +145,7 @@
   {
     "color": "GREEN",
     "score": 0,
-    "cornerMap": {
+    "corners": {
       "TOP_LEFT"    : {"object": "PLANT"      , "covered": false},
       "BOTTOM_LEFT" : {"object": "FULL"      , "covered": false},
       "BOTTOM_RIGHT": {"object": "EMPTY"     , "covered": false},
@@ -158,7 +158,7 @@
   {
     "color": "GREEN",
     "score": 0,
-    "cornerMap": {
+    "corners": {
       "TOP_LEFT"    : {"object": "EMPTY"     , "covered": false},
       "BOTTOM_LEFT" : {"object": "PLANT"      , "covered": false},
       "BOTTOM_RIGHT": {"object": "PLANT"      , "covered": false},
@@ -171,7 +171,7 @@
   {
     "color": "GREEN",
     "score": 0,
-    "cornerMap": {
+    "corners": {
       "TOP_LEFT"    : {"object": "FULL"      , "covered": false},
       "BOTTOM_LEFT" : {"object": "EMPTY"     , "covered": false},
       "BOTTOM_RIGHT": {"object": "PLANT"      , "covered": false},
@@ -184,7 +184,7 @@
   {
     "color": "GREEN",
     "score": 0,
-    "cornerMap": {
+    "corners": {
       "TOP_LEFT"    : {"object": "FULL"      , "covered": false},
       "BOTTOM_LEFT" : {"object": "QUILL"     , "covered": false},
       "BOTTOM_RIGHT": {"object": "PLANT"      , "covered": false},
@@ -197,7 +197,7 @@
   {
     "color": "GREEN",
     "score": 0,
-    "cornerMap": {
+    "corners": {
       "TOP_LEFT"    : {"object": "FUNGI"  , "covered": false},
       "BOTTOM_LEFT" : {"object": "FULL"      , "covered": false},
       "BOTTOM_RIGHT": {"object": "INKWELL"   , "covered": false},
@@ -210,7 +210,7 @@
   {
     "color": "GREEN",
     "score": 0,
-    "cornerMap": {
+    "corners": {
       "TOP_LEFT"    : {"object": "MANUSCRIPT", "covered": false},
       "BOTTOM_LEFT" : {"object": "PLANT"      , "covered": false},
       "BOTTOM_RIGHT": {"object": "ANIMAL"      , "covered": false},
@@ -223,7 +223,7 @@
   {
     "color": "GREEN",
     "score": 1,
-    "cornerMap": {
+    "corners": {
       "TOP_LEFT"    : {"object": "EMPTY"     , "covered": false},
       "BOTTOM_LEFT" : {"object": "PLANT"      , "covered": false},
       "BOTTOM_RIGHT": {"object": "FULL"      , "covered": false},
@@ -236,7 +236,7 @@
   {
     "color": "GREEN",
     "score": 1,
-    "cornerMap": {
+    "corners": {
       "TOP_LEFT"    : {"object": "EMPTY"     , "covered": false},
       "BOTTOM_LEFT" : {"object": "FULL"      , "covered": false},
       "BOTTOM_RIGHT": {"object": "PLANT"      , "covered": false},
@@ -249,7 +249,7 @@
   {
     "color": "GREEN",
     "score": 1,
-    "cornerMap": {
+    "corners": {
       "TOP_LEFT"    : {"object": "FULL"      , "covered": false},
       "BOTTOM_LEFT" : {"object": "EMPTY"     , "covered": false},
       "BOTTOM_RIGHT": {"object": "EMPTY"     , "covered": false},
@@ -262,7 +262,7 @@
   {
     "color": "BLUE",
     "score": 0,
-    "cornerMap": {
+    "corners": {
       "TOP_LEFT"    : {"object": "ANIMAL"      , "covered": false},
       "BOTTOM_LEFT" : {"object": "EMPTY"     , "covered": false},
       "BOTTOM_RIGHT": {"object": "FULL"      , "covered": false},
@@ -275,7 +275,7 @@
   {
     "color": "BLUE",
     "score": 0,
-    "cornerMap": {
+    "corners": {
       "TOP_LEFT"    : {"object": "FULL"      , "covered": false},
       "BOTTOM_LEFT" : {"object": "ANIMAL"      , "covered": false},
       "BOTTOM_RIGHT": {"object": "ANIMAL"      , "covered": false},
@@ -288,7 +288,7 @@
   {
     "color": "BLUE",
     "score": 0,
-    "cornerMap": {
+    "corners": {
       "TOP_LEFT"    : {"object": "ANIMAL"      , "covered": false},
       "BOTTOM_LEFT" : {"object": "ANIMAL"      , "covered": false},
       "BOTTOM_RIGHT": {"object": "EMPTY"     , "covered": false},
