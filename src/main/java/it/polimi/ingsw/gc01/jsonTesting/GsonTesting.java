@@ -11,8 +11,9 @@ import it.polimi.ingsw.gc01.model.player.Player;
 public class GsonTesting {
 
     public static void main(String[] args) throws Exception{
+        // insideTest()
         insideTestGold();
-        fileTest();
+        // fileTest();
     }
 
     private static void fileTest() throws Exception{

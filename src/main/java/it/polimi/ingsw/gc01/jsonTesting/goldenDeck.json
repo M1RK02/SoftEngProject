@@ -2,7 +2,6 @@
   {
     "requirements": {"FUNGI": 2,"ANIMAL": 1},
     "scoreCondition": "ITEM",
-    "itemCondition": "QUILL",
     "color": "RED",
     "score": 1,
     "corners": {
@@ -17,7 +16,6 @@
   {
     "requirements": {"FUNGI": 2,"PLANT": 1},
     "scoreCondition": "ITEM",
-    "itemCondition": "INKWELL",
     "color": "RED",
     "score": 1,
     "corners": {
@@ -32,7 +30,6 @@
   {
     "requirements": {"FUNGI": 2,"INSECT": 1},
     "scoreCondition": "ITEM",
-    "itemCondition": "MANUSCRIPT",
     "color": "RED",
     "score": 1,
     "corners": {
@@ -143,4 +140,3 @@
     "info": "None"
   }
 ]
-
