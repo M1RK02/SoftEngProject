@@ -7,7 +7,7 @@ import java.util.*;
 public class ObjectiveDeck implements Deck{
     private List<ObjectiveCard> objectiveDeck;
 
-    public ObjectiveDeck(List<ObjectiveCard> objectiveDeck) {
+    public ObjectiveDeck() {
         //TODO
     }
 

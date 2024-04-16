@@ -8,7 +8,7 @@ import java.util.*;
 public class StarterDeck implements Deck{
     private List<StarterCard> starterDeck;
 
-    public StarterDeck(List<StarterCard> starterDeck) {
+    public StarterDeck() {
         //TODO
     }
 

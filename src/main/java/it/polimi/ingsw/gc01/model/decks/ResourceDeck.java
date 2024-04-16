@@ -8,7 +8,7 @@ public class ResourceDeck implements Deck{
 
     private List<ResourceCard> resourceDeck;
 
-    public ResourceDeck(List<ResourceCard> resourceDeck) {
+    public ResourceDeck() {
         //TODO
     }
 
@@ -18,7 +18,7 @@ public class ResourceDeck implements Deck{
         return card;
     }
 
-    public ResourceCard turn(){
+    public ResourceCard get(){
         return resourceDeck.get(0);
     }
 

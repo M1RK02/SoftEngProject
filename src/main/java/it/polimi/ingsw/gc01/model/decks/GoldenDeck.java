@@ -7,7 +7,7 @@ import java.util.*;
 public class GoldenDeck implements Deck {
     private List<GoldenCard> goldenDeck;
 
-    public GoldenDeck(List<GoldenCard> goldenDeck) {
+    public GoldenDeck() {
         //TODO
     }
 
@@ -17,7 +17,7 @@ public class GoldenDeck implements Deck {
         return card;
     }
 
-    public GoldenCard turn(){
+    public GoldenCard get(){
         return goldenDeck.get(0);
     }
 

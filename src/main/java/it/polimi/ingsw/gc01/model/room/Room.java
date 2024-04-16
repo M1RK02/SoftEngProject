@@ -9,18 +9,24 @@ public class Room {
     private final String roomId;
     private final List<Player> players;
     private Player currentPlayer;
-    private Deck goldenDeck;
-    private Deck resourceDeck;
-    private Deck objectiveDeck;
+    private GoldenDeck goldenDeck;
+    private ResourceDeck resourceDeck;
+    private ObjectiveDeck objectiveDeck;
+    private StarterDeck starterDeck;
+    private List<PlayableCard> visibleCards;
+    private List<ObjectiveCard> commonObjectives;
 
     public Room(List<Player> players) {
         roomId = generateRoomId();
         this.players = players;
         currentPlayer = players.get(0);
-        goldenDeck = new Deck();
-        resourceDeck = new Deck();
-        objectiveDeck = new Deck();
-        // TODO Aggiungere available cards e mischiare i deck
+        goldenDeck = new GoldenDeck();
+        resourceDeck = new ResourceDeck();
+        objectiveDeck = new ObjectiveDeck();
+        starterDeck = new StarterDeck();
+        visibleCards = new ArrayList<>();
+        commonObjectives = new ArrayList<>();
+        initTable();
     }
 
     /**
@@ -40,6 +46,19 @@ public class Room {
             sb.append(randomChar);
         }
         return sb.toString();
+    }
+
+    private void initTable() {
+        goldenDeck.shuffle();
+        resourceDeck.shuffle();
+        objectiveDeck.shuffle();
+        starterDeck.shuffle();
+        visibleCards.add(goldenDeck.pick());
+        visibleCards.add(goldenDeck.pick());
+        visibleCards.add(resourceDeck.pick());
+        visibleCards.add(resourceDeck.pick());
+        commonObjectives.add(objectiveDeck.pick());
+        commonObjectives.add(objectiveDeck.pick());
     }
 
     public String getRoomId() {
@@ -72,8 +91,11 @@ public class Room {
      * @return the list of drawable cards
      */
     public List<PlayableCard> getDrawableCards() {
-        // TODO Serve sapere come funzionano i deck
-        return null;
+        List<PlayableCard> drawableCards = new ArrayList<>();
+        drawableCards.addAll(visibleCards);
+        drawableCards.add(goldenDeck.get());
+        drawableCards.add(resourceDeck.get());
+        return drawableCards;
     }
 
     /**
