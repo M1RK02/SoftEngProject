@@ -1,13 +1,68 @@
 [
   {
-    "centerResources": ["FUNGI", "ANIMAL"],
+    "centerResources": ["INSECT"],
     "corners": {
       "TOP_LEFT"   : {"resource": "EMPTY", "covered": false},
-      "BOTTOM_LEFT" : {"resource": "FUNGI", "covered": false},
-      "BOTTOM_RIGHT": {"resource": "FULL" , "covered": false},
-      "TOP_RIGHT"    : {"resource": "FUNGI", "covered": false}
+      "BOTTOM_LEFT" : {"resource": "INSECT", "covered": false},
+      "BOTTOM_RIGHT": {"resource": "EMPTY" , "covered": false},
+      "TOP_RIGHT"    : {"resource": "PLANT", "covered": false}
     },
-    "id": 1,
-    "info": "SampleCard"
+    "id": 81,
+    "info": "None"
+  },
+  {
+    "centerResources": ["FUNGI"],
+    "corners": {
+      "TOP_LEFT"   : {"resource": "ANIMAL", "covered": false},
+      "BOTTOM_LEFT" : {"resource": "EMPTY", "covered": false},
+      "BOTTOM_RIGHT": {"resource": "FUNGI" , "covered": false},
+      "TOP_RIGHT"    : {"resource": "EMPTY", "covered": false}
+    },
+    "id": 82,
+    "info": "None"
+  },
+  {
+    "centerResources": ["PLANT","FUNGI"],
+    "corners": {
+      "TOP_LEFT"   : {"resource": "EMPTY", "covered": false},
+      "BOTTOM_LEFT" : {"resource": "EMPTY", "covered": false},
+      "BOTTOM_RIGHT": {"resource": "EMPTY" , "covered": false},
+      "TOP_RIGHT"    : {"resource": "EMPTY", "covered": false}
+    },
+    "id": 83,
+    "info": "None"
+  },
+  {
+    "centerResources": ["ANIMAL","INSECT"],
+    "corners": {
+      "TOP_LEFT"   : {"resource": "EMPTY", "covered": false},
+      "BOTTOM_LEFT" : {"resource": "EMPTY", "covered": false},
+      "BOTTOM_RIGHT": {"resource": "EMPTY" , "covered": false},
+      "TOP_RIGHT"    : {"resource": "EMPTY", "covered": false}
+    },
+    "id": 84,
+    "info": "None"
+  },
+  {
+    "centerResources": ["ANIMAL","INSECT","PLANT"],
+    "corners": {
+      "TOP_LEFT"   : {"resource": "EMPTY", "covered": false},
+      "BOTTOM_LEFT" : {"resource": "FULL", "covered": false},
+      "BOTTOM_RIGHT": {"resource": "FULL" , "covered": false},
+      "TOP_RIGHT"    : {"resource": "EMPTY", "covered": false}
+    },
+    "id": 85,
+    "info": "None"
+  },
+  {
+    "centerResources": ["PLANT","ANIMAL","FUNGI"],
+    "corners": {
+      "TOP_LEFT"   : {"resource": "EMPTY", "covered": false},
+      "BOTTOM_LEFT" : {"resource": "FULL", "covered": false},
+      "BOTTOM_RIGHT": {"resource": "FULL" , "covered": false},
+      "TOP_RIGHT"    : {"resource": "EMPTY", "covered": false}
+    },
+    "id": 86,
+    "info": "None"
   }
 ]
