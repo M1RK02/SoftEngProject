@@ -18,6 +18,7 @@ public class GsonTesting {
     private static void fileTest() throws Exception{
         Gson gson = new GsonBuilder()
                 .registerTypeAdapter(CardResource.class, new CardResourcesDeserializer())
+                .registerTypeAdapter(ScoreCondition.class, new ScoreConditionDeserializer())
                 .create();
 
         String fileLocation = "src/main/java/it/polimi/ingsw/gc01/jsonTesting/resourceDeck.json";
@@ -32,6 +33,7 @@ public class GsonTesting {
     private static void insideTest() {
         Gson gson = new GsonBuilder()
                 .registerTypeAdapter(CardResource.class, new CardResourcesDeserializer())
+                .registerTypeAdapter(ScoreCondition.class, new ScoreConditionDeserializer())
                 .create();
         ResourceCard sampleCard = new ResourceCard(
                 1,
@@ -53,6 +55,7 @@ public class GsonTesting {
     private static void insideTestGold() {
         Gson gson = new GsonBuilder()
                 .registerTypeAdapter(CardResource.class, new CardResourcesDeserializer())
+                .registerTypeAdapter(ScoreCondition.class, new ScoreConditionDeserializer())
                 .create();
         GoldenCard sampleCard = new GoldenCard(
                 1,
