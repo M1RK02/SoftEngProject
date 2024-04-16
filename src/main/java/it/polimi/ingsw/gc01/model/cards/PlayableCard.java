@@ -4,7 +4,7 @@ import java.util.*;
 import it.polimi.ingsw.gc01.model.corners.*;
 
 public abstract class PlayableCard extends Card{
-    private final Map<CornerPosition, Corner> corners;
+    private Map<CornerPosition, Corner> corners;
 
     public PlayableCard(int id, String info, Map<CornerPosition, Corner> corners) {
         super(id, info);
