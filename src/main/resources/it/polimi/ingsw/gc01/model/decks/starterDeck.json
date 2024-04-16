@@ -1,0 +1,13 @@
+[
+  {
+    "centerResources": ["FUNGI", "ANIMAL"],
+    "corners": {
+      "TOP_LEFT"   : {"resource": "EMPTY", "covered": false},
+      "BOTTOM_LEFT" : {"resource": "FUNGI", "covered": false},
+      "BOTTOM_RIGHT": {"resource": "FULL" , "covered": false},
+      "TOP_RIGHT"    : {"resource": "FUNGI", "covered": false}
+    },
+    "id": 1,
+    "info": "SampleCard"
+  }
+]

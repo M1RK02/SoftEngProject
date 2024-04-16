@@ -1,14 +1,13 @@
 package it.polimi.ingsw.gc01.model.decks;
 
-import it.polimi.ingsw.gc01.model.cards.ObjectiveCard;
-
 import java.util.*;
+import it.polimi.ingsw.gc01.model.cards.*;
 
 public class ObjectiveDeck implements Deck{
     private List<ObjectiveCard> objectiveDeck;
 
     public ObjectiveDeck() {
-        //TODO
+        // TODO
     }
 
     public ObjectiveCard pick() {
