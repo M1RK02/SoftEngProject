@@ -25,9 +25,8 @@ public class GsonTesting {
 
         List<Card> deck = new ArrayList<>();
         for (Object card : cardList) {
-            deck.add((Card) gson.fromJson(card.toString(), ResourceCard.class));
+            deck.add(gson.fromJson(card.toString(), ResourceCard.class));
         }
-        System.out.println(deck);
     }
 
     private static void insideTest() {
@@ -49,7 +48,6 @@ public class GsonTesting {
 
         List<Object> sampleCardsCopy = gson.fromJson(json, List.class);
         ResourceCard sampleCardCopy = gson.fromJson(sampleCardsCopy.get(0).toString(), ResourceCard.class);
-        System.out.println(sampleCardCopy.getCorners().get(CornerPosition.TOP_LEFT).getResource());
     }
 
     private static Map<CornerPosition, Corner> generateSampleCornerMap(){
