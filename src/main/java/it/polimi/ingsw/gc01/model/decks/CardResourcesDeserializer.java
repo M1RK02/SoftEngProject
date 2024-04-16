@@ -1,4 +1,4 @@
-package it.polimi.ingsw.gc01.jsonTesting;
+package it.polimi.ingsw.gc01.model.decks;
 
 import java.lang.reflect.Type;
 import java.util.stream.Stream;
