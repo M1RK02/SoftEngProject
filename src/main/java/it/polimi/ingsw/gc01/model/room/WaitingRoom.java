@@ -17,20 +17,16 @@ public class WaitingRoom {
      */
     public void startGame() {
         Room room = new Room(players);
-        // TODO Sicuramente deve fare altro
     }
 
     /**
-     * Add the player to the waiting room
+     * Add the player to the waiting room (the check for max size will be done by the controller)
      * @param playerName chosen player name
      * @param playerColor chosen color
      */
     public void addPlayer(String playerName, PlayerColor playerColor){
-        if (players.size() < 4) {
-            players.add(new Player(playerName, playerColor));
-            availableColors.remove(playerColor);
-        }
-        // TODO Deve fare qualcosa se siamo già 4
+        players.add(new Player(playerName, playerColor));
+        availableColors.remove(playerColor);
     }
 
     public List<PlayerColor> getAvailableColors() {

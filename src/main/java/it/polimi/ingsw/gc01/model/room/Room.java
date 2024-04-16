@@ -20,6 +20,7 @@ public class Room {
         goldenDeck = new Deck();
         resourceDeck = new Deck();
         objectiveDeck = new Deck();
+        // TODO Aggiungere available cards e mischiare i deck
     }
 
     /**
@@ -80,18 +81,6 @@ public class Room {
      * @return winner player
      */
     public Player getWinner() {
-        Player winner = players.stream().max(Comparator.comparingInt(Player::getPoints)).orElse(null);
-        if (winner != null) {
-            return winner;
-        }
-        return null;
-        // TODO Deve fare qualcosa (tipo lanciare un'eccezione) se ritorna null (unico motivo per cui potrebbe ritornare null è se non ci sono giocatori)
-    }
-
-    /**
-     * End the game
-     */
-    public void endGame() {
-        // TODO Va fatto alla fine
+        return players.stream().max(Comparator.comparingInt(Player::getPoints)).orElse(null);
     }
 }

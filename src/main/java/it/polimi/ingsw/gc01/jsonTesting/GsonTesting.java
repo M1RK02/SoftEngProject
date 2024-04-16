@@ -12,8 +12,8 @@ public class GsonTesting {
 
     public static void main(String[] args) throws Exception{
         // insideTest()
-        insideTestGold();
-        // fileTest();
+        // insideTestGold();
+        fileTest();
     }
 
     private static void fileTest() throws Exception{
