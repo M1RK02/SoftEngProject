@@ -11,7 +11,6 @@ public class Player {
     private Map<PlayerResource, Integer> resources;
     private List<PlayableCard> hand;
     private Field field;
-    private StarterCard starterCard;
     private ObjectiveCard secretObjective;
 
     public Player(String name, PlayerColor color) {
@@ -59,12 +58,12 @@ public class Player {
         return field;
     }
 
-    public StarterCard getStarterCard() {
-        return starterCard;
-    }
-
     public ObjectiveCard getSecretObjective() {
         return secretObjective;
+    }
+
+    public void setSecretObjective(ObjectiveCard secretObjective) {
+        this.secretObjective = secretObjective;
     }
 
     public void addPoints(int playerPoints) {

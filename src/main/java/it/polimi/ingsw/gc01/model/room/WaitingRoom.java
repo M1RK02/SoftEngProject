@@ -12,11 +12,8 @@ public class WaitingRoom {
         availableColors = new ArrayList<>(Arrays.asList(PlayerColor.values()));
     }
 
-    /**
-     * Start the game
-     */
-    public void startGame() {
-        Room room = new Room(players);
+    public List<PlayerColor> getAvailableColors() {
+        return availableColors;
     }
 
     /**
@@ -29,7 +26,10 @@ public class WaitingRoom {
         availableColors.remove(playerColor);
     }
 
-    public List<PlayerColor> getAvailableColors() {
-        return availableColors;
+    /**
+     * Start the game
+     */
+    public void startGame() {
+        Room room = new Room(players);
     }
 }

@@ -91,8 +91,7 @@ public class Room {
      * @return the list of drawable cards
      */
     public List<PlayableCard> getDrawableCards() {
-        List<PlayableCard> drawableCards = new ArrayList<>();
-        drawableCards.addAll(visibleCards);
+        List<PlayableCard> drawableCards = new ArrayList<>(visibleCards);
         drawableCards.add(goldenDeck.get());
         drawableCards.add(resourceDeck.get());
         return drawableCards;
