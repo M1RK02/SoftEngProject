@@ -28,8 +28,30 @@ public class GoldenCard extends ResourceCard{
         return true;
     }
 
-    public int calculatePoints(Player player){
-        // TODO
+    public int calculatePoints(Player player, Position position){
+        if (scoreCondition.equals(Item.QUILL)) {
+            return player.getResources().get(Item.QUILL)*getScore();
+        }
+        if (scoreCondition.equals(Item.INKWELL)) {
+            return player.getResources().get(Item.INKWELL)*getScore();
+        }
+        if (scoreCondition.equals(Item.MANUSCRIPT)) {
+            return player.getResources().get(Item.MANUSCRIPT)*getScore();
+        }
+        if (scoreCondition.equals(ConditionType.EMPTY)) {
+            return getScore();
+        }
+        if (scoreCondition.equals(ConditionType.CORNER)) {
+            int n = 0;
+            for (int i = position.getX() - 1; i < position.getX() + 1; i += 2) {
+                for (int j = position.getY() - 1; j < position.getY() + 1; j += 2) {
+                    if (!player.getField().getAvailablePositions().contains(new Position(i, j))){
+                        n++;
+                    }
+                }
+            }
+            return n*getScore();
+        }
         return 0;
     }
 }

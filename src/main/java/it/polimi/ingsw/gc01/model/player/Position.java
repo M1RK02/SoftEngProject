@@ -16,4 +16,11 @@ public class Position {
     public int getY() {
         return y;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        assert o instanceof Position;
+        Position p = (Position) o;
+        return x == p.getX() && y == p.getY();
+    }
 }

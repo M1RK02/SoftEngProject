@@ -3,6 +3,11 @@ package it.polimi.ingsw.gc01.model.player;
 import java.util.*;
 import it.polimi.ingsw.gc01.model.*;
 import it.polimi.ingsw.gc01.model.cards.*;
+import it.polimi.ingsw.gc01.model.corners.Corner;
+import it.polimi.ingsw.gc01.model.corners.CornerPosition;
+
+import static it.polimi.ingsw.gc01.model.CornerValue.*;
+import static it.polimi.ingsw.gc01.model.corners.CornerPosition.*;
 
 public class Player {
     private final String name;
@@ -70,12 +75,12 @@ public class Player {
         this.points += playerPoints;
     }
 
-    public void addResources(PlayerResource resource, Integer n) {
-        resources.put(resource, resources.get(resource) + n);
+    public void addResource(PlayerResource resource) {
+        resources.put(resource, resources.get(resource) + 1);
     }
 
-    public void removeResources(PlayerResource resource, Integer n) {
-        resources.put(resource, resources.get(resource) - n);
+    public void removeResource(PlayerResource resource) {
+        resources.put(resource, resources.get(resource) - 1);
     }
 
     public void addCard(PlayableCard card) {
@@ -83,6 +88,108 @@ public class Player {
     }
 
     public void playCard(PlayableCard card, Position position) {
-        // TODO
+        //Rimuovere carta dalla mano
+        hand.remove(card);
+
+        //Eliminare la position dalle available position
+        field.removeAvailablePosition(position);
+
+        //Incrementare le resources
+        for (Corner corner : card.getCorners().values()) {
+            if (!corner.getResource().equals(EMPTY) && !corner.getResource().equals(CornerValue.FULL)) {
+                addResource((PlayerResource) corner.getResource());
+            }
+        }
+
+        //Coprire gli angoli e decrementare le resources
+        Map<CornerPosition, PlayableCard> adjacentCard = field.getAdjacentCards(position);
+        for (CornerPosition cornerPosition : adjacentCard.keySet()) {
+            switch (cornerPosition) {
+                case TOP_LEFT:
+                    adjacentCard.get(cornerPosition).getCorners().get(BOTTOM_RIGHT).cover();
+                    if (!adjacentCard.get(cornerPosition).getCorners().get(BOTTOM_RIGHT).getResource().equals(EMPTY)) {
+                        removeResource((PlayerResource) adjacentCard.get(cornerPosition).getCorners().get(BOTTOM_RIGHT).getResource());
+                    };
+                    break;
+                case TOP_RIGHT:
+                    adjacentCard.get(cornerPosition).getCorners().get(BOTTOM_LEFT).cover();
+                    if (!adjacentCard.get(cornerPosition).getCorners().get(BOTTOM_LEFT).getResource().equals(EMPTY)) {
+                        removeResource((PlayerResource) adjacentCard.get(cornerPosition).getCorners().get(BOTTOM_LEFT).getResource());
+                    };
+                    break;
+                case BOTTOM_LEFT:
+                    adjacentCard.get(cornerPosition).getCorners().get(TOP_RIGHT).cover();
+                    if (!adjacentCard.get(cornerPosition).getCorners().get(TOP_RIGHT).getResource().equals(EMPTY)) {
+                        removeResource((PlayerResource) adjacentCard.get(cornerPosition).getCorners().get(TOP_RIGHT).getResource());
+                    };
+                    break;
+                case BOTTOM_RIGHT:
+                    adjacentCard.get(cornerPosition).getCorners().get(TOP_LEFT).cover();
+                    if (!adjacentCard.get(cornerPosition).getCorners().get(TOP_LEFT).getResource().equals(EMPTY)) {
+                        removeResource((PlayerResource) adjacentCard.get(cornerPosition).getCorners().get(TOP_LEFT).getResource());
+                    };
+                    break;
+                default:
+            }
+        }
+
+        //Aggiungere nuove available position
+        for (CornerPosition cornerPosition : card.getCorners().keySet()) {
+            if (!adjacentCard.containsKey(cornerPosition)) {
+                Position p;
+                switch (cornerPosition) {
+                    case TOP_LEFT:
+                        p = new Position(position.getX() - 1, position.getY() + 1);
+                        if (card.getCorners().get(cornerPosition).getResource().equals(FULL)) {
+                            field.addUnavailablePosition(p);
+                        }else {
+                            if (!field.getUnavailablePositions().contains(p)) {
+                                field.addAvailablePosition(p);
+                            }
+                        }
+                        break;
+                    case TOP_RIGHT:
+                        p = new Position(position.getX() + 1, position.getY() + 1);
+                        if (card.getCorners().get(cornerPosition).getResource().equals(FULL)) {
+                            field.addUnavailablePosition(p);
+                        }else {
+                            if (!field.getUnavailablePositions().contains(p)) {
+                                field.addAvailablePosition(p);
+                            }
+                        }
+                        break;
+                    case BOTTOM_LEFT:
+                        p = new Position(position.getX() - 1, position.getY() - 1);
+                        if (card.getCorners().get(cornerPosition).getResource().equals(FULL)) {
+                            field.addUnavailablePosition(p);
+                        }else {
+                            if (!field.getUnavailablePositions().contains(p)) {
+                                field.addAvailablePosition(p);
+                            }
+                        }
+                        break;
+                    case BOTTOM_RIGHT:
+                        p = new Position(position.getX() + 1, position.getY() - 1);
+                        if (card.getCorners().get(cornerPosition).getResource().equals(FULL)) {
+                            field.addUnavailablePosition(p);
+                        }else {
+                            if (!field.getUnavailablePositions().contains(p)) {
+                                field.addAvailablePosition(p);
+                            }
+                        }
+                        break;
+                    default:
+                }
+            }
+        }
+
+        //Incrementare i punti del player
+        if (card instanceof ResourceCard) {
+            if (card instanceof GoldenCard) {
+                points += ((GoldenCard) card).calculatePoints(this, position);
+            }else {
+                points += ((ResourceCard) card).getScore();
+            }
+        }
     }
 }
