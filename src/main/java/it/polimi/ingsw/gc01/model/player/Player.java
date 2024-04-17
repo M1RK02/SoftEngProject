@@ -3,8 +3,7 @@ package it.polimi.ingsw.gc01.model.player;
 import java.util.*;
 import it.polimi.ingsw.gc01.model.*;
 import it.polimi.ingsw.gc01.model.cards.*;
-import it.polimi.ingsw.gc01.model.corners.Corner;
-import it.polimi.ingsw.gc01.model.corners.CornerPosition;
+import it.polimi.ingsw.gc01.model.corners.*;
 
 import static it.polimi.ingsw.gc01.model.CornerValue.*;
 import static it.polimi.ingsw.gc01.model.corners.CornerPosition.*;

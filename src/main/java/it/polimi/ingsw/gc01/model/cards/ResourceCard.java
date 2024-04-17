@@ -1,8 +1,7 @@
 package it.polimi.ingsw.gc01.model.cards;
 
 import java.util.*;
-import it.polimi.ingsw.gc01.model.corners.Corner;
-import it.polimi.ingsw.gc01.model.corners.CornerPosition;
+import it.polimi.ingsw.gc01.model.corners.*;
 
 public class ResourceCard extends PlayableCard{
     private final CardColor color;

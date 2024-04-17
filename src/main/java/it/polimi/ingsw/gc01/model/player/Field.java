@@ -1,10 +1,8 @@
 package it.polimi.ingsw.gc01.model.player;
 
 import java.util.*;
-
-import it.polimi.ingsw.gc01.model.CornerValue;
 import it.polimi.ingsw.gc01.model.cards.*;
-import it.polimi.ingsw.gc01.model.corners.CornerPosition;
+import it.polimi.ingsw.gc01.model.corners.*;
 
 public class Field {
     private Map<Position, PlayableCard> positions;
