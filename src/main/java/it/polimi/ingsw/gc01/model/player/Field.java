@@ -24,16 +24,16 @@ public class Field {
         return availablePositions;
     }
 
+    public Set<Position> getUnavailablePositions() {
+        return unavailablePositions;
+    }
+
     public void addAvailablePosition(Position position) {
         availablePositions.add(position);
     }
 
     public void removeAvailablePosition(Position position) {
         availablePositions.remove(position);
-    }
-
-    public Set<Position> getUnavailablePositions() {
-        return unavailablePositions;
     }
 
     public void addUnavailablePosition(Position position) {

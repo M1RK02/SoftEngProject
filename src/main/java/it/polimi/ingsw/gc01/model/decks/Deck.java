@@ -23,13 +23,13 @@ public class Deck {
                     case "Golden":
                         deck.add(gson.fromJson(card.toString(), GoldenCard.class));
                         break;
-                    case "Objective":
+                    case "Objective": // TODO Json file and deserializer
                         deck.add(gson.fromJson(card.toString(), ObjectiveCard.class));
                         break;
                     case "Resource":
                         deck.add(gson.fromJson(card.toString(), ResourceCard.class));
                         break;
-                    case "Starter":
+                    case "Starter": // TODO Modify Json file to add backCorners
                         deck.add(gson.fromJson(card.toString(), StarterCard.class));
                         break;
                 }
