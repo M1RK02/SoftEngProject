@@ -44,7 +44,7 @@ public abstract class Deck {
     }
 
     public void shuffle() {
-        Collections.shuffle(deck, new Random(4909));
+        Collections.shuffle(deck);
     }
 
     public Card pick() {
@@ -53,6 +53,16 @@ public abstract class Deck {
         return card;
     }
 
+    public Card pickById(int id) {
+        Card card;
+        for (Card c : deck){
+            if (c.getId() == id){
+                card = c;
+                return card;
+            }
+        }
+        return null;
+    }
     public Card get() {
         return deck.get(0);
     }

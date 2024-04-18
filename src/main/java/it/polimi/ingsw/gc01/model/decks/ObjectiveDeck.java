@@ -14,4 +14,7 @@ public class ObjectiveDeck extends Deck{
     public ObjectiveCard get() {
         return (ObjectiveCard) super.get();
     }
+    public ObjectiveCard pickById(int id){
+        return (ObjectiveCard) super.pickById(id);
+    }
 }

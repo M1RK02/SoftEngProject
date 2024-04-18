@@ -10,6 +10,9 @@ public class GoldenDeck extends Deck {
     public GoldenCard pick() {
         return (GoldenCard) super.pick();
     }
+    public GoldenCard pickById(int id){
+        return (GoldenCard) super.pickById(id);
+    }
 
     public GoldenCard get(){
         return (GoldenCard) super.get();

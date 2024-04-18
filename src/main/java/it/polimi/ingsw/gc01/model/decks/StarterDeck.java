@@ -14,4 +14,7 @@ public class StarterDeck extends Deck{
     public StarterCard get(){
         return (StarterCard) super.get();
     }
+    public StarterCard pickById(int id){
+        return (StarterCard) super.pickById(id);
+    }
 }

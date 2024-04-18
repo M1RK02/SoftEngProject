@@ -14,4 +14,7 @@ public class ResourceDeck extends Deck{
     public ResourceCard get(){
         return (ResourceCard) super.get();
     }
+    public ResourceCard pickById(int id){
+        return (ResourceCard) super.pickById(id);
+    }
 }
