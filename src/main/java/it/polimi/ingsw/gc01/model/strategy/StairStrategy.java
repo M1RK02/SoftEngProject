@@ -45,7 +45,7 @@ public class StairStrategy implements Strategy {
                         currentPosition = new Position(p.getX()-1,p.getY()-1);
                         if (treasureMap.containsKey(currentPosition)){
                             currentCard = (ResourceCard) treasureMap.get(currentPosition);
-                        }
+                        } // TODO Sistemare il caso in cui finiamo nella starter card
                     }
 
                     while (card.getColor().equals(CardColor.RED) && !checked.get(card)){
