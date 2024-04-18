@@ -7,7 +7,7 @@ import it.polimi.ingsw.gc01.model.cards.*;
 import it.polimi.ingsw.gc01.model.corners.*;
 import it.polimi.ingsw.gc01.model.strategy.*;
 
-public class Deck {
+public abstract class Deck {
     private List<Card> deck;
 
     public Deck(String type) {
@@ -52,7 +52,6 @@ public class Deck {
         deck.remove(0);
         return card;
     }
-
 
     public Card get() {
         return deck.get(0);
