@@ -86,7 +86,7 @@ public class Player {
         hand.add(card);
     }
 
-    public void playCard(PlayableCard card, Position position) {
+    public void playCard(ResourceCard card, Position position) {
         //Rimuovere carta dalla mano
         hand.remove(card);
 
@@ -183,11 +183,111 @@ public class Player {
         }
 
         //Incrementare i punti del player
-        if (card instanceof ResourceCard) {
-            if (card instanceof GoldenCard) {
-                points += ((GoldenCard) card).calculatePoints(this, position);
-            }else {
-                points += ((ResourceCard) card).getScore();
+        if (card instanceof GoldenCard) {
+            points += ((GoldenCard) card).calculatePoints(this, position);
+        }else {
+            points += ((ResourceCard) card).getScore();
+        }
+    }
+
+    public void playCard(StarterCard card, Position position) {
+        //Rimuovere carta dalla mano
+        hand.remove(card);
+
+        //Eliminare la position dalle available position
+        field.removeAvailablePosition(position);
+
+        //Incrementare le resources
+        for (Corner corner : card.getCorners().values()) {
+            if (!corner.getResource().equals(EMPTY) && !corner.getResource().equals(CornerValue.FULL)) {
+                addResource((PlayerResource) corner.getResource());
+            }
+            if (!card.getCenterResources().isEmpty()) {
+                for (CardResource cardResource : card.getCenterResources()) {
+                    addResource((PlayerResource) cardResource);
+                }
+            }
+        }
+
+        //Coprire gli angoli e decrementare le resources
+        Map<CornerPosition, PlayableCard> adjacentCard = field.getAdjacentCards(position);
+        for (CornerPosition cornerPosition : adjacentCard.keySet()) {
+            switch (cornerPosition) {
+                case TOP_LEFT:
+                    adjacentCard.get(cornerPosition).getCorners().get(BOTTOM_RIGHT).cover();
+                    if (!adjacentCard.get(cornerPosition).getCorners().get(BOTTOM_RIGHT).getResource().equals(EMPTY)) {
+                        removeResource((PlayerResource) adjacentCard.get(cornerPosition).getCorners().get(BOTTOM_RIGHT).getResource());
+                    };
+                    break;
+                case TOP_RIGHT:
+                    adjacentCard.get(cornerPosition).getCorners().get(BOTTOM_LEFT).cover();
+                    if (!adjacentCard.get(cornerPosition).getCorners().get(BOTTOM_LEFT).getResource().equals(EMPTY)) {
+                        removeResource((PlayerResource) adjacentCard.get(cornerPosition).getCorners().get(BOTTOM_LEFT).getResource());
+                    };
+                    break;
+                case BOTTOM_LEFT:
+                    adjacentCard.get(cornerPosition).getCorners().get(TOP_RIGHT).cover();
+                    if (!adjacentCard.get(cornerPosition).getCorners().get(TOP_RIGHT).getResource().equals(EMPTY)) {
+                        removeResource((PlayerResource) adjacentCard.get(cornerPosition).getCorners().get(TOP_RIGHT).getResource());
+                    };
+                    break;
+                case BOTTOM_RIGHT:
+                    adjacentCard.get(cornerPosition).getCorners().get(TOP_LEFT).cover();
+                    if (!adjacentCard.get(cornerPosition).getCorners().get(TOP_LEFT).getResource().equals(EMPTY)) {
+                        removeResource((PlayerResource) adjacentCard.get(cornerPosition).getCorners().get(TOP_LEFT).getResource());
+                    };
+                    break;
+                default:
+            }
+        }
+
+        //Aggiungere nuove available position
+        for (CornerPosition cornerPosition : card.getCorners().keySet()) {
+            if (!adjacentCard.containsKey(cornerPosition)) {
+                Position p;
+                switch (cornerPosition) {
+                    case TOP_LEFT:
+                        p = new Position(position.getX() - 1, position.getY() + 1);
+                        if (card.getCorners().get(cornerPosition).getResource().equals(FULL)) {
+                            field.addUnavailablePosition(p);
+                        }else {
+                            if (!field.getUnavailablePositions().contains(p)) {
+                                field.addAvailablePosition(p);
+                            }
+                        }
+                        break;
+                    case TOP_RIGHT:
+                        p = new Position(position.getX() + 1, position.getY() + 1);
+                        if (card.getCorners().get(cornerPosition).getResource().equals(FULL)) {
+                            field.addUnavailablePosition(p);
+                        }else {
+                            if (!field.getUnavailablePositions().contains(p)) {
+                                field.addAvailablePosition(p);
+                            }
+                        }
+                        break;
+                    case BOTTOM_LEFT:
+                        p = new Position(position.getX() - 1, position.getY() - 1);
+                        if (card.getCorners().get(cornerPosition).getResource().equals(FULL)) {
+                            field.addUnavailablePosition(p);
+                        }else {
+                            if (!field.getUnavailablePositions().contains(p)) {
+                                field.addAvailablePosition(p);
+                            }
+                        }
+                        break;
+                    case BOTTOM_RIGHT:
+                        p = new Position(position.getX() + 1, position.getY() - 1);
+                        if (card.getCorners().get(cornerPosition).getResource().equals(FULL)) {
+                            field.addUnavailablePosition(p);
+                        }else {
+                            if (!field.getUnavailablePositions().contains(p)) {
+                                field.addAvailablePosition(p);
+                            }
+                        }
+                        break;
+                    default:
+                }
             }
         }
     }
