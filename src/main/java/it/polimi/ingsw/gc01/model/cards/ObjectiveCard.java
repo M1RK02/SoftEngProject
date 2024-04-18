@@ -4,12 +4,10 @@ import it.polimi.ingsw.gc01.model.player.*;
 import it.polimi.ingsw.gc01.model.strategy.*;
 
 public class ObjectiveCard extends Card {
-    private final int score;
     private final Strategy strategy;
 
-    public ObjectiveCard (int id, String info, int score, Strategy strategy){
+    public ObjectiveCard (int id, String info, Strategy strategy){
         super(id, info);
-        this.score = score;
         this.strategy = strategy;
     }
 

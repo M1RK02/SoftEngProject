@@ -15,7 +15,9 @@ public class ItemStrategy implements Strategy{
     }
 
     public int check(Player player){
-        // TODO
-        return 0;
+        if (player.getResources().get(item)%2 == 0)
+            return player.getResources().get(item);
+        else
+            return player.getResources().get(item) - 1;
     }
 }

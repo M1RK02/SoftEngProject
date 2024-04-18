@@ -15,7 +15,6 @@ public class ResourceStrategy implements Strategy {
     }
 
     public int check(Player player){
-        // TODO
-        return 0;
-    };
+        return (player.getResources().get(resource) / 3) * 2;
+    }
 }
