@@ -1,17 +1,22 @@
 package it.polimi.ingsw.gc01.model.strategy;
 
+import java.util.*;
 import it.polimi.ingsw.gc01.model.cards.*;
 import it.polimi.ingsw.gc01.model.player.*;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Set;
-
 public class StairStrategy implements Strategy {
-    private CardColor color;
-    Map<PlayableCard, Boolean> checked;
+    private CardColor stairColor;
+
+    public StairStrategy(CardColor stairColor) {
+        this.stairColor = stairColor;
+    }
+
+    public CardColor getStairColor() {
+        return stairColor;
+    }
 
     public int check(Player player){
+        Map<PlayableCard, Boolean> checked;
         Map<Position, PlayableCard> treasureMap = player.getField().getPositions();
         ResourceCard card, currentCard;
         int points = 0;
@@ -25,7 +30,7 @@ public class StairStrategy implements Strategy {
         }
         checked.put(treasureMap.get(new Position(0,0)), true);
 
-        switch (color){
+        switch (stairColor){
             case RED:
                 for (Position p : treasureMap.keySet()){
                     count = 0;
@@ -139,7 +144,6 @@ public class StairStrategy implements Strategy {
                 break;
             default:
         }
-
         return points;
     }
 }

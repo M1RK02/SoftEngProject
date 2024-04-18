@@ -7,6 +7,12 @@
       "BOTTOM_RIGHT": {"resource": "EMPTY" , "covered": false},
       "TOP_RIGHT"    : {"resource": "PLANT", "covered": false}
     },
+    "backCorners": {
+      "TOP_LEFT"   : {"resource": "FUNGI", "covered": false},
+      "BOTTOM_LEFT" : {"resource": "INSECT", "covered": false},
+      "BOTTOM_RIGHT": {"resource": "ANIMAL" , "covered": false},
+      "TOP_RIGHT"    : {"resource": "PLANT", "covered": false}
+    },
     "id": 81,
     "info": "None"
   },
@@ -17,6 +23,12 @@
       "BOTTOM_LEFT" : {"resource": "EMPTY", "covered": false},
       "BOTTOM_RIGHT": {"resource": "FUNGI" , "covered": false},
       "TOP_RIGHT"    : {"resource": "EMPTY", "covered": false}
+    },
+    "backCorners": {
+      "TOP_LEFT"   : {"resource": "PLANT", "covered": false},
+      "BOTTOM_LEFT" : {"resource": "FUNGI", "covered": false},
+      "BOTTOM_RIGHT": {"resource": "INSECT" , "covered": false},
+      "TOP_RIGHT"    : {"resource": "ANIMAL", "covered": false}
     },
     "id": 82,
     "info": "None"
@@ -29,6 +41,12 @@
       "BOTTOM_RIGHT": {"resource": "EMPTY" , "covered": false},
       "TOP_RIGHT"    : {"resource": "EMPTY", "covered": false}
     },
+    "backCorners": {
+      "TOP_LEFT"   : {"resource": "INSECT", "covered": false},
+      "BOTTOM_LEFT" : {"resource": "FUNGI", "covered": false},
+      "BOTTOM_RIGHT": {"resource": "PLANT" , "covered": false},
+      "TOP_RIGHT"    : {"resource": "ANIMAL", "covered": false}
+    },
     "id": 83,
     "info": "None"
   },
@@ -39,6 +57,12 @@
       "BOTTOM_LEFT" : {"resource": "EMPTY", "covered": false},
       "BOTTOM_RIGHT": {"resource": "EMPTY" , "covered": false},
       "TOP_RIGHT"    : {"resource": "EMPTY", "covered": false}
+    },
+    "backCorners": {
+      "TOP_LEFT"   : {"resource": "PLANT", "covered": false},
+      "BOTTOM_LEFT" : {"resource": "ANIMAL", "covered": false},
+      "BOTTOM_RIGHT": {"resource": "FUNGI" , "covered": false},
+      "TOP_RIGHT"    : {"resource": "INSECT", "covered": false}
     },
     "id": 84,
     "info": "None"
@@ -51,6 +75,12 @@
       "BOTTOM_RIGHT": {"resource": "FULL" , "covered": false},
       "TOP_RIGHT"    : {"resource": "EMPTY", "covered": false}
     },
+    "backCorners": {
+      "TOP_LEFT"   : {"resource": "INSECT", "covered": false},
+      "BOTTOM_LEFT" : {"resource": "PLANT", "covered": false},
+      "BOTTOM_RIGHT": {"resource": "ANIMAL" , "covered": false},
+      "TOP_RIGHT"    : {"resource": "FUNGI", "covered": false}
+    },
     "id": 85,
     "info": "None"
   },
@@ -61,6 +91,12 @@
       "BOTTOM_LEFT" : {"resource": "FULL", "covered": false},
       "BOTTOM_RIGHT": {"resource": "FULL" , "covered": false},
       "TOP_RIGHT"    : {"resource": "EMPTY", "covered": false}
+    },
+    "backCorners": {
+      "TOP_LEFT"   : {"resource": "FUNGI", "covered": false},
+      "BOTTOM_LEFT" : {"resource": "PLANT", "covered": false},
+      "BOTTOM_RIGHT": {"resource": "INSECT" , "covered": false},
+      "TOP_RIGHT"    : {"resource": "ANIMAL", "covered": false}
     },
     "id": 86,
     "info": "None"

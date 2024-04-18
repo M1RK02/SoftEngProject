@@ -5,6 +5,7 @@ import java.util.*;
 import com.google.gson.*;
 import it.polimi.ingsw.gc01.model.cards.*;
 import it.polimi.ingsw.gc01.model.corners.*;
+import it.polimi.ingsw.gc01.model.strategy.*;
 
 public class Deck {
     private List<Card> deck;
@@ -15,6 +16,7 @@ public class Deck {
         Gson gson = new GsonBuilder()
                 .registerTypeAdapter(CardResource.class, new CardResourcesDeserializer())
                 .registerTypeAdapter(ScoreCondition.class, new ScoreConditionDeserializer())
+                .registerTypeHierarchyAdapter(Strategy.class, new StrategyAdapter())
                 .create();
         try {
             List<Object> cardList = gson.fromJson(new FileReader(json), List.class);
@@ -23,13 +25,13 @@ public class Deck {
                     case "Golden":
                         deck.add(gson.fromJson(card.toString(), GoldenCard.class));
                         break;
-                    case "Objective": // TODO Json file and deserializer
+                    case "Objective":
                         deck.add(gson.fromJson(card.toString(), ObjectiveCard.class));
                         break;
                     case "Resource":
                         deck.add(gson.fromJson(card.toString(), ResourceCard.class));
                         break;
-                    case "Starter": // TODO Modify Json file to add backCorners
+                    case "Starter":
                         deck.add(gson.fromJson(card.toString(), StarterCard.class));
                         break;
                 }

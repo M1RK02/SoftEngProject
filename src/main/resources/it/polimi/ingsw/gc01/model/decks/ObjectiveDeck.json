@@ -1,0 +1,99 @@
+[
+  {
+    "score": 2,
+    "strategy": {"stairColor": "RED"},
+    "id": 87,
+    "info": "test"
+  },
+  {
+    "score": 2,
+    "strategy": {"stairColor": "GREEN"},
+    "id": 88,
+    "info": "test"
+  },
+  {
+    "score": 2,
+    "strategy": {"stairColor": "BLUE"},
+    "id": 89,
+    "info": "test"
+  }
+,
+  {
+    "score": 2,
+    "strategy": {"stairColor": "PURPLE"},
+    "id": 90,
+    "info": "test"
+  },
+  {
+    "score": 3,
+    "strategy": {"bodyColor": "RED"},
+    "id": 91,
+    "info": "test"
+  },
+  {
+    "score": 3,
+    "strategy": {"bodyColor": "GREEN"},
+    "id": 92,
+    "info": "test"
+  },
+  {
+    "score": 3,
+    "strategy": {"bodyColor": "BLUE"},
+    "id": 93,
+    "info": "test"
+  },
+  {
+    "score": 3,
+    "strategy": {"bodyColor": "PURPLE"},
+    "id": 94,
+    "info": "test"
+  },
+  {
+    "score": 2,
+    "strategy": {"resource": "FUNGI"},
+    "id": 95,
+    "info": "test"
+  },
+  {
+    "score": 2,
+    "strategy": {"resource": "PLANT"},
+    "id": 96,
+    "info": "test"
+  },
+  {
+    "score": 2,
+    "strategy": {"resource": "ANIMAL"},
+    "id": 97,
+    "info": "test"
+  },
+  {
+    "score": 2,
+    "strategy": {"resource": "INSECT"},
+    "id": 98,
+    "info": "test"
+  },
+  {
+    "score": 3,
+    "strategy": {"threePoint": true},
+    "id": 99,
+    "info": "test"
+  },
+  {
+    "score": 2,
+    "strategy": {"item": "MANUSCRIPT"},
+    "id": 100,
+    "info": "test"
+  },
+  {
+    "score": 2,
+    "strategy": {"item": "INKWELL"},
+    "id": 101,
+    "info": "test"
+  },
+  {
+    "score": 2,
+    "strategy": {"item": "QUILL"},
+    "id": 102,
+    "info": "test"
+  }
+]
