@@ -28,18 +28,6 @@ public class Field {
         return unavailablePositions;
     }
 
-    public void addAvailablePosition(Position position) {
-        availablePositions.add(position);
-    }
-
-    public void removeAvailablePosition(Position position) {
-        availablePositions.remove(position);
-    }
-
-    public void addUnavailablePosition(Position position) {
-        unavailablePositions.add(position);
-    }
-
     public Map<CornerPosition, PlayableCard> getAdjacentCards(Position position) {
         Map<CornerPosition, PlayableCard> adjacentCards = new HashMap<>();
         Position p = new Position(position.getX() - 1, position.getY() - 1);

@@ -1,5 +1,7 @@
 package it.polimi.ingsw.gc01.model.player;
 
+import java.util.Objects;
+
 public class Position {
     private final int x;
     private final int y;
@@ -23,5 +25,10 @@ public class Position {
         if (!(o instanceof Position)) return false;
         Position position = (Position) o;
         return getX() == position.getX() && getY() == position.getY();
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(x, y);
     }
 }
