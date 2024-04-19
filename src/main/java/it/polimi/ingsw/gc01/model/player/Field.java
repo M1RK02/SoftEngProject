@@ -48,4 +48,8 @@ public class Field {
         }
         return adjacentCards;
     }
+
+    public void put(Position p, PlayableCard card){
+        positions.put(p, card);
+    }
 }

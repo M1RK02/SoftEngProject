@@ -1,6 +1,7 @@
 package it.polimi.ingsw.gc01.model.strategy;
 
 import it.polimi.ingsw.gc01.model.cards.CardColor;
+import it.polimi.ingsw.gc01.model.cards.PlayableCard;
 import it.polimi.ingsw.gc01.model.cards.ResourceCard;
 import it.polimi.ingsw.gc01.model.cards.StarterCard;
 import it.polimi.ingsw.gc01.model.decks.GoldenDeck;
@@ -22,29 +23,70 @@ class StairStrategyTest {
     private static ResourceDeck resourceDeck;
     private static GoldenDeck goldenDeck;
     private static ObjectiveDeck objectiveDeck;
-    private static StairStrategy stairStrategyTest;
+    private static StairStrategy stairStrategyRed, stairStrategyBlue, stairStrategyGreen, stairStrategyPurple;
 
 
     @BeforeEach
     void setUp() {
         player = new Player("Prend", PlayerColor.BLUE);
+
         Field field = player.getField();
+
         starterDeck = new StarterDeck();
         resourceDeck = new ResourceDeck();
-        stairStrategyTest = new StairStrategy(CardColor.GREEN);
-        field.put(new Position(0,0), starterDeck.pickById(81));
-        field.put(new Position(1,-1), resourceDeck.pickById(11));
-        field.put(new Position(2,-2), resourceDeck.pickById(12));
-        field.put(new Position(3,-3), resourceDeck.pickById(13));
-        field.put(new Position(4,-4), resourceDeck.pickById(14));
-        field.put(new Position(5,-5), resourceDeck.pickById(15));
-        field.put(new Position(6,-6), resourceDeck.pickById(16));
+        goldenDeck = new GoldenDeck();
+        objectiveDeck = new ObjectiveDeck();
+
+        stairStrategyRed = new StairStrategy(CardColor.RED);
+        stairStrategyBlue = new StairStrategy(CardColor.BLUE);
+        stairStrategyGreen = new StairStrategy(CardColor.GREEN);
+        stairStrategyPurple = new StairStrategy(CardColor.PURPLE);
+
+        field.put(new Position(0,0), starterDeck.pick());
+
+        //Carte rosse (punti = 4)
+        field.put(new Position(1,1), resourceDeck.pick());
+        field.put(new Position(2,2), resourceDeck.pick());
+        field.put(new Position(3,3), resourceDeck.pick());
+        field.put(new Position(2,0), resourceDeck.pick());
+        field.put(new Position(3,1), resourceDeck.pick());
+        field.put(new Position(4,2), resourceDeck.pick());
+
+        //Carte verdi (punti = 4)
+        field.put(new Position(-1,1), resourceDeck.pickById(11));
+        field.put(new Position(-2,2), resourceDeck.pickById(12));
+        field.put(new Position(-3,3), resourceDeck.pickById(13));
+        field.put(new Position(-4,4), resourceDeck.pickById(14));
+        field.put(new Position(-5,5), resourceDeck.pickById(15));
+        field.put(new Position(-6,6), resourceDeck.pickById(16));
+
+        //Carte blu (punti = 2)
+        field.put(new Position(-1,-1), resourceDeck.pickById(21));
+        field.put(new Position(-2,-2), resourceDeck.pickById(22));
+        field.put(new Position(-3,-3), resourceDeck.pickById(23));
+        field.put(new Position(-4,-4), resourceDeck.pickById(24));
+        field.put(new Position(-5,-5), resourceDeck.pickById(25));
+
+        //Carte viola (punti = 4)
+        field.put(new Position(1,-1), goldenDeck.pickById(71));
+        field.put(new Position(2,-2), goldenDeck.pickById(72));
+        field.put(new Position(3,-3), goldenDeck.pickById(73));
+        field.put(new Position(2,-4), goldenDeck.pickById(74));
+        field.put(new Position(3,-5), goldenDeck.pickById(75));
+        field.put(new Position(4,-6), goldenDeck.pickById(76));
     }
 
     @Test
     void check(){
-        int points;
-        points = stairStrategyTest.check(player);
-        System.out.println(points);
+        int redPoints, greenPoints, bluePoints, purplePoints;
+        redPoints = stairStrategyRed.check(player);
+        greenPoints = stairStrategyGreen.check(player);
+        bluePoints = stairStrategyBlue.check(player);
+        purplePoints = stairStrategyPurple.check(player);
+
+        System.out.println("Red points: "+redPoints);
+        System.out.println("Green points: "+greenPoints);
+        System.out.println("Blue points: "+bluePoints);
+        System.out.println("Purple points: "+purplePoints);
     }
 }

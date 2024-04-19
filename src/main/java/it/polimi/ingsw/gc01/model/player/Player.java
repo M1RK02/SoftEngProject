@@ -101,11 +101,11 @@ public class Player {
         if (card instanceof ResourceCard) {
             updatePoints((ResourceCard) card, position);
         } else if (card instanceof StarterCard){
-            ceckIsFront((StarterCard) card, corners);
+            checkIsFront((StarterCard) card, corners);
         }
 
         //Aggiunge le resources degli angoli
-        addCornerResouces(card, corners);
+        addCornerResources(card, corners);
 
         //Aggiungere nuove available position
         updateAvailablePosition(corners, adjacentCard, position);
@@ -120,7 +120,7 @@ public class Player {
         }
     }
 
-    private void ceckIsFront(StarterCard card, Map<CornerPosition, Corner> corners) {
+    private void checkIsFront(StarterCard card, Map<CornerPosition, Corner> corners) {
         if (card.isFront()) {
             for (CardResource cardResource : card.getCenterResources()) {
                 addResource((PlayerResource) cardResource);
@@ -130,7 +130,7 @@ public class Player {
         }
     }
 
-    private void addCornerResouces(PlayableCard card, Map<CornerPosition, Corner> corners) {
+    private void addCornerResources(PlayableCard card, Map<CornerPosition, Corner> corners) {
         for (Corner corner : corners.values()) {
             if (!corner.getResource().equals(EMPTY) && !corner.getResource().equals(CornerValue.FULL)) {
                 addResource((PlayerResource) corner.getResource());
