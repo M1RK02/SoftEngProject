@@ -143,25 +143,25 @@ public class Player {
             switch (cornerPosition) {
                 case TOP_LEFT:
                     adjacentCard.get(cornerPosition).getCorners().get(BOTTOM_RIGHT).cover();
-                    if (!adjacentCard.get(cornerPosition).getCorners().get(BOTTOM_RIGHT).getResource().equals(EMPTY)) {
+                    if (adjacentCard.get(cornerPosition).getCorners().get(BOTTOM_RIGHT).getResource() instanceof PlayerResource) {
                         removeResource((PlayerResource) adjacentCard.get(cornerPosition).getCorners().get(BOTTOM_RIGHT).getResource());
                     }
                     break;
                 case TOP_RIGHT:
                     adjacentCard.get(cornerPosition).getCorners().get(BOTTOM_LEFT).cover();
-                    if (!adjacentCard.get(cornerPosition).getCorners().get(BOTTOM_LEFT).getResource().equals(EMPTY)) {
+                    if (adjacentCard.get(cornerPosition).getCorners().get(BOTTOM_LEFT).getResource() instanceof PlayerResource) {
                         removeResource((PlayerResource) adjacentCard.get(cornerPosition).getCorners().get(BOTTOM_LEFT).getResource());
                     }
                     break;
                 case BOTTOM_LEFT:
                     adjacentCard.get(cornerPosition).getCorners().get(TOP_RIGHT).cover();
-                    if (!adjacentCard.get(cornerPosition).getCorners().get(TOP_RIGHT).getResource().equals(EMPTY)) {
+                    if (adjacentCard.get(cornerPosition).getCorners().get(TOP_RIGHT).getResource() instanceof PlayerResource) {
                         removeResource((PlayerResource) adjacentCard.get(cornerPosition).getCorners().get(TOP_RIGHT).getResource());
                     }
                     break;
                 case BOTTOM_RIGHT:
                     adjacentCard.get(cornerPosition).getCorners().get(TOP_LEFT).cover();
-                    if (!adjacentCard.get(cornerPosition).getCorners().get(TOP_LEFT).getResource().equals(EMPTY)) {
+                    if (adjacentCard.get(cornerPosition).getCorners().get(TOP_LEFT).getResource() instanceof PlayerResource) {
                         removeResource((PlayerResource) adjacentCard.get(cornerPosition).getCorners().get(TOP_LEFT).getResource());
                     }
                     break;
