@@ -15,155 +15,151 @@ public class StairStrategy implements Strategy {
         return stairColor;
     }
 
-
     public int check(Player player){
-        Map<PlayableCard, Boolean> checked = new HashMap<>();
-        Map<Position, PlayableCard> treasureMap = new HashMap<>(player.getField().getPositions());
-        treasureMap.remove(new Position(0,0));
-        ResourceCard card, currentCard;
-        Position currentPosition;
-        int points = 0, count;
-
-        for (Position p : treasureMap.keySet()){
-            card = (ResourceCard) treasureMap.get(p);
-            checked.put(card, false);
+        Position origin = new Position(0,0);
+        Map<Position, PlayableCard> field = player.getField().getPositions();
+        Set<Position> found = new HashSet<>();
+        for(Position p : field.keySet()){
+            if (!found.contains(p) && !p.equals(origin)) {
+                ResourceCard c = (ResourceCard) field.get(p);
+                if (c.getColor().equals(stairColor)){
+                    Position currentPos = getLowerCard(field, p);
+                    Set <Position> chain = getChainIfRight(field, currentPos);
+                    if (chain != null) {
+                        found.addAll(chain);
+                    }
+                }
+            }
         }
-
-        switch (stairColor) {
-            case RED:
-                for (Position p : treasureMap.keySet()) {
-                    count = 0;
-                    card = (ResourceCard) treasureMap.get(p);
-                    currentCard = card;
-                    currentPosition = p;
-                    while (treasureMap.containsKey(currentPosition) && currentCard.getColor().equals(CardColor.RED) && !checked.get(currentCard)) {
-                        card = currentCard;
-                        currentPosition = new Position(currentPosition.getX() - 1, currentPosition.getY() - 1);
-                        if (currentPosition.equals(new Position(0,0))){
-                            break;
-                        }
-                        currentCard = (ResourceCard) treasureMap.get(currentPosition);
-                    }
-
-                    currentPosition = new Position(currentPosition.getX() + 1, currentPosition.getY() + 1);
-
-                    while (treasureMap.containsKey(currentPosition) && card.getColor().equals(CardColor.RED) && !checked.get(card)) {
-                        count++;
-                        if (count % 3 == 0) {
-                            points += 2;
-                            checked.put(card, true);
-                            checked.put(treasureMap.get(new Position(currentPosition.getX() - 1, currentPosition.getY() - 1)), true);
-                            checked.put(treasureMap.get(new Position(currentPosition.getX() - 2, currentPosition.getY() - 2)), true);
-                        }
-                        currentPosition = new Position(currentPosition.getX() + 1, currentPosition.getY() + 1);
-                        if (currentPosition.equals(new Position(0,0))){
-                            break;
-                        }
-                        card = (ResourceCard) treasureMap.get(currentPosition);
-                    }
-                }
-                break;
-            case BLUE:
-                for (Position p : treasureMap.keySet()) {
-                    count = 0;
-                    card = (ResourceCard) treasureMap.get(p);
-                    currentCard = card;
-                    currentPosition = p;
-                    while (treasureMap.containsKey(currentPosition) && currentCard.getColor().equals(CardColor.BLUE) && !checked.get(currentCard)) {
-                        card = currentCard;
-                        currentPosition = new Position(currentPosition.getX() - 1, currentPosition.getY() - 1);
-                        if (currentPosition.equals(new Position(0,0))){
-                            break;
-                        }
-                        currentCard = (ResourceCard) treasureMap.get(currentPosition);
-                    }
-
-                    currentPosition = new Position(currentPosition.getX() + 1, currentPosition.getY() + 1);
-
-                    while (treasureMap.containsKey(currentPosition) && card.getColor().equals(CardColor.BLUE) && !checked.get(card)) {
-                        count++;
-                        if (count % 3 == 0) {
-                            points += 2;
-                            checked.put(card, true);
-                            checked.put(treasureMap.get(new Position(currentPosition.getX() - 1, currentPosition.getY() - 1)), true);
-                            checked.put(treasureMap.get(new Position(currentPosition.getX() - 2, currentPosition.getY() - 2)), true);
-                        }
-                        currentPosition = new Position(currentPosition.getX() + 1, currentPosition.getY() + 1);
-                        if (currentPosition.equals(new Position(0,0))){
-                            break;
-                        }
-                        card = (ResourceCard) treasureMap.get(currentPosition);
-                    }
-                }
-                break;
-            case GREEN:
-                for (Position p : treasureMap.keySet()) {
-                    count = 0;
-                    card = (ResourceCard) treasureMap.get(p);
-                    currentCard = card;
-                    currentPosition = p;
-                    while (treasureMap.containsKey(currentPosition) && currentCard.getColor().equals(CardColor.GREEN) && !checked.get(currentCard)) {
-                        card = currentCard;
-                        currentPosition = new Position(currentPosition.getX() + 1, currentPosition.getY() - 1);
-                        if (currentPosition.equals(new Position(0,0))){
-                            break;
-                        }
-                        currentCard = (ResourceCard) treasureMap.get(currentPosition);
-                    }
-
-                    currentPosition = new Position(currentPosition.getX() - 1, currentPosition.getY() + 1);
-
-                    while (treasureMap.containsKey(currentPosition) && card.getColor().equals(CardColor.GREEN) && !checked.get(card)) {
-                        count++;
-                        if (count % 3 == 0) {
-                            points += 2;
-                            checked.put(card, true);
-                            checked.put(treasureMap.get(new Position(currentPosition.getX() + 1, currentPosition.getY() - 1)), true);
-                            checked.put(treasureMap.get(new Position(currentPosition.getX() + 2, currentPosition.getY() - 2)), true);
-                        }
-                        currentPosition = new Position(currentPosition.getX() - 1, currentPosition.getY() + 1);
-                        if (currentPosition.equals(new Position(0,0))){
-                            break;
-                        }
-                        card = (ResourceCard) treasureMap.get(currentPosition);
-                    }
-                }
-                break;
-            case PURPLE:
-                for (Position p : treasureMap.keySet()) {
-                    count = 0;
-                    card = (ResourceCard) treasureMap.get(p);
-                    currentCard = card;
-                    currentPosition = p;
-                    while (treasureMap.containsKey(currentPosition) && currentCard.getColor().equals(CardColor.PURPLE) && !checked.get(currentCard)) {
-                        card = currentCard;
-                        currentPosition = new Position(currentPosition.getX() + 1, currentPosition.getY() - 1);
-                        if (currentPosition.equals(new Position(0,0))){
-                            break;
-                        }
-                        currentCard = (ResourceCard) treasureMap.get(currentPosition);
-                    }
-
-                    currentPosition = new Position(currentPosition.getX() - 1, currentPosition.getY() + 1);
-
-                    while (treasureMap.containsKey(currentPosition) && card.getColor().equals(CardColor.PURPLE) && !checked.get(card)) {
-                        count++;
-                        if (count % 3 == 0) {
-                            points += 2;
-                            checked.put(card, true);
-                            checked.put(treasureMap.get(new Position(currentPosition.getX() + 1, currentPosition.getY() - 1)), true);
-                            checked.put(treasureMap.get(new Position(currentPosition.getX() + 2, currentPosition.getY() - 2)), true);
-                        }
-                        currentPosition = new Position(currentPosition.getX() - 1, currentPosition.getY() + 1);
-                        if (currentPosition.equals(new Position(0,0))){
-                            break;
-                        }
-                        card = (ResourceCard) treasureMap.get(currentPosition);
-                    }
-                }
-                break;
-        }
-        return points;
+        return (found.size()/3)*2;
     }
+
+
+private Position getLowerCard(Map<Position, PlayableCard> field, Position p){
+        Position origin = new Position(0,0);
+        ResourceCard card = (ResourceCard) field.get(p);
+        Position currentPosition = new Position(p.getX(), p.getY()), nextPosition;
+        if (stairColor.equals(CardColor.RED)){
+            nextPosition = new Position(p.getX() - 1, p.getY() - 1);
+            while (!nextPosition.equals(origin) && field.containsKey(nextPosition) && card.getColor().equals(CardColor.RED)){
+                card = (ResourceCard) field.get(nextPosition);
+                if (card.getColor().equals(CardColor.RED)){
+                    currentPosition = nextPosition;
+                }
+                nextPosition = new Position(nextPosition.getX() - 1, nextPosition.getY() - 1);
+            }
+        }
+        if (stairColor.equals(CardColor.BLUE)){
+            nextPosition = new Position(p.getX() - 1, p.getY() - 1);
+            while (!nextPosition.equals(origin) && field.containsKey(nextPosition) && card.getColor().equals(CardColor.BLUE)){
+                card = (ResourceCard) field.get(nextPosition);
+                if (card.getColor().equals(CardColor.BLUE)){
+                    currentPosition = nextPosition;
+                }
+                nextPosition = new Position(nextPosition.getX() - 1, nextPosition.getY() - 1);
+            }
+        }
+        if (stairColor.equals(CardColor.GREEN)){
+            nextPosition = new Position(p.getX() + 1, p.getY() - 1);
+            while (!nextPosition.equals(origin) && field.containsKey(nextPosition) && card.getColor().equals(CardColor.GREEN)){
+                card = (ResourceCard) field.get(nextPosition);
+                if (card.getColor().equals(CardColor.GREEN)){
+                    currentPosition = nextPosition;
+                }
+                nextPosition = new Position(nextPosition.getX() + 1, nextPosition.getY() - 1);
+            }
+        }
+        if (stairColor.equals(CardColor.PURPLE)){
+            nextPosition = new Position(p.getX() + 1, p.getY() - 1);
+            while (!nextPosition.equals(origin) && field.containsKey(nextPosition) && card.getColor().equals(CardColor.PURPLE)){
+                card = (ResourceCard) field.get(nextPosition);
+                if (card.getColor().equals(CardColor.PURPLE)){
+                    currentPosition = nextPosition;
+                }
+                nextPosition = new Position(nextPosition.getX() + 1, nextPosition.getY() - 1);
+            }
+        }
+
+
+        return currentPosition;
+}
+
+private Set<Position> getChainIfRight(Map<Position, PlayableCard> field, Position p){
+        Position origin = new Position(0,0);
+        ResourceCard card = (ResourceCard) field.get(p);
+        Position currentPosition = new Position(p.getX(),p.getY()), nextPosition;
+        Set<Position> found = null;
+        int count = 1;
+        if (stairColor.equals(CardColor.RED)){
+            nextPosition = new Position(currentPosition.getX() + 1, currentPosition.getY() + 1);
+            found = new HashSet<>();
+            while (!nextPosition.equals(origin) && field.containsKey(nextPosition) && card.getColor().equals(CardColor.RED)){
+                card = (ResourceCard) field.get(nextPosition);
+                if (card.getColor().equals(CardColor.RED)){
+                    currentPosition = nextPosition;
+                    count++;
+                    if (count % 3 == 0){
+                        found.add(currentPosition);
+                        found.add(new Position(currentPosition.getX() - 1, currentPosition.getY() - 1));
+                        found.add(new Position(currentPosition.getX() - 2, currentPosition.getY() - 2));
+                    }
+                }
+                nextPosition = new Position(nextPosition.getX() + 1, nextPosition.getY() + 1);
+            }
+        }
+        if (stairColor.equals(CardColor.BLUE)){
+            nextPosition = new Position(currentPosition.getX() + 1, currentPosition.getY() + 1);
+            found = new HashSet<>();
+            while (!nextPosition.equals(origin) && field.containsKey(nextPosition) && card.getColor().equals(CardColor.BLUE)){
+                card = (ResourceCard) field.get(nextPosition);
+                if (card.getColor().equals(CardColor.BLUE)){
+                    currentPosition = nextPosition;
+                    count++;
+                    if (count % 3 == 0){
+                        found.add(currentPosition);
+                        found.add(new Position(currentPosition.getX() - 1, currentPosition.getY() - 1));
+                        found.add(new Position(currentPosition.getX() - 2, currentPosition.getY() - 2));
+                    }
+                }
+                nextPosition = new Position(nextPosition.getX() + 1, nextPosition.getY() + 1);
+            }
+        }
+        if (stairColor.equals(CardColor.GREEN)){
+            nextPosition = new Position(currentPosition.getX() - 1, currentPosition.getY() + 1);
+            found = new HashSet<>();
+            while (!nextPosition.equals(origin) && field.containsKey(nextPosition) && card.getColor().equals(CardColor.GREEN)){
+                card = (ResourceCard) field.get(nextPosition);
+                if (card.getColor().equals(CardColor.GREEN)){
+                    currentPosition = nextPosition;
+                    count++;
+                    if (count % 3 == 0){
+                        found.add(currentPosition);
+                        found.add(new Position(currentPosition.getX() + 1, currentPosition.getY() - 1));
+                        found.add(new Position(currentPosition.getX() + 2, currentPosition.getY() - 2));
+                    }
+                }
+                nextPosition = new Position(nextPosition.getX() - 1, nextPosition.getY() + 1);
+            }
+        }
+        if (stairColor.equals(CardColor.PURPLE)){
+            nextPosition = new Position(currentPosition.getX() - 1, currentPosition.getY() + 1);
+            found = new HashSet<>();
+            while (!nextPosition.equals(origin) && field.containsKey(nextPosition) && card.getColor().equals(CardColor.PURPLE)){
+                card = (ResourceCard) field.get(nextPosition);
+                if (card.getColor().equals(CardColor.PURPLE)){
+                    currentPosition = nextPosition;
+                    count++;
+                    if (count % 3 == 0){
+                        found.add(currentPosition);
+                        found.add(new Position(currentPosition.getX() + 1, currentPosition.getY() - 1));
+                        found.add(new Position(currentPosition.getX() + 2, currentPosition.getY() - 2));
+                    }
+                }
+                nextPosition = new Position(nextPosition.getX() - 1, nextPosition.getY() + 1);
+            }
+        }
+
+        return found;
+}
 
 }
