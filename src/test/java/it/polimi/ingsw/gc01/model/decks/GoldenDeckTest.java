@@ -12,7 +12,7 @@ class GoldenDeckTest {
 
     @BeforeEach
     void setUp() {
-        goldenDeck = new GoldenDeck();;
+        goldenDeck = new GoldenDeck();
         assert(!goldenDeck.isEmpty());
     }
 

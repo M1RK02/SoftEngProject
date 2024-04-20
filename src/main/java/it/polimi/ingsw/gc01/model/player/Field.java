@@ -1,8 +1,12 @@
 package it.polimi.ingsw.gc01.model.player;
 
 import java.util.*;
+
+import it.polimi.ingsw.gc01.model.CornerValue;
 import it.polimi.ingsw.gc01.model.cards.*;
 import it.polimi.ingsw.gc01.model.corners.*;
+
+import static it.polimi.ingsw.gc01.model.CornerValue.EMPTY;
 
 public class Field {
     private Map<Position, PlayableCard> positions;
@@ -49,7 +53,23 @@ public class Field {
         return adjacentCards;
     }
 
-    public void put(Position p, PlayableCard card){
+    public void put(Position p, PlayableCard card, Player player){
         positions.put(p, card);
+        availablePositions.remove(p);
+        Map<CornerPosition, Corner> corners = card.getCorners();
+        for (Corner corner : corners.values()) {
+            if (!corner.getResource().equals(EMPTY) && !corner.getResource().equals(CornerValue.FULL)) {
+                player.addResource((PlayerResource) corner.getResource());
+            }
+        }
+
+        for (int i = p.getX() - 1; i <= p.getX() + 1; i += 2) {
+            for (int j = p.getY() - 1; j <= p.getY() + 1; j += 2) {
+                if (!positions.containsKey(new Position(i,j))){
+                    availablePositions.add(new Position(i,j));
+                }
+            }
+        }
+
     }
 }

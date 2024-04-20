@@ -43,9 +43,9 @@ public class GoldenCard extends ResourceCard{
         }
         if (scoreCondition.equals(ConditionType.CORNER)) {
             int n = 0;
-            for (int i = position.getX() - 1; i < position.getX() + 1; i += 2) {
-                for (int j = position.getY() - 1; j < position.getY() + 1; j += 2) {
-                    if (!player.getField().getAvailablePositions().contains(new Position(i, j))){
+            for (int i = position.getX() - 1; i <= position.getX() + 1; i += 2) {
+                for (int j = position.getY() - 1; j <= position.getY() + 1; j += 2) {
+                    if (player.getField().getPositions().containsKey(new Position(i,j))){
                         n++;
                     }
                 }
