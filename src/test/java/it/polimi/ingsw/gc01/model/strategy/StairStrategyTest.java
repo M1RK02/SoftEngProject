@@ -22,20 +22,18 @@ class StairStrategyTest {
     private static StarterDeck starterDeck;
     private static ResourceDeck resourceDeck;
     private static GoldenDeck goldenDeck;
-    private static ObjectiveDeck objectiveDeck;
     private static StairStrategy stairStrategyRed, stairStrategyBlue, stairStrategyGreen, stairStrategyPurple;
 
 
     @BeforeEach
     void setUp() {
-        player = new Player("Prend", PlayerColor.BLUE);
+        player = new Player("testPlayer", PlayerColor.BLUE);
 
         Field field = player.getField();
 
         starterDeck = new StarterDeck();
         resourceDeck = new ResourceDeck();
         goldenDeck = new GoldenDeck();
-        objectiveDeck = new ObjectiveDeck();
 
         stairStrategyRed = new StairStrategy(CardColor.RED);
         stairStrategyBlue = new StairStrategy(CardColor.BLUE);
@@ -56,9 +54,10 @@ class StairStrategyTest {
         field.put(new Position(-1,1), resourceDeck.pickById(11), player);
         field.put(new Position(-2,2), resourceDeck.pickById(12), player);
         field.put(new Position(-3,3), resourceDeck.pickById(13), player);
-        field.put(new Position(-4,4), resourceDeck.pickById(14), player);
+        field.put(new Position(-4,4), resourceDeck.pickById(26), player);
         field.put(new Position(-5,5), resourceDeck.pickById(15), player);
         field.put(new Position(-6,6), resourceDeck.pickById(16), player);
+        field.put(new Position(-7,7), resourceDeck.pickById(14), player);
 
         //Carte blu (punti = 2)
         field.put(new Position(-1,-1), resourceDeck.pickById(21), player);
@@ -66,6 +65,8 @@ class StairStrategyTest {
         field.put(new Position(-3,-3), resourceDeck.pickById(23), player);
         field.put(new Position(-4,-4), resourceDeck.pickById(24), player);
         field.put(new Position(-5,-5), resourceDeck.pickById(25), player);
+        field.put(new Position(-6,-6), resourceDeck.pickById(17), player);
+        field.put(new Position(-7,-7), resourceDeck.pickById(26), player);
 
         //Carte viola (punti = 4)
         field.put(new Position(1,-1), goldenDeck.pickById(71), player);

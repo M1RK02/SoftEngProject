@@ -61,6 +61,8 @@ class GoldenCardTest {
 
     @Test
     void calculatePoints() {
+        field.put(new Position(0,0), starterDeck.get(), player);
+
         //scoreCondition.equals(Item.QUILL)
         field.put(new Position(-1,-1), resourceDeck.pickById(5), player);
         field.put(new Position(-1,1), resourceDeck.pickById(15), player);
@@ -82,7 +84,6 @@ class GoldenCardTest {
         assertEquals(3, goldenDeck.pickById(79).calculatePoints(player, new Position(-5,-3)));
 
         //scoreCondition.equals(ConditionType.CORNER)
-        field.put(new Position(0,0), starterDeck.get(), player);
         field.put(new Position(1,1), resourceDeck.pickById(2), player);
         assertEquals(2, goldenDeck.pickById(44).calculatePoints(player, new Position(2,0)));
 
