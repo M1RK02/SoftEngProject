@@ -19,11 +19,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class StairStrategyTest {
     private static Player player;
-    private static StarterDeck starterDeck;
-    private static ResourceDeck resourceDeck;
-    private static GoldenDeck goldenDeck;
     private static StairStrategy stairStrategyRed, stairStrategyBlue, stairStrategyGreen, stairStrategyPurple;
-
 
     @BeforeEach
     void setUp() {
@@ -31,50 +27,51 @@ class StairStrategyTest {
 
         Field field = player.getField();
 
-        starterDeck = new StarterDeck();
-        resourceDeck = new ResourceDeck();
-        goldenDeck = new GoldenDeck();
+        StarterDeck starterDeck = new StarterDeck();
+        ResourceDeck resourceDeck = new ResourceDeck();
+        GoldenDeck goldenDeck = new GoldenDeck();
 
         stairStrategyRed = new StairStrategy(CardColor.RED);
         stairStrategyBlue = new StairStrategy(CardColor.BLUE);
         stairStrategyGreen = new StairStrategy(CardColor.GREEN);
         stairStrategyPurple = new StairStrategy(CardColor.PURPLE);
 
-        field.put(new Position(0,0), starterDeck.pick(), player);
+        //Origin
+        field.getPositions().put(new Position(0,0), starterDeck.pick());
 
         //Carte rosse (punti = 4)
-        field.put(new Position(1,1), resourceDeck.pick(), player);
-        field.put(new Position(2,2), resourceDeck.pick(), player);
-        field.put(new Position(3,3), resourceDeck.pick(), player);
-        field.put(new Position(2,0), resourceDeck.pick(), player);
-        field.put(new Position(3,1), resourceDeck.pick(), player);
-        field.put(new Position(4,2), resourceDeck.pick(), player);
+        field.getPositions().put(new Position(1,1), resourceDeck.pick());
+        field.getPositions().put(new Position(2,2), resourceDeck.pick());
+        field.getPositions().put(new Position(3,3), resourceDeck.pick());
+        field.getPositions().put(new Position(2,0), resourceDeck.pick());
+        field.getPositions().put(new Position(3,1), resourceDeck.pick());
+        field.getPositions().put(new Position(4,2), resourceDeck.pick());
 
         //Carte verdi (punti = 4)
-        field.put(new Position(-1,1), resourceDeck.pickById(11), player);
-        field.put(new Position(-2,2), resourceDeck.pickById(12), player);
-        field.put(new Position(-3,3), resourceDeck.pickById(13), player);
-        field.put(new Position(-4,4), resourceDeck.pickById(26), player);
-        field.put(new Position(-5,5), resourceDeck.pickById(15), player);
-        field.put(new Position(-6,6), resourceDeck.pickById(16), player);
-        field.put(new Position(-7,7), resourceDeck.pickById(14), player);
+        field.getPositions().put(new Position(-1,1), resourceDeck.pickById(11));
+        field.getPositions().put(new Position(-2,2), resourceDeck.pickById(12));
+        field.getPositions().put(new Position(-3,3), resourceDeck.pickById(13));
+        field.getPositions().put(new Position(-4,4), resourceDeck.pickById(26));
+        field.getPositions().put(new Position(-5,5), resourceDeck.pickById(15));
+        field.getPositions().put(new Position(-6,6), resourceDeck.pickById(16));
+        field.getPositions().put(new Position(-7,7), resourceDeck.pickById(14));
 
         //Carte blu (punti = 2)
-        field.put(new Position(-1,-1), resourceDeck.pickById(21), player);
-        field.put(new Position(-2,-2), resourceDeck.pickById(22), player);
-        field.put(new Position(-3,-3), resourceDeck.pickById(23), player);
-        field.put(new Position(-4,-4), resourceDeck.pickById(24), player);
-        field.put(new Position(-5,-5), resourceDeck.pickById(25), player);
-        field.put(new Position(-6,-6), resourceDeck.pickById(17), player);
-        field.put(new Position(-7,-7), resourceDeck.pickById(26), player);
+        field.getPositions().put(new Position(-1,-1), resourceDeck.pickById(21));
+        field.getPositions().put(new Position(-2,-2), resourceDeck.pickById(22));
+        field.getPositions().put(new Position(-3,-3), resourceDeck.pickById(23));
+        field.getPositions().put(new Position(-4,-4), resourceDeck.pickById(24));
+        field.getPositions().put(new Position(-5,-5), resourceDeck.pickById(25));
+        field.getPositions().put(new Position(-6,-6), resourceDeck.pickById(17));
+        field.getPositions().put(new Position(-7,-7), resourceDeck.pickById(26));
 
         //Carte viola (punti = 4)
-        field.put(new Position(1,-1), goldenDeck.pickById(71), player);
-        field.put(new Position(2,-2), goldenDeck.pickById(72), player);
-        field.put(new Position(3,-3), goldenDeck.pickById(73), player);
-        field.put(new Position(2,-4), goldenDeck.pickById(74), player);
-        field.put(new Position(3,-5), goldenDeck.pickById(75), player);
-        field.put(new Position(4,-6), goldenDeck.pickById(76), player);
+        field.getPositions().put(new Position(1,-1), goldenDeck.pickById(71));
+        field.getPositions().put(new Position(2,-2), goldenDeck.pickById(72));
+        field.getPositions().put(new Position(3,-3), goldenDeck.pickById(73));
+        field.getPositions().put(new Position(2,-4), goldenDeck.pickById(74));
+        field.getPositions().put(new Position(3,-5), goldenDeck.pickById(75));
+        field.getPositions().put(new Position(4,-6), goldenDeck.pickById(76));
     }
 
     @Test

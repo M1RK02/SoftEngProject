@@ -61,6 +61,30 @@ public class Room {
         commonObjectives.add(objectiveDeck.pick());
     }
 
+    public StarterDeck getStarterDeck() {
+        return starterDeck;
+    }
+
+    public ResourceDeck getResourceDeck() {
+        return resourceDeck;
+    }
+
+    public GoldenDeck getGoldenDeck() {
+        return goldenDeck;
+    }
+
+    public ObjectiveDeck getObjectiveDeck() {
+        return objectiveDeck;
+    }
+
+    public List<ObjectiveCard> getCommonObjectives() {
+        return commonObjectives;
+    }
+
+    public List<PlayableCard> getVisibleCards() {
+        return visibleCards;
+    }
+
     public String getRoomId() {
         return roomId;
     }
