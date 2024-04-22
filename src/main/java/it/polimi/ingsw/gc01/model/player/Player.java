@@ -87,29 +87,39 @@ public class Player {
     }
 
     public void playCard(PlayableCard card, Position position){
-        //Rimuovere carta dalla mano
-        hand.remove(card);
-
-        //Eliminare la position dalle available position
-        field.getAvailablePositions().remove(position);
-
-        //Coprire gli angoli e decrementare le resources
-        Map<CornerPosition, PlayableCard> adjacentCard = field.getAdjacentCards(position);
-        coverAdjacentCorners(adjacentCard);
-
         Map<CornerPosition, Corner> corners = card.getCorners();
-        if (card instanceof ResourceCard) {
-            updatePoints((ResourceCard) card, position);
-        } else if (card instanceof StarterCard){
-            checkIsFront((StarterCard) card, corners);
+
+        //If card is an available card, check the side of the card
+        if (card instanceof StarterCard){
+            if (((StarterCard) card).isFront()) {
+                addCenterResources((StarterCard) card);
+            }else {
+                corners = ((StarterCard) card).getBackCorners();
+            }
         }
 
-        //Aggiunge le resources degli angoli
-        addCornerResources(card, corners);
+        //Remove card from the hand
+        hand.remove(card);
 
-        //Aggiungere nuove available position
-        updateAvailablePosition(corners, adjacentCard, position);
+        //Remove position from available positions
+        field.getAvailablePositions().remove(position);
+
+        //Cover the adjacent corners, so decrement the resources
+        coverAdjacentCorners(field.getAdjacentCards(position));
+
+        //Add the resource of the card's corners
+        addCornerResources(corners);
+
+        //Update the available position
+        updateAvailablePosition(corners, field.getAdjacentCards(position), position);
+
+        //Update the Map<Position, PlayableCard> positions in the field
         field.getPositions().put(position, card);
+
+        //If card is a ResourceCard, add card points to the player
+        if (card instanceof ResourceCard) {
+            updatePoints((ResourceCard) card, position);
+        }
     }
 
     private void updatePoints(ResourceCard card, Position position) {
@@ -120,17 +130,13 @@ public class Player {
         }
     }
 
-    private void checkIsFront(StarterCard card, Map<CornerPosition, Corner> corners) {
-        if (card.isFront()) {
-            for (CardResource cardResource : card.getCenterResources()) {
-                addResource((PlayerResource) cardResource);
-            }
-        }else {
-            corners = card.getBackCorners();
+    private void addCenterResources(StarterCard card) {
+        for (CardResource cardResource : card.getCenterResources()) {
+            addResource((PlayerResource) cardResource);
         }
     }
 
-    private void addCornerResources(PlayableCard card, Map<CornerPosition, Corner> corners) {
+    private void addCornerResources(Map<CornerPosition, Corner> corners) {
         for (Corner corner : corners.values()) {
             if (!corner.getResource().equals(EMPTY) && !corner.getResource().equals(CornerValue.FULL)) {
                 addResource((PlayerResource) corner.getResource());
