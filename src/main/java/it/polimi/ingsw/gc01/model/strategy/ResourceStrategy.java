@@ -4,7 +4,7 @@ import it.polimi.ingsw.gc01.model.*;
 import it.polimi.ingsw.gc01.model.player.*;
 
 public class ResourceStrategy implements Strategy {
-    private Resource resource;
+    private final Resource resource;
 
     public ResourceStrategy(Resource resource) {
         this.resource = resource;
