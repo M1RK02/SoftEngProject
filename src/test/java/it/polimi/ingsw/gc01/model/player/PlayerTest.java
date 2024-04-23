@@ -1,17 +1,12 @@
 package it.polimi.ingsw.gc01.model.player;
 
 import it.polimi.ingsw.gc01.model.Resource;
-import it.polimi.ingsw.gc01.model.cards.ObjectiveCard;
-import it.polimi.ingsw.gc01.model.cards.PlayableCard;
-import it.polimi.ingsw.gc01.model.cards.ResourceCard;
-import it.polimi.ingsw.gc01.model.cards.StarterCard;
+import it.polimi.ingsw.gc01.model.cards.*;
 import it.polimi.ingsw.gc01.model.corners.Corner;
 import it.polimi.ingsw.gc01.model.corners.CornerPosition;
 import it.polimi.ingsw.gc01.model.decks.GoldenDeck;
-import it.polimi.ingsw.gc01.model.decks.ObjectiveDeck;
 import it.polimi.ingsw.gc01.model.decks.ResourceDeck;
 import it.polimi.ingsw.gc01.model.decks.StarterDeck;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -40,16 +35,21 @@ class PlayerTest {
     @Test
     void playCard() {
         Random generatore = new Random();
-        int x, c, n;
+        int x, y, c, n;
+        y = generatore.nextInt(2);
+        if (y == 1) {
+            ((StarterCard)player.getHand().get(0)).setFront(true);
+        }
+
         player.playCard(player.getHand().get(0), new Position(0,0));
 
         player.getHand().add(resourceDeck.pick());
         player.getHand().add(resourceDeck.pick());
         player.getHand().add(goldenDeck.pick());
 
-        for (int i = 0; i < 10; i++) {
+        for (int i = 0; i < 80; i++) {
             x = generatore.nextInt(player.getField().getAvailablePositions().size());
-            c = generatore.nextInt(3);
+            c = generatore.nextInt(player.getHand().size());
             Position[] availablePositionsArray = new Position[player.getField().getAvailablePositions().size()];
             ResourceCard card = (ResourceCard) player.getHand().get(c);
             Position position = player.getField().getAvailablePositions().toArray(availablePositionsArray)[x];
@@ -137,12 +137,17 @@ class PlayerTest {
             assert (player.getField().getPositions().containsKey(position));
             assert (player.getField().getPositions().get(position).equals(card));
             //Check score
-            assert (player.getPoints() == oldScore + card.getScore());
+            if (card instanceof GoldenCard) {
+                assert (player.getPoints() == oldScore + ((GoldenCard)card).calculatePoints(player, position));
+            } else {
+                assert (player.getPoints() == oldScore + card.getScore());
+            }
 
             n = generatore.nextInt(2);
-            if (n == 1) {
+            if ((n == 1 || goldenDeck.isEmpty()) && !resourceDeck.isEmpty()) {
                 player.getHand().add(resourceDeck.pick());
-            }else {
+            }
+            if ((n == 0 || resourceDeck.isEmpty()) && !goldenDeck.isEmpty()){
                 player.getHand().add(goldenDeck.pick());
             }
         }
@@ -325,17 +330,17 @@ class PlayerTest {
                     break;
                 case TOP_RIGHT:
                     if (corners.get(BOTTOM_LEFT).getResource() instanceof PlayerResource) {
-                        oldResources.put((PlayerResource) corners.get(BOTTOM_LEFT).getResource(), oldResources.get((PlayerResource) corners.get(BOTTOM_RIGHT).getResource()) - 1);
+                        oldResources.put((PlayerResource) corners.get(BOTTOM_LEFT).getResource(), oldResources.get((PlayerResource) corners.get(BOTTOM_LEFT).getResource()) - 1);
                     }
                     break;
                 case BOTTOM_LEFT:
                     if (corners.get(TOP_RIGHT).getResource() instanceof PlayerResource) {
-                        oldResources.put((PlayerResource) corners.get(TOP_RIGHT).getResource(), oldResources.get((PlayerResource) corners.get(BOTTOM_RIGHT).getResource()) - 1);
+                        oldResources.put((PlayerResource) corners.get(TOP_RIGHT).getResource(), oldResources.get((PlayerResource) corners.get(TOP_RIGHT).getResource()) - 1);
                     }
                     break;
                 case BOTTOM_RIGHT:
                     if (corners.get(TOP_LEFT).getResource() instanceof PlayerResource) {
-                        oldResources.put((PlayerResource) corners.get(TOP_LEFT).getResource(), oldResources.get((PlayerResource) corners.get(BOTTOM_RIGHT).getResource()) - 1);
+                        oldResources.put((PlayerResource) corners.get(TOP_LEFT).getResource(), oldResources.get((PlayerResource) corners.get(TOP_LEFT).getResource()) - 1);
                     }
                     break;
                 default:
