@@ -1,24 +1,57 @@
 package it.polimi.ingsw.gc01.model.player;
 
 import java.util.*;
-import it.polimi.ingsw.gc01.model.cards.PlayableCard;
+
+import it.polimi.ingsw.gc01.model.CornerValue;
+import it.polimi.ingsw.gc01.model.cards.*;
+import it.polimi.ingsw.gc01.model.corners.*;
+
+import static it.polimi.ingsw.gc01.model.CornerValue.EMPTY;
 
 public class Field {
-    private Player player;
-    private Set<Position> availablePosition;
     private Map<Position, PlayableCard> positions;
+    private Set<Position> availablePositions;
+    private Set<Position> unavailablePositions;
 
-    public Field(Player player) {
-        this.player = player;
+    public Field() {
         this.positions = new HashMap<Position, PlayableCard>();
-        this.availablePosition = new HashSet<Position>();
+        this.availablePositions = new HashSet<Position>();
+        this.availablePositions.add(new Position(0, 0));
+        this.unavailablePositions = new HashSet<>();
     }
 
-    public Set<Position> getAvailablePosition() {
-        return availablePosition;
+    public Map<Position, PlayableCard> getPositions() {
+        return positions;
     }
 
-    public void addAvailablePosition(Position position) {
-        availablePosition.add(position);
+    public Set<Position> getAvailablePositions() {
+        return availablePositions;
     }
+
+    public Set<Position> getUnavailablePositions() {
+        return unavailablePositions;
+    }
+
+    public Map<CornerPosition, PlayableCard> getAdjacentCards(Position position) {
+        Map<CornerPosition, PlayableCard> adjacentCards = new HashMap<>();
+        Position p = new Position(position.getX() - 1, position.getY() - 1);
+        if (positions.containsKey(p)) {
+            adjacentCards.put(CornerPosition.BOTTOM_LEFT, positions.get(p));
+        }
+        p = new Position(position.getX() - 1, position.getY() + 1);
+        if (positions.containsKey(p)) {
+            adjacentCards.put(CornerPosition.TOP_LEFT, positions.get(p));
+        }
+        p = new Position(position.getX() + 1, position.getY() + 1);
+        if (positions.containsKey(p)) {
+            adjacentCards.put(CornerPosition.TOP_RIGHT, positions.get(p));
+        }
+        p = new Position(position.getX() + 1, position.getY() - 1);
+        if (positions.containsKey(p)) {
+            adjacentCards.put(CornerPosition.BOTTOM_RIGHT, positions.get(p));
+        }
+        return adjacentCards;
+    }
+
+
 }

@@ -1,26 +1,38 @@
 package it.polimi.ingsw.gc01.model.room;
 
 import java.util.*;
-import it.polimi.ingsw.gc01.model.cards.PlayableCard;
+import it.polimi.ingsw.gc01.model.cards.*;
 import it.polimi.ingsw.gc01.model.decks.*;
-import it.polimi.ingsw.gc01.model.player.Player;
+import it.polimi.ingsw.gc01.model.player.*;
 
 public class Room {
-    private String roomId;
-    private Deck goldenDeck;
-    private Deck resourceDeck;
-    private Deck objectiveDeck;
-    private List<Player> players;
+    private final String roomId;
+    private final List<Player> players;
     private Player currentPlayer;
+    private GoldenDeck goldenDeck;
+    private ResourceDeck resourceDeck;
+    private ObjectiveDeck objectiveDeck;
+    private StarterDeck starterDeck;
+    private List<PlayableCard> visibleCards;
+    private List<ObjectiveCard> commonObjectives;
 
-    public Room() {
+    public Room(List<Player> players) {
         roomId = generateRoomId();
-        goldenDeck = new Deck(DeckType.GOLDEN);
-        resourceDeck = new Deck(DeckType.RESOURCE);
-        objectiveDeck = new Deck(DeckType.OBJECTIVE);
-        players = new ArrayList<Player>();
+        this.players = players;
+        currentPlayer = players.get(0);
+        goldenDeck = new GoldenDeck();
+        resourceDeck = new ResourceDeck();
+        objectiveDeck = new ObjectiveDeck();
+        starterDeck = new StarterDeck();
+        visibleCards = new ArrayList<>();
+        commonObjectives = new ArrayList<>();
+        initTable();
     }
 
+    /**
+     * Randomly generates a room id
+     * @return a 5 character string
+     */
     private String generateRoomId() {
         String alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
         String numbers = "0123456789";
@@ -34,6 +46,43 @@ public class Room {
             sb.append(randomChar);
         }
         return sb.toString();
+    }
+
+    private void initTable() {
+        goldenDeck.shuffle();
+        resourceDeck.shuffle();
+        objectiveDeck.shuffle();
+        starterDeck.shuffle();
+        visibleCards.add(goldenDeck.pick());
+        visibleCards.add(goldenDeck.pick());
+        visibleCards.add(resourceDeck.pick());
+        visibleCards.add(resourceDeck.pick());
+        commonObjectives.add(objectiveDeck.pick());
+        commonObjectives.add(objectiveDeck.pick());
+    }
+
+    public StarterDeck getStarterDeck() {
+        return starterDeck;
+    }
+
+    public ResourceDeck getResourceDeck() {
+        return resourceDeck;
+    }
+
+    public GoldenDeck getGoldenDeck() {
+        return goldenDeck;
+    }
+
+    public ObjectiveDeck getObjectiveDeck() {
+        return objectiveDeck;
+    }
+
+    public List<ObjectiveCard> getCommonObjectives() {
+        return commonObjectives;
+    }
+
+    public List<PlayableCard> getVisibleCards() {
+        return visibleCards;
     }
 
     public String getRoomId() {
@@ -58,12 +107,7 @@ public class Room {
      */
     public Player getNextPlayer() {
         int currentPlayerIndex = players.indexOf(getCurrentPlayer());
-        ListIterator<Player> playersIterator = players.listIterator(currentPlayerIndex);
-        if (playersIterator.hasNext()) {
-            return playersIterator.next();
-        } else {
-            return players.get(0);
-        }
+        return currentPlayerIndex == players.size() - 1 ? players.get(0) : players.get(currentPlayerIndex+1);
     }
 
     /**
@@ -71,8 +115,10 @@ public class Room {
      * @return the list of drawable cards
      */
     public List<PlayableCard> getDrawableCards() {
-        // TODO
-        return null;
+        List<PlayableCard> drawableCards = new ArrayList<>(visibleCards);
+        drawableCards.add(goldenDeck.get());
+        drawableCards.add(resourceDeck.get());
+        return drawableCards;
     }
 
     /**
@@ -80,24 +126,6 @@ public class Room {
      * @return winner player
      */
     public Player getWinner() {
-        // TODO
-        return null;
-    }
-
-    /**
-     * Calculate the points for the selected player
-     * @param player to calculate points
-     * @return points of the player
-     */
-    public int calculatePoints(Player player) {
-        // TODO
-        return 0;
-    }
-
-    /**
-     * End the game
-     */
-    public void endGame() {
-        // TODO
+        return players.stream().max(Comparator.comparingInt(Player::getPoints)).orElse(null);
     }
 }

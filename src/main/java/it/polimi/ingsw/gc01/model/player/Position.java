@@ -1,12 +1,12 @@
 package it.polimi.ingsw.gc01.model.player;
 
-public class Position {
-    private Field field;
-    private int x;
-    private int y;
+import java.util.Objects;
 
-    public Position(Field field, int x, int y) {
-        this.field = field;
+public class Position {
+    private final int x;
+    private final int y;
+
+    public Position(int x, int y) {
         this.x = x;
         this.y = y;
     }
@@ -17,5 +17,18 @@ public class Position {
 
     public int getY() {
         return y;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Position)) return false;
+        Position position = (Position) o;
+        return getX() == position.getX() && getY() == position.getY();
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(x, y);
     }
 }

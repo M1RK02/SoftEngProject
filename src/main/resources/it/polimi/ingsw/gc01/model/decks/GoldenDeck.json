@@ -1,0 +1,562 @@
+[
+  {
+    "requirements": {"FUNGI": 2,"ANIMAL": 1},
+    "scoreCondition": "QUILL",
+    "color": "RED",
+    "score": 1,
+    "corners": {
+      "TOP_LEFT": {"resource": "FULL", "covered": false},
+      "BOTTOM_LEFT" : {"resource": "EMPTY", "covered": false},
+      "BOTTOM_RIGHT": {"resource": "QUILL" , "covered": false},
+      "TOP_RIGHT": {"resource": "EMPTY", "covered": false}
+    },
+    "id": 41,
+    "info": "None"
+  },
+  {
+    "requirements": {"FUNGI": 2,"PLANT": 1},
+    "scoreCondition": "INKWELL",
+    "color": "RED",
+    "score": 1,
+    "corners": {
+      "TOP_LEFT": {"resource": "EMPTY", "covered": false},
+      "BOTTOM_LEFT" : {"resource": "FULL", "covered": false},
+      "BOTTOM_RIGHT": {"resource": "EMPTY" , "covered": false},
+      "TOP_RIGHT": {"resource": "INKWELL", "covered": false}
+    },
+    "id": 42,
+    "info": "None"
+  },
+  {
+    "requirements": {"FUNGI": 2,"INSECT": 1},
+    "scoreCondition": "MANUSCRIPT",
+    "color": "RED",
+    "score": 1,
+    "corners": {
+      "TOP_LEFT": {"resource": "MANUSCRIPT", "covered": false},
+      "BOTTOM_LEFT" : {"resource": "EMPTY", "covered": false},
+      "BOTTOM_RIGHT": {"resource": "FULL" , "covered": false},
+      "TOP_RIGHT": {"resource": "EMPTY", "covered": false}
+    },
+    "id": 43,
+    "info": "None"
+  },
+  {
+    "requirements": {"FUNGI": 3,"ANIMAL": 1},
+    "scoreCondition": "CORNER",
+    "color": "RED",
+    "score": 2,
+    "corners": {
+      "TOP_LEFT": {"resource": "EMPTY", "covered": false},
+      "BOTTOM_LEFT" : {"resource": "FULL", "covered": false},
+      "BOTTOM_RIGHT": {"resource": "EMPTY" , "covered": false},
+      "TOP_RIGHT": {"resource": "EMPTY", "covered": false}
+    },
+    "id": 44,
+    "info": "None"
+  },
+  {
+    "requirements": {"FUNGI": 3,"PLANT": 1},
+    "scoreCondition": "CORNER",
+    "color": "RED",
+    "score": 2,
+    "corners": {
+      "TOP_LEFT": {"resource": "EMPTY", "covered": false},
+      "BOTTOM_LEFT" : {"resource": "EMPTY", "covered": false},
+      "BOTTOM_RIGHT": {"resource": "FULL" , "covered": false},
+      "TOP_RIGHT": {"resource": "EMPTY", "covered": false}
+    },
+    "id": 45,
+    "info": "None"
+  },
+  {
+    "requirements": {"FUNGI": 3,"INSECT": 1},
+    "scoreCondition": "CORNER",
+    "color": "RED",
+    "score": 2,
+    "corners": {
+      "TOP_LEFT": {"resource": "EMPTY", "covered": false},
+      "BOTTOM_LEFT" : {"resource": "EMPTY", "covered": false},
+      "BOTTOM_RIGHT": {"resource": "EMPTY" , "covered": false},
+      "TOP_RIGHT": {"resource": "FULL", "covered": false}
+    },
+    "id": 46,
+    "info": "None"
+  },
+  {
+    "requirements": {"FUNGI": 3},
+    "scoreCondition": "EMPTY",
+    "color": "RED",
+    "score": 3,
+    "corners": {
+      "TOP_LEFT": {"resource": "EMPTY", "covered": false},
+      "BOTTOM_LEFT" : {"resource": "INKWELL", "covered": false},
+      "BOTTOM_RIGHT": {"resource": "FULL" , "covered": false},
+      "TOP_RIGHT": {"resource": "FULL", "covered": false}
+    },
+    "id": 47,
+    "info": "None"
+  },
+  {
+    "requirements": {"FUNGI": 3},
+    "scoreCondition": "EMPTY",
+    "color": "RED",
+    "score": 3,
+    "corners": {
+      "TOP_LEFT": {"resource": "QUILL", "covered": false},
+      "BOTTOM_LEFT" : {"resource": "FULL", "covered": false},
+      "BOTTOM_RIGHT": {"resource": "FULL" , "covered": false},
+      "TOP_RIGHT": {"resource": "EMPTY", "covered": false}
+    },
+    "id": 48,
+    "info": "None"
+  },
+  {
+    "requirements": {"FUNGI": 3},
+    "scoreCondition": "EMPTY",
+    "color": "RED",
+    "score": 3,
+    "corners": {
+      "TOP_LEFT": {"resource": "FULL", "covered": false},
+      "BOTTOM_LEFT" : {"resource": "FULL", "covered": false},
+      "BOTTOM_RIGHT": {"resource": "EMPTY" , "covered": false},
+      "TOP_RIGHT": {"resource": "MANUSCRIPT", "covered": false}
+    },
+    "id": 49,
+    "info": "None"
+  },
+  {
+    "requirements": {"FUNGI": 5},
+    "scoreCondition": "EMPTY",
+    "color": "RED",
+    "score": 5,
+    "corners": {
+      "TOP_LEFT": {"resource": "EMPTY", "covered": false},
+      "BOTTOM_LEFT" : {"resource": "EMPTY", "covered": false},
+      "BOTTOM_RIGHT": {"resource": "FULL" , "covered": false},
+      "TOP_RIGHT": {"resource": "FULL", "covered": false}
+    },
+    "id": 50,
+    "info": "None"
+  },
+  {
+    "requirements": {"PLANT": 2,"INSECT": 1},
+    "scoreCondition": "QUILL",
+    "color": "GREEN",
+    "score": 1,
+    "corners": {
+      "TOP_LEFT": {"resource": "QUILL", "covered": false},
+      "BOTTOM_LEFT" : {"resource": "EMPTY", "covered": false},
+      "BOTTOM_RIGHT": {"resource": "FULL" , "covered": false},
+      "TOP_RIGHT": {"resource": "EMPTY", "covered": false}
+    },
+    "id": 51,
+    "info": "None"
+  },
+  {
+    "requirements": {"PLANT": 2,"FUNGI": 1},
+    "scoreCondition": "MANUSCRIPT",
+    "color": "GREEN",
+    "score": 1,
+    "corners": {
+      "TOP_LEFT": {"resource": "EMPTY", "covered": false},
+      "BOTTOM_LEFT" : {"resource": "FULL", "covered": false},
+      "BOTTOM_RIGHT": {"resource": "EMPTY" , "covered": false},
+      "TOP_RIGHT": {"resource": "MANUSCRIPT", "covered": false}
+    },
+    "id": 52,
+    "info": "None"
+  },
+  {
+    "requirements": {"PLANT": 2,"ANIMAL": 1},
+    "scoreCondition": "INKWELL",
+    "color": "GREEN",
+    "score": 1,
+    "corners": {
+      "TOP_LEFT": {"resource": "EMPTY", "covered": false},
+      "BOTTOM_LEFT" : {"resource": "INKWELL", "covered": false},
+      "BOTTOM_RIGHT": {"resource": "EMPTY" , "covered": false},
+      "TOP_RIGHT": {"resource": "FULL", "covered": false}
+    },
+    "id": 53,
+    "info": "None"
+  },
+  {
+    "requirements": {"PLANT": 3,"INSECT": 1},
+    "scoreCondition": "CORNER",
+    "color": "GREEN",
+    "score": 2,
+    "corners": {
+      "TOP_LEFT": {"resource": "FULL", "covered": false},
+      "BOTTOM_LEFT" : {"resource": "EMPTY", "covered": false},
+      "BOTTOM_RIGHT": {"resource": "EMPTY" , "covered": false},
+      "TOP_RIGHT": {"resource": "EMPTY", "covered": false}
+    },
+    "id": 54,
+    "info": "None"
+  },
+  {
+    "requirements": {"PLANT": 3,"ANIMAL": 1},
+    "scoreCondition": "CORNER",
+    "color": "GREEN",
+    "score": 2,
+    "corners": {
+      "TOP_LEFT": {"resource": "EMPTY", "covered": false},
+      "BOTTOM_LEFT" : {"resource": "EMPTY", "covered": false},
+      "BOTTOM_RIGHT": {"resource": "FULL" , "covered": false},
+      "TOP_RIGHT": {"resource": "EMPTY", "covered": false}
+    },
+    "id": 55,
+    "info": "None"
+  },
+  {
+    "requirements": {"PLANT": 3,"FUNGI": 1},
+    "scoreCondition": "CORNER",
+    "color": "GREEN",
+    "score": 2,
+    "corners": {
+      "TOP_LEFT": {"resource": "EMPTY", "covered": false},
+      "BOTTOM_LEFT" : {"resource": "EMPTY", "covered": false},
+      "BOTTOM_RIGHT": {"resource": "EMPTY" , "covered": false},
+      "TOP_RIGHT": {"resource": "FULL", "covered": false}
+    },
+    "id": 56,
+    "info": "None"
+  },
+  {
+    "requirements": {"PLANT": 3},
+    "scoreCondition": "EMPTY",
+    "color": "GREEN",
+    "score": 3,
+    "corners": {
+      "TOP_LEFT": {"resource": "EMPTY", "covered": false},
+      "BOTTOM_LEFT" : {"resource": "QUILL", "covered": false},
+      "BOTTOM_RIGHT": {"resource": "FULL" , "covered": false},
+      "TOP_RIGHT": {"resource": "FULL", "covered": false}
+    },
+    "id": 57,
+    "info": "None"
+  },
+  {
+    "requirements": {"PLANT": 3},
+    "scoreCondition": "EMPTY",
+    "color": "GREEN",
+    "score": 3,
+    "corners": {
+      "TOP_LEFT": {"resource": "MANUSCRIPT", "covered": false},
+      "BOTTOM_LEFT" : {"resource": "FULL", "covered": false},
+      "BOTTOM_RIGHT": {"resource": "FULL" , "covered": false},
+      "TOP_RIGHT": {"resource": "EMPTY", "covered": false}
+    },
+    "id": 58,
+    "info": "None"
+  },
+  {
+    "requirements": {"PLANT": 3},
+    "scoreCondition": "EMPTY",
+    "color": "GREEN",
+    "score": 3,
+    "corners": {
+      "TOP_LEFT": {"resource": "FULL", "covered": false},
+      "BOTTOM_LEFT" : {"resource": "FULL", "covered": false},
+      "BOTTOM_RIGHT": {"resource": "EMPTY" , "covered": false},
+      "TOP_RIGHT": {"resource": "INKWELL", "covered": false}
+    },
+    "id": 59,
+    "info": "None"
+  },
+  {
+    "requirements": {"PLANT": 5},
+    "scoreCondition": "EMPTY",
+    "color": "GREEN",
+    "score": 5,
+    "corners": {
+      "TOP_LEFT": {"resource": "EMPTY", "covered": false},
+      "BOTTOM_LEFT" : {"resource": "FULL", "covered": false},
+      "BOTTOM_RIGHT": {"resource": "FULL" , "covered": false},
+      "TOP_RIGHT": {"resource": "EMPTY", "covered": false}
+    },
+    "id": 60,
+    "info": "None"
+  },
+  {
+    "requirements": {"ANIMAL": 2, "INSECT" : 1},
+    "scoreCondition": "INKWELL",
+    "color": "BLUE",
+    "score": 1,
+    "corners": {
+      "TOP_LEFT": {"resource": "INKWELL", "covered": false},
+      "BOTTOM_LEFT" : {"resource": "EMPTY", "covered": false},
+      "BOTTOM_RIGHT": {"resource": "FULL" , "covered": false},
+      "TOP_RIGHT": {"resource": "EMPTY", "covered": false}
+    },
+    "id": 61,
+    "info": "None"
+  },
+  {
+    "requirements": {"ANIMAL": 2, "PLANT" : 1},
+    "scoreCondition": "MANUSCRIPT",
+    "color": "BLUE",
+    "score": 1,
+    "corners": {
+      "TOP_LEFT": {"resource": "FULL", "covered": false},
+      "BOTTOM_LEFT" : {"resource": "EMPTY", "covered": false},
+      "BOTTOM_RIGHT": {"resource": "MANUSCRIPT" , "covered": false},
+      "TOP_RIGHT": {"resource": "EMPTY", "covered": false}
+    },
+    "id": 62,
+    "info": "None"
+  },
+  {
+    "requirements": {"ANIMAL": 2, "FUNGI" : 1},
+    "scoreCondition": "QUILL",
+    "color": "BLUE",
+    "score": 1,
+    "corners": {
+      "TOP_LEFT": {"resource": "EMPTY", "covered": false},
+      "BOTTOM_LEFT" : {"resource": "QUILL", "covered": false},
+      "BOTTOM_RIGHT": {"resource": "EMPTY" , "covered": false},
+      "TOP_RIGHT": {"resource": "FULL", "covered": false}
+    },
+    "id": 63,
+    "info": "None"
+  },
+  {
+    "requirements": {"ANIMAL": 3, "INSECT" : 1},
+    "scoreCondition": "CORNER",
+    "color": "BLUE",
+    "score": 2,
+    "corners": {
+      "TOP_LEFT": {"resource": "EMPTY", "covered": false},
+      "BOTTOM_LEFT" : {"resource": "FULL", "covered": false},
+      "BOTTOM_RIGHT": {"resource": "EMPTY" , "covered": false},
+      "TOP_RIGHT": {"resource": "EMPTY", "covered": false}
+    },
+    "id": 64,
+    "info": "None"
+  },
+  {
+    "requirements": {"ANIMAL": 3, "FUNGI" : 1},
+    "scoreCondition": "CORNER",
+    "color": "BLUE",
+    "score": 2,
+    "corners": {
+      "TOP_LEFT": {"resource": "EMPTY", "covered": false},
+      "BOTTOM_LEFT" : {"resource": "EMPTY", "covered": false},
+      "BOTTOM_RIGHT": {"resource": "EMPTY" , "covered": false},
+      "TOP_RIGHT": {"resource": "FULL", "covered": false}
+    },
+    "id": 65,
+    "info": "None"
+  },
+  {
+    "requirements": {"ANIMAL": 3, "PLANT" : 1},
+    "scoreCondition": "CORNER",
+    "color": "BLUE",
+    "score": 2,
+    "corners": {
+      "TOP_LEFT": {"resource": "FULL", "covered": false},
+      "BOTTOM_LEFT" : {"resource": "EMPTY", "covered": false},
+      "BOTTOM_RIGHT": {"resource": "EMPTY" , "covered": false},
+      "TOP_RIGHT": {"resource": "EMPTY", "covered": false}
+    },
+    "id": 66,
+    "info": "None"
+  },
+  {
+    "requirements": {"ANIMAL": 3},
+    "scoreCondition": "EMPTY",
+    "color": "BLUE",
+    "score": 3,
+    "corners": {
+      "TOP_LEFT": {"resource": "EMPTY", "covered": false},
+      "BOTTOM_LEFT" : {"resource": "MANUSCRIPT", "covered": false},
+      "BOTTOM_RIGHT": {"resource": "FULL" , "covered": false},
+      "TOP_RIGHT": {"resource": "FULL", "covered": false}
+    },
+    "id": 67,
+    "info": "None"
+  },
+  {
+    "requirements": {"ANIMAL": 3},
+    "scoreCondition": "EMPTY",
+    "color": "BLUE",
+    "score": 3,
+    "corners": {
+      "TOP_LEFT": {"resource": "EMPTY", "covered": false},
+      "BOTTOM_LEFT" : {"resource": "FULL", "covered": false},
+      "BOTTOM_RIGHT": {"resource": "FULL" , "covered": false},
+      "TOP_RIGHT": {"resource": "INKWELL", "covered": false}
+    },
+    "id": 68,
+    "info": "None"
+  },
+  {
+    "requirements": {"ANIMAL": 3},
+    "scoreCondition": "EMPTY",
+    "color": "BLUE",
+    "score": 3,
+    "corners": {
+      "TOP_LEFT": {"resource": "FULL", "covered": false},
+      "BOTTOM_LEFT" : {"resource": "FULL", "covered": false},
+      "BOTTOM_RIGHT": {"resource": "QUILL" , "covered": false},
+      "TOP_RIGHT": {"resource": "EMPTY", "covered": false}
+    },
+    "id": 69,
+    "info": "None"
+  },
+  {
+    "requirements": {"ANIMAL": 5},
+    "scoreCondition": "EMPTY",
+    "color": "BLUE",
+    "score": 5,
+    "corners": {
+      "TOP_LEFT": {"resource": "FULL", "covered": false},
+      "BOTTOM_LEFT" : {"resource": "FULL", "covered": false},
+      "BOTTOM_RIGHT": {"resource": "EMPTY" , "covered": false},
+      "TOP_RIGHT": {"resource": "EMPTY", "covered": false}
+    },
+    "id": 70,
+    "info": "None"
+  },
+  {
+    "requirements": {"INSECT": 2, "PLANT": 1},
+    "scoreCondition": "QUILL",
+    "color": "PURPLE",
+    "score": 1,
+    "corners": {
+      "TOP_LEFT": {"resource": "EMPTY", "covered": false},
+      "BOTTOM_LEFT" : {"resource": "FULL", "covered": false},
+      "BOTTOM_RIGHT": {"resource": "EMPTY" , "covered": false},
+      "TOP_RIGHT": {"resource": "QUILL", "covered": false}
+    },
+    "id": 71,
+    "info": "None"
+  },
+  {
+    "requirements": {"INSECT": 2, "ANIMAL": 1},
+    "scoreCondition": "MANUSCRIPT",
+    "color": "PURPLE",
+    "score": 1,
+    "corners": {
+      "TOP_LEFT": {"resource": "EMPTY", "covered": false},
+      "BOTTOM_LEFT" : {"resource": "MANUSCRIPT", "covered": false},
+      "BOTTOM_RIGHT": {"resource": "EMPTY" , "covered": false},
+      "TOP_RIGHT": {"resource": "FULL", "covered": false}
+    },
+    "id": 72,
+    "info": "None"
+  },
+  {
+    "requirements": {"INSECT": 2, "FUNGI": 1},
+    "scoreCondition": "INKWELL",
+    "color": "PURPLE",
+    "score": 1,
+    "corners": {
+      "TOP_LEFT": {"resource": "FULL", "covered": false},
+      "BOTTOM_LEFT" : {"resource": "EMPTY", "covered": false},
+      "BOTTOM_RIGHT": {"resource": "INKWELL" , "covered": false},
+      "TOP_RIGHT": {"resource": "EMPTY", "covered": false}
+    },
+    "id": 73,
+    "info": "None"
+  },
+  {
+    "requirements": {"INSECT": 3, "ANIMAL": 1},
+    "scoreCondition": "CORNER",
+    "color": "PURPLE",
+    "score": 2,
+    "corners": {
+      "TOP_LEFT": {"resource": "EMPTY", "covered": false},
+      "BOTTOM_LEFT" : {"resource": "FULL", "covered": false},
+      "BOTTOM_RIGHT": {"resource": "EMPTY" , "covered": false},
+      "TOP_RIGHT": {"resource": "EMPTY", "covered": false}
+    },
+    "id": 74,
+    "info": "None"
+  },
+  {
+    "requirements": {"INSECT": 3, "PLANT": 1},
+    "scoreCondition": "CORNER",
+    "color": "PURPLE",
+    "score": 2,
+    "corners": {
+      "TOP_LEFT": {"resource": "EMPTY", "covered": false},
+      "BOTTOM_LEFT" : {"resource": "EMPTY", "covered": false},
+      "BOTTOM_RIGHT": {"resource": "FULL" , "covered": false},
+      "TOP_RIGHT": {"resource": "EMPTY", "covered": false}
+    },
+    "id": 75,
+    "info": "None"
+  },
+  {
+    "requirements": {"INSECT": 3, "FUNGI": 1},
+    "scoreCondition": "CORNER",
+    "color": "PURPLE",
+    "score": 2,
+    "corners": {
+      "TOP_LEFT": {"resource": "EMPTY", "covered": false},
+      "BOTTOM_LEFT" : {"resource": "EMPTY", "covered": false},
+      "BOTTOM_RIGHT": {"resource": "EMPTY" , "covered": false},
+      "TOP_RIGHT": {"resource": "FULL", "covered": false}
+    },
+    "id": 76,
+    "info": "None"
+  },
+  {
+    "requirements": {"INSECT": 3},
+    "scoreCondition": "EMPTY",
+    "color": "PURPLE",
+    "score": 3,
+    "corners": {
+      "TOP_LEFT": {"resource": "INKWELL", "covered": false},
+      "BOTTOM_LEFT" : {"resource": "EMPTY", "covered": false},
+      "BOTTOM_RIGHT": {"resource": "FULL" , "covered": false},
+      "TOP_RIGHT": {"resource": "FULL", "covered": false}
+    },
+    "id": 77,
+    "info": "None"
+  },
+  {
+    "requirements": {"INSECT": 3},
+    "scoreCondition": "EMPTY",
+    "color": "PURPLE",
+    "score": 3,
+    "corners": {
+      "TOP_LEFT": {"resource": "EMPTY", "covered": false},
+      "BOTTOM_LEFT" : {"resource": "FULL", "covered": false},
+      "BOTTOM_RIGHT": {"resource": "FULL" , "covered": false},
+      "TOP_RIGHT": {"resource": "MANUSCRIPT", "covered": false}
+    },
+    "id": 78,
+    "info": "None"
+  },
+  {
+    "requirements": {"INSECT": 3},
+    "scoreCondition": "EMPTY",
+    "color": "PURPLE",
+    "score": 3,
+    "corners": {
+      "TOP_LEFT": {"resource": "FULL", "covered": false},
+      "BOTTOM_LEFT" : {"resource": "QUILL", "covered": false},
+      "BOTTOM_RIGHT": {"resource": "EMPTY" , "covered": false},
+      "TOP_RIGHT": {"resource": "FULL", "covered": false}
+    },
+    "id": 79,
+    "info": "None"
+  },
+  {
+    "requirements": {"INSECT": 5},
+    "scoreCondition": "EMPTY",
+    "color": "PURPLE",
+    "score": 5,
+    "corners": {
+      "TOP_LEFT": {"resource": "EMPTY", "covered": false},
+      "BOTTOM_LEFT" : {"resource": "FULL", "covered": false},
+      "BOTTOM_RIGHT": {"resource": "FULL" , "covered": false},
+      "TOP_RIGHT": {"resource": "EMPTY", "covered": false}
+    },
+    "id": 80,
+    "info": "None"
+  }
+]

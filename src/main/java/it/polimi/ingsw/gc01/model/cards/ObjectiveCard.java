@@ -1,25 +1,17 @@
 package it.polimi.ingsw.gc01.model.cards;
 
-import it.polimi.ingsw.gc01.model.player.Field;
-import it.polimi.ingsw.gc01.model.strategy.Strategy;
+import it.polimi.ingsw.gc01.model.player.*;
+import it.polimi.ingsw.gc01.model.strategy.*;
 
 public class ObjectiveCard extends Card {
-    private final int score;
     private final Strategy strategy;
 
-    public ObjectiveCard (int score, Strategy strategy){
-        this.score = score;
+    public ObjectiveCard (int id, String info, Strategy strategy){
+        super(id, info);
         this.strategy = strategy;
     }
 
-    public int getScore(Field field){
-        return score;
-    }
-
-    /**
-     * @return the strategy to check if a field satisfies a certain objective
-     */
-    public Strategy getStrategy(){
-        return strategy;
+    public int calculatePoints(Player player){
+        return strategy.check(player);
     }
 }

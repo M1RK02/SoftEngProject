@@ -1,25 +1,17 @@
 package it.polimi.ingsw.gc01.model.corners;
 
-import it.polimi.ingsw.gc01.model.cards.CardResources;
-
 public class Corner {
-    private CardResources object;
+    private CardResource resource;
     private boolean covered;
 
-    public Corner (){
-        // TODO
+    public Corner (CardResource resource){
+        this.resource = resource;
     }
 
-    /**
-     * @return the corner's object
-     */
-    public CardResources getObject(){
-        return object;
+    public CardResource getResource(){
+        return resource;
     }
 
-    /**
-     * @return true or false depending on whether covered or not
-     */
     public boolean isCovered(){
         return covered;
     }
