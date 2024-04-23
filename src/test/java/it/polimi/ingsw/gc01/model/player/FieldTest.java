@@ -30,26 +30,26 @@ class FieldTest {
         resourceDeck = new ResourceDeck();
         goldenDeck = new GoldenDeck();
 
-        testField.put(new Position(0,0), starterDeck.get(), player);
+        testField.getPositions().put(new Position(0,0), starterDeck.get());
     }
 
     @Test
     void getAdjacentCards() {
-        testField.put(new Position(1,1), resourceDeck.pickById(2), player);
+        testField.getPositions().put(new Position(1,1), resourceDeck.pickById(2));
         adjacentCards = testField.getAdjacentCards(new Position(2,0));
         assertEquals(resourceDeck.pickById(2), adjacentCards.get(CornerPosition.TOP_LEFT));
 
-        testField.put(new Position(1,-1), resourceDeck.pickById(4), player);
+        testField.getPositions().put(new Position(1,-1), resourceDeck.pickById(4));
         adjacentCards = testField.getAdjacentCards(new Position(2,0));
         assertEquals(resourceDeck.pickById(4), adjacentCards.get(CornerPosition.BOTTOM_LEFT));
 
-        testField.put(new Position(2,-2), resourceDeck.pickById(1), player);
-        testField.put(new Position(2,2), resourceDeck.pickById(3), player);
-        testField.put(new Position(3,1), goldenDeck.pickById(47), player);
+        testField.getPositions().put(new Position(2,-2), resourceDeck.pickById(1));
+        testField.getPositions().put(new Position(2,2), resourceDeck.pickById(3));
+        testField.getPositions().put(new Position(3,1), goldenDeck.pickById(47));
         adjacentCards = testField.getAdjacentCards(new Position(2,0));
         assertEquals(goldenDeck.pickById(47), adjacentCards.get(CornerPosition.TOP_RIGHT));
 
-        testField.put(new Position(3,-1), goldenDeck.pickById(71), player);
+        testField.getPositions().put(new Position(3,-1), goldenDeck.pickById(71));
         adjacentCards = testField.getAdjacentCards(new Position(2,0));
         assertEquals(goldenDeck.pickById(71), adjacentCards.get(CornerPosition.BOTTOM_RIGHT));
         assertEquals(goldenDeck.pickById(47), adjacentCards.get(CornerPosition.TOP_RIGHT));
