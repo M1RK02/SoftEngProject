@@ -1,6 +1,7 @@
 package it.polimi.ingsw.gc01.model.decks;
 
 import java.io.*;
+import java.lang.reflect.Type;
 import java.util.*;
 import com.google.gson.*;
 import it.polimi.ingsw.gc01.model.cards.*;
@@ -21,20 +22,7 @@ public abstract class Deck {
         try {
             List<Object> cardList = gson.fromJson(new FileReader(json), List.class);
             for (Object card : cardList) {
-                switch(type){
-                    case "Golden":
-                        deck.add(gson.fromJson(card.toString(), GoldenCard.class));
-                        break;
-                    case "Objective":
-                        deck.add(gson.fromJson(card.toString(), ObjectiveCard.class));
-                        break;
-                    case "Resource":
-                        deck.add(gson.fromJson(card.toString(), ResourceCard.class));
-                        break;
-                    case "Starter":
-                        deck.add(gson.fromJson(card.toString(), StarterCard.class));
-                        break;
-                }
+                deck.add(gson.fromJson(card.toString(), (Type) Class.forName("it.polimi.ingsw.gc01.model.cards."+type+"Card")));
             }
         } catch (Exception ignored) {}
     }
