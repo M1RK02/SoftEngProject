@@ -1,7 +1,6 @@
 package it.polimi.ingsw.gc01.model.cards;
 
 import it.polimi.ingsw.gc01.model.CornerValue;
-import it.polimi.ingsw.gc01.model.Item;
 import it.polimi.ingsw.gc01.model.Resource;
 import it.polimi.ingsw.gc01.model.corners.Corner;
 import it.polimi.ingsw.gc01.model.corners.CornerPosition;
@@ -69,6 +68,7 @@ class GoldenCardTest {
     void calculatePoints() {
         //Origin
         field.getPositions().put(new Position(0,0), starterDeck.get());
+        addRes(starterDeck.pick(), new Position(0,0));
 
         //scoreCondition.equals(Item.QUILL)
         field.getPositions().put(new Position(-1,-1), resourceDeck.pickById(5));
@@ -120,7 +120,6 @@ class GoldenCardTest {
         //Adding Resources
         Map<CornerPosition, Corner> corners = card.getCorners();
         PlayableCard c;
-        Position origin = new Position(0,0);
         Position nextPosition;
         for (Corner corner : corners.values()) {
             if (!corner.getResource().equals(EMPTY) && !corner.getResource().equals(CornerValue.FULL)) {
@@ -130,7 +129,7 @@ class GoldenCardTest {
 
         //Removing Resources from covered cards
         nextPosition = new Position(p.getX() + 1, p.getY() + 1);
-        if (field.getPositions().containsKey(nextPosition) && !nextPosition.equals(origin)){
+        if (field.getPositions().containsKey(nextPosition)){
             c = field.getPositions().get(nextPosition);
             Corner bottomLeft = c.getCorners().get(CornerPosition.BOTTOM_LEFT);
             if (bottomLeft.getResource() != EMPTY && bottomLeft.getResource() != FULL){
@@ -139,7 +138,7 @@ class GoldenCardTest {
         }
 
         nextPosition = new Position(p.getX() - 1, p.getY() + 1);
-        if (field.getPositions().containsKey(nextPosition) && !nextPosition.equals(origin)){
+        if (field.getPositions().containsKey(nextPosition)){
             c = field.getPositions().get(nextPosition);
             Corner bottomRight = c.getCorners().get(CornerPosition.BOTTOM_RIGHT);
             if (bottomRight.getResource() != EMPTY && bottomRight.getResource() != FULL){
@@ -148,7 +147,7 @@ class GoldenCardTest {
         }
 
         nextPosition = new Position(p.getX() + 1, p.getY() - 1);
-        if (field.getPositions().containsKey(nextPosition) && !nextPosition.equals(origin)){
+        if (field.getPositions().containsKey(nextPosition)){
             c = field.getPositions().get(nextPosition);
             Corner topLeft = c.getCorners().get(CornerPosition.TOP_LEFT);
             if (topLeft.getResource() != EMPTY && topLeft.getResource() != FULL){
@@ -157,7 +156,7 @@ class GoldenCardTest {
         }
 
         nextPosition = new Position(p.getX() - 1, p.getY() - 1);
-        if (field.getPositions().containsKey(nextPosition) && !nextPosition.equals(origin)){
+        if (field.getPositions().containsKey(nextPosition)){
             c = field.getPositions().get(nextPosition);
             Corner topRight = c.getCorners().get(CornerPosition.TOP_RIGHT);
             if (topRight.getResource() != EMPTY && topRight.getResource() != FULL){
