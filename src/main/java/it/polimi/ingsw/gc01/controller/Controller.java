@@ -9,15 +9,18 @@ import it.polimi.ingsw.gc01.model.room.*;
 import java.util.List;
 
 public class Controller {
-    private Room model;
+    private Room room;
     private WaitingRoom waitingRoom;
 
-    public Controller(Room model){
-        this.model = model;
+    private GameState state;
+
+    public Controller(Room model) {
+        this.room = model;
+        this.state = GameState.INITIALIZATION;
     }
 
-    public Room getModel() {
-        return model;
+    public Room getRoom() {
+        return room;
     }
 
     public void addPlayer(Player p) throws MaxPlayerInException, PlayerAlreadyInException {
@@ -38,4 +41,25 @@ public class Controller {
             throw new PlayerAlreadyInException();
         }
     }
+
+
+    public void prepareGame() {
+        room = new Room(waitingRoom.getPlayers());
+
+        for (Player player : room.getPlayers()) {
+            player.addCard(room.getStarterDeck().pick());
+        }
+
+    }
+
+    public void startGame() {
+        this.state = GameState.DURING;
+    }
+
 }
+
+
+
+
+
+

@@ -64,6 +64,8 @@ public class Room {
         commonObjectives.add(objectiveDeck.pick());
     }
 
+
+
     public StarterDeck getStarterDeck() {
         return starterDeck;
     }
