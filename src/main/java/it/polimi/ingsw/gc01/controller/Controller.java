@@ -3,31 +3,36 @@ package it.polimi.ingsw.gc01.controller;
 import it.polimi.ingsw.gc01.model.DefaultValue;
 import it.polimi.ingsw.gc01.controller.exceptions.MaxPlayerInException;
 import it.polimi.ingsw.gc01.controller.exceptions.PlayerAlreadyInException;
+import it.polimi.ingsw.gc01.model.cards.ObjectiveCard;
 import it.polimi.ingsw.gc01.model.player.*;
 import it.polimi.ingsw.gc01.model.room.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Controller {
-    private Room model;
+    private Room room;
     private WaitingRoom waitingRoom;
 
-    public Controller(Room model){
-        this.model = model;
+    private GameState state;
+
+    public Controller() {
+        this.waitingRoom = new WaitingRoom();
+        this.state = GameState.INITIALIZATION;
     }
 
-    public Room getModel() {
-        return model;
+    public Room getRoom() {
+        return room;
     }
 
-    public void addPlayer(Player p) throws MaxPlayerInException, PlayerAlreadyInException {
+    public void addPlayer(String nickname, PlayerColor color) throws MaxPlayerInException, PlayerAlreadyInException {
         List<Player> players = waitingRoom.getPlayers();
         //First I check that the player is not already in the game
         // then I check if the game is already full
         if (players.stream()
-                .noneMatch(x -> x.equals(p))) {
+                .map(Player::getName).noneMatch(x -> x.equals(nickname))) {
             if (players.size() + 1 <= DefaultValue.MaxNumOfPlayer) {
-                waitingRoom.addPlayer(p.getName(), p.getColor());
+                waitingRoom.addPlayer(nickname, color);
                 //listenersHandler.notify_playerJoined(this);
             } else {
                 //listenersHandler.notify_JoinUnableGameFull(p, this);
@@ -36,6 +41,43 @@ public class Controller {
         } else {
             //listenersHandler.notify_JoinUnableNicknameAlreadyIn(p);
             throw new PlayerAlreadyInException();
+        }
+    }
+
+    public void distributeCards(){
+        for (Player p : room.getPlayers()){
+            p.addCard(room.getResourceDeck().pick());
+            p.addCard(room.getResourceDeck().pick());
+            p.addCard(room.getGoldenDeck().pick());
+            p.setPossibleObjective(room.getObjectiveDeck().pick());
+            p.setPossibleObjective(room.getObjectiveDeck().pick());
+        }
+    }
+
+    public void prepareGame() {
+        room = new Room(waitingRoom.getPlayers());
+
+        for (Player player : room.getPlayers()) {
+            player.addCard(room.getStarterDeck().pick());
+        }
+
+    }
+
+    public void startGame() {
+        this.state = GameState.DURING;
+    }
+
+    public void nextPlayer() {
+        room.setCurrentPlayer(room.getNextPlayer());
+    }
+
+    public void calculateStrategy() {
+        List<Player> players = room.getPlayers();
+        List<ObjectiveCard> commonObjectives = room.getCommonObjectives();
+        for (Player p : players) {
+            p.addPoints(commonObjectives.get(0).calculatePoints(p));
+            p.addPoints(commonObjectives.get(1).calculatePoints(p));
+            p.addPoints(p.getSecretObjective().calculatePoints(p));
         }
     }
 }
