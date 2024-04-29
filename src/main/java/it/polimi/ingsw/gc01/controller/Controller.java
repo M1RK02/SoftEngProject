@@ -3,6 +3,7 @@ package it.polimi.ingsw.gc01.controller;
 import it.polimi.ingsw.gc01.model.DefaultValue;
 import it.polimi.ingsw.gc01.controller.exceptions.MaxPlayerInException;
 import it.polimi.ingsw.gc01.controller.exceptions.PlayerAlreadyInException;
+import it.polimi.ingsw.gc01.model.cards.ObjectiveCard;
 import it.polimi.ingsw.gc01.model.player.*;
 import it.polimi.ingsw.gc01.model.room.*;
 
@@ -56,10 +57,17 @@ public class Controller {
         this.state = GameState.DURING;
     }
 
+    public void nextPlayer() {
+        room.setCurrentPlayer(room.getNextPlayer());
+    }
+
+    public void calculateStrategy() {
+        List<Player> players = room.getPlayers();
+        List<ObjectiveCard> commonObjectives = room.getCommonObjectives();
+        for (Player p : players) {
+            p.addPoints(commonObjectives.get(0).calculatePoints(p));
+            p.addPoints(commonObjectives.get(1).calculatePoints(p));
+            p.addPoints(p.getSecretObjective().calculatePoints(p));
+        }
+    }
 }
-
-
-
-
-
-
