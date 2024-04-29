@@ -6,7 +6,11 @@ import it.polimi.ingsw.gc01.model.cards.*;
 import it.polimi.ingsw.gc01.model.corners.*;
 
 import static it.polimi.ingsw.gc01.model.CornerValue.*;
+import static it.polimi.ingsw.gc01.model.Item.*;
+import static it.polimi.ingsw.gc01.model.Resource.*;
 import static it.polimi.ingsw.gc01.model.corners.CornerPosition.*;
+import static it.polimi.ingsw.gc01.model.cards.CardColor.*;
+
 
 public class Player {
     private final String name;
@@ -31,13 +35,13 @@ public class Player {
      */
     private Map<PlayerResource, Integer> initResources() {
         Map<PlayerResource, Integer> resources = new HashMap<>();
-        resources.put(Resource.ANIMAL, 0);
-        resources.put(Resource.PLANT, 0);
-        resources.put(Resource.FUNGI, 0);
-        resources.put(Resource.INSECT, 0);
-        resources.put(Item.QUILL, 0);
-        resources.put(Item.INKWELL, 0);
-        resources.put(Item.MANUSCRIPT, 0);
+        resources.put(ANIMAL, 0);
+        resources.put(PLANT, 0);
+        resources.put(FUNGI, 0);
+        resources.put(INSECT, 0);
+        resources.put(QUILL, 0);
+        resources.put(INKWELL, 0);
+        resources.put(MANUSCRIPT, 0);
         return resources;
     }
 
@@ -110,11 +114,25 @@ public class Player {
 
         //If card is an available card, check the side of the card
         if (card instanceof StarterCard){
-            if (((StarterCard) card).isFront()) {
+            if (card.isFront()) {
                 addCenterResources((StarterCard) card);
             }else {
                 corners = ((StarterCard) card).getBackCorners();
             }
+        }else if (!card.isFront()) {
+            //Add center resources depending on the card color
+            CardColor color = ((ResourceCard) card).getColor();
+            if(color.equals(RED)) {
+                addResource(FUNGI);
+            }else if(color.equals(BLUE)) {
+                addResource(ANIMAL);
+            }else if(color.equals(GREEN)) {
+                addResource(PLANT);
+            }else if (color.equals(PURPLE)) {
+                addResource(INSECT);
+            }
+            //Set corners like a Map with four empty corners
+            corners.replaceAll((p, v) -> new Corner(EMPTY));
         }
 
         //Remove card from the hand
