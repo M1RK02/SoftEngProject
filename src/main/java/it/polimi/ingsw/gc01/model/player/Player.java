@@ -16,6 +16,7 @@ public class Player {
     private List<PlayableCard> hand;
     private Field field;
     private ObjectiveCard secretObjective;
+    private Set<ObjectiveCard> possibleObjective;
 
     public Player(String name, PlayerColor color) {
         this.name = name;
@@ -71,6 +72,9 @@ public class Player {
 
     public void setSecretObjective(ObjectiveCard secretObjective) {
         this.secretObjective = secretObjective;
+    }
+    public void setPossibleObjective(ObjectiveCard c){
+        possibleObjective.add(c);
     }
 
     /**

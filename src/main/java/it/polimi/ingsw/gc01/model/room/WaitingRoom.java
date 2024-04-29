@@ -30,10 +30,4 @@ public class WaitingRoom {
         return players;
     }
 
-    /**
-     * Start the game
-     */
-    public void startGame() {
-        Room room = new Room(players);
-    }
 }
