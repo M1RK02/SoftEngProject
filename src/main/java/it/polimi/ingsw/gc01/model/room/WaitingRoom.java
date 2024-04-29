@@ -26,6 +26,10 @@ public class WaitingRoom {
         availableColors.remove(playerColor);
     }
 
+    public List<Player> getPlayers() {
+        return players;
+    }
+
     /**
      * Start the game
      */
