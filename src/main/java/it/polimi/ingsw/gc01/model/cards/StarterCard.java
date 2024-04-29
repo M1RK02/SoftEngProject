@@ -16,18 +16,30 @@ public class StarterCard extends PlayableCard{
         this.front = true;
     }
 
+
     public void setFront(boolean front) {
         this.front = front;
     }
 
+
+    /**
+     * @return true if this.front is true, false if not
+     */
     public boolean isFront() {
         return front;
     }
 
+
+    /**
+     * @return the set of resources contained at the center of the starter card.
+     */
     public Set<Resource> getCenterResources(){
         return centerResources;
     }
 
+    /**
+     * @return a map containing the corners of the starterCard's back
+     */
     public Map<CornerPosition, Corner> getBackCorners(){
         return backCorners;
     }

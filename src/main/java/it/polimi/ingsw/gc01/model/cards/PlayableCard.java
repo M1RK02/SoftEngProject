@@ -11,6 +11,7 @@ public abstract class PlayableCard extends Card{
         this.corners = corners;
     }
 
+
     public Map<CornerPosition, Corner> getCorners() {
         return corners;
     }

@@ -11,6 +11,10 @@ public class ObjectiveCard extends Card {
         this.strategy = strategy;
     }
 
+    /**
+     * @param player for whom to calculate how many points he earned in their field relative to his objective card.
+     * @return the number of points got from the ObjectiveCard calculated in the player's field
+     */
     public int calculatePoints(Player player){
         return strategy.check(player);
     }

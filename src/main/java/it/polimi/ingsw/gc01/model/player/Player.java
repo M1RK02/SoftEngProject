@@ -26,6 +26,9 @@ public class Player {
         this.field = new Field();
     }
 
+    /**
+     * @return a Map containing the initial count of all the CardResources present in the player field (empty for the moment)
+     */
     private Map<PlayerResource, Integer> initResources() {
         Map<PlayerResource, Integer> resources = new HashMap<>();
         resources.put(Resource.ANIMAL, 0);
@@ -70,22 +73,38 @@ public class Player {
         this.secretObjective = secretObjective;
     }
 
+    /**
+     * @param playerPoints points to add to the player
+     */
     public void addPoints(int playerPoints) {
         this.points += playerPoints;
     }
 
+    /**
+     * @param resource is the PlayerResource to increment within the map that tracks the number of CardResources visible in the player's field.
+     */
     public void addResource(PlayerResource resource) {
         resources.put(resource, resources.get(resource) + 1);
     }
 
+    /**
+     * @param resource is the PlayerResource to decrement within the map that tracks the number of CardResources visible in the player's field.
+     */
     public void removeResource(PlayerResource resource) {
         resources.put(resource, resources.get(resource) - 1);
     }
 
+    /**
+     * @param card to add to the player's hand
+     */
     public void addCard(PlayableCard card) {
         hand.add(card);
     }
 
+    /**
+     * @param card to play on the player's field.
+     * @param position where the player wants to place the card.
+     */
     public void playCard(PlayableCard card, Position position){
         Map<CornerPosition, Corner> corners = card.getCorners();
 
@@ -122,6 +141,11 @@ public class Player {
         }
     }
 
+    /**
+     * PRIVATE METHOD FOR THE METHOD PLAY
+     * @param card just placed on the field for which to calculate the points the player earns.
+     * @param position of the card in the player's field
+     */
     private void updatePoints(ResourceCard card, Position position) {
         if (card instanceof GoldenCard) {
             addPoints(((GoldenCard) card).calculatePoints(this, position));
@@ -130,12 +154,21 @@ public class Player {
         }
     }
 
+    /**
+     * PRIVATE METHOD FOR THE METHOD PLAY
+     * @param card is the Starter card of the player, this method adds to the PlayerResources the CardResources present in the card
+     */
     private void addCenterResources(StarterCard card) {
         for (CardResource cardResource : card.getCenterResources()) {
             addResource((PlayerResource) cardResource);
         }
     }
 
+    /**
+     * PRIVATE METHOD FOR THE METHOD PLAY
+     * @param corners is a map of a card's corners that are going to update the PlayerResource count
+     *                this method is called when the player has just placed a card on hi field
+     */
     private void addCornerResources(Map<CornerPosition, Corner> corners) {
         for (Corner corner : corners.values()) {
             if (!corner.getResource().equals(EMPTY) && !corner.getResource().equals(CornerValue.FULL)) {
@@ -144,6 +177,11 @@ public class Player {
         }
     }
 
+    /**
+     * PRIVATE METHOD FOR THE METHOD PLAY
+     * @param adjacentCard map of the adjacentCards to cover in the player's field
+     *
+     */
     private void coverAdjacentCorners(Map<CornerPosition, PlayableCard> adjacentCard) {
         for (CornerPosition cornerPosition : adjacentCard.keySet()) {
             Map<CornerPosition, Corner> corners;
@@ -182,6 +220,12 @@ public class Player {
         }
     }
 
+    /**
+     * PRIVATE METHOD FOR THE METHOD PLAY
+     * @param corners of the card just played in the position
+     * @param adjacentCard map of the adjacent cards of the position
+     * @param position of the just played card in the player's field
+     */
     private void updateAvailablePosition(Map<CornerPosition, Corner> corners, Map<CornerPosition, PlayableCard> adjacentCard, Position position) {
         for (CornerPosition cornerPosition : corners.keySet()) {
             if (!adjacentCard.containsKey(cornerPosition)) {

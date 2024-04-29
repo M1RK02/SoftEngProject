@@ -27,20 +27,34 @@ public abstract class Deck {
         } catch (Exception ignored) {}
     }
 
+    /**
+     * @return true if the deck does not contain cards.
+     */
     public boolean isEmpty() {
         return deck.isEmpty();
     }
 
+    /**
+     * shuffles the cards' deck
+     */
     public void shuffle() {
         Collections.shuffle(deck);
     }
 
+    /**
+     * @return the card on the top of the deck after removing it
+     */
     public Card pick() {
         Card card = deck.get(0);
         deck.remove(0);
         return card;
     }
 
+    /**
+     *ONLY FOR TESTING
+     * @param id of the card to draw from the deck
+     * @return the card whose id is the same of id
+     */
     public Card pickById(int id) {
         Card card;
         for (Card c : deck){
@@ -51,6 +65,10 @@ public abstract class Deck {
         }
         return null;
     }
+
+    /**
+     * @return the card on the top of the deck
+     */
     public Card get() {
         return deck.get(0);
     }

@@ -48,6 +48,9 @@ public class Room {
         return sb.toString();
     }
 
+    /**
+     * initiate the common playing field (decks and drawable cards)
+     */
     private void initTable() {
         goldenDeck.shuffle();
         resourceDeck.shuffle();

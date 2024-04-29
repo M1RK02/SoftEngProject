@@ -28,6 +28,11 @@ public class GoldenCard extends ResourceCard{
         return true;
     }
 
+    /**
+     * @param player for whom to calculate the points earned after placing the golden card in his field.
+     * @param position on which the golden card has been played.
+     * @return number of points earned after placing the golden card
+     */
     public int calculatePoints(Player player, Position position){
         if (scoreCondition.equals(Item.QUILL)) {
             return player.getResources().get(Item.QUILL)*getScore();
