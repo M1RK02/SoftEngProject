@@ -21,7 +21,7 @@ public class Player {
     private List<PlayableCard> hand;
     private Field field;
     private ObjectiveCard secretObjective;
-    private List<ObjectiveCard> possibleObjective;
+    private List<ObjectiveCard> possibleObjective = new ArrayList<>();
 
     public Player(String name, PlayerColor color) {
         this.name = name;
