@@ -83,22 +83,4 @@ class ControllerTest {
         testController.startGame();
         assertEquals(GameState.RUNNING, testController.getState());
     }
-
-    @Test
-    void nextPlayer() {
-        testController.addPlayer(p.get(0).getName(), p.get(0).getColor());
-        testController.addPlayer(p.get(1).getName(), p.get(1).getColor());
-        testController.addPlayer(p.get(2).getName(), p.get(2).getColor());
-        testController.addPlayer(p.get(3).getName(), p.get(3).getColor());
-        testController.prepareGame();
-        for (Player player : testController.getRoom().getPlayers()) {
-            assertEquals(player.getName(), testController.getRoom().getCurrentPlayer().getName());
-            testController.nextPlayer();
-        }
-    }
-
-    @Test
-    void calculateStrategy() {
-
-    }
 }

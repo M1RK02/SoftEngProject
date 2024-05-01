@@ -11,6 +11,7 @@ import org.junit.jupiter.api.Test;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
+import java.util.Set;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -51,30 +52,87 @@ class ControllerTestRunning {
     }
 
     @Test
-    void nextPlayer() {
+    void playCard() {
+        testController.playCard(testController.getRoom().getCurrentPlayer().getHand().get(0), new Position(-1,-1));
+        testController.playCard(testController.getRoom().getCurrentPlayer().getHand().get(0), new Position(-1,1));
+        testController.playCard(testController.getRoom().getCurrentPlayer().getHand().get(0), new Position(1,-1));
+        assertEquals(0, testController.getRoom().getCurrentPlayer().getHand().size());
+        assertEquals(4, testController.getRoom().getCurrentPlayer().getField().getPositions().size());
     }
 
     @Test
-    void calculateStrategy() {
+    void nextPlayer() {
+        for (Player player : testController.getRoom().getPlayers()) {
+            assertEquals(player.getName(), testController.getRoom().getCurrentPlayer().getName());;
+            testController.nextPlayer();
+        }
     }
 
     @Test
     void flipCard() {
-    }
-
-    @Test
-    void playCard() {
+        assertFalse(testController.getRoom().getCurrentPlayer().getHand().get(0).isFront());
+        testController.flipCard(testController.getRoom().getCurrentPlayer().getHand().get(0));
+        assertTrue(testController.getRoom().getCurrentPlayer().getHand().get(0).isFront());
     }
 
     @Test
     void drawCard() {
+        Random random = new Random();
+        for (int i = 0; i < 40; i++){
+            int z = random.nextInt(5);
+            testController.playCard(testController.getRoom().getCurrentPlayer().getHand().get(0), getRandomAvaliablePosition());
+            testController.drawCard(testController.getRoom().getDrawableCards().get(z));
+            assertEquals(3, testController.getRoom().getCurrentPlayer().getHand().size());
+            testController.nextPlayer();
+        }
+
+        for (Player p : testController.getRoom().getPlayers()){
+            assertEquals(11, p.getField().getPositions().size());
+        }
+
     }
 
     @Test
     void changeStateIfTwenty() {
+        testController.getRoom().getCurrentPlayer().addPoints(19);
+        testController.changeStateIfTwenty();
+        assertEquals(GameState.RUNNING, testController.getState());
+        testController.getRoom().getCurrentPlayer().addPoints(1);
+        testController.changeStateIfTwenty();
+        assertEquals(GameState.LAST_CIRCLE, testController.getState());
+
     }
 
     @Test
     void endGame() {
+        testController.getRoom().getCurrentPlayer().addPoints(22);
+        testController.nextPlayer();
+        testController.getRoom().getCurrentPlayer().addPoints(19);
+        testController.nextPlayer();
+        testController.getRoom().getCurrentPlayer().addPoints(23);
+        testController.nextPlayer();
+        testController.getRoom().getCurrentPlayer().addPoints(23);
+        testController.changeStateIfTwenty();
+        testController.endGame();
+        assertEquals(p.get(2).getName(), testController.getRoom().getWinners().get(0).getName());
+        assertEquals(p.get(3).getName(), testController.getRoom().getWinners().get(1).getName());
+    }
+
+    /**
+     *
+     * @return a random position between the set of AvailablePosition from each player field
+     */
+    private Position getRandomAvaliablePosition(){
+        Set<Position> availablePosition = testController.getRoom().getCurrentPlayer().getField().getAvailablePositions();
+        int size = availablePosition.size();
+        int item = new Random().nextInt(size);
+        int i = 0;
+        for(Position p : availablePosition)
+        {
+            if (i == item)
+                return p;
+            i++;
+        }
+        return null;
     }
 }

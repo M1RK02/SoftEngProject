@@ -93,7 +93,7 @@ public class Controller {
     }
 
     public void drawCard (PlayableCard card) {
-        //Se è una viseble card, rimuove la carta da visibleCards e ne pesca una nuova
+        //Se è una visible card, rimuove la carta da visibleCards e ne pesca una nuova
         if (room.getVisibleCards().contains(card)) {
             room.getVisibleCards().remove(card);
             if (card instanceof GoldenCard) {
@@ -130,6 +130,7 @@ public class Controller {
     public void endGame () {
         calculateStrategy();
         List<Player> winners = room.getWinners();
+        state = GameState.ENDED;
         // broadcast the winners message to everyone
     }
 }
