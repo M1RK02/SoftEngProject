@@ -21,7 +21,7 @@ public class Player {
     private List<PlayableCard> hand;
     private Field field;
     private ObjectiveCard secretObjective;
-    private Set<ObjectiveCard> possibleObjective;
+    private List<ObjectiveCard> possibleObjective;
 
     public Player(String name, PlayerColor color) {
         this.name = name;
@@ -83,11 +83,12 @@ public class Player {
         return secretObjective;
     }
 
+    public List<ObjectiveCard> getPossibleObjective() {
+        return possibleObjective;
+    }
+
     public void setSecretObjective(ObjectiveCard secretObjective) {
         this.secretObjective = secretObjective;
-    }
-    public void setPossibleObjective(ObjectiveCard c){
-        possibleObjective.add(c);
     }
 
     /**
@@ -113,13 +114,6 @@ public class Player {
      */
     public void removeResource(PlayerResource resource) {
         resources.put(resource, resources.get(resource) - 1);
-    }
-
-    /**
-     * @param card to add to the player's hand
-     */
-    public void addCard(PlayableCard card) {
-        hand.add(card);
     }
 
     /**

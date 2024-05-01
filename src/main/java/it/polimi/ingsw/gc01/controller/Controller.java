@@ -3,6 +3,7 @@ package it.polimi.ingsw.gc01.controller;
 import it.polimi.ingsw.gc01.model.DefaultValue;
 import it.polimi.ingsw.gc01.controller.exceptions.MaxPlayerInException;
 import it.polimi.ingsw.gc01.controller.exceptions.PlayerAlreadyInException;
+import it.polimi.ingsw.gc01.model.cards.GoldenCard;
 import it.polimi.ingsw.gc01.model.cards.ObjectiveCard;
 import it.polimi.ingsw.gc01.model.cards.PlayableCard;
 import it.polimi.ingsw.gc01.model.player.*;
@@ -13,7 +14,6 @@ import java.util.List;
 public class Controller {
     private Room room;
     private WaitingRoom waitingRoom;
-
     private GameState state;
 
     public Controller() {
@@ -49,11 +49,11 @@ public class Controller {
 
     public void distributeCards(){
         for (Player p : room.getPlayers()){
-            p.addCard(room.getResourceDeck().pick());
-            p.addCard(room.getResourceDeck().pick());
-            p.addCard(room.getGoldenDeck().pick());
-            p.setPossibleObjective(room.getObjectiveDeck().pick());
-            p.setPossibleObjective(room.getObjectiveDeck().pick());
+            p.getHand().add(room.getResourceDeck().pick());
+            p.getHand().add(room.getResourceDeck().pick());
+            p.getHand().add(room.getGoldenDeck().pick());
+            p.getPossibleObjective().add(room.getObjectiveDeck().pick());
+            p.getPossibleObjective().add(room.getObjectiveDeck().pick());
         }
     }
 
@@ -61,7 +61,7 @@ public class Controller {
         room = new Room(waitingRoom.getPlayers());
 
         for (Player player : room.getPlayers()) {
-            player.addCard(room.getStarterDeck().pick());
+            player.getHand().add(room.getStarterDeck().pick());
         }
 
     }
@@ -93,10 +93,23 @@ public class Controller {
     }
 
     public void drawCard (PlayableCard card) {
-        room.getVisibleCards().remove(card);
-        //Aggiorna le vidible card
+        //Se è una viseble card, rimuove la carta da visibleCards e ne pesca una nuova
+        if (room.getVisibleCards().contains(card)) {
+            room.getVisibleCards().remove(card);
+            if (card instanceof GoldenCard) {
+                room.getVisibleCards().add(room.getGoldenDeck().pick());
+            }else {
+                room.getVisibleCards().add(room.getResourceDeck().pick());
+            }
+        }else {//Altrimenti fa il pick del deck corrispondente
+            if (card instanceof GoldenCard) {
+                room.getGoldenDeck().pick();
+            }else {
+                room.getResourceDeck().pick();
+            }
+        }
+        //Aggiunge la carta alla mano
         room.getCurrentPlayer().getHand().add(card);
-
     }
 
     public GameState getState() {

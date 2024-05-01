@@ -32,7 +32,7 @@ class PlayerTest {
         starterDeck = new StarterDeck();
         resourceDeck = new ResourceDeck();
         player = new Player("testPlayer", PlayerColor.BLUE);
-        player.addCard(starterDeck.pick());
+        player.getHand().add(starterDeck.pick());
     }
 
     @Test

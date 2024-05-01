@@ -48,12 +48,4 @@ class ControllerTest {
     @Test
     void startGame() {
     }
-
-    @Test
-    void nextPlayer() {
-    }
-
-    @Test
-    void calculateStrategy() {
-    }
 }
