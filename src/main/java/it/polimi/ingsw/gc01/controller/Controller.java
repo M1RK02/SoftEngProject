@@ -110,7 +110,7 @@ public class Controller {
     public void changeStateIfTwenty () {
         Player currentPlayer = room.getCurrentPlayer();
         if (currentPlayer.getPoints() >= 20) {
-            state = GameState.END;
+            state = GameState.LAST_CIRCLE;
         }
     }
 
