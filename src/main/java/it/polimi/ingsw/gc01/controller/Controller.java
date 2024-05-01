@@ -8,7 +8,6 @@ import it.polimi.ingsw.gc01.model.cards.PlayableCard;
 import it.polimi.ingsw.gc01.model.player.*;
 import it.polimi.ingsw.gc01.model.room.*;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class Controller {
@@ -19,11 +18,14 @@ public class Controller {
 
     public Controller() {
         this.waitingRoom = new WaitingRoom();
-        this.state = GameState.INITIALIZATION;
+        this.state = GameState.WAITING;
     }
 
     public Room getRoom() {
         return room;
+    }
+    public WaitingRoom getWaitingRoom(){
+        return waitingRoom;
     }
 
     public void addPlayer(String nickname, PlayerColor color) throws MaxPlayerInException, PlayerAlreadyInException {
@@ -65,7 +67,7 @@ public class Controller {
     }
 
     public void startGame() {
-        this.state = GameState.DURING;
+        this.state = GameState.RUNNING;
     }
 
     public void nextPlayer() {
@@ -95,5 +97,13 @@ public class Controller {
         //Aggiorna le vidible card
         room.getCurrentPlayer().getHand().add(card);
 
+    }
+
+    public GameState getState() {
+        return state;
+    }
+
+    public void setState(GameState state) {
+        this.state = state;
     }
 }

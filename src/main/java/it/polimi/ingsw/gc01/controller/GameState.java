@@ -1,7 +1,8 @@
 package it.polimi.ingsw.gc01.controller;
 
 public enum GameState {
-    INITIALIZATION,
-    DURING,
-    END;
+    WAITING,
+    RUNNING,
+    LAST_CIRCLE,
+    ENDED;
 }
