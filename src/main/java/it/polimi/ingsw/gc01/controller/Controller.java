@@ -4,6 +4,7 @@ import it.polimi.ingsw.gc01.model.DefaultValue;
 import it.polimi.ingsw.gc01.controller.exceptions.MaxPlayerInException;
 import it.polimi.ingsw.gc01.controller.exceptions.PlayerAlreadyInException;
 import it.polimi.ingsw.gc01.model.cards.ObjectiveCard;
+import it.polimi.ingsw.gc01.model.cards.PlayableCard;
 import it.polimi.ingsw.gc01.model.player.*;
 import it.polimi.ingsw.gc01.model.room.*;
 
@@ -79,5 +80,20 @@ public class Controller {
             p.addPoints(commonObjectives.get(1).calculatePoints(p));
             p.addPoints(p.getSecretObjective().calculatePoints(p));
         }
+    }
+
+    public void flipCard (PlayableCard card) {
+        card.setFront(!card.isFront());
+    }
+
+    public void playCard (PlayableCard card, Position position) {
+        room.getCurrentPlayer().playCard(card, position);
+    }
+
+    public void drawCard (PlayableCard card) {
+        room.getVisibleCards().remove(card);
+        //Aggiorna le vidible card
+        room.getCurrentPlayer().getHand().add(card);
+
     }
 }
