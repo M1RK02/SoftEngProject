@@ -78,9 +78,9 @@ public class Controller {
         List<Player> players = room.getPlayers();
         List<ObjectiveCard> commonObjectives = room.getCommonObjectives();
         for (Player p : players) {
-            p.addPoints(commonObjectives.get(0).calculatePoints(p));
-            p.addPoints(commonObjectives.get(1).calculatePoints(p));
-            p.addPoints(p.getSecretObjective().calculatePoints(p));
+            p.addObjectivePoints(commonObjectives.get(0).calculatePoints(p));
+            p.addObjectivePoints(commonObjectives.get(1).calculatePoints(p));
+            p.addObjectivePoints(p.getSecretObjective().calculatePoints(p));
         }
     }
 
@@ -105,5 +105,18 @@ public class Controller {
 
     public void setState(GameState state) {
         this.state = state;
+    }
+
+    public void changeStateIfTwenty () {
+        Player currentPlayer = room.getCurrentPlayer();
+        if (currentPlayer.getPoints() >= 20) {
+            state = GameState.END;
+        }
+    }
+
+    public void endGame () {
+        calculateStrategy();
+        List<Player> winners = room.getWinners();
+        // broadcast the winners message to everyone
     }
 }

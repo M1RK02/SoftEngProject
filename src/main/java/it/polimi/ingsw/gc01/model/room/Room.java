@@ -127,10 +127,37 @@ public class Room {
     }
 
     /**
-     * Get the game winner
-     * @return winner player
+     * Get the game winners
+     * @return the list of winners
      */
-    public Player getWinner() {
-        return players.stream().max(Comparator.comparingInt(Player::getPoints)).orElse(null);
+    public List<Player> getWinners() {
+        List<Player> winners = new ArrayList<>();
+
+        // Get possible winners with maximum total points
+        int max = 0;
+        for (Player player : players) {
+            int playerPoints = player.getTotalPoints();
+            if (playerPoints > max) {
+                max = playerPoints;
+                winners.clear();
+                winners.add(player);
+            } else if (playerPoints == max) {
+                winners.add(player);
+            }
+        }
+
+        max = 0;
+        for (Player player : winners) {
+            int playerPoints = player.getObjectivePoints();
+            if (playerPoints > max) {
+                max = playerPoints;
+                winners.clear();
+                winners.add(player);
+            } else if (playerPoints == max) {
+                winners.add(player);
+            }
+        }
+
+        return winners;
     }
 }

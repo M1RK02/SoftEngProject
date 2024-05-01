@@ -16,6 +16,7 @@ public class Player {
     private final String name;
     private final PlayerColor color;
     private int points;
+    private int objectivePoints;
     private Map<PlayerResource, Integer> resources;
     private List<PlayableCard> hand;
     private Field field;
@@ -58,6 +59,14 @@ public class Player {
         return points;
     }
 
+    public int getObjectivePoints() {
+        return objectivePoints;
+    }
+
+    public int getTotalPoints() {
+        return points + objectivePoints;
+    }
+
     public Map<PlayerResource, Integer> getResources() {
         return resources;
     }
@@ -86,6 +95,10 @@ public class Player {
      */
     public void addPoints(int playerPoints) {
         this.points += playerPoints;
+    }
+
+    public void addObjectivePoints(int objectivePoints) {
+        this.objectivePoints += objectivePoints;
     }
 
     /**
