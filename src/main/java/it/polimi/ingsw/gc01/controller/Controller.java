@@ -92,24 +92,31 @@ public class Controller {
         room.getCurrentPlayer().playCard(card, position);
     }
 
-    public void drawCard (PlayableCard card) {
-        //Se è una visible card, rimuove la carta da visibleCards e ne pesca una nuova
-        if (room.getVisibleCards().contains(card)) {
-            room.getVisibleCards().remove(card);
-            if (card instanceof GoldenCard) {
-                room.getVisibleCards().add(room.getGoldenDeck().pick());
-            }else {
-                room.getVisibleCards().add(room.getResourceDeck().pick());
-            }
-        }else {//Altrimenti fa il pick del deck corrispondente
-            if (card instanceof GoldenCard) {
-                room.getGoldenDeck().pick();
-            }else {
-                room.getResourceDeck().pick();
-            }
+    public void drawCard(TablePosition position){
+        if (position.equals(TablePosition.RESOURCEDECK)){
+            room.getCurrentPlayer().getHand().add(room.getDrawableCards().get(position));
+            room.getDrawableCards().put(TablePosition.RESOURCEDECK, room.getResourceDeck().pick());
         }
-        //Aggiunge la carta alla mano
-        room.getCurrentPlayer().getHand().add(card);
+        if (position.equals(TablePosition.RESOURCERIGHT)){
+            room.getCurrentPlayer().getHand().add(room.getDrawableCards().get(position));
+            room.getDrawableCards().put(TablePosition.RESOURCERIGHT, room.getResourceDeck().pick());
+        }
+        if (position.equals(TablePosition.RESOURCELEFT)){
+            room.getCurrentPlayer().getHand().add(room.getDrawableCards().get(position));
+            room.getDrawableCards().put(TablePosition.RESOURCELEFT, room.getResourceDeck().pick());
+        }
+        if (position.equals(TablePosition.GOLDENDECK)){
+            room.getCurrentPlayer().getHand().add(room.getDrawableCards().get(position));
+            room.getDrawableCards().put(TablePosition.GOLDENDECK, room.getGoldenDeck().pick());
+        }
+        if (position.equals(TablePosition.GOLDENRIGHT)){
+            room.getCurrentPlayer().getHand().add(room.getDrawableCards().get(position));
+            room.getDrawableCards().put(TablePosition.GOLDENRIGHT, room.getGoldenDeck().pick());
+        }
+        if (position.equals(TablePosition.GOLDENLEFT)){
+            room.getCurrentPlayer().getHand().add(room.getDrawableCards().get(position));
+            room.getDrawableCards().put(TablePosition.GOLDENLEFT, room.getGoldenDeck().pick());
+        }
     }
 
     public GameState getState() {

@@ -1,10 +1,13 @@
 package it.polimi.ingsw.gc01.controller;
 
-import it.polimi.ingsw.gc01.controller.exceptions.PlayerAlreadyInException;
-import it.polimi.ingsw.gc01.model.cards.ObjectiveCard;
+import it.polimi.ingsw.gc01.model.cards.GoldenCard;
+import it.polimi.ingsw.gc01.model.cards.PlayableCard;
+import it.polimi.ingsw.gc01.model.cards.ResourceCard;
 import it.polimi.ingsw.gc01.model.player.Player;
 import it.polimi.ingsw.gc01.model.player.PlayerColor;
 import it.polimi.ingsw.gc01.model.player.Position;
+import it.polimi.ingsw.gc01.model.room.TablePosition;
+import javafx.geometry.Pos;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -18,19 +21,19 @@ import static org.junit.jupiter.api.Assertions.*;
 class ControllerTestRunning {
 
     public static Controller testController;
-    public static final List<Player> p = new ArrayList<>();
+    public static final List<Player> players = new ArrayList<>();
 
     @BeforeEach
     void setUp() {
         testController = new Controller();
-        p.add(new Player("Player1", PlayerColor.BLUE));
-        p.add(new Player("Player2", PlayerColor.GREEN));
-        p.add(new Player("Player3", PlayerColor.RED));
-        p.add(new Player("Player4", PlayerColor.YELLOW));
-        testController.addPlayer(p.get(0).getName(), p.get(0).getColor());
-        testController.addPlayer(p.get(1).getName(), p.get(1).getColor());
-        testController.addPlayer(p.get(2).getName(), p.get(2).getColor());
-        testController.addPlayer(p.get(3).getName(), p.get(3).getColor());
+        players.add(new Player("Player1", PlayerColor.BLUE));
+        players.add(new Player("Player2", PlayerColor.GREEN));
+        players.add(new Player("Player3", PlayerColor.RED));
+        players.add(new Player("Player4", PlayerColor.YELLOW));
+        testController.addPlayer(players.get(0).getName(), players.get(0).getColor());
+        testController.addPlayer(players.get(1).getName(), players.get(1).getColor());
+        testController.addPlayer(players.get(2).getName(), players.get(2).getColor());
+        testController.addPlayer(players.get(3).getName(), players.get(3).getColor());
         testController.prepareGame();
         for (Player player : testController.getRoom().getPlayers()) {
             Random generatore = new Random();
@@ -77,19 +80,17 @@ class ControllerTestRunning {
 
     @Test
     void drawCard() {
-        Random random = new Random();
-        for (int i = 0; i < 40; i++){
-            int z = random.nextInt(5);
-            testController.playCard(testController.getRoom().getCurrentPlayer().getHand().get(0), getRandomAvaliablePosition());
-            testController.drawCard(testController.getRoom().getDrawableCards().get(z));
-            assertEquals(3, testController.getRoom().getCurrentPlayer().getHand().size());
-            testController.nextPlayer();
+        ResourceCard drawnCard;
+        Position randomPosition;
+        for (TablePosition position : testController.getRoom().getDrawableCards().keySet()){
+            randomPosition = getRandomAvaliablePosition();
+            testController.playCard(testController.getRoom().getCurrentPlayer().getHand().get(0), randomPosition);
+            drawnCard = testController.getRoom().getDrawableCards().get(position);
+            testController.drawCard(position);
+            assertEquals(drawnCard, testController.getRoom().getCurrentPlayer().getHand().get(2));
+            assertNotEquals(drawnCard, testController.getRoom().getDrawableCards().get(position));
+            assertEquals(6, testController.getRoom().getDrawableCards().size());
         }
-
-        for (Player p : testController.getRoom().getPlayers()){
-            assertEquals(11, p.getField().getPositions().size());
-        }
-
     }
 
     @Test
@@ -114,8 +115,8 @@ class ControllerTestRunning {
         testController.getRoom().getCurrentPlayer().addPoints(23);
         testController.changeStateIfTwenty();
         testController.endGame();
-        assertEquals(p.get(2).getName(), testController.getRoom().getWinners().get(0).getName());
-        assertEquals(p.get(3).getName(), testController.getRoom().getWinners().get(1).getName());
+        assertEquals(players.get(2).getName(), testController.getRoom().getWinners().get(0).getName());
+        assertEquals(players.get(3).getName(), testController.getRoom().getWinners().get(1).getName());
     }
 
     /**

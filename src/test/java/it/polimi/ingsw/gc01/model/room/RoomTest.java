@@ -44,19 +44,6 @@ class RoomTest {
     }
 
     @Test
-    void getDrawableCards(){
-        ResourceCard resourceCard = testRoom.getResourceDeck().get();
-        GoldenCard goldenCard = testRoom.getGoldenDeck().get();
-        List<PlayableCard> visibleCards = testRoom.getVisibleCards();
-        List<PlayableCard> drawableCards = testRoom.getDrawableCards();
-        assertFalse(drawableCards.isEmpty());
-        assertEquals(6, drawableCards.size());
-        assertTrue(drawableCards.containsAll(visibleCards));
-        assertTrue(drawableCards.contains(resourceCard));
-        assertTrue(drawableCards.contains(goldenCard));
-    }
-
-    @Test
     void getWinnerByTotalPoints(){
         testPlayers.get(0).addPoints(1);
         testPlayers.get(0).addObjectivePoints(1);

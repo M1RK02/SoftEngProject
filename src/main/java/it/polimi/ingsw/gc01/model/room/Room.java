@@ -13,8 +13,8 @@ public class Room {
     private ResourceDeck resourceDeck;
     private ObjectiveDeck objectiveDeck;
     private StarterDeck starterDeck;
-    private List<PlayableCard> visibleCards;
     private List<ObjectiveCard> commonObjectives;
+    private Map<TablePosition, ResourceCard> drawableCards;
 
     public Room(List<Player> players) {
         roomId = generateRoomId();
@@ -24,8 +24,8 @@ public class Room {
         resourceDeck = new ResourceDeck();
         objectiveDeck = new ObjectiveDeck();
         starterDeck = new StarterDeck();
-        visibleCards = new ArrayList<>();
         commonObjectives = new ArrayList<>();
+        drawableCards = new HashMap<>();
         initTable();
     }
 
@@ -56,10 +56,12 @@ public class Room {
         resourceDeck.shuffle();
         objectiveDeck.shuffle();
         starterDeck.shuffle();
-        visibleCards.add(goldenDeck.pick());
-        visibleCards.add(goldenDeck.pick());
-        visibleCards.add(resourceDeck.pick());
-        visibleCards.add(resourceDeck.pick());
+        drawableCards.put(TablePosition.RESOURCEDECK, resourceDeck.pick());
+        drawableCards.put(TablePosition.RESOURCELEFT, resourceDeck.pick());
+        drawableCards.put(TablePosition.RESOURCERIGHT, resourceDeck.pick());
+        drawableCards.put(TablePosition.GOLDENDECK, goldenDeck.pick());
+        drawableCards.put(TablePosition.GOLDENLEFT, goldenDeck.pick());
+        drawableCards.put(TablePosition.GOLDENRIGHT, goldenDeck.pick());
         commonObjectives.add(objectiveDeck.pick());
         commonObjectives.add(objectiveDeck.pick());
     }
@@ -84,10 +86,6 @@ public class Room {
 
     public List<ObjectiveCard> getCommonObjectives() {
         return commonObjectives;
-    }
-
-    public List<PlayableCard> getVisibleCards() {
-        return visibleCards;
     }
 
     public String getRoomId() {
@@ -119,10 +117,7 @@ public class Room {
      * Return the list of drawable cards: the four in the center + the two on top of the decks
      * @return the list of drawable cards
      */
-    public List<PlayableCard> getDrawableCards() {
-        List<PlayableCard> drawableCards = new ArrayList<>(visibleCards);
-        drawableCards.add(goldenDeck.get());
-        drawableCards.add(resourceDeck.get());
+    public Map<TablePosition, ResourceCard> getDrawableCards() {
         return drawableCards;
     }
 
