@@ -93,29 +93,13 @@ public class Controller {
     }
 
     public void drawCard(TablePosition position){
-        if (position.equals(TablePosition.RESOURCEDECK)){
+        if (position.equals(TablePosition.RESOURCEDECK) || position.equals(TablePosition.RESOURCERIGHT) || position.equals(TablePosition.RESOURCELEFT)){
             room.getCurrentPlayer().getHand().add(room.getDrawableCards().get(position));
-            room.getDrawableCards().put(TablePosition.RESOURCEDECK, room.getResourceDeck().pick());
+            room.getDrawableCards().put(position, room.getResourceDeck().pick());
         }
-        if (position.equals(TablePosition.RESOURCERIGHT)){
+        if (position.equals(TablePosition.GOLDENDECK) || position.equals(TablePosition.GOLDENRIGHT) || position.equals(TablePosition.GOLDENLEFT)){
             room.getCurrentPlayer().getHand().add(room.getDrawableCards().get(position));
-            room.getDrawableCards().put(TablePosition.RESOURCERIGHT, room.getResourceDeck().pick());
-        }
-        if (position.equals(TablePosition.RESOURCELEFT)){
-            room.getCurrentPlayer().getHand().add(room.getDrawableCards().get(position));
-            room.getDrawableCards().put(TablePosition.RESOURCELEFT, room.getResourceDeck().pick());
-        }
-        if (position.equals(TablePosition.GOLDENDECK)){
-            room.getCurrentPlayer().getHand().add(room.getDrawableCards().get(position));
-            room.getDrawableCards().put(TablePosition.GOLDENDECK, room.getGoldenDeck().pick());
-        }
-        if (position.equals(TablePosition.GOLDENRIGHT)){
-            room.getCurrentPlayer().getHand().add(room.getDrawableCards().get(position));
-            room.getDrawableCards().put(TablePosition.GOLDENRIGHT, room.getGoldenDeck().pick());
-        }
-        if (position.equals(TablePosition.GOLDENLEFT)){
-            room.getCurrentPlayer().getHand().add(room.getDrawableCards().get(position));
-            room.getDrawableCards().put(TablePosition.GOLDENLEFT, room.getGoldenDeck().pick());
+            room.getDrawableCards().put(position, room.getGoldenDeck().pick());
         }
     }
 

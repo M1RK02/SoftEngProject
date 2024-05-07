@@ -114,8 +114,8 @@ public class Room {
     }
 
     /**
-     * Return the list of drawable cards: the four in the center + the two on top of the decks
-     * @return the list of drawable cards
+     * Return the Map of drawable cards: the four in the center + the two on top of the decks
+     * @return the Map of drawable cards
      */
     public Map<TablePosition, ResourceCard> getDrawableCards() {
         return drawableCards;
