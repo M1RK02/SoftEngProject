@@ -1,5 +1,6 @@
 package it.polimi.ingsw.gc01.controller;
 
+import it.polimi.ingsw.gc01.controller.exceptions.GoldenRequirementsException;
 import it.polimi.ingsw.gc01.model.DefaultValue;
 import it.polimi.ingsw.gc01.controller.exceptions.MaxPlayerInException;
 import it.polimi.ingsw.gc01.controller.exceptions.PlayerAlreadyInException;
@@ -88,7 +89,12 @@ public class Controller {
         card.setFront(!card.isFront());
     }
 
-    public void playCard (PlayableCard card, Position position) {
+    public void playCard (PlayableCard card, Position position) throws GoldenRequirementsException{
+        if (card instanceof GoldenCard){
+            if (!((GoldenCard) card).checkRequirements(room.getCurrentPlayer())){
+                throw new GoldenRequirementsException();
+            }
+        }
         room.getCurrentPlayer().playCard(card, position);
     }
 
