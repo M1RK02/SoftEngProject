@@ -10,7 +10,7 @@ public abstract class PlayableCard extends Card{
     public PlayableCard(int id, String info, Map<CornerPosition, Corner> corners) {
         super(id, info);
         this.corners = corners;
-        this.front = true;
+        this.front = false;
     }
 
     public void setFront(boolean front) {

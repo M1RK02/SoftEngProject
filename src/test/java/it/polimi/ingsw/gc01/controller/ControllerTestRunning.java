@@ -56,11 +56,41 @@ class ControllerTestRunning {
 
     @Test
     void playCard() {
-        testController.playCard(testController.getRoom().getCurrentPlayer().getHand().get(0), new Position(-1,-1));
-        testController.playCard(testController.getRoom().getCurrentPlayer().getHand().get(0), new Position(-1,1));
-        testController.playCard(testController.getRoom().getCurrentPlayer().getHand().get(0), new Position(1,-1));
-        assertEquals(0, testController.getRoom().getCurrentPlayer().getHand().size());
-        assertEquals(4, testController.getRoom().getCurrentPlayer().getField().getPositions().size());
+        Player currentPlayer = testController.getRoom().getCurrentPlayer();
+        for (int i = 0; i < 33; i++){
+            if (currentPlayer.getHand().get(0) instanceof GoldenCard){
+                if (((GoldenCard) currentPlayer.getHand().get(0)).checkRequirements(currentPlayer)){
+                    if (!currentPlayer.getHand().get(0).isFront()){
+                        testController.flipCard(currentPlayer.getHand().get(0));
+                    }
+                    testController.playCard(currentPlayer.getHand().get(0), getRandomAvaliablePosition());
+                    assertEquals(2, currentPlayer.getHand().size());
+                    assertEquals(2 + i, currentPlayer.getField().getPositions().size());
+                }
+                else{
+                    if (currentPlayer.getHand().get(0).isFront()){
+                        testController.flipCard(currentPlayer.getHand().get(0));
+                    }
+                    testController.playCard(currentPlayer.getHand().get(0), getRandomAvaliablePosition());
+                    assertEquals(2, currentPlayer.getHand().size());
+                    assertEquals(2 + i, currentPlayer.getField().getPositions().size());
+                }
+            }
+            else{
+                testController.playCard(currentPlayer.getHand().get(0), getRandomAvaliablePosition());
+                assertEquals(2, currentPlayer.getHand().size());
+                assertEquals(2 + i, currentPlayer.getField().getPositions().size());
+            }
+
+            int choice = new Random().nextInt(2);
+            if (choice == 1){
+                testController.drawCard(TablePosition.RESOURCEDECK);
+            }
+            else{
+                testController.drawCard(TablePosition.GOLDENDECK);
+            }
+        }
+
     }
 
     @Test
@@ -82,14 +112,14 @@ class ControllerTestRunning {
     void drawCard() {
         ResourceCard drawnCard;
         Position randomPosition;
+        int i = 3;
         for (TablePosition position : testController.getRoom().getDrawableCards().keySet()){
-            randomPosition = getRandomAvaliablePosition();
-            testController.playCard(testController.getRoom().getCurrentPlayer().getHand().get(0), randomPosition);
             drawnCard = testController.getRoom().getDrawableCards().get(position);
             testController.drawCard(position);
-            assertEquals(drawnCard, testController.getRoom().getCurrentPlayer().getHand().get(2));
+            assertEquals(drawnCard.getId(), testController.getRoom().getCurrentPlayer().getHand().get(i).getId());
             assertNotEquals(drawnCard, testController.getRoom().getDrawableCards().get(position));
             assertEquals(6, testController.getRoom().getDrawableCards().size());
+            i++;
         }
     }
 
