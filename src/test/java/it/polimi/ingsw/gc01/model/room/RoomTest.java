@@ -21,7 +21,7 @@ class RoomTest {
         for (int i = 0; i < 4; i++) {
             testPlayers.add(new Player("Player" + i, PlayerColor.values()[i]));
         }
-        testRoom = new Room(testPlayers);
+        testRoom = new Room(testPlayers, "testId");
     }
 
     @Test

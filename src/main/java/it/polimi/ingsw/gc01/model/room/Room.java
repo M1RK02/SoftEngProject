@@ -1,6 +1,8 @@
 package it.polimi.ingsw.gc01.model.room;
 
 import java.util.*;
+import java.util.stream.Collectors;
+
 import it.polimi.ingsw.gc01.model.cards.*;
 import it.polimi.ingsw.gc01.model.decks.*;
 import it.polimi.ingsw.gc01.model.player.*;
@@ -16,8 +18,8 @@ public class Room {
     private List<ObjectiveCard> commonObjectives;
     private Map<TablePosition, ResourceCard> drawableCards;
 
-    public Room(List<Player> players) {
-        roomId = generateRoomId();
+    public Room(List<Player> players, String roomId) {
+        this.roomId = roomId;
         this.players = players;
         currentPlayer = players.get(0);
         goldenDeck = new GoldenDeck();
@@ -27,25 +29,6 @@ public class Room {
         commonObjectives = new ArrayList<>();
         drawableCards = new HashMap<>();
         initTable();
-    }
-
-    /**
-     * Randomly generates a room id
-     * @return a 5 character string
-     */
-    private String generateRoomId() {
-        String alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-        String numbers = "0123456789";
-        String alphaNumeric = alphabet + numbers;
-        StringBuilder sb = new StringBuilder();
-        Random random = new Random();
-        int length = 5;
-        for(int i = 0; i < length; i++) {
-            int index = random.nextInt(alphaNumeric.length());
-            char randomChar = alphaNumeric.charAt(index);
-            sb.append(randomChar);
-        }
-        return sb.toString();
     }
 
     /**
@@ -65,8 +48,6 @@ public class Room {
         commonObjectives.add(objectiveDeck.pick());
         commonObjectives.add(objectiveDeck.pick());
     }
-
-
 
     public StarterDeck getStarterDeck() {
         return starterDeck;
@@ -135,5 +116,13 @@ public class Room {
             }
         }
         return winners;
+    }
+
+    /**
+     *
+     * @param nickName the name of the player to remove
+     */
+    public void removePlayer(String nickName){
+        players.remove(players.stream().filter(x -> x.getName().equals(nickName)).collect(Collectors.toList()).get(0));
     }
 }
