@@ -244,7 +244,12 @@ public class RoomController {
      * @param nickName the name of the players who wants to leave
      */
     public void leave(String nickName){
-        room.removePlayer(nickName);
+        if (room == null) {
+            waitingRoom.removePlayer(nickName);
+        }
+        else {
+            room.removePlayer(nickName);
+        }
     }
 
     /**

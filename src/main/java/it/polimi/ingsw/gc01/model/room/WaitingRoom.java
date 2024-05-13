@@ -1,6 +1,8 @@
 package it.polimi.ingsw.gc01.model.room;
 
 import java.util.*;
+import java.util.stream.Collectors;
+
 import it.polimi.ingsw.gc01.model.player.*;
 
 public class WaitingRoom {
@@ -58,6 +60,14 @@ public class WaitingRoom {
             sb.append(randomChar);
         }
         return sb.toString();
+    }
+
+    /**
+     *
+     * @param nickName the name of the player to remove
+     */
+    public void removePlayer(String nickName){
+        players.remove(players.stream().filter(x -> x.getName().equals(nickName)).collect(Collectors.toList()).get(0));
     }
 
 }

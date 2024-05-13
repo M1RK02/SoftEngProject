@@ -15,10 +15,32 @@ import java.util.stream.Collectors;
 
 
 public class MainController implements Remote{
+
+    /**
+     * Singleton Pattern, instance of the class
+     */
+    private static MainController instance = null;
+
+    /**
+     * List of existing rooms
+     */
     private List<RoomController> rooms;
 
-    public MainController(){
+
+    private MainController(){
         rooms = new ArrayList<>();
+    }
+
+    /**
+     * Singleton Pattern
+     *
+     * @return the only one instance of the MainController class
+     */
+    public synchronized static MainController getInstance() {
+        if (instance == null) {
+            instance = new MainController();
+        }
+        return instance;
     }
 
     /**
@@ -54,7 +76,7 @@ public class MainController implements Remote{
             try {
                 availableGames.get(0).addPlayer(nickname, color);
                 return availableGames.get(0);
-            } catch (MaxPlayersInException | PlayerAlreadyInException e){
+            } catch (PlayerAlreadyInException e){
                 e.printStackTrace(System.out);
             }
         }
@@ -95,6 +117,18 @@ public class MainController implements Remote{
         if (game.size() == 1){
             game.get(0).leave(nickname);
         }
+
+        //Se non ci sono più player elimina la stanza
+        if (game.get(0).getState() == GameState.WAITING){
+            if (game.get(0).getNumOfWaitingPlayers() == 0){
+                deleteRoom(game.get(0).getRoomId());
+            }
+        }
+        else {
+            if (game.get(0).getNumOfPlayers() == 0){
+                deleteRoom(game.get(0).getRoomId());
+            }
+        }
     }
 
     /**
@@ -110,4 +144,7 @@ public class MainController implements Remote{
         }
     }
 
+    public List<RoomController> getRooms() {
+        return rooms;
+    }
 }
