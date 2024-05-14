@@ -1,5 +1,6 @@
 package it.polimi.ingsw.gc01.network.rmi;
 
+import it.polimi.ingsw.gc01.model.DefaultValue;
 import it.polimi.ingsw.gc01.model.player.PlayerColor;
 import it.polimi.ingsw.gc01.model.room.TablePosition;
 import it.polimi.ingsw.gc01.network.VirtualView;
@@ -7,6 +8,7 @@ import it.polimi.ingsw.gc01.network.message.Message;
 import it.polimi.ingsw.gc01.network.message.ShowAvailableColorMessage;
 import it.polimi.ingsw.gc01.network.message.UpdateRoomIdMessage;
 
+import java.io.IOException;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
@@ -15,31 +17,62 @@ import java.rmi.registry.Registry;
 public class RmiClient {
 
     private VirtualServer server;
-    private String roomId;
+    private final String roomId;
     final String playerName;
 
 
-private RmiClient(String playerName, String roomId) {
-    this.playerName = playerName;
-    this.roomId = roomId;
-}
+    public RmiClient(String playerName, String roomId) {
+        this.playerName = playerName;
+        this.roomId = roomId;
+    }
 
     /**
      * the method connects the client to the server creating his own stub
-     * @throws RemoteException
+     *
      */
-    public void connect() throws RemoteException {
+    public void connect(){
+        boolean retry = false;
+        int attempt = 1;
+        int i;
+        do {
+            try{
 
-    try{
+                Registry registry = LocateRegistry.getRegistry(DefaultValue.serverIp, DefaultValue.Default_port_RMI);
+                this.server = (VirtualServer) registry.lookup(DefaultValue.Default_servername_RMI);
+                System.out.println("Client RMI ready");
+                retry = false;
 
-    Registry registry = LocateRegistry.getRegistry("localhost");
-    this.server = (VirtualServer) registry.lookup("ServeLazzaro");
-    System.out.println("Connesso al server.");
+            } catch (Exception e) {
+                if (!retry){
+                    System.out.println("[ERROR] CONNECTING TO RMI SERVER: \n\tClient RMI exception: " + e + "\n");
+                }
+                System.out.println("[#" + attempt + "]Waiting to reconnect to RMI Server on port: '" + DefaultValue.Default_port_RMI + "' with name: '" + DefaultValue.Default_servername_RMI + "'");
 
-    } catch (Exception e) {
-        System.err.println("Errore durante la connessione al server RMI");
-        e.printStackTrace();
-    }
+                i = 0;
+                while (i < DefaultValue.seconds_between_reconnection) {
+                    try {
+                        Thread.sleep(1000);
+                    } catch (InterruptedException ex) {
+                        throw new RuntimeException(ex);
+                    }
+                    System.out.println(".");
+                    i++;
+                }
+                System.out.println("\n");
+
+                if (attempt >= DefaultValue.num_of_attempt_to_connect_toServer_before_giveup) {
+                    System.out.println("Give up!");
+                    try {
+                        System.in.read();
+                    } catch (IOException ex) {
+                        throw new RuntimeException(ex);
+                    }
+                    System.exit(-1);
+                }
+                retry = true;
+                attempt++;
+            }
+        } while (retry);
 }
 
     /**

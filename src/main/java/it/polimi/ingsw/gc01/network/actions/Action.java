@@ -5,8 +5,15 @@ import it.polimi.ingsw.gc01.network.VirtualView;
 
 public abstract class Action {
     private String playerName;
-    private VirtualView client;
-    private MainController mainController;
+
+    /**
+     * Create a new action
+     *
+     * @param playerName the name of the player who is creating the action
+     */
+    public Action(String playerName){
+        this.playerName = playerName;
+    }
 
     /**
      *
@@ -17,26 +24,9 @@ public abstract class Action {
     }
 
     /**
-     *
-     * @return the mainController
-     */
-    public MainController getMainController() {
-        return mainController;
-    }
-
-    /**
-     *
-     * @return the client associated to the player who is trying to make an action
-     */
-    public VirtualView getClient() {
-        return client;
-    }
-
-    /**
      * execute the action
      */
     public void execute(){
-
     }
 
 }
