@@ -14,6 +14,6 @@ public class SwitchReadyAction extends RoomAction{
         RoomController controller = getRoomController();
         Player playerToSetReady = controller.getRoom().getPlayerByName(getPlayerName());
 
-        controller.changeReady(playerToSetReady);
+        controller.switchReady(playerToSetReady);
     }
 }

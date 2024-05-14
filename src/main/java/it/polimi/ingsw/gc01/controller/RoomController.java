@@ -8,6 +8,8 @@ import it.polimi.ingsw.gc01.model.cards.PlayableCard;
 import it.polimi.ingsw.gc01.model.player.*;
 import it.polimi.ingsw.gc01.model.room.*;
 
+import java.io.IOException;
+import java.rmi.RemoteException;
 import java.util.List;
 
 public class RoomController {
@@ -213,7 +215,7 @@ public class RoomController {
      *
      * @param player the player to set ready or unready
      */
-    public void changeReady(Player player){
+    public void switchReady(Player player){
         player.switchReady();
     }
 
@@ -301,10 +303,23 @@ public class RoomController {
     public void leave(Player player){
         if (room == null) {
             waitingRoom.removePlayer(player);
+            if (waitingRoom.getPlayers().isEmpty()) {
+                try {
+                    mainController.deleteRoom(waitingRoom.getRoomId());
+                } catch (Exception e) {
+                    // TODO
+                }
+            }
         }
         else {
             room.removePlayer(player);
+            if (room.getPlayers().isEmpty()) {
+                try {
+                    mainController.deleteRoom(room.getRoomId());
+                } catch (Exception e) {
+                    // TODO
+                }
+            }
         }
     }
-
 }

@@ -43,6 +43,10 @@ public class MainController implements Remote{
         return instance;
     }
 
+    public Map<String, RoomController> getRooms() {
+        return rooms;
+    }
+
     /**
      * Create a new room
      *
@@ -58,6 +62,26 @@ public class MainController implements Remote{
         } catch (Exception e){
             throw new RuntimeException(e);
         }
+    }
+
+    /**
+     * Join the room with the given id
+     *
+     * @param playerName the name of the player who wants to join the room
+     * @param roomId the id of the room you want to join
+     * @return the RoomController associated to the created Room if there is a joinable room, null otherwise
+     * @throws RemoteException
+     */
+    public synchronized void joinGame(String playerName, String roomId) throws RemoteException, ColorAlreadyTakenException, MaxPlayersInException {
+        if (rooms.get(roomId) != null){
+            try{
+                rooms.get(roomId).addPlayer(playerName);
+                //return rooms.get(roomId);
+            } catch (Exception e){
+                throw new RuntimeException(e);
+            }
+        }
+        //return null;
     }
 
     /**
@@ -82,44 +106,6 @@ public class MainController implements Remote{
     }
 
     /**
-     * Join the room with the given id
-     *
-     * @param playerName the name of the player who wants to join the room
-     * @param roomId the id of the room you want to join
-     * @return the RoomController associated to the created Room if there is a joinable room, null otherwise
-     * @throws RemoteException
-     */
-    public synchronized void joinGame(String playerName, String roomId) throws RemoteException, ColorAlreadyTakenException, MaxPlayersInException {
-        if (rooms.get(roomId) != null){
-            try{
-                rooms.get(roomId).addPlayer(playerName);
-                //return rooms.get(roomId);
-            } catch (Exception e){
-                throw new RuntimeException(e);
-            }
-        }
-        //return null;
-    }
-
-    /**
-     * Leave a player from a game
-     *
-     * @param player the player who wants to leave
-     * @param roomId the id of the room to leave
-     * @throws RemoteException
-     */
-    public synchronized void leaveGame(Player player, String roomId) throws RemoteException{
-        if (rooms.get(roomId) != null){
-            try{
-                rooms.get(roomId).leave(player);
-            } catch (Exception e){
-                throw new RuntimeException(e);
-            }
-        }
-
-    }
-
-    /**
      * Delete a room by its id
      *
      * @param roomId the id of the room to delete
@@ -129,9 +115,5 @@ public class MainController implements Remote{
         if (rooms.get(roomId) != null){
             rooms.remove(roomId);
         }
-    }
-
-    public Map<String, RoomController> getRooms() {
-        return rooms;
     }
 }
