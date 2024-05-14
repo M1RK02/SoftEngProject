@@ -1,5 +1,4 @@
 package it.polimi.ingsw.gc01.network.actions;
 
-public class JoinFirstGameAction extends Action{
-
+public class JoinFirstGameAction extends MainAction{
 }

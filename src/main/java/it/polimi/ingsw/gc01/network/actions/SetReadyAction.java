@@ -1,5 +1,4 @@
 package it.polimi.ingsw.gc01.network.actions;
 
-public class LeaveGameAction extends Action{
-
+public class SetReadyAction extends RoomAction{
 }
