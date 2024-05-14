@@ -50,7 +50,7 @@ public class MainController implements Remote{
      * @return the RoomController associated to the created Room
      * @throws RemoteException
      */
-    public synchronized RoomController createGame(String nickname) throws RemoteException{
+    public synchronized void createGame(String nickname) throws RemoteException{
         RoomController game = new RoomController();
         rooms.put(game.getRoomId(), game);
         try {
@@ -58,7 +58,6 @@ public class MainController implements Remote{
         } catch (Exception e){
             throw new RuntimeException(e);
         }
-        return game;
     }
 
     /**
@@ -68,18 +67,18 @@ public class MainController implements Remote{
      * @return the RoomController associated to the created Room if there is a joinable room, null otherwise
      * @throws RemoteException
      */
-    public synchronized RoomController joinFirstGame(String playerName) throws RemoteException{
+    public synchronized void joinFirstGame(String playerName) throws RemoteException{
         for (String roomId : rooms.keySet()){
             if (rooms.get(roomId).getNumOfWaitingPlayers() < DefaultValue.MaxNumOfPlayer){
                 try{
                     rooms.get(roomId).addPlayer(playerName);
-                    return rooms.get(roomId);
+                    //return rooms.get(roomId);
                 } catch (Exception e){
                     throw new RuntimeException(e);
                 }
             }
         }
-        return null;
+        //return null;
     }
 
     /**
@@ -90,16 +89,16 @@ public class MainController implements Remote{
      * @return the RoomController associated to the created Room if there is a joinable room, null otherwise
      * @throws RemoteException
      */
-    public synchronized RoomController joinGame(String playerName, String roomId) throws RemoteException, ColorAlreadyTakenException, MaxPlayersInException {
+    public synchronized void joinGame(String playerName, String roomId) throws RemoteException, ColorAlreadyTakenException, MaxPlayersInException {
         if (rooms.get(roomId) != null){
             try{
                 rooms.get(roomId).addPlayer(playerName);
-                return rooms.get(roomId);
+                //return rooms.get(roomId);
             } catch (Exception e){
                 throw new RuntimeException(e);
             }
         }
-        return null;
+        //return null;
     }
 
     /**

@@ -1,6 +1,7 @@
 package it.polimi.ingsw.gc01.network.actions;
 
 import it.polimi.ingsw.gc01.controller.MainController;
+import it.polimi.ingsw.gc01.model.player.Player;
 import it.polimi.ingsw.gc01.network.VirtualView;
 
 public class CreateGameAction extends MainAction{
@@ -11,6 +12,12 @@ public class CreateGameAction extends MainAction{
 
     @Override
     public void execute(){
-        return;
+        MainController controller = getMainController();
+
+        try {
+            controller.createGame(getPlayerName());
+        } catch (Exception e){
+            throw new RuntimeException(e);
+        }
     }
 }

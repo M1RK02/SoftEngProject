@@ -20,7 +20,7 @@ public abstract class RoomAction extends Action {
      *
      * @return the RoomController of the room
      */
-    public RoomController getRoom() {
+    public RoomController getRoomController() {
         return room;
     }
 

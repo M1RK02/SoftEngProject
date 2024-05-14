@@ -20,12 +20,11 @@ public abstract class MainAction extends Action {
         this.client = client;
     }
 
-
     /**
      *
      * @return the MainController in the server
      */
-    public MainController getMain() {
+    public MainController getMainController() {
         return mainController;
     }
 

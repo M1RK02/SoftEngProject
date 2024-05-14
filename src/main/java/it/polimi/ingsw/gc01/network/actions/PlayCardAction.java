@@ -1,6 +1,8 @@
 package it.polimi.ingsw.gc01.network.actions;
 
 import it.polimi.ingsw.gc01.controller.RoomController;
+import it.polimi.ingsw.gc01.model.cards.PlayableCard;
+import it.polimi.ingsw.gc01.model.player.Player;
 import it.polimi.ingsw.gc01.model.player.Position;
 
 public class PlayCardAction extends RoomAction{
@@ -15,7 +17,20 @@ public class PlayCardAction extends RoomAction{
 
     @Override
     public void execute(){
+        RoomController controller = getRoomController();
+        Player playerWhoIsPlaying = controller.getRoom().getPlayerByName(getPlayerName());
+        PlayableCard cardToPlay = null;
 
+        for (PlayableCard card : playerWhoIsPlaying.getHand()){
+            if (card.getId() == cardId){
+                cardToPlay = card;
+            }
+        }
+        try{
+            controller.playCard(playerWhoIsPlaying, cardToPlay, position);
+        } catch (Exception e){
+            throw new RuntimeException(e);
+        }
     }
 
 
