@@ -20,7 +20,7 @@ class RoomTest {
      static void beforeAll() {
         testPlayers = new ArrayList<>();
         for (int i = 0; i < 4; i++) {
-            testPlayers.add(new Player("Player" + i));
+            testPlayers.add(new Player("Player" + i, null));
         }
         testRoom = new Room("testId", testPlayers, new ObserverManager());
     }

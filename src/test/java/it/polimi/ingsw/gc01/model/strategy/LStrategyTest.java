@@ -18,7 +18,7 @@ class LStrategyTest {
     private static LStrategy LStrategyRed, LStrategyBlue, LStrategyGreen, LStrategyPurple;
     @BeforeEach
     void setUp() {
-        player = new Player("testPlayer");
+        player = new Player("testPlayer", null);
 
         Field field = player.getField();
 

@@ -20,10 +20,10 @@ class RoomControllerTestRunning {
     @BeforeEach
     void setUp() {
         testRoomController = new RoomController();
-        players.add(new Player("Player1"));
-        players.add(new Player("Player2"));
-        players.add(new Player("Player3"));
-        players.add(new Player("Player4"));
+        players.add(new Player("Player1", null));
+        players.add(new Player("Player2", null));
+        players.add(new Player("Player3", null));
+        players.add(new Player("Player4", null));
         testRoomController.addPlayer(players.get(0).getName());
         testRoomController.addPlayer(players.get(1).getName());
         testRoomController.addPlayer(players.get(2).getName());

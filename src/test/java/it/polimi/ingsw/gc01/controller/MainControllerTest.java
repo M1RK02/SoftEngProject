@@ -18,25 +18,25 @@ class MainControllerTest {
     Map<String, RoomController> rooms;
     MainController mainController;
 
-    Player p1 = new Player("1");
-    Player p2 = new Player("2");
-    Player p3 = new Player("3");
-    Player p4 = new Player("4");
-    Player p5 = new Player("5");
-    Player p6 = new Player("6");
-    Player p7 = new Player("7");
-    Player p8 = new Player("8");
-    Player p9 = new Player("9");
-    Player p10 = new Player("10");
-    Player p11 = new Player("11");
-    Player p12 = new Player("12");
-    Player p13 = new Player("13");
-    Player p14 = new Player("14");
-    Player p15 = new Player("15");
-    Player p16 = new Player("16");
-    Player p17 = new Player("17");
-    Player p18 = new Player("18");
-    Player p19 = new Player("19");
+    Player p1 = new Player("1", null);
+    Player p2 = new Player("2", null);
+    Player p3 = new Player("3", null);
+    Player p4 = new Player("4", null);
+    Player p5 = new Player("5", null);
+    Player p6 = new Player("6", null);
+    Player p7 = new Player("7", null);
+    Player p8 = new Player("8", null);
+    Player p9 = new Player("9", null);
+    Player p10 = new Player("10", null);
+    Player p11 = new Player("11", null);
+    Player p12 = new Player("12", null);
+    Player p13 = new Player("13", null);
+    Player p14 = new Player("14", null);
+    Player p15 = new Player("15", null);
+    Player p16 = new Player("16", null);
+    Player p17 = new Player("17", null);
+    Player p18 = new Player("18", null);
+    Player p19 = new Player("19", null);
 
     @BeforeEach
     void setup() throws RemoteException{

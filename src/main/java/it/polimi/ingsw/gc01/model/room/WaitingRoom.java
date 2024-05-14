@@ -58,7 +58,7 @@ public class WaitingRoom {
      * @param playerName chosen player name
      */
     public void addPlayer(String playerName){
-        players.add(new Player(playerName));
+        players.add(new Player(playerName, notifier));
     }
 
     /**

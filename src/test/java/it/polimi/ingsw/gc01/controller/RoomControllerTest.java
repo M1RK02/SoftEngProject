@@ -22,11 +22,11 @@ class RoomControllerTest {
     @BeforeEach
     void setUp() {
         testRoomController = new RoomController();
-        p.add(new Player("Player1"));
-        p.add(new Player("Player2"));
-        p.add(new Player("Player3"));
-        p.add(new Player("Player4"));
-        p.add(new Player("Player5"));
+        p.add(new Player("Player1", null));
+        p.add(new Player("Player2", null));
+        p.add(new Player("Player3", null));
+        p.add(new Player("Player4", null));
+        p.add(new Player("Player5", null));
     }
 
     @Test

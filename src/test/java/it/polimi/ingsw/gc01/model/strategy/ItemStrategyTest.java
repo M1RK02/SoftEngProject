@@ -15,7 +15,7 @@ class ItemStrategyTest {
     @BeforeEach
     void setUp() {
 
-        player = new Player("lazzaro");
+        player = new Player("lazzaro", null);
         quillStrategy = new ItemStrategy(Item.QUILL);
         inkwellStrategy = new ItemStrategy(Item.INKWELL);
         manuscriptStrategy = new ItemStrategy(Item.MANUSCRIPT);
