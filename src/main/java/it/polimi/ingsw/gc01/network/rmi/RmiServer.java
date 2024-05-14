@@ -21,13 +21,10 @@ public class RmiServer implements VirtualServer {
     MainController mainController;
     BlockingQueue<Action> actions;
 
-
-
     public  RmiServer (MainController mainController) {
         this.mainController = mainController;
         actions = new ArrayBlockingQueue<Action>(100);
     }
-
 
     /**
      * exports the remote object as a stub to let the clients connect to the RMI server
@@ -244,7 +241,4 @@ public class RmiServer implements VirtualServer {
             e.printStackTrace();
         }
     }
-
-
-
 }

@@ -64,4 +64,7 @@ public class SocketClient implements Client {
 
     }
 
+    public void update(){
+        //TODO
+    }
 }

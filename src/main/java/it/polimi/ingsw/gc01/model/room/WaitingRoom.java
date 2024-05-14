@@ -74,3 +74,5 @@ public class WaitingRoom {
         return this.getPlayers().size();
     }
 }
+
+//TODO Add calls to notifier

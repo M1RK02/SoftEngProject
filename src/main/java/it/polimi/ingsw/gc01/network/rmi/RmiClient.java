@@ -77,27 +77,24 @@ public class RmiClient {
 
     /**
      * asks stub to create game
-     * @param client
      */
-    public void createGame(VirtualView client){
-        server.createGame(this.playerName, client);
+    public void createGame(){
+        server.createGame(this.playerName, (VirtualView) this);
 
 }
 
     /**
      * asks stub to join game
-     * @param client
      */
-    public void joinGame(VirtualView client){
-        server.joinGame(this.playerName, client, this.roomId);
+    public void joinGame(){
+        server.joinGame(this.playerName, (VirtualView) this, this.roomId);
     }
 
     /**
      * asks stub to join the first available game
-     * @param client
      */
-    public void joinFirstGame( VirtualView client){
-        server.joinFirstGame(this.playerName, client);
+    public void joinFirstGame(){
+        server.joinFirstGame(this.playerName, (VirtualView) this);
     }
 
     /**
@@ -152,39 +149,28 @@ public class RmiClient {
     /**
      * asks stub to make the player leafve the game
      */
-    public void leave (){
+    public void leave() {
         server.leave(this.playerName, this.roomId);
-        }
-
-
-    public void updateRoomId(){}
-
-    public void showAvailableColor(){}
-
-    public void updateReady(){}
-
-    public void showCommonObjective(){}
-
-    public void showTable(){}
-
-    public void showHand(){}
-
-    public void showField(){}
-
-    public void showSecretObjectives(){}
-
-    public void showError(){}
-
-    public void serviceMessage(){}
-
-
-
     }
 
 
+    public void updateRoomId(Message message){}
 
+    public void showAvailableColor(Message message){}
 
+    public void updateReady(Message message){}
 
+    public void showCommonObjective(Message message){}
 
+    public void showTable(Message message){}
 
+    public void showHand(Message message){}
 
+    public void showField(Message message){}
+
+    public void showSecretObjectives(Message message){}
+
+    public void showError(Message message){}
+
+    public void serviceMessage(Message message){}
+}

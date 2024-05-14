@@ -351,3 +351,5 @@ public class Player {
         return Objects.hash(name);
     }
 }
+
+//TODO Add calls to notifier
