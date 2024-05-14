@@ -4,7 +4,9 @@ import it.polimi.ingsw.gc01.model.player.PlayerColor;
 import it.polimi.ingsw.gc01.model.room.TablePosition;
 import it.polimi.ingsw.gc01.network.VirtualView;
 
-public interface VirtualServer {
+import java.rmi.Remote;
+
+public interface VirtualServer extends Remote {
     public void createGame(String playerName, VirtualView client);
 
     public void joinGame(String playerName, VirtualView client, String roomId);
@@ -13,7 +15,7 @@ public interface VirtualServer {
 
     public void chooseColor(String playerName, String roomId, PlayerColor color);
 
-    public void changeReady(String playerName, String roomId);
+    public void switchReady(String playerName, String roomId);
 
     public void chooseSecretObjective(String playerName, String roomId, int cardId);
 

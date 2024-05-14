@@ -111,8 +111,8 @@ public class RmiClient {
     /**
      * asks stub to set the player ready
      */
-    public void changeReady(){
-        server.changeReady(this.playerName,this.roomId);
+    public void switchReady(){
+        server.switchReady(this.playerName,this.roomId);
     }
 
     /**
@@ -159,7 +159,7 @@ public class RmiClient {
 
     public void updateRoomId(){}
 
-    public void showAvailableColor( ){}
+    public void showAvailableColor(){}
 
     public void updateReady(){}
 
