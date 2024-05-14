@@ -32,6 +32,13 @@ public abstract class PlayableCard extends Card {
     }
 
     /**
+     * @return the map of corner values
+     */
+    public Map<CornerPosition, Corner> getCorners() {
+        return corners;
+    }
+
+    /**
      * @return true if the card is showing the front else false
      */
     public boolean isFront() {
@@ -45,12 +52,5 @@ public abstract class PlayableCard extends Card {
      */
     public void setFront(boolean front) {
         this.front = front;
-    }
-
-    /**
-     * @return the map of corner values
-     */
-    public Map<CornerPosition, Corner> getCorners() {
-        return corners;
     }
 }

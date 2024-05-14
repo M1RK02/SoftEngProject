@@ -61,24 +61,24 @@ public class LStrategy implements Strategy {
     }
 
 
-    private List<Position> getBodyIfRight(Map<Position, PlayableCard> field, Position p) {
+    private List<Position> getBodyIfRight(Map<Position, PlayableCard> field, Position position) {
         Position upperBody = null, lowerBody = null;
         switch (bodyColor) {
             case GREEN:
-                upperBody = new Position(p.getX() + 1, p.getY() + 3);
-                lowerBody = new Position(p.getX() + 1, p.getY() + 1);
+                upperBody = new Position(position.getX() + 1, position.getY() + 3);
+                lowerBody = new Position(position.getX() + 1, position.getY() + 1);
                 break;
             case BLUE:
-                upperBody = new Position(p.getX() - 1, p.getY() - 1);
-                lowerBody = new Position(p.getX() - 1, p.getY() - 3);
+                upperBody = new Position(position.getX() - 1, position.getY() - 1);
+                lowerBody = new Position(position.getX() - 1, position.getY() - 3);
                 break;
             case RED:
-                upperBody = new Position(p.getX() - 1, p.getY() + 3);
-                lowerBody = new Position(p.getX() - 1, p.getY() + 1);
+                upperBody = new Position(position.getX() - 1, position.getY() + 3);
+                lowerBody = new Position(position.getX() - 1, position.getY() + 1);
                 break;
             case PURPLE:
-                upperBody = new Position(p.getX() + 1, p.getY() - 1);
-                lowerBody = new Position(p.getX() + 1, p.getY() - 3);
+                upperBody = new Position(position.getX() + 1, position.getY() - 1);
+                lowerBody = new Position(position.getX() + 1, position.getY() - 3);
                 break;
         }
         Position origin = new Position(0, 0);
