@@ -27,11 +27,9 @@ public class WaitingRoom {
     /**
      * Add the player to the waiting room (the check for max size will be done by the controller)
      * @param playerName chosen player name
-     * @param playerColor chosen color
      */
-    public void addPlayer(String playerName, PlayerColor playerColor){
-        players.add(new Player(playerName, playerColor));
-        availableColors.remove(playerColor);
+    public void addPlayer(String playerName){
+        players.add(new Player(playerName));
     }
 
 
@@ -63,11 +61,12 @@ public class WaitingRoom {
     }
 
     /**
+     * Remove a player from the waiting room
      *
-     * @param nickName the name of the player to remove
+     * @param player the player to remove
      */
-    public void removePlayer(String nickName){
-        players.remove(players.stream().filter(x -> x.getName().equals(nickName)).collect(Collectors.toList()).get(0));
+    public void removePlayer(Player player){
+        players.remove(player);
     }
 
 }

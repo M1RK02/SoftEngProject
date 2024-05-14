@@ -14,7 +14,7 @@ import static it.polimi.ingsw.gc01.model.cards.CardColor.*;
 
 public class Player {
     private final String name;
-    private final PlayerColor color;
+    private PlayerColor color;
     private int points;
     private int objectivePoints;
     private Map<PlayerResource, Integer> resources;
@@ -22,10 +22,10 @@ public class Player {
     private Field field;
     private ObjectiveCard secretObjective;
     private List<ObjectiveCard> possibleObjective = new ArrayList<>();
+    private boolean ready = false;
 
-    public Player(String name, PlayerColor color) {
+    public Player(String name) {
         this.name = name;
-        this.color = color;
         this.points = 0;
         this.resources = initResources();
         this.hand = new ArrayList<PlayableCard>();
@@ -304,5 +304,41 @@ public class Player {
                 }
             }
         }
+    }
+
+    /**
+     *
+     * @param color set the player color to the choosen one
+     */
+    public void setColor(PlayerColor color){
+        this.color = color;
+    }
+
+    /**
+     *
+     * @return the readiness of the player
+     */
+    public boolean isReady() {
+        return ready;
+    }
+
+    /**
+     * When called, change the readiness of the player
+     */
+    public void changeReady() {
+        this.ready = !ready;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Player player = (Player) o;
+        return Objects.equals(name, player.name);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(name);
     }
 }

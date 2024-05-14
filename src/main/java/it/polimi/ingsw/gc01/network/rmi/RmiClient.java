@@ -1,4 +1,6 @@
 package it.polimi.ingsw.gc01.network.rmi;
 
-public class RmiClient {
+import it.polimi.ingsw.gc01.network.Client;
+
+public class RmiClient implements Client {
 }

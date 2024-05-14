@@ -1,11 +1,11 @@
 package it.polimi.ingsw.gc01.controller;
 
+import it.polimi.ingsw.gc01.controller.exceptions.ColorAlreadyTakenException;
 import it.polimi.ingsw.gc01.controller.exceptions.MaxPlayersInException;
 import it.polimi.ingsw.gc01.controller.exceptions.PlayerAlreadyInException;
 import it.polimi.ingsw.gc01.model.DefaultValue;
-import it.polimi.ingsw.gc01.model.player.PlayerColor;
+import it.polimi.ingsw.gc01.model.player.Player;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -24,11 +24,11 @@ public class MainController implements Remote{
     /**
      * List of existing rooms
      */
-    private List<RoomController> rooms;
+    private Map<String, RoomController> rooms;
 
 
     private MainController(){
-        rooms = new ArrayList<>();
+        rooms = new HashMap<>();
     }
 
     /**
@@ -47,17 +47,16 @@ public class MainController implements Remote{
      * Create a new room
      *
      * @param nickname name of the player who wants to create the Room
-     * @param color color of the player's pawn who wants to create the Room
      * @return the RoomController associated to the created Room
      * @throws RemoteException
      */
-    public synchronized RoomController createRoom(String nickname, PlayerColor color) throws RemoteException{
+    public synchronized RoomController createGame(String nickname) throws RemoteException{
         RoomController game = new RoomController();
-        rooms.add(game);
+        rooms.put(game.getRoomId(), game);
         try {
-            game.addPlayer(nickname, color);
-        } catch (MaxPlayersInException | PlayerAlreadyInException e){
-            e.printStackTrace(System.out);
+            game.addPlayer(nickname);
+        } catch (Exception e){
+            throw new RuntimeException(e);
         }
         return game;
     }
@@ -65,19 +64,19 @@ public class MainController implements Remote{
     /**
      * Join the first available room
      *
-     * @param nickname the name of the player who wants to join the room
-     * @param color the color of the player's pawn who wants to join the room
+     * @param playerName the name of the player who wants to join the room
      * @return the RoomController associated to the created Room if there is a joinable room, null otherwise
      * @throws RemoteException
      */
-    public synchronized RoomController joinFirstRoom(String nickname, PlayerColor color) throws RemoteException{
-        List<RoomController> availableGames = rooms.stream().filter(x -> (x.getState().equals(GameState.WAITING) && x.getNumOfWaitingPlayers() < DefaultValue.MaxNumOfPlayer)).collect(Collectors.toList());
-        if (!availableGames.isEmpty()){
-            try {
-                availableGames.get(0).addPlayer(nickname, color);
-                return availableGames.get(0);
-            } catch (PlayerAlreadyInException e){
-                e.printStackTrace(System.out);
+    public synchronized RoomController joinFirstGame(String playerName) throws RemoteException{
+        for (String roomId : rooms.keySet()){
+            if (rooms.get(roomId).getNumOfWaitingPlayers() < DefaultValue.MaxNumOfPlayer){
+                try{
+                    rooms.get(roomId).addPlayer(playerName);
+                    return rooms.get(roomId);
+                } catch (Exception e){
+                    throw new RuntimeException(e);
+                }
             }
         }
         return null;
@@ -86,20 +85,18 @@ public class MainController implements Remote{
     /**
      * Join the room with the given id
      *
-     * @param nickname the name of the player who wants to join the room
-     * @param color the color of the player's pawn who wants to join the room
+     * @param playerName the name of the player who wants to join the room
      * @param roomId the id of the room you want to join
      * @return the RoomController associated to the created Room if there is a joinable room, null otherwise
      * @throws RemoteException
      */
-    public synchronized RoomController joinRoom(String nickname, PlayerColor color, String roomId) throws RemoteException{
-        List<RoomController> game = rooms.stream().filter(x -> (x.getRoomId().equals(roomId))).collect(Collectors.toList());
-        if (game.size() == 1){
-            try {
-                game.get(0).addPlayer(nickname, color);
-                return game.get(0);
-            } catch (MaxPlayersInException | PlayerAlreadyInException e){
-                e.printStackTrace(System.out);
+    public synchronized RoomController joinGame(String playerName, String roomId) throws RemoteException, ColorAlreadyTakenException, MaxPlayersInException {
+        if (rooms.get(roomId) != null){
+            try{
+                rooms.get(roomId).addPlayer(playerName);
+                return rooms.get(roomId);
+            } catch (Exception e){
+                throw new RuntimeException(e);
             }
         }
         return null;
@@ -108,27 +105,19 @@ public class MainController implements Remote{
     /**
      * Leave a player from a game
      *
-     * @param nickname the name of the player who wants to leave
+     * @param player the player who wants to leave
      * @param roomId the id of the room to leave
      * @throws RemoteException
      */
-    public synchronized void leaveGame(String nickname, String roomId) throws RemoteException{
-        List<RoomController> game = rooms.stream().filter(x -> (x.getRoomId().equals(roomId))).collect(Collectors.toList());
-        if (game.size() == 1){
-            game.get(0).leave(nickname);
+    public synchronized void leaveGame(Player player, String roomId) throws RemoteException{
+        if (rooms.get(roomId) != null){
+            try{
+                rooms.get(roomId).leave(player);
+            } catch (Exception e){
+                throw new RuntimeException(e);
+            }
         }
 
-        //Se non ci sono più player elimina la stanza
-        if (game.get(0).getState() == GameState.WAITING){
-            if (game.get(0).getNumOfWaitingPlayers() == 0){
-                deleteRoom(game.get(0).getRoomId());
-            }
-        }
-        else {
-            if (game.get(0).getNumOfPlayers() == 0){
-                deleteRoom(game.get(0).getRoomId());
-            }
-        }
     }
 
     /**
@@ -138,13 +127,12 @@ public class MainController implements Remote{
      * @throws RemoteException
      */
     public void deleteRoom(String roomId) throws RemoteException{
-        List<RoomController> gameToRemove = rooms.stream().filter(x -> (x.getRoomId().equals(roomId))).collect(Collectors.toList());
-        if (gameToRemove.size() == 1){
-            rooms.remove(gameToRemove.get(0));
+        if (rooms.get(roomId) != null){
+            rooms.remove(roomId);
         }
     }
 
-    public List<RoomController> getRooms() {
+    public Map<String, RoomController> getRooms() {
         return rooms;
     }
 }

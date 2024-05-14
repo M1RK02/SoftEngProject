@@ -28,7 +28,7 @@ class GoldenCardTest {
 
     @BeforeEach
     void setUp() {
-        player = new Player("testPlayer", PlayerColor.BLUE);
+        player = new Player("testPlayer");
         starterDeck = new StarterDeck();
         resourceDeck = new ResourceDeck();
         goldenDeck = new GoldenDeck();

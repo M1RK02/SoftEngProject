@@ -13,7 +13,7 @@ class ThreeStrategyTest {
     private static ThreeStrategy threeStrategy;
     @BeforeEach
     void setUp() {
-        player = new Player("lazzaro", PlayerColor.YELLOW);
+        player = new Player("lazzaro");
         threeStrategy = new ThreeStrategy();
 
         player.addResource(Item.INKWELL);

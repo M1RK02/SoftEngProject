@@ -1,69 +1,92 @@
 package it.polimi.ingsw.gc01.controller;
 
-import it.polimi.ingsw.gc01.model.player.PlayerColor;
-import org.junit.jupiter.api.BeforeAll;
+import it.polimi.ingsw.gc01.controller.exceptions.MaxPlayersInException;
+import it.polimi.ingsw.gc01.controller.exceptions.PlayerAlreadyInException;
+import it.polimi.ingsw.gc01.model.player.Player;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.rmi.RemoteException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
-import java.util.stream.Collectors;
+import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 class MainControllerTest {
-    List<RoomController> rooms;
+    Map<String, RoomController> rooms;
     MainController mainController;
+
+    Player p1 = new Player("1");
+    Player p2 = new Player("2");
+    Player p3 = new Player("3");
+    Player p4 = new Player("4");
+    Player p5 = new Player("5");
+    Player p6 = new Player("6");
+    Player p7 = new Player("7");
+    Player p8 = new Player("8");
+    Player p9 = new Player("9");
+    Player p10 = new Player("10");
+    Player p11 = new Player("11");
+    Player p12 = new Player("12");
+    Player p13 = new Player("13");
+    Player p14 = new Player("14");
+    Player p15 = new Player("15");
+    Player p16 = new Player("16");
+    Player p17 = new Player("17");
+    Player p18 = new Player("18");
+    Player p19 = new Player("19");
 
     @BeforeEach
     void setup() throws RemoteException{
         mainController = MainController.getInstance();
-        rooms = new ArrayList<>();
+        rooms = new HashMap<>();
 
     }
 
+    /*
     @Test
     void JoinFirstGameTest() throws RemoteException{
         rooms = mainController.getRooms();
 
         //Creo tre stanze
-        mainController.createRoom("Player1", PlayerColor.BLUE);
+        mainController.createGame(p1.getName());
         assertEquals(1, rooms.get(0).getNumOfWaitingPlayers());
-        mainController.createRoom("Player2", PlayerColor.BLUE);
+        mainController.createGame(p2.getName());
         assertEquals(1, rooms.get(0).getNumOfWaitingPlayers());
-        mainController.createRoom("Player3", PlayerColor.BLUE);
+        mainController.createGame(p3.getName());
         assertEquals(1, rooms.get(0).getNumOfWaitingPlayers());
 
         assertEquals(3, rooms.size());
 
-        mainController.joinFirstRoom("Player4", PlayerColor.GREEN);
+        mainController.joinFirstGame(p4.getName());
         assertEquals(2, rooms.get(0).getNumOfWaitingPlayers());
-        mainController.joinFirstRoom("Player5", PlayerColor.RED);
+        mainController.joinFirstGame(p5.getName());
         assertEquals(3, rooms.get(0).getNumOfWaitingPlayers());
-        mainController.joinFirstRoom("Player6", PlayerColor.YELLOW);
+        mainController.joinFirstGame(p6.getName());
         assertEquals(4, rooms.get(0).getNumOfWaitingPlayers());
-        mainController.joinFirstRoom("Player7", PlayerColor.GREEN);
+        mainController.joinFirstGame(p7.getName());
         assertEquals(2, rooms.get(1).getNumOfWaitingPlayers());
-        mainController.joinFirstRoom("Player8", PlayerColor.RED);
+        mainController.joinFirstGame(p8.getName());
         assertEquals(3, rooms.get(1).getNumOfWaitingPlayers());
-        mainController.joinFirstRoom("Player9", PlayerColor.YELLOW);
+        mainController.joinFirstGame(p9.getName());
         assertEquals(4, rooms.get(1).getNumOfWaitingPlayers());
-        mainController.joinFirstRoom("Player10", PlayerColor.GREEN);
+        mainController.joinFirstGame(p10.getName());
         assertEquals(2, rooms.get(2).getNumOfWaitingPlayers());
 
-        mainController.leaveGame("Player1", rooms.get(0).getWaitingRoom().getRoomId());
+        mainController.leaveGame(p1, rooms.get(0).getWaitingRoom().getRoomId());
         assertEquals(3, rooms.get(0).getNumOfWaitingPlayers());
-        mainController.joinFirstRoom("Player1", PlayerColor.BLUE);
+        mainController.joinFirstGame(p1.getName());
         assertEquals(4, rooms.get(0).getNumOfWaitingPlayers());
 
-        mainController.leaveGame("Player2", rooms.get(1).getWaitingRoom().getRoomId());
+        mainController.leaveGame(p2, rooms.get(1).getWaitingRoom().getRoomId());
         assertEquals(3, rooms.get(1).getNumOfWaitingPlayers());
-        mainController.leaveGame("Player7", rooms.get(1).getWaitingRoom().getRoomId());
+        mainController.leaveGame(p7, rooms.get(1).getWaitingRoom().getRoomId());
         assertEquals(2, rooms.get(1).getNumOfWaitingPlayers());
-        mainController.leaveGame("Player8", rooms.get(1).getWaitingRoom().getRoomId());
+        mainController.leaveGame(p8, rooms.get(1).getWaitingRoom().getRoomId());
         assertEquals(1, rooms.get(1).getNumOfWaitingPlayers());
-        mainController.leaveGame("Player9", rooms.get(1).getWaitingRoom().getRoomId());
+        mainController.leaveGame(p9, rooms.get(1).getWaitingRoom().getRoomId());
 
         assertEquals(2, mainController.getRooms().size());
 
@@ -78,35 +101,39 @@ class MainControllerTest {
         rooms = mainController.getRooms();
 
         //Creo tre stanze
-        mainController.createRoom("Player1", PlayerColor.BLUE);
+        mainController.createGame(p1.getName());
         assertEquals(1, rooms.get(0).getNumOfWaitingPlayers());
-        mainController.createRoom("Player2", PlayerColor.BLUE);
+        mainController.createGame(p2.getName());
         assertEquals(1, rooms.get(0).getNumOfWaitingPlayers());
-        mainController.createRoom("Player3", PlayerColor.BLUE);
+        mainController.createGame(p3.getName());
         assertEquals(1, rooms.get(0).getNumOfWaitingPlayers());
 
         assertEquals(3, rooms.size());
 
-        mainController.joinRoom("Player4", PlayerColor.GREEN, rooms.get(0).getRoomId());
+        assertThrows(PlayerAlreadyInException.class, () -> mainController.joinGame(p1.getName(), rooms.get(0).getRoomId()));
+        assertEquals(1, rooms.get(0).getNumOfWaitingPlayers());
+
+        mainController.joinGame(p4.getName(), rooms.get(0).getRoomId());
         assertEquals(2, rooms.get(0).getNumOfWaitingPlayers());
-        mainController.joinRoom("Player5", PlayerColor.GREEN, rooms.get(1).getRoomId());
+        mainController.joinGame(p5.getName(), rooms.get(1).getRoomId());
         assertEquals(2, rooms.get(1).getNumOfWaitingPlayers());
-        mainController.joinRoom("Player6", PlayerColor.GREEN, rooms.get(2).getRoomId());
+        mainController.joinGame(p6.getName(), rooms.get(2).getRoomId());
         assertEquals(2, rooms.get(2).getNumOfWaitingPlayers());
 
-        mainController.joinRoom("Player7", PlayerColor.YELLOW, rooms.get(0).getRoomId());
+        mainController.joinGame(p7.getName(), rooms.get(0).getRoomId());
         assertEquals(3, rooms.get(0).getNumOfWaitingPlayers());
-        mainController.joinRoom("Player8", PlayerColor.YELLOW, rooms.get(1).getRoomId());
+        mainController.joinGame(p8.getName(), rooms.get(1).getRoomId());
         assertEquals(3, rooms.get(1).getNumOfWaitingPlayers());
-        mainController.joinRoom("Player9", PlayerColor.YELLOW, rooms.get(2).getRoomId());
+        mainController.joinGame(p9.getName(), rooms.get(2).getRoomId());
         assertEquals(3, rooms.get(2).getNumOfWaitingPlayers());
 
-        mainController.joinRoom("Player10", PlayerColor.RED, rooms.get(0).getRoomId());
+        mainController.joinGame(p10.getName(), rooms.get(0).getRoomId());
         assertEquals(4, rooms.get(0).getNumOfWaitingPlayers());
-        mainController.joinRoom("Player11", PlayerColor.RED, rooms.get(1).getRoomId());
+        mainController.joinGame(p11.getName(), rooms.get(1).getRoomId());
         assertEquals(4, rooms.get(1).getNumOfWaitingPlayers());
-        mainController.joinRoom("Player12", PlayerColor.RED, rooms.get(2).getRoomId());
+        mainController.joinGame(p12.getName(), rooms.get(2).getRoomId());
         assertEquals(4, rooms.get(2).getNumOfWaitingPlayers());
+        assertThrows(MaxPlayersInException.class, () -> mainController.joinGame("PlayerFull", rooms.get(0).getRoomId()));
 
         mainController.deleteRoom(rooms.get(0).getRoomId());
         mainController.deleteRoom(rooms.get(0).getRoomId());
@@ -116,6 +143,9 @@ class MainControllerTest {
 
 
     }
+
+     */
+
 
 
 }

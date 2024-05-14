@@ -1,9 +1,7 @@
 package it.polimi.ingsw.gc01.controller;
 
-import it.polimi.ingsw.gc01.controller.exceptions.GoldenRequirementsException;
+import it.polimi.ingsw.gc01.controller.exceptions.*;
 import it.polimi.ingsw.gc01.model.DefaultValue;
-import it.polimi.ingsw.gc01.controller.exceptions.MaxPlayersInException;
-import it.polimi.ingsw.gc01.controller.exceptions.PlayerAlreadyInException;
 import it.polimi.ingsw.gc01.model.cards.GoldenCard;
 import it.polimi.ingsw.gc01.model.cards.ObjectiveCard;
 import it.polimi.ingsw.gc01.model.cards.PlayableCard;
@@ -13,6 +11,7 @@ import it.polimi.ingsw.gc01.model.room.*;
 import java.util.List;
 
 public class RoomController {
+    private MainController mainController;
     private Room room;
     private WaitingRoom waitingRoom;
     private GameState state;
@@ -20,6 +19,14 @@ public class RoomController {
     public RoomController() {
         this.waitingRoom = new WaitingRoom();
         this.state = GameState.WAITING;
+    }
+
+    /**
+     *
+     * @return the Main controller instance (Singleton)
+     */
+    public MainController getMainController() {
+        return MainController.getInstance();
     }
 
     /**
@@ -97,27 +104,24 @@ public class RoomController {
 
     /**
      *
-     * @param nickname name of the players that needs to be added to the WaitingRoom
-     * @param color of the player that will be added to the game
+     * @param playerName name of the players that needs to be added to the WaitingRoom
      * @throws MaxPlayersInException if there are already 4 players in the room
      * @throws PlayerAlreadyInException if there is already a player who is using this nickname
      */
-    public void addPlayer(String nickname, PlayerColor color) throws MaxPlayersInException, PlayerAlreadyInException {
+    public void addPlayer(String playerName) throws PlayerAlreadyInException, MaxPlayersInException{
         List<Player> players = waitingRoom.getPlayers();
-        //First I check that the player is not already in the game
-        // then I check if the game is already full
-        if (players.stream()
-                .map(Player::getName).noneMatch(x -> x.equals(nickname))) {
-            if (players.size() + 1 <= DefaultValue.MaxNumOfPlayer) {
-                waitingRoom.addPlayer(nickname, color);
-                //listenersHandler.notify_playerJoined(this);
+        //First I check that the game isn't full
+        //then I check if the player is already in
+        //then I check if the color is not already taken
+        if (players.size() + 1 <= DefaultValue.MaxNumOfPlayer) {
+            if (players.stream().map(Player::getName).noneMatch(x -> x.equals(playerName))) {
+                waitingRoom.addPlayer(playerName);
             } else {
-                //listenersHandler.notify_JoinUnableGameFull(p, this);
-                throw new MaxPlayersInException();
+                //listenersHandler.notify_JoinUnableNicknameAlreadyIn(p);
+                throw new PlayerAlreadyInException();
             }
         } else {
-            //listenersHandler.notify_JoinUnableNicknameAlreadyIn(p);
-            throw new PlayerAlreadyInException();
+            throw new MaxPlayersInException();
         }
     }
 
@@ -176,6 +180,54 @@ public class RoomController {
     }
 
     /**
+     * if the current players reach 20 or more points the game state is switched to the last circle (1 last turn for each player)
+     */
+    public void changeStateIfTwenty () {
+        Player currentPlayer = room.getCurrentPlayer();
+        if (currentPlayer.getPoints() >= 20) {
+            state = GameState.LAST_CIRCLE;
+        }
+    }
+
+    /**
+     * Calculates all the points done by players, decrees a winner and set the game state to Ended
+     */
+    public void endGame () {
+        calculateStrategy();
+        List<Player> winners = room.getWinners();
+        state = GameState.ENDED;
+        // broadcast the winners message to everyone
+    }
+
+
+    /**
+     *
+     * @param player the player to set the color
+     * @param color the color to set to the player who is choosing
+     */
+    public void chooseColor(Player player, PlayerColor color){
+        player.setColor(color);
+    }
+
+    /**
+     *
+     * @param player the player to set ready or unready
+     */
+    public void changeReady(Player player){
+        player.changeReady();
+    }
+
+    /**
+     * Set the secret objective for a player
+     *
+     * @param player the player that is choosing the objective card
+     * @param card the objective choosen by the player
+     */
+    public void chooseSecretObjective(Player player, ObjectiveCard card){
+        player.setSecretObjective(card);
+    }
+
+    /**
      * Flip a card
      *
      * @param card the card that needs to be flipped
@@ -191,7 +243,12 @@ public class RoomController {
      * @param position the position of the player field in which the card needs to be played
      * @throws GoldenRequirementsException the player doesn't has the necessary resource to play that card
      */
-    public void playCard (PlayableCard card, Position position) throws GoldenRequirementsException{
+    public void playCard (Player player, PlayableCard card, Position position) throws GoldenRequirementsException, NotPlayerTurnException {
+        if (!room.getCurrentPlayer().equals(player)){
+            //TODO da cambiare
+            throw new NotPlayerTurnException();
+        }
+
         if (card.isFront()){
             if (card instanceof GoldenCard){
                 if (!((GoldenCard) card).checkRequirements(room.getCurrentPlayer())){
@@ -199,66 +256,55 @@ public class RoomController {
                 }
             }
         }
-        room.getCurrentPlayer().playCard(card, position);
+        player.playCard(card, position);
     }
 
     /**
      * Draw a card from the drawable Cards in the table
      *
-     * @param position The position in the drawable cards in which you want to draw the card
+     * @param player the player who is trying to draw a card
+     * @param position the position where the player wants to draw
      */
-    public void drawCard(TablePosition position){
+    public void drawCard(Player player, TablePosition position){
+        if (!room.getCurrentPlayer().equals(player)){
+            //TODO da cambiare
+            throw new NotPlayerTurnException();
+        }
+
         if (position.equals(TablePosition.RESOURCEDECK)){
-            room.getCurrentPlayer().getHand().add(room.getDrawableCards().get(position));
+            player.getHand().add(room.getDrawableCards().get(position));
             room.getDrawableCards().put(position, room.getResourceDeck().pick());
         }
         if (position.equals(TablePosition.RESOURCERIGHT) || position.equals(TablePosition.RESOURCELEFT)){
-            room.getCurrentPlayer().getHand().add(room.getDrawableCards().get(position));
+            player.getHand().add(room.getDrawableCards().get(position));
             room.getDrawableCards().put(position, room.getResourceDeck().pick());
             room.getDrawableCards().get(position).setFront(true);
         }
         if (position.equals(TablePosition.GOLDENDECK)){
-            room.getCurrentPlayer().getHand().add(room.getDrawableCards().get(position));
+            player.getHand().add(room.getDrawableCards().get(position));
             room.getDrawableCards().put(position, room.getGoldenDeck().pick());
         }
         if (position.equals(TablePosition.GOLDENRIGHT) || position.equals(TablePosition.GOLDENLEFT)){
-            room.getCurrentPlayer().getHand().add(room.getDrawableCards().get(position));
+            player.getHand().add(room.getDrawableCards().get(position));
             room.getDrawableCards().put(position, room.getGoldenDeck().pick());
             room.getDrawableCards().get(position).setFront(true);
         }
-    }
 
-    /**
-     * if the current players reach 20 or more points the game state is switched to the last circle (1 last turn for each player)
-     */
-    public void changeStateIfTwenty () {
-        Player currentPlayer = room.getCurrentPlayer();
-        if (currentPlayer.getPoints() >= 20) {
-            state = GameState.LAST_CIRCLE;
-        }
+        room.setCurrentPlayer(room.getNextPlayer());
     }
 
     /**
      * Leave a player from a game
      *
-     * @param nickName the name of the players who wants to leave
+     * @param player the player who wants to leave
      */
-    public void leave(String nickName){
+    public void leave(Player player){
         if (room == null) {
-            waitingRoom.removePlayer(nickName);
+            waitingRoom.removePlayer(player);
         }
         else {
-            room.removePlayer(nickName);
+            room.removePlayer(player);
         }
     }
 
-    /**
-     * Calculates all the points done by players, decrees a winner and set the game state to Ended
-     */
-    public void endGame () {
-        calculateStrategy();
-        List<Player> winners = room.getWinners();
-        state = GameState.ENDED;
-        // broadcast the winners message to everyone
-    }
 }

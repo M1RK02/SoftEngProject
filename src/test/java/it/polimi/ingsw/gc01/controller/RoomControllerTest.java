@@ -23,31 +23,31 @@ class RoomControllerTest {
     @BeforeEach
     void setUp() {
         testRoomController = new RoomController();
-        p.add(new Player("Player1", PlayerColor.BLUE));
-        p.add(new Player("Player2", PlayerColor.GREEN));
-        p.add(new Player("Player3", PlayerColor.RED));
-        p.add(new Player("Player4", PlayerColor.YELLOW));
-        p.add(new Player("Player5", PlayerColor.YELLOW));
+        p.add(new Player("Player1"));
+        p.add(new Player("Player2"));
+        p.add(new Player("Player3"));
+        p.add(new Player("Player4"));
+        p.add(new Player("Player5"));
     }
 
     @Test
     void addPlayer() {
         assert(testRoomController.getWaitingRoom().getPlayers().isEmpty());
-        testRoomController.addPlayer(p.get(0).getName(), p.get(0).getColor());
-        assertThrows(PlayerAlreadyInException.class, () -> { testRoomController.addPlayer(p.get(0).getName(), p.get(0).getColor());});
-        testRoomController.addPlayer(p.get(1).getName(), p.get(1).getColor());
-        testRoomController.addPlayer(p.get(2).getName(), p.get(2).getColor());
-        testRoomController.addPlayer(p.get(3).getName(), p.get(3).getColor());
-        assertThrows(MaxPlayersInException.class, () -> { testRoomController.addPlayer(p.get(4).getName(), p.get(4).getColor());});
+        testRoomController.addPlayer(p.get(0).getName());
+        assertThrows(PlayerAlreadyInException.class, () -> { testRoomController.addPlayer(p.get(0).getName());});
+        testRoomController.addPlayer(p.get(1).getName());
+        testRoomController.addPlayer(p.get(2).getName());
+        testRoomController.addPlayer(p.get(3).getName());
+        assertThrows(MaxPlayersInException.class, () -> { testRoomController.addPlayer(p.get(4).getName());});
 
     }
 
     @Test
     void prepareGame() {
-        testRoomController.addPlayer(p.get(0).getName(), p.get(0).getColor());
-        testRoomController.addPlayer(p.get(1).getName(), p.get(1).getColor());
-        testRoomController.addPlayer(p.get(2).getName(), p.get(2).getColor());
-        testRoomController.addPlayer(p.get(3).getName(), p.get(3).getColor());
+        testRoomController.addPlayer(p.get(0).getName());
+        testRoomController.addPlayer(p.get(1).getName());
+        testRoomController.addPlayer(p.get(2).getName());
+        testRoomController.addPlayer(p.get(3).getName());
         testRoomController.prepareGame();
         assertNotNull(testRoomController.getRoom());
         for (Player player : testRoomController.getRoom().getPlayers()) {
@@ -57,10 +57,10 @@ class RoomControllerTest {
 
     @Test
     void distributeCards() {
-        testRoomController.addPlayer(p.get(0).getName(), p.get(0).getColor());
-        testRoomController.addPlayer(p.get(1).getName(), p.get(1).getColor());
-        testRoomController.addPlayer(p.get(2).getName(), p.get(2).getColor());
-        testRoomController.addPlayer(p.get(3).getName(), p.get(3).getColor());
+        testRoomController.addPlayer(p.get(0).getName());
+        testRoomController.addPlayer(p.get(1).getName());
+        testRoomController.addPlayer(p.get(2).getName());
+        testRoomController.addPlayer(p.get(3).getName());
         testRoomController.prepareGame();
         for (Player player : testRoomController.getRoom().getPlayers()) {
             testRoomController.flipCard(player.getHand().get(0));

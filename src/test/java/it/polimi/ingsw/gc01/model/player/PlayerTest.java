@@ -31,7 +31,7 @@ class PlayerTest {
         goldenDeck = new GoldenDeck();
         starterDeck = new StarterDeck();
         resourceDeck = new ResourceDeck();
-        player = new Player("testPlayer", PlayerColor.BLUE);
+        player = new Player("testPlayer");
         player.getHand().add(starterDeck.pick());
     }
 

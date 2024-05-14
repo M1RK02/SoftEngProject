@@ -41,10 +41,14 @@ public class Room {
         starterDeck.shuffle();
         drawableCards.put(TablePosition.RESOURCEDECK, resourceDeck.pick());
         drawableCards.put(TablePosition.RESOURCELEFT, resourceDeck.pick());
+        drawableCards.get(TablePosition.RESOURCELEFT).setFront(true);
         drawableCards.put(TablePosition.RESOURCERIGHT, resourceDeck.pick());
+        drawableCards.get(TablePosition.RESOURCERIGHT).setFront(true);
         drawableCards.put(TablePosition.GOLDENDECK, goldenDeck.pick());
         drawableCards.put(TablePosition.GOLDENLEFT, goldenDeck.pick());
+        drawableCards.get(TablePosition.GOLDENLEFT).setFront(true);
         drawableCards.put(TablePosition.GOLDENRIGHT, goldenDeck.pick());
+        drawableCards.get(TablePosition.GOLDENRIGHT).setFront(true);
         commonObjectives.add(objectiveDeck.pick());
         commonObjectives.add(objectiveDeck.pick());
     }
@@ -119,10 +123,11 @@ public class Room {
     }
 
     /**
+     * Remove a player from the room
      *
-     * @param nickName the name of the player to remove
+     * @param player the player to remove
      */
-    public void removePlayer(String nickName){
-        players.remove(players.stream().filter(x -> x.getName().equals(nickName)).collect(Collectors.toList()).get(0));
+    public void removePlayer(Player player){
+        players.remove(player);
     }
 }

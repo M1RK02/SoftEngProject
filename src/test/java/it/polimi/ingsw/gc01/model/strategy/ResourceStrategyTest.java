@@ -16,7 +16,7 @@ class ResourceStrategyTest {
 
     @BeforeEach
     void setUp() {
-        player = new Player("lazzaro", PlayerColor.YELLOW);
+        player = new Player("lazzaro");
         FUNGIstrategy = new ResourceStrategy(Resource.FUNGI);
         ANIMALstrategy = new ResourceStrategy(Resource.ANIMAL);
         INSECTstrategy = new ResourceStrategy(Resource.INSECT);

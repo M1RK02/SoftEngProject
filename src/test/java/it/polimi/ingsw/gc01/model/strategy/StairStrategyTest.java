@@ -23,7 +23,7 @@ class StairStrategyTest {
 
     @BeforeEach
     void setUp() {
-        player = new Player("testPlayer", PlayerColor.BLUE);
+        player = new Player("testPlayer");
 
         Field field = player.getField();
 
