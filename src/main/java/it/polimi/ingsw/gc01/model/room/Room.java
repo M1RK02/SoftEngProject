@@ -122,6 +122,15 @@ public class Room {
         return winners;
     }
 
+    public Player getPlayerByName(String playerName){
+        for (Player player : players){
+            if (player.getName().equals(playerName)){
+                return player;
+            }
+        }
+        return null;
+    }
+
     /**
      * Remove a player from the room
      *
