@@ -130,7 +130,7 @@ public class RoomController {
      * Create the room and gives to all the players 1 Starter Card
      */
     public void prepareGame() {
-        room = new Room(waitingRoom.getPlayers(), waitingRoom.getRoomId());
+        room = new Room(waitingRoom.getRoomId(), waitingRoom.getPlayers(), waitingRoom.getNotifier());
 
         for (Player player : room.getPlayers()) {
             player.getHand().add(room.getStarterDeck().pick());
@@ -146,8 +146,8 @@ public class RoomController {
             p.getHand().add(room.getResourceDeck().pick());
             p.getHand().add(room.getResourceDeck().pick());
             p.getHand().add(room.getGoldenDeck().pick());
-            p.getPossibleObjective().add(room.getObjectiveDeck().pick());
-            p.getPossibleObjective().add(room.getObjectiveDeck().pick());
+            p.getPossibleObjectives().add(room.getObjectiveDeck().pick());
+            p.getPossibleObjectives().add(room.getObjectiveDeck().pick());
         }
     }
 
@@ -214,7 +214,7 @@ public class RoomController {
      * @param player the player to set ready or unready
      */
     public void changeReady(Player player){
-        player.changeReady();
+        player.switchReady();
     }
 
     /**

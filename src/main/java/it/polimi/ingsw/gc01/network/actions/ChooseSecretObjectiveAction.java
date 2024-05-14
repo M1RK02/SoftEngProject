@@ -24,7 +24,7 @@ public class ChooseSecretObjectiveAction extends RoomAction{
             throw new NameNotValidException();
         }
 
-        for (ObjectiveCard obj : playerChoosing.getPossibleObjective()){
+        for (ObjectiveCard obj : playerChoosing.getPossibleObjectives()){
             if (obj.getId() == cardId){
                 controller.chooseSecretObjective(playerChoosing, obj);
                 choose = true;

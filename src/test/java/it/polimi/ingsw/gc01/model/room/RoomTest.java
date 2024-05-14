@@ -2,6 +2,7 @@ package it.polimi.ingsw.gc01.model.room;
 
 import java.util.*;
 
+import it.polimi.ingsw.gc01.model.ObserverManager;
 import it.polimi.ingsw.gc01.model.cards.GoldenCard;
 import it.polimi.ingsw.gc01.model.cards.PlayableCard;
 import it.polimi.ingsw.gc01.model.cards.ResourceCard;
@@ -21,7 +22,7 @@ class RoomTest {
         for (int i = 0; i < 4; i++) {
             testPlayers.add(new Player("Player" + i));
         }
-        testRoom = new Room(testPlayers, "testId");
+        testRoom = new Room("testId", testPlayers, new ObserverManager());
     }
 
     @Test

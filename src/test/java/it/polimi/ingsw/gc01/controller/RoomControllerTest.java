@@ -6,7 +6,6 @@ import it.polimi.ingsw.gc01.model.cards.GoldenCard;
 import it.polimi.ingsw.gc01.model.cards.ResourceCard;
 import it.polimi.ingsw.gc01.model.cards.StarterCard;
 import it.polimi.ingsw.gc01.model.player.Player;
-import it.polimi.ingsw.gc01.model.player.PlayerColor;
 import it.polimi.ingsw.gc01.model.player.Position;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -74,7 +73,7 @@ class RoomControllerTest {
             assert(player.getHand().get(0) instanceof ResourceCard);
             assert(player.getHand().get(1) instanceof ResourceCard);
             assert(player.getHand().get(2) instanceof GoldenCard);
-            assertEquals(2, player.getPossibleObjective().size());
+            assertEquals(2, player.getPossibleObjectives().size());
         }
     }
 

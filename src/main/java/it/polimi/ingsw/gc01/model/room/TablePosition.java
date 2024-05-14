@@ -6,7 +6,5 @@ public enum TablePosition {
     RESOURCELEFT,
     RESOURCERIGHT,
     GOLDENLEFT,
-    GOLDENRIGHT,
-
-
+    GOLDENRIGHT
 }

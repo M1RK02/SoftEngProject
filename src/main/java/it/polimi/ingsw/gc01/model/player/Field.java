@@ -65,6 +65,4 @@ public class Field {
         }
         return adjacentCards;
     }
-
-
 }

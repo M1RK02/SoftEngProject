@@ -21,15 +21,20 @@ public class Player {
     private List<PlayableCard> hand;
     private Field field;
     private ObjectiveCard secretObjective;
-    private List<ObjectiveCard> possibleObjective = new ArrayList<>();
+    private List<ObjectiveCard> possibleObjectives;
     private boolean ready = false;
+    private ObserverManager notifier;
 
-    public Player(String name) {
+    public Player(String name, ObserverManager notifier) {
         this.name = name;
         this.points = 0;
+        this.objectivePoints = 0;
         this.resources = initResources();
         this.hand = new ArrayList<PlayableCard>();
         this.field = new Field();
+        this.possibleObjectives = new ArrayList<>();
+        this.ready = false;
+        this.notifier = notifier;
     }
 
     /**
@@ -83,12 +88,39 @@ public class Player {
         return secretObjective;
     }
 
-    public List<ObjectiveCard> getPossibleObjective() {
-        return possibleObjective;
+    public List<ObjectiveCard> getPossibleObjectives() {
+        return possibleObjectives;
+    }
+
+    /**
+     *
+     * @return the readiness of the player
+     */
+    public boolean isReady() {
+        return ready;
+    }
+
+    public ObserverManager getNotifier() {
+        return notifier;
+    }
+
+    /**
+     *
+     * @param color set the player color to the choosen one
+     */
+    public void setColor(PlayerColor color){
+        this.color = color;
     }
 
     public void setSecretObjective(ObjectiveCard secretObjective) {
         this.secretObjective = secretObjective;
+    }
+
+    /**
+     * When called, change the readiness of the player
+     */
+    public void switchReady() {
+        this.ready = !ready;
     }
 
     /**
@@ -304,29 +336,6 @@ public class Player {
                 }
             }
         }
-    }
-
-    /**
-     *
-     * @param color set the player color to the choosen one
-     */
-    public void setColor(PlayerColor color){
-        this.color = color;
-    }
-
-    /**
-     *
-     * @return the readiness of the player
-     */
-    public boolean isReady() {
-        return ready;
-    }
-
-    /**
-     * When called, change the readiness of the player
-     */
-    public void changeReady() {
-        this.ready = !ready;
     }
 
     @Override

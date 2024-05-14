@@ -3,6 +3,7 @@ package it.polimi.ingsw.gc01.model.room;
 import java.util.*;
 import java.util.stream.Collectors;
 
+import it.polimi.ingsw.gc01.model.ObserverManager;
 import it.polimi.ingsw.gc01.model.cards.*;
 import it.polimi.ingsw.gc01.model.decks.*;
 import it.polimi.ingsw.gc01.model.player.*;
@@ -17,8 +18,9 @@ public class Room {
     private StarterDeck starterDeck;
     private List<ObjectiveCard> commonObjectives;
     private Map<TablePosition, ResourceCard> drawableCards;
+    private ObserverManager notifier;
 
-    public Room(List<Player> players, String roomId) {
+    public Room(String roomId, List<Player> players, ObserverManager notifier) {
         this.roomId = roomId;
         this.players = players;
         currentPlayer = players.get(0);
@@ -29,6 +31,7 @@ public class Room {
         commonObjectives = new ArrayList<>();
         drawableCards = new HashMap<>();
         initTable();
+        this.notifier = notifier;
     }
 
     /**
@@ -53,6 +56,18 @@ public class Room {
         commonObjectives.add(objectiveDeck.pick());
     }
 
+    public String getRoomId() {
+        return roomId;
+    }
+
+    public List<Player> getPlayers() {
+        return players;
+    }
+
+    public Player getCurrentPlayer() {
+        return currentPlayer;
+    }
+
     public StarterDeck getStarterDeck() {
         return starterDeck;
     }
@@ -73,20 +88,21 @@ public class Room {
         return commonObjectives;
     }
 
-    public String getRoomId() {
-        return roomId;
-    }
-
-    public List<Player> getPlayers() {
-        return players;
-    }
-
-    public Player getCurrentPlayer() {
-        return currentPlayer;
+    public ObserverManager getNotifier() {
+        return notifier;
     }
 
     public void setCurrentPlayer(Player currentPlayer) {
         this.currentPlayer = currentPlayer;
+    }
+
+    public Player getPlayerByName(String playerName){
+        for (Player player : players){
+            if (player.getName().equals(playerName)){
+                return player;
+            }
+        }
+        return null;
     }
 
     /**
@@ -122,14 +138,6 @@ public class Room {
         return winners;
     }
 
-    public Player getPlayerByName(String playerName){
-        for (Player player : players){
-            if (player.getName().equals(playerName)){
-                return player;
-            }
-        }
-        return null;
-    }
 
     /**
      * Remove a player from the room

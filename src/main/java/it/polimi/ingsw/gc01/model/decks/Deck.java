@@ -51,10 +51,18 @@ public abstract class Deck {
     }
 
     /**
-     *ONLY FOR TESTING
+     * @return the card on the top of the deck
+     */
+    public Card get() {
+        return deck.get(0);
+    }
+
+    /**
+     * ONLY FOR TESTING
      * @param id of the card to draw from the deck
      * @return the card whose id is the same of id
      */
+    @Deprecated
     public Card pickById(int id) {
         Card card;
         for (Card c : deck){
@@ -64,12 +72,5 @@ public abstract class Deck {
             }
         }
         return null;
-    }
-
-    /**
-     * @return the card on the top of the deck
-     */
-    public Card get() {
-        return deck.get(0);
     }
 }

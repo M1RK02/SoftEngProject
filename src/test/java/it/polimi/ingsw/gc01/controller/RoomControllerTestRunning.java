@@ -1,11 +1,7 @@
 package it.polimi.ingsw.gc01.controller;
 
-import it.polimi.ingsw.gc01.model.cards.GoldenCard;
-import it.polimi.ingsw.gc01.model.cards.ResourceCard;
 import it.polimi.ingsw.gc01.model.player.Player;
-import it.polimi.ingsw.gc01.model.player.PlayerColor;
 import it.polimi.ingsw.gc01.model.player.Position;
-import it.polimi.ingsw.gc01.model.room.TablePosition;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -47,7 +43,7 @@ class RoomControllerTestRunning {
             Random generatore = new Random();
             int x = generatore.nextInt(2);
             //Choose random side of starterCard and plays it
-            player.setSecretObjective(player.getPossibleObjective().get(x));
+            player.setSecretObjective(player.getPossibleObjectives().get(x));
         }
         testRoomController.startGame();
     }

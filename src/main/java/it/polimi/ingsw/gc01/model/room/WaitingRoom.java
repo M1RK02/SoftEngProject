@@ -1,44 +1,21 @@
 package it.polimi.ingsw.gc01.model.room;
 
 import java.util.*;
-import java.util.stream.Collectors;
 
+import it.polimi.ingsw.gc01.model.ObserverManager;
 import it.polimi.ingsw.gc01.model.player.*;
 
 public class WaitingRoom {
+    private final String roomId;
     private List<Player> players;
     private List<PlayerColor> availableColors;
-    private final String roomId;
+    private final ObserverManager notifier;
 
     public WaitingRoom() {
         roomId = generateRoomId();
         players = new ArrayList<Player>();
         availableColors = new ArrayList<>(Arrays.asList(PlayerColor.values()));
-    }
-
-    public List<PlayerColor> getAvailableColors() {
-        return availableColors;
-    }
-
-    public List<Player> getPlayers() {
-        return players;
-    }
-
-    /**
-     * Add the player to the waiting room (the check for max size will be done by the controller)
-     * @param playerName chosen player name
-     */
-    public void addPlayer(String playerName){
-        players.add(new Player(playerName));
-    }
-
-
-    public int getNumOfPlayers(){
-        return this.getPlayers().size();
-    }
-
-    public String getRoomId(){
-        return roomId;
+        notifier = new ObserverManager();
     }
 
     /**
@@ -60,6 +37,30 @@ public class WaitingRoom {
         return sb.toString();
     }
 
+    public String getRoomId(){
+        return roomId;
+    }
+
+    public List<Player> getPlayers() {
+        return players;
+    }
+
+    public List<PlayerColor> getAvailableColors() {
+        return availableColors;
+    }
+
+    public ObserverManager getNotifier() {
+        return notifier;
+    }
+
+    /**
+     * Add the player to the waiting room (the check for max size will be done by the controller)
+     * @param playerName chosen player name
+     */
+    public void addPlayer(String playerName){
+        players.add(new Player(playerName));
+    }
+
     /**
      * Remove a player from the waiting room
      *
@@ -69,4 +70,7 @@ public class WaitingRoom {
         players.remove(player);
     }
 
+    public int getNumOfPlayers(){
+        return this.getPlayers().size();
+    }
 }
