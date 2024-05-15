@@ -3,6 +3,7 @@ package it.polimi.ingsw.gc01.network.rmi;
 import it.polimi.ingsw.gc01.model.DefaultValue;
 import it.polimi.ingsw.gc01.model.player.PlayerColor;
 import it.polimi.ingsw.gc01.model.room.TablePosition;
+import it.polimi.ingsw.gc01.network.Client;
 import it.polimi.ingsw.gc01.network.VirtualView;
 import it.polimi.ingsw.gc01.network.message.Message;
 import it.polimi.ingsw.gc01.network.message.ShowAvailableColorMessage;
@@ -14,7 +15,7 @@ import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 
 
-public class RmiClient {
+public class RmiClient implements Client, VirtualView {
 
     private VirtualServer server;
     private final String roomId;
@@ -99,7 +100,7 @@ public class RmiClient {
 
     /**
      * asks stub to choose the color of the player
-     * @param color
+     * @param color the color wich will be given to the player
      */
     public void chooseColor(PlayerColor color){
         server.chooseColor(this.playerName, this.roomId, color);
@@ -114,7 +115,7 @@ public class RmiClient {
 
     /**
      * asks stub to choose the secret objective
-     * @param cardId
+     * @param cardId the id of the chosen objective card
      */
     public void chooseSecretObjective(int cardId){
         server.chooseSecretObjective(this.playerName, this.roomId, cardId);
@@ -122,7 +123,7 @@ public class RmiClient {
 
     /**
      * asks stub to flip the selected card
-     * @param cardId
+     * @param cardId the id of the card to flip
      */
     public void flipCard(int cardId){
         server.flipCard(this.playerName, this.roomId, cardId);
@@ -130,9 +131,9 @@ public class RmiClient {
 
     /**
      * asks stub to play the card in the position with coordinates x ,y
-     * @param cardId
-     * @param x
-     * @param y
+     * @param cardId the id of the card to play
+     * @param x the x coordinate in the matrix of the player field
+     * @param y the y coordinate in the matrix of the player field
      */
     public void playCard(int cardId, int x, int y){
         server.playCard(this.playerName, this.roomId, cardId, x, y);
@@ -140,37 +141,86 @@ public class RmiClient {
 
     /**
      * asks stub to draw card from a certain Table position
-     * @param card
+     * @param card the position of the card to draw in the drawableCard positions
      */
     public void drawCard (TablePosition card){
         server.drawCard(this.playerName, this.roomId, card);
     }
 
     /**
-     * asks stub to make the player leafve the game
+     * asks stub to make the player leave the game
      */
     public void leave() {
         server.leave(this.playerName, this.roomId);
     }
 
-
+    /**
+     *
+     * @param message
+     */
+    @Override
     public void updateRoomId(Message message){}
 
-    public void showAvailableColor(Message message){}
+    /**
+     *
+     * @param message
+     */
+    @Override
+    public void showAvailableColors(Message message){}
 
+    /**
+     *
+     * @param message
+     */
+    @Override
     public void updateReady(Message message){}
 
+    /**
+     *
+     * @param message
+     */
+    @Override
     public void showCommonObjective(Message message){}
 
+    /**
+     *
+     * @param message
+     */
+    @Override
     public void showTable(Message message){}
 
+    /**
+     *
+     * @param message
+     */
+    @Override
     public void showHand(Message message){}
 
+    /**
+     *
+     * @param message
+     */
+    @Override
     public void showField(Message message){}
 
+    /**
+     *
+     * @param message
+     */
+    @Override
     public void showSecretObjectives(Message message){}
 
+    /**
+     *
+     * @param message
+     */
+    @Override
     public void showError(Message message){}
 
+    /**
+     *
+     * @param message
+     */
+    @Override
     public void serviceMessage(Message message){}
 }

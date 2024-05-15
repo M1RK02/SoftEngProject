@@ -19,7 +19,7 @@ public interface Client {
 
     public void chooseSecretObjective(int cardId);
 
-    public void flipCard(int card);
+    public void flipCard(int cardId);
 
     public void playCard (int cardId, int x, int y);
 

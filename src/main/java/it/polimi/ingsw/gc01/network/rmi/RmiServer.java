@@ -2,6 +2,7 @@ package it.polimi.ingsw.gc01.network.rmi;
 
 
 import it.polimi.ingsw.gc01.controller.MainController;
+import it.polimi.ingsw.gc01.model.DefaultValue;
 import it.polimi.ingsw.gc01.model.player.PlayerColor;
 import it.polimi.ingsw.gc01.model.player.Position;
 import it.polimi.ingsw.gc01.model.room.TablePosition;
@@ -34,15 +35,15 @@ public class RmiServer implements VirtualServer {
     public void bind() throws RemoteException, AlreadyBoundException {
         try {
             //esporto l'oggetto remoto cosìpuò ricevere chiamate dai client
-            VirtualServer stub = (VirtualServer) UnicastRemoteObject.exportObject(this, 1234);
+            VirtualServer stub = (VirtualServer) UnicastRemoteObject.exportObject(this, DefaultValue.Default_port_RMI);
 
             // Bind the remote object's stub in the registry
             Registry registry = LocateRegistry.getRegistry();
-            registry.bind("ServerLazzaro", stub);
+            registry.bind(DefaultValue.Default_servername_RMI, stub);
 
         }catch (Exception e){
             System.err.println("Server exception");
-            e.printStackTrace();
+            throw new RuntimeException(e);
 
         }
     }
@@ -56,13 +57,13 @@ public class RmiServer implements VirtualServer {
         Thread thread = new Thread ( () -> {
             try{
                 while (true) {
-                    //spila le action e le segue
+                    //Spila le action e le esegue
                     Action action = actions.take();
                     action.execute();
                 }
             }catch (InterruptedException e){
                 System.err.println("Il thread che esegue le Action è stato interrotto");
-                e.printStackTrace();
+                throw new RuntimeException(e);
             }
         });
 
@@ -72,8 +73,8 @@ public class RmiServer implements VirtualServer {
 
     /**
      * Creates a CreateGameAction and put it in the Queue
-     * @param playerName
-     * @param client
+     * @param playerName The name of the player who is creating a room
+     * @param client The client  of the player who is creating the room
      */
     public void createGame (String playerName, VirtualView client){
         CreateGameAction createGame = new CreateGameAction(playerName, this.mainController, client);
@@ -81,16 +82,16 @@ public class RmiServer implements VirtualServer {
             actions.put(createGame);
         } catch (InterruptedException e){
             System.err.println("L'inserimento dell'azione createGame nella coda è stato interrotto.");
-            e.printStackTrace();
+            throw new RuntimeException(e);
         }
     }
 
 
     /**
      * Creates a joinGameAction and put it in the Queue
-     * @param playerName
-     * @param client
-     * @param roomId
+     * @param playerName The name of the player who is trying to join a game
+     * @param client The client of the player who is trying to join a game
+     * @param roomId The id of the game to join
      */
     public void joinGame(String playerName, VirtualView client, String roomId){
         JoinGameAction joinGame = new JoinGameAction(playerName, this.mainController, client, roomId);
@@ -98,7 +99,7 @@ public class RmiServer implements VirtualServer {
             actions.put(joinGame);
         } catch (InterruptedException e){
             System.err.println("L'inserimento dell'azione joinGame nella coda è stato interrotto.");
-            e.printStackTrace();
+            throw new RuntimeException(e);
         }
     }
 
@@ -108,8 +109,8 @@ public class RmiServer implements VirtualServer {
 
     /**
      * Creates a joinFirstGameAction and put it in the Queue
-     * @param playerName
-     * @param client
+     * @param playerName The name of the player who is trying to join a game
+     * @param client The client of the player who is trying to join a game
      */
     public void joinFirstGame(String playerName, VirtualView client){
         JoinFirstGameAction joinFirstGame = new JoinFirstGameAction(playerName, this.mainController, client);
@@ -117,16 +118,16 @@ public class RmiServer implements VirtualServer {
             actions.put(joinFirstGame);
         } catch (InterruptedException e){
             System.err.println("L'inserimento dell'azione joinFirstGame nella coda è stato interrotto.");
-            e.printStackTrace();
+            throw new RuntimeException(e);
         }
     }
 
 
     /**
      * Creates a chooseColorAction and put it in the Queue
-     * @param playerName
-     * @param roomId
-     * @param color
+     * @param playerName The name of the player who is choosing the color
+     * @param roomId The id of the room in which is the player who is making the action
+     * @param color the color chosen by the player
      */
     public void chooseColor(String playerName, String roomId, PlayerColor color){
 
@@ -135,7 +136,7 @@ public class RmiServer implements VirtualServer {
             actions.put(chooseColor);
         } catch (InterruptedException e){
             System.err.println("L'inserimento dell'azione chooseColor nella coda è stato interrotto.");
-            e.printStackTrace();
+            throw new RuntimeException(e);
         }
 
     }
@@ -143,8 +144,8 @@ public class RmiServer implements VirtualServer {
 
     /**
      * Creates a SetReadyAction and put it in the Queue
-     * @param playerName
-     * @param roomId
+     * @param playerName The name of the player who is switching his readiness state
+     * @param roomId The id of the room in which is the player who is making the action
      */
     public void switchReady (String playerName, String roomId){
     SwitchReadyAction switchReady = new SwitchReadyAction(playerName, mainController.getRooms().get(roomId));
@@ -152,16 +153,16 @@ public class RmiServer implements VirtualServer {
             actions.put(switchReady);
         } catch (InterruptedException e){
             System.err.println("L'inserimento dell'azione changeReady nella coda è stato interrotto.");
-            e.printStackTrace();
+            throw new RuntimeException(e);
         }
     }
 
 
     /**
      * Creates a ChooseSecretObjectiveAction and put it in the Queue
-     * @param playerName
-     * @param roomId
-     * @param cardId
+     * @param playerName The name of the player who is choosing the secret objective
+     * @param roomId The id of the room in which is the player who is making the action
+     * @param cardId The id of the objective card chosen
      */
     public void chooseSecretObjective(String playerName, String roomId, int cardId){
     ChooseSecretObjectiveAction chooseSecretObjective = new ChooseSecretObjectiveAction(playerName, mainController.getRooms().get(roomId), cardId);
@@ -169,16 +170,16 @@ public class RmiServer implements VirtualServer {
             actions.put(chooseSecretObjective);
         } catch (InterruptedException e){
             System.err.println("L'inserimento dell'azione chooseSecretObjective nella coda è stato interrotto.");
-            e.printStackTrace();
+            throw new RuntimeException(e);
         }
     }
 
 
     /**
      * Creates a FlipCardAction and put it in the Queue
-     * @param playerName
-     * @param roomId
-     * @param cardId
+     * @param playerName The name of the player
+     * @param roomId The id of the room in which is the player who is making the action
+     * @param cardId The id of the card to flip
      */
     public void flipCard(String playerName, String roomId, int cardId){
     FlipCardAction flipCard = new FlipCardAction(playerName, mainController.getRooms().get(roomId), cardId);
@@ -186,18 +187,18 @@ public class RmiServer implements VirtualServer {
             actions.put(flipCard);
         } catch (InterruptedException e){
             System.err.println("L'inserimento dell'azione fliCard nella coda è stato interrotto.");
-            e.printStackTrace();
+            throw new RuntimeException(e);
         }
     }
 
 
     /**
      * Creates a PlayCardAction and put it in the Queue
-     * @param playerName
-     * @param roomId
-     * @param cardId
-     * @param x
-     * @param y
+     * @param playerName The name of the player
+     * @param roomId The id of the room in which is the player who is making the action
+     * @param cardId The id of the card to play
+     * @param x The x coordinate in the matrix of the player field
+     * @param y The y coordinate in the matrix of the player field
      */
     public void playCard(String playerName, String roomId, int cardId, int x, int y){
     PlayCardAction playCard = new PlayCardAction(playerName, mainController.getRooms().get(roomId), cardId, new Position(x,y));
@@ -205,16 +206,16 @@ public class RmiServer implements VirtualServer {
             actions.put(playCard);
         } catch (InterruptedException e){
             System.err.println("L'inserimento dell'azione playCard nella coda è stato interrotto.");
-            e.printStackTrace();
+            throw new RuntimeException(e);
         }
     }
 
 
     /**
      * Creates a DrawCardAction and put it in the Queue
-     * @param playerName
-     * @param roomId
-     * @param card
+     * @param playerName The name of the player
+     * @param roomId The id of the room in which is the player who is making the action
+     * @param card The position of the card to draw in the Drawable cards
      */
     public void drawCard(String playerName, String roomId, TablePosition card){
     DrawCardAction drawCard = new DrawCardAction(playerName, mainController.getRooms().get(roomId), card);
@@ -222,15 +223,15 @@ public class RmiServer implements VirtualServer {
             actions.put(drawCard);
         } catch (InterruptedException e){
             System.err.println("L'inserimento dell'azione drawCard nella coda è stato interrotto.");
-            e.printStackTrace();
+            throw new RuntimeException(e);
         }
     }
 
 
     /**
      * Creates a LeaveAction and put it in the Queue
-     * @param playerName
-     * @param roomId
+     * @param playerName The name of the player
+     * @param roomId The id of the room in which is the player who is making the action
      */
     public void leave(String playerName, String roomId){
     LeaveAction leave = new LeaveAction(playerName, mainController.getRooms().get(roomId));
@@ -238,7 +239,7 @@ public class RmiServer implements VirtualServer {
             actions.put(leave);
         } catch (InterruptedException e){
             System.err.println("L'inserimento dell'azione leave nella coda è stato interrotto.");
-            e.printStackTrace();
+            throw new RuntimeException(e);
         }
     }
 }
