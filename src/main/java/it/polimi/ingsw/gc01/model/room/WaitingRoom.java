@@ -2,6 +2,7 @@ package it.polimi.ingsw.gc01.model.room;
 
 import java.util.*;
 
+import it.polimi.ingsw.gc01.model.DefaultValue;
 import it.polimi.ingsw.gc01.model.ObserverManager;
 import it.polimi.ingsw.gc01.model.player.*;
 
@@ -70,8 +71,22 @@ public class WaitingRoom {
         players.remove(player);
     }
 
+    /**
+     *
+     * @return the num of players waiting in the Waiting room
+     */
     public int getNumOfPlayers(){
         return this.getPlayers().size();
+    }
+
+    /**
+     *
+     * @return true if there are at least 2 players and they are all ready to start, else false
+     */
+    public boolean readyToStart(){
+        //If every player is ready, the game starts
+        return players.stream().filter(Player::getReady)
+                .count() == players.size() && players.size() >= DefaultValue.MinNumOfPlayer;
     }
 }
 
