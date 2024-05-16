@@ -124,6 +124,14 @@ public class Player {
     }
 
     /**
+     *
+     * @return the player readiness to start
+     */
+    public boolean getReady(){
+        return ready;
+    }
+
+    /**
      * @param playerPoints points to add to the player
      */
     public void addPoints(int playerPoints) {

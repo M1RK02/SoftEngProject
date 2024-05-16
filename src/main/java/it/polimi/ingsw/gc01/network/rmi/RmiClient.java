@@ -81,8 +81,7 @@ public class RmiClient implements Client, VirtualView {
      */
     public void createGame(){
         server.createGame(this.playerName, (VirtualView) this);
-
-}
+    }
 
     /**
      * asks stub to join game
@@ -161,7 +160,9 @@ public class RmiClient implements Client, VirtualView {
      * @param message
      */
     @Override
-    public void updateRoomId(Message message){}
+    public void updateRoomId(Message message){
+
+    }
 
     /**
      *

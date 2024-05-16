@@ -17,36 +17,33 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class RoomControllerTest {
     public static RoomController testRoomController;
-    public static final List<Player> p = new ArrayList<>();
+    Player p1 = new Player("Player1", null);
+    Player p2 = new Player("Player2", null);
+    Player p3 = new Player("Player3", null);
+    Player p4 = new Player("Player4", null);
 
     @BeforeEach
     void setUp() {
         testRoomController = new RoomController();
-        p.add(new Player("Player1", null));
-        p.add(new Player("Player2", null));
-        p.add(new Player("Player3", null));
-        p.add(new Player("Player4", null));
-        p.add(new Player("Player5", null));
     }
 
     @Test
     void addPlayer() {
         assert(testRoomController.getWaitingRoom().getPlayers().isEmpty());
-        testRoomController.addPlayer(p.get(0).getName());
-        assertThrows(PlayerAlreadyInException.class, () -> { testRoomController.addPlayer(p.get(0).getName());});
-        testRoomController.addPlayer(p.get(1).getName());
-        testRoomController.addPlayer(p.get(2).getName());
-        testRoomController.addPlayer(p.get(3).getName());
-        assertThrows(MaxPlayersInException.class, () -> { testRoomController.addPlayer(p.get(4).getName());});
-
+        testRoomController.addPlayer(p1.getName());
+        assertThrows(PlayerAlreadyInException.class, () -> { testRoomController.addPlayer(p1.getName());});
+        testRoomController.addPlayer(p2.getName());
+        testRoomController.addPlayer(p3.getName());
+        testRoomController.addPlayer(p4.getName());
+        assertThrows(MaxPlayersInException.class, () -> { testRoomController.addPlayer(p4.getName());});
     }
 
     @Test
     void prepareGame() {
-        testRoomController.addPlayer(p.get(0).getName());
-        testRoomController.addPlayer(p.get(1).getName());
-        testRoomController.addPlayer(p.get(2).getName());
-        testRoomController.addPlayer(p.get(3).getName());
+        testRoomController.addPlayer(p1.getName());
+        testRoomController.addPlayer(p2.getName());
+        testRoomController.addPlayer(p3.getName());
+        testRoomController.addPlayer(p4.getName());
         testRoomController.prepareGame();
         assertNotNull(testRoomController.getRoom());
         for (Player player : testRoomController.getRoom().getPlayers()) {
@@ -56,10 +53,10 @@ class RoomControllerTest {
 
     @Test
     void distributeCards() {
-        testRoomController.addPlayer(p.get(0).getName());
-        testRoomController.addPlayer(p.get(1).getName());
-        testRoomController.addPlayer(p.get(2).getName());
-        testRoomController.addPlayer(p.get(3).getName());
+        testRoomController.addPlayer(p1.getName());
+        testRoomController.addPlayer(p2.getName());
+        testRoomController.addPlayer(p3.getName());
+        testRoomController.addPlayer(p4.getName());
         testRoomController.prepareGame();
         for (Player player : testRoomController.getRoom().getPlayers()) {
             testRoomController.flipCard(player.getHand().get(0));
