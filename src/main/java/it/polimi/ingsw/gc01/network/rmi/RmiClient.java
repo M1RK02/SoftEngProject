@@ -154,6 +154,8 @@ public class RmiClient implements Client, VirtualView {
         server.leave(this.playerName, this.roomId);
     }
 
+    // TODO ALL MESSAGES leggere il messagio e aggiornare la view
+
     /**
      *
      * @param message
