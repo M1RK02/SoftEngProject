@@ -21,6 +21,7 @@ public class RoomController {
     public RoomController() {
         this.waitingRoom = new WaitingRoom();
         this.state = GameState.WAITING;
+        mainController = MainController.getInstance();
     }
 
     /**
@@ -146,8 +147,11 @@ public class RoomController {
     public void distributeCards(){
         for (Player p : room.getPlayers()){
             p.getHand().add(room.getResourceDeck().pick());
+            p.getHand().get(0).setFront(true);
             p.getHand().add(room.getResourceDeck().pick());
+            p.getHand().get(1).setFront(true);
             p.getHand().add(room.getGoldenDeck().pick());
+            p.getHand().get(2).setFront(true);
             p.getPossibleObjectives().add(room.getObjectiveDeck().pick());
             p.getPossibleObjectives().add(room.getObjectiveDeck().pick());
         }
@@ -259,6 +263,10 @@ public class RoomController {
             }
         }
         player.playCard(card, position);
+
+        if (getState().equals(GameState.LAST_CIRCLE) && player.equals(room.getPlayers().get(room.getPlayers().size() - 1))){
+            endGame();
+        }
     }
 
     /**
@@ -275,21 +283,39 @@ public class RoomController {
 
         if (position.equals(TablePosition.RESOURCEDECK)){
             player.getHand().add(room.getDrawableCards().get(position));
-            room.getDrawableCards().put(position, room.getResourceDeck().pick());
+            player.getHand().get(2).setFront(true);
+            room.getDrawableCards().remove(position);
+            if (!room.getResourceDeck().isEmpty()){
+                room.getDrawableCards().put(position, room.getResourceDeck().pick());
+            }
         }
         if (position.equals(TablePosition.RESOURCERIGHT) || position.equals(TablePosition.RESOURCELEFT)){
             player.getHand().add(room.getDrawableCards().get(position));
-            room.getDrawableCards().put(position, room.getResourceDeck().pick());
-            room.getDrawableCards().get(position).setFront(true);
+            room.getDrawableCards().remove(position);
+            if (!room.getResourceDeck().isEmpty()){
+                room.getDrawableCards().put(position, room.getResourceDeck().pick());
+                room.getDrawableCards().get(position).setFront(true);
+            }
         }
         if (position.equals(TablePosition.GOLDENDECK)){
             player.getHand().add(room.getDrawableCards().get(position));
-            room.getDrawableCards().put(position, room.getGoldenDeck().pick());
+            player.getHand().get(2).setFront(true);
+            room.getDrawableCards().remove(position);
+            if (!room.getGoldenDeck().isEmpty()){
+                room.getDrawableCards().put(position, room.getGoldenDeck().pick());
+            }
         }
         if (position.equals(TablePosition.GOLDENRIGHT) || position.equals(TablePosition.GOLDENLEFT)){
             player.getHand().add(room.getDrawableCards().get(position));
-            room.getDrawableCards().put(position, room.getGoldenDeck().pick());
-            room.getDrawableCards().get(position).setFront(true);
+            room.getDrawableCards().remove(position);
+            if (!room.getGoldenDeck().isEmpty()){
+                room.getDrawableCards().put(position, room.getGoldenDeck().pick());
+                room.getDrawableCards().get(position).setFront(true);
+            }
+        }
+
+        if (room.getResourceDeck().isEmpty() && room.getGoldenDeck().isEmpty() && room.getPlayers().get(room.getPlayers().size() - 1).equals(player)){
+            setState(GameState.LAST_CIRCLE);
         }
 
         room.setCurrentPlayer(room.getNextPlayer());
