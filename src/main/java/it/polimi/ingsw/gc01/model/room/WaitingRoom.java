@@ -60,6 +60,8 @@ public class WaitingRoom {
      */
     public void addPlayer(String playerName){
         players.add(new Player(playerName, notifier));
+        notifier.updateRoomId(playerName, roomId);
+        notifier.showAvailableColor(playerName, availableColors);
     }
 
     /**
@@ -69,6 +71,7 @@ public class WaitingRoom {
      */
     public void removePlayer(Player player){
         players.remove(player);
+        notifier.serviceMessage(player.getName() + " left the room");
     }
 
     /**
@@ -89,5 +92,3 @@ public class WaitingRoom {
                 .count() == players.size() && players.size() >= DefaultValue.MinNumOfPlayer;
     }
 }
-
-//TODO Add calls to notifier
