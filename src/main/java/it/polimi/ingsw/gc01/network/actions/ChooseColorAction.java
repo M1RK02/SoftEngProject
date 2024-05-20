@@ -16,7 +16,6 @@ public class ChooseColorAction extends RoomAction{
     public void execute(){
         RoomController controller = getRoomController();
         Player playerToSetColor = controller.getRoom().getPlayerByName(getPlayerName());
-
-        playerToSetColor.setColor(color);
+        controller.chooseColor(playerToSetColor, color);
     }
 }

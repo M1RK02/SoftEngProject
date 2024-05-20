@@ -49,9 +49,9 @@ public class MainController implements Remote{
      * @param client reference to the client
      */
     public synchronized void createGame(String playerName, VirtualView client) throws RemoteException{
-        RoomController game = new RoomController();
-        rooms.put(game.getRoomId(), game);
-        game.addPlayer(playerName, client);
+        RoomController roomController = new RoomController();
+        rooms.put(roomController.getRoomId(), roomController);
+        roomController.addPlayer(playerName, client);
     }
 
     /**
