@@ -3,6 +3,7 @@ package it.polimi.ingsw.gc01.controller;
 import it.polimi.ingsw.gc01.model.DefaultValue;
 import it.polimi.ingsw.gc01.network.VirtualView;
 
+import java.rmi.RemoteException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -60,7 +61,11 @@ public class MainController {
         if (rooms.get(roomId) != null){
             rooms.get(roomId).addPlayer(playerName, client);
         } else {
-            client.showError("No room with this id exists");
+            try {
+                client.showError("No room with this id exists");
+            } catch (RemoteException e) {
+                throw new RuntimeException(e);
+            }
         }
     }
 
@@ -75,7 +80,11 @@ public class MainController {
             if (rooms.get(roomId).getNumOfWaitingPlayers() < DefaultValue.MaxNumOfPlayer) {
                 rooms.get(roomId).addPlayer(playerName, client);
             } else {
-                client.showError("No room available");
+                try {
+                    client.showError("No room available");
+                } catch (RemoteException e) {
+                    throw new RuntimeException(e);
+                }
             }
         }
     }

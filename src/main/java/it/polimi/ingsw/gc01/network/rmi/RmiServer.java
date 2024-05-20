@@ -9,10 +9,9 @@ import it.polimi.ingsw.gc01.model.room.TablePosition;
 import it.polimi.ingsw.gc01.network.VirtualView;
 import it.polimi.ingsw.gc01.network.actions.*;
 
-import java.rmi.AlreadyBoundException;
+import java.rmi.*;
 import java.rmi.registry.Registry;
 import java.rmi.registry.LocateRegistry;
-import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.BlockingQueue;
@@ -22,9 +21,10 @@ public class RmiServer implements VirtualServer {
     MainController mainController;
     BlockingQueue<Action> actions;
 
-    public  RmiServer (MainController mainController) {
-        this.mainController = mainController;
+    public  RmiServer () throws RemoteException {
+        this.mainController = MainController.getInstance();
         actions = new ArrayBlockingQueue<Action>(100);
+        bind();
     }
 
     /**
@@ -32,19 +32,17 @@ public class RmiServer implements VirtualServer {
      * @throws RemoteException
      * @throws AlreadyBoundException
      */
-    public void bind() throws RemoteException, AlreadyBoundException {
+    private void bind() {
         try {
             //esporto l'oggetto remoto cosìpuò ricevere chiamate dai client
             VirtualServer stub = (VirtualServer) UnicastRemoteObject.exportObject(this, DefaultValue.Default_port_RMI);
 
             // Bind the remote object's stub in the registry
-            Registry registry = LocateRegistry.getRegistry();
+            Registry registry = LocateRegistry.createRegistry(1234);
             registry.bind(DefaultValue.Default_servername_RMI, stub);
 
         }catch (Exception e){
-            System.err.println("Server exception");
-            throw new RuntimeException(e);
-
+            e.printStackTrace();
         }
     }
 
@@ -53,7 +51,7 @@ public class RmiServer implements VirtualServer {
      * a Thread is created to take actions from the Queue and call their execute method that
      * is going to modify the model of the game
      */
-    public void executeActions(){
+    private void executeActions(){
         Thread thread = new Thread ( () -> {
             try{
                 while (true) {
@@ -76,7 +74,7 @@ public class RmiServer implements VirtualServer {
      * @param playerName The name of the player who is creating a room
      * @param client The client  of the player who is creating the room
      */
-    public void createGame (String playerName, VirtualView client){
+    public void createGame (String playerName, VirtualView client) throws RemoteException {
         CreateGameAction createGame = new CreateGameAction(playerName, this.mainController, client);
         try{
             actions.put(createGame);
@@ -93,7 +91,7 @@ public class RmiServer implements VirtualServer {
      * @param client The client of the player who is trying to join a game
      * @param roomId The id of the game to join
      */
-    public void joinGame(String playerName, VirtualView client, String roomId){
+    public void joinGame(String playerName, VirtualView client, String roomId) throws RemoteException {
         JoinGameAction joinGame = new JoinGameAction(playerName, this.mainController, client, roomId);
         try{
             actions.put(joinGame);
@@ -112,7 +110,7 @@ public class RmiServer implements VirtualServer {
      * @param playerName The name of the player who is trying to join a game
      * @param client The client of the player who is trying to join a game
      */
-    public void joinFirstGame(String playerName, VirtualView client){
+    public void joinFirstGame(String playerName, VirtualView client) throws RemoteException {
         JoinFirstGameAction joinFirstGame = new JoinFirstGameAction(playerName, this.mainController, client);
         try{
             actions.put(joinFirstGame);
@@ -129,7 +127,7 @@ public class RmiServer implements VirtualServer {
      * @param roomId The id of the room in which is the player who is making the action
      * @param color the color chosen by the player
      */
-    public void chooseColor(String playerName, String roomId, PlayerColor color){
+    public void chooseColor(String playerName, String roomId, PlayerColor color) throws RemoteException {
 
         ChooseColorAction chooseColor = new ChooseColorAction(playerName, mainController.getRooms().get(roomId), color);
         try{
@@ -147,7 +145,7 @@ public class RmiServer implements VirtualServer {
      * @param playerName The name of the player who is switching his readiness state
      * @param roomId The id of the room in which is the player who is making the action
      */
-    public void switchReady (String playerName, String roomId){
+    public void switchReady (String playerName, String roomId) throws RemoteException {
     SwitchReadyAction switchReady = new SwitchReadyAction(playerName, mainController.getRooms().get(roomId));
         try{
             actions.put(switchReady);
@@ -164,7 +162,7 @@ public class RmiServer implements VirtualServer {
      * @param roomId The id of the room in which is the player who is making the action
      * @param cardId The id of the objective card chosen
      */
-    public void chooseSecretObjective(String playerName, String roomId, int cardId){
+    public void chooseSecretObjective(String playerName, String roomId, int cardId) throws RemoteException {
     ChooseSecretObjectiveAction chooseSecretObjective = new ChooseSecretObjectiveAction(playerName, mainController.getRooms().get(roomId), cardId);
         try{
             actions.put(chooseSecretObjective);
@@ -181,7 +179,7 @@ public class RmiServer implements VirtualServer {
      * @param roomId The id of the room in which is the player who is making the action
      * @param cardId The id of the card to flip
      */
-    public void flipCard(String playerName, String roomId, int cardId){
+    public void flipCard(String playerName, String roomId, int cardId) throws RemoteException {
     FlipCardAction flipCard = new FlipCardAction(playerName, mainController.getRooms().get(roomId), cardId);
         try{
             actions.put(flipCard);
@@ -200,7 +198,7 @@ public class RmiServer implements VirtualServer {
      * @param x The x coordinate in the matrix of the player field
      * @param y The y coordinate in the matrix of the player field
      */
-    public void playCard(String playerName, String roomId, int cardId, int x, int y){
+    public void playCard(String playerName, String roomId, int cardId, int x, int y) throws RemoteException {
     PlayCardAction playCard = new PlayCardAction(playerName, mainController.getRooms().get(roomId), cardId, new Position(x,y));
         try{
             actions.put(playCard);
@@ -217,7 +215,7 @@ public class RmiServer implements VirtualServer {
      * @param roomId The id of the room in which is the player who is making the action
      * @param card The position of the card to draw in the Drawable cards
      */
-    public void drawCard(String playerName, String roomId, TablePosition card){
+    public void drawCard(String playerName, String roomId, TablePosition card) throws RemoteException {
     DrawCardAction drawCard = new DrawCardAction(playerName, mainController.getRooms().get(roomId), card);
         try{
             actions.put(drawCard);
@@ -233,7 +231,7 @@ public class RmiServer implements VirtualServer {
      * @param playerName The name of the player
      * @param roomId The id of the room in which is the player who is making the action
      */
-    public void leave(String playerName, String roomId){
+    public void leave(String playerName, String roomId) throws RemoteException {
     LeaveAction leave = new LeaveAction(playerName, mainController.getRooms().get(roomId));
         try{
             actions.put(leave);

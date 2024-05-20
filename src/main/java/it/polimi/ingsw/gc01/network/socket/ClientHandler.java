@@ -11,7 +11,7 @@ import java.io.ObjectOutputStream;
 import java.util.*;
 
 public class ClientHandler implements VirtualView {
-    //TODO
+    //GTODO
     private ObjectInputStream input;
     private ObjectOutputStream output;
     private MainController mainController;

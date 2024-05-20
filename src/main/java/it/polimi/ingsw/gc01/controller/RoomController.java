@@ -120,10 +120,18 @@ public class RoomController {
             if (players.stream().map(Player::getName).noneMatch(x -> x.equals(playerName))) {
                 waitingRoom.addPlayer(playerName, client);
             } else {
-                client.showError("Name already in use");
+                try {
+                    client.showError("Name already in use");
+                } catch (RemoteException e) {
+                    throw new RuntimeException(e);
+                }
             }
         } else {
-            client.showError("Max number of players reached");
+            try {
+                client.showError("Max number of players reached");
+            } catch (RemoteException e) {
+                throw new RuntimeException(e);
+            }
         }
     }
 
@@ -255,13 +263,21 @@ public class RoomController {
     public void playCard (Player player, PlayableCard card, Position position){
         VirtualView client = player.getNotifier().getObserver(player.getName());
         if (!room.getCurrentPlayer().equals(player)){
-            client.showError("Its not your turn");
+            try {
+                client.showError("Its not your turn");
+            } catch (RemoteException e) {
+                throw new RuntimeException(e);
+            }
         }
 
         if (card.isFront()){
             if (card instanceof GoldenCard){
                 if (!((GoldenCard) card).checkRequirements(room.getCurrentPlayer())){
-                    client.showError("You don't have the required items");
+                    try {
+                        client.showError("You don't have the required items");
+                    } catch (RemoteException e) {
+                        throw new RuntimeException(e);
+                    }
                 }
             }
         }
@@ -281,7 +297,11 @@ public class RoomController {
     public void drawCard(Player player, TablePosition position){
         VirtualView client = player.getNotifier().getObserver(player.getName());
         if (!room.getCurrentPlayer().equals(player)){
-            client.showError("Its not your turn");
+            try {
+                client.showError("Its not your turn");
+            } catch (RemoteException e) {
+                throw new RuntimeException(e);
+            }
             return;
         }
 
