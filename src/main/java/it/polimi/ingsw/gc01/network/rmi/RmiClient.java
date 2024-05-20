@@ -5,26 +5,22 @@ import it.polimi.ingsw.gc01.model.player.PlayerColor;
 import it.polimi.ingsw.gc01.model.room.TablePosition;
 import it.polimi.ingsw.gc01.network.Client;
 import it.polimi.ingsw.gc01.network.VirtualView;
-import it.polimi.ingsw.gc01.network.message.Message;
-import it.polimi.ingsw.gc01.network.message.ShowAvailableColorMessage;
-import it.polimi.ingsw.gc01.network.message.UpdateRoomIdMessage;
 
 import java.io.IOException;
-import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
+import java.util.*;
 
 
 public class RmiClient implements Client, VirtualView {
 
     private VirtualServer server;
-    private final String roomId;
+    private String roomId;
     final String playerName;
 
 
-    public RmiClient(String playerName, String roomId) {
+    public RmiClient(String playerName) {
         this.playerName = playerName;
-        this.roomId = roomId;
     }
 
     /**
@@ -153,77 +149,88 @@ public class RmiClient implements Client, VirtualView {
         server.leave(this.playerName, this.roomId);
     }
 
-    // TODO ALL MESSAGES leggere il messagio e aggiornare la view
+    // TODO scrivere tutti i metodi per aggiornare la view
 
     /**
-     *
-     * @param message
+     * @param roomId
      */
     @Override
-    public void updateRoomId(Message message){
+    public void updateRoomId(String roomId) {
 
     }
 
     /**
-     *
-     * @param message
+     * @param availableColors
      */
     @Override
-    public void showAvailableColors(Message message){}
+    public void showAvailableColors(List<PlayerColor> availableColors) {
+
+    }
 
     /**
-     *
-     * @param message
+     * @param ready
      */
     @Override
-    public void updateReady(Message message){}
+    public void updateReady(boolean ready) {
+
+    }
 
     /**
-     *
-     * @param message
+     * @param objectivesIds
      */
     @Override
-    public void showCommonObjective(Message message){}
+    public void showCommonObjectives(List<Integer> objectivesIds) {
+
+    }
 
     /**
-     *
-     * @param message
+     * @param drawableCardsIds
      */
     @Override
-    public void showTable(Message message){}
+    public void showTable(Map<TablePosition, Integer> drawableCardsIds) {
+
+    }
 
     /**
-     *
-     * @param message
+     * @param cardIds
      */
     @Override
-    public void showHand(Message message){}
+    public void showHand(List<Integer> cardIds) {
+
+    }
 
     /**
-     *
-     * @param message
+     * @param playerName
+     * @param cardId
+     * @param x
+     * @param y
      */
     @Override
-    public void showField(Message message){}
+    public void showField(String playerName, int cardId, int x, int y) {
+
+    }
 
     /**
-     *
-     * @param message
+     * @param possibleObjectivesIds
      */
     @Override
-    public void showSecretObjectives(Message message){}
+    public void showSecretObjectives(List<Integer> possibleObjectivesIds) {
+
+    }
 
     /**
-     *
-     * @param message
+     * @param error
      */
     @Override
-    public void showError(Message message){}
+    public void showError(String error) {
+
+    }
 
     /**
-     *
      * @param message
      */
     @Override
-    public void serviceMessage(Message message){}
+    public void serviceMessage(String message) {
+
+    }
 }

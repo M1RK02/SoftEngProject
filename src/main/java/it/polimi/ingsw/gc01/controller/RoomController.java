@@ -1,12 +1,13 @@
 package it.polimi.ingsw.gc01.controller;
 
 import it.polimi.ingsw.gc01.controller.exceptions.*;
-import it.polimi.ingsw.gc01.model.DefaultValue;
+import it.polimi.ingsw.gc01.model.*;
 import it.polimi.ingsw.gc01.model.cards.GoldenCard;
 import it.polimi.ingsw.gc01.model.cards.ObjectiveCard;
 import it.polimi.ingsw.gc01.model.cards.PlayableCard;
 import it.polimi.ingsw.gc01.model.player.*;
 import it.polimi.ingsw.gc01.model.room.*;
+import it.polimi.ingsw.gc01.network.VirtualView;
 
 import java.io.IOException;
 import java.rmi.RemoteException;
@@ -108,23 +109,21 @@ public class RoomController {
     /**
      *
      * @param playerName name of the players that needs to be added to the WaitingRoom
-     * @throws MaxPlayersInException if there are already 4 players in the room
-     * @throws PlayerAlreadyInException if there is already a player who is using this nickname
+     * @param client reference to the client
      */
-    public void addPlayer(String playerName) throws PlayerAlreadyInException, MaxPlayersInException{
+    public void addPlayer(String playerName, VirtualView client){
         List<Player> players = waitingRoom.getPlayers();
         //First I check that the game isn't full
         //then I check if the player is already in
         //then I check if the color is not already taken
         if (players.size() + 1 <= DefaultValue.MaxNumOfPlayer) {
             if (players.stream().map(Player::getName).noneMatch(x -> x.equals(playerName))) {
-                waitingRoom.addPlayer(playerName);
+                waitingRoom.addPlayer(playerName, client);
             } else {
-                //listenersHandler.notify_JoinUnableNicknameAlreadyIn(p);
-                throw new PlayerAlreadyInException();
+                client.showError("Name already in use");
             }
         } else {
-            throw new MaxPlayersInException();
+            client.showError("Max number of players reached");
         }
     }
 
@@ -138,13 +137,16 @@ public class RoomController {
         for (Player player : room.getPlayers()) {
             player.getHand().add(room.getStarterDeck().pick());
         }
-
+        ObserverManager notifier = room.getNotifier();
+        notifier.showTable(room.getDrawableCards());
+        notifier.showCommonObjectives(room.getCommonObjectives());
     }
 
     /**
      * for each player distribute 2 Resource Card, 1 Golden Card and 2 Objective Cards
      */
     public void distributeCards(){
+        ObserverManager notifier = room.getNotifier();
         for (Player p : room.getPlayers()){
             p.getHand().add(room.getResourceDeck().pick());
             p.getHand().get(0).setFront(true);
@@ -154,6 +156,8 @@ public class RoomController {
             p.getHand().get(2).setFront(true);
             p.getPossibleObjectives().add(room.getObjectiveDeck().pick());
             p.getPossibleObjectives().add(room.getObjectiveDeck().pick());
+            notifier.showHand(p.getName(), p.getHand());
+            notifier.showSecretObjectives(p.getName(), p.getPossibleObjectives());
         }
     }
 
@@ -202,7 +206,7 @@ public class RoomController {
         calculateStrategy();
         List<Player> winners = room.getWinners();
         state = GameState.ENDED;
-        // broadcast the winners message to everyone
+        room.getNotifier().serviceMessage("The winner is "+winners.get(0).getName());
     }
 
 
@@ -244,21 +248,20 @@ public class RoomController {
 
     /**
      * Play a card
-     *
+     * @param player the player who wants to play the card
      * @param card the card that needs to be played
      * @param position the position of the player field in which the card needs to be played
-     * @throws GoldenRequirementsException the player doesn't has the necessary resource to play that card
      */
-    public void playCard (Player player, PlayableCard card, Position position) throws GoldenRequirementsException, NotPlayerTurnException {
+    public void playCard (Player player, PlayableCard card, Position position){
+        VirtualView client = player.getNotifier().getObserver(player.getName());
         if (!room.getCurrentPlayer().equals(player)){
-            //TODO da cambiare
-            throw new NotPlayerTurnException();
+            client.showError("Its not your turn");
         }
 
         if (card.isFront()){
             if (card instanceof GoldenCard){
                 if (!((GoldenCard) card).checkRequirements(room.getCurrentPlayer())){
-                    throw new GoldenRequirementsException();
+                    client.showError("You don't have the required items");
                 }
             }
         }
@@ -276,9 +279,10 @@ public class RoomController {
      * @param position the position where the player wants to draw
      */
     public void drawCard(Player player, TablePosition position){
+        VirtualView client = player.getNotifier().getObserver(player.getName());
         if (!room.getCurrentPlayer().equals(player)){
-            //TODO da cambiare
-            throw new NotPlayerTurnException();
+            client.showError("Its not your turn");
+            return;
         }
 
         if (position.equals(TablePosition.RESOURCEDECK)){

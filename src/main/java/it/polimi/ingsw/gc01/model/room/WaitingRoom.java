@@ -5,6 +5,7 @@ import java.util.*;
 import it.polimi.ingsw.gc01.model.DefaultValue;
 import it.polimi.ingsw.gc01.model.ObserverManager;
 import it.polimi.ingsw.gc01.model.player.*;
+import it.polimi.ingsw.gc01.network.VirtualView;
 
 public class WaitingRoom {
     private final String roomId;
@@ -57,9 +58,11 @@ public class WaitingRoom {
     /**
      * Add the player to the waiting room (the check for max size will be done by the controller)
      * @param playerName chosen player name
+     *
      */
-    public void addPlayer(String playerName){
+    public void addPlayer(String playerName, VirtualView client){
         players.add(new Player(playerName, notifier));
+        notifier.addObserver(playerName, client);
         notifier.updateRoomId(playerName, roomId);
         notifier.showAvailableColor(playerName, availableColors);
     }
@@ -71,6 +74,7 @@ public class WaitingRoom {
      */
     public void removePlayer(Player player){
         players.remove(player);
+        notifier.removeObserver(player.getName());
         notifier.serviceMessage(player.getName() + " left the room");
     }
 

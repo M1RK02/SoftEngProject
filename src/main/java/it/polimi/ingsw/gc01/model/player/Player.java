@@ -117,10 +117,11 @@ public class Player {
     }
 
     /**
-     * When called, change the readiness of the player
+     * When called, change the readiness of the player and notifies the view
      */
     public void switchReady() {
-        this.ready = !ready;
+        ready = !ready;
+        notifier.updateReady(name, ready);
     }
 
     /**
@@ -208,6 +209,8 @@ public class Player {
         if (card instanceof ResourceCard) {
             updatePoints((ResourceCard) card, position);
         }
+
+        notifier.showField(name, position, card);
     }
 
     /**
@@ -359,5 +362,3 @@ public class Player {
         return Objects.hash(name);
     }
 }
-
-//TODO Add calls to notifier

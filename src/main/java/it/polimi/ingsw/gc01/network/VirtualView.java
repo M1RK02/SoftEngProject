@@ -1,65 +1,71 @@
 package it.polimi.ingsw.gc01.network;
 
-import it.polimi.ingsw.gc01.network.message.Message;
+import it.polimi.ingsw.gc01.model.player.PlayerColor;
+import it.polimi.ingsw.gc01.model.room.TablePosition;
+
+import java.util.*;
 
 public interface VirtualView {
     /**
      *
-     * @param message
+     * @param roomId
      */
-    public void updateRoomId(Message message);
+    public void updateRoomId(String roomId);
+
+    /**
+     *
+     * @param availableColors
+     */
+    public void showAvailableColors(List<PlayerColor> availableColors);
+
+    /**
+     *
+     * @param ready
+     */
+    public void updateReady(boolean ready);
+
+    /**
+     *
+     * @param objectivesIds
+     */
+    public void showCommonObjectives(List<Integer> objectivesIds);
+
+    /**
+     *
+     * @param drawableCardsIds
+     */
+    public void showTable(Map<TablePosition, Integer> drawableCardsIds);
+
+    /**
+     *
+     * @param cardIds
+     */
+    public void showHand(List<Integer> cardIds);
+
+    /**
+     *
+     * @param playerName
+     * @param cardId
+     * @param x
+     * @param y
+     */
+    public void showField(String playerName, int cardId, int x, int y);
+
+    /**
+     *
+     * @param possibleObjectivesIds
+     */
+    public void showSecretObjectives(List<Integer> possibleObjectivesIds);
+
+    /**
+     *
+     * @param error
+     */
+    public void showError(String error);
 
     /**
      *
      * @param message
      */
-    public void showAvailableColors(Message message);
-
-    /**
-     *
-     * @param message
-     */
-    public void updateReady(Message message);
-
-    /**
-     *
-     * @param message
-     */
-    public void showCommonObjective(Message message);
-
-    /**
-     *
-     * @param message
-     */
-    public void showTable(Message message);
-
-    /**
-     *
-     * @param message
-     */
-    public void showHand(Message message);
-
-    /**
-     *
-     * @param message
-     */
-    public void showField(Message message);
-
-    /**
-     *
-     * @param message
-     */
-    public void showSecretObjectives(Message message);
-
-    /**
-     *
-     * @param message
-     */
-    public void showError(Message message);
-
-    /**
-     *
-     * @param message
-     */
-    public void serviceMessage(Message message);
+    public void serviceMessage(String message);
 }

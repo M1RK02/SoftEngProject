@@ -1,11 +1,14 @@
 package it.polimi.ingsw.gc01.network.socket;
 
 import it.polimi.ingsw.gc01.controller.MainController;
+import it.polimi.ingsw.gc01.model.player.PlayerColor;
+import it.polimi.ingsw.gc01.model.room.TablePosition;
 import it.polimi.ingsw.gc01.network.VirtualView;
 import it.polimi.ingsw.gc01.network.message.Message;
 
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.util.*;
 
 public class ClientHandler implements VirtualView {
     //TODO
@@ -21,54 +24,86 @@ public class ClientHandler implements VirtualView {
 
     }
 
+    /**
+     * @param roomId
+     */
     @Override
-    public void updateRoomId(Message message){
+    public void updateRoomId(String roomId) {
 
     }
 
+    /**
+     * @param availableColors
+     */
     @Override
-    public void showAvailableColors(Message message){
+    public void showAvailableColors(List<PlayerColor> availableColors) {
 
     }
 
+    /**
+     * @param ready
+     */
     @Override
-    public void updateReady(Message message) {
+    public void updateReady(boolean ready) {
 
     }
 
+    /**
+     * @param objectivesIds
+     */
     @Override
-    public void showCommonObjective(Message message) {
+    public void showCommonObjectives(List<Integer> objectivesIds) {
 
     }
 
+    /**
+     * @param drawableCardsIds
+     */
     @Override
-    public void showTable(Message message) {
+    public void showTable(Map<TablePosition, Integer> drawableCardsIds) {
 
     }
 
+    /**
+     * @param cardIds
+     */
     @Override
-    public void showHand(Message message) {
+    public void showHand(List<Integer> cardIds) {
 
     }
 
+    /**
+     * @param playerName
+     * @param cardId
+     * @param x
+     * @param y
+     */
     @Override
-    public void showField(Message message) {
+    public void showField(String playerName, int cardId, int x, int y) {
 
     }
 
+    /**
+     * @param possibleObjectivesIds
+     */
     @Override
-    public void showSecretObjectives(Message message) {
+    public void showSecretObjectives(List<Integer> possibleObjectivesIds) {
 
     }
 
+    /**
+     * @param error
+     */
     @Override
-    public void showError(Message message) {
+    public void showError(String error) {
 
     }
 
+    /**
+     * @param message
+     */
     @Override
-    public void serviceMessage(Message message) {
+    public void serviceMessage(String message) {
 
     }
-
 }

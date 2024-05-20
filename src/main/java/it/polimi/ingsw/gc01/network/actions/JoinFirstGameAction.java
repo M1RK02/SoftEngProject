@@ -13,7 +13,7 @@ public class JoinFirstGameAction extends MainAction{
         MainController controller = getMainController();
 
         try {
-            controller.joinFirstGame(getPlayerName());
+            controller.joinFirstGame(getPlayerName(), getClient());
         } catch (Exception e){
             throw new RuntimeException(e);
         }

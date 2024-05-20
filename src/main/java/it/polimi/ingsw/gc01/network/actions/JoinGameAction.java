@@ -16,7 +16,7 @@ public class JoinGameAction extends MainAction{
         MainController controller = getMainController();
 
         try {
-            controller.joinGame(getPlayerName(), roomId);
+            controller.joinGame(getPlayerName(), getClient(), roomId);
         } catch (Exception e){
             throw new RuntimeException(e);
         }

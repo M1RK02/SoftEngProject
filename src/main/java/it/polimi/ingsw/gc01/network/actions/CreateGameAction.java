@@ -15,7 +15,7 @@ public class CreateGameAction extends MainAction{
         MainController controller = getMainController();
 
         try {
-            controller.createGame(getPlayerName());
+            controller.createGame(getPlayerName(), getClient());
         } catch (Exception e){
             throw new RuntimeException(e);
         }
