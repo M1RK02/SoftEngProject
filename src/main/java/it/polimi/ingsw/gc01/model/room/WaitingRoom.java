@@ -55,6 +55,16 @@ public class WaitingRoom {
         return notifier;
     }
 
+    public Player getPlayerByName(String playerName){
+        for (Player player : players){
+            if (player.getName().equals(playerName)){
+                return player;
+            }
+        }
+        return null;
+    }
+
+
     /**
      * Add the player to the waiting room (the check for max size will be done by the controller)
      * @param playerName chosen player name

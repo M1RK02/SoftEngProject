@@ -13,11 +13,6 @@ public class CreateGameAction extends MainAction{
     @Override
     public void execute(){
         MainController controller = getMainController();
-
-        try {
-            controller.createGame(getPlayerName(), getClient());
-        } catch (Exception e){
-            throw new RuntimeException(e);
-        }
+        controller.createGame(getPlayerName(), getClient());
     }
 }

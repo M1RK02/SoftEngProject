@@ -15,24 +15,9 @@ public class ChooseSecretObjectiveAction extends RoomAction{
     }
 
     @Override
-    public void execute() throws NameNotValidException, CardNotValidException{
+    public void execute() {
         RoomController controller = getRoomController();
-        Player playerChoosing = controller.getRoom().getPlayerByName(getPlayerName());
-        boolean choose = false;
-
-        if (playerChoosing == null){
-            throw new NameNotValidException();
-        }
-
-        for (ObjectiveCard obj : playerChoosing.getPossibleObjectives()){
-            if (obj.getId() == cardId){
-                controller.chooseSecretObjective(playerChoosing, obj);
-                choose = true;
-            }
-        }
-
-        if (!choose){
-            throw new CardNotValidException();
+         controller.chooseSecretObjective(getPlayerName(), cardId);
         }
     }
 }

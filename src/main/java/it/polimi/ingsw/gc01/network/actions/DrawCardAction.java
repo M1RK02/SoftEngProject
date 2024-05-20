@@ -15,9 +15,6 @@ public class DrawCardAction extends RoomAction{
     @Override
     public void execute(){
         RoomController controller = getRoomController();
-        Player playerDrawing = controller.getRoom().getPlayerByName(getPlayerName());
-
-        controller.drawCard(playerDrawing, position);
-
+        controller.drawCard(getPlayerName(), position);
     }
 }

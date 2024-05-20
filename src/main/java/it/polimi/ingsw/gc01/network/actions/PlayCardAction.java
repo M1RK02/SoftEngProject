@@ -18,20 +18,6 @@ public class PlayCardAction extends RoomAction{
     @Override
     public void execute(){
         RoomController controller = getRoomController();
-        Player playerWhoIsPlaying = controller.getRoom().getPlayerByName(getPlayerName());
-        PlayableCard cardToPlay = null;
-
-        for (PlayableCard card : playerWhoIsPlaying.getHand()){
-            if (card.getId() == cardId){
-                cardToPlay = card;
-            }
-        }
-        try{
-            controller.playCard(playerWhoIsPlaying, cardToPlay, position);
-        } catch (Exception e){
-            throw new RuntimeException(e);
-        }
+        controller.playCard(getPlayerName(), cardId, position);
     }
-
-
 }

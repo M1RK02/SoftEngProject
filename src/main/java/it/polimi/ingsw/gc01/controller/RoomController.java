@@ -210,7 +210,7 @@ public class RoomController {
     /**
      * Calculates all the points done by players, decrees a winner and set the game state to Ended
      */
-    public void endGame () {
+    public void endGame (){
         calculateStrategy();
         List<Player> winners = room.getWinners();
         state = GameState.ENDED;
@@ -220,67 +220,96 @@ public class RoomController {
 
     /**
      *
-     * @param player the player to set the color
+     * @param playerName the player to set the color
      * @param color the color to set to the player who is choosing
      */
-    public void chooseColor(Player player, PlayerColor color){
-        player.setColor(color);
+    public void chooseColor(String playerName, PlayerColor color){
+        room.getPlayerByName(playerName).setColor(color);
     }
 
     /**
      *
-     * @param player the player to set ready or unready
+     * @param playerName the player to set ready or unready
      */
-    public void switchReady(Player player){
-        player.switchReady();
+    public void switchReady(String playerName){
+        room.getPlayerByName(playerName).switchReady();
     }
 
     /**
      * Set the secret objective for a player
      *
-     * @param player the player that is choosing the objective card
-     * @param card the objective choosen by the player
+     * @param playerName the player that is choosing the objective card
+     * @param cardId the objective choosen by the player
      */
-    public void chooseSecretObjective(Player player, ObjectiveCard card){
-        player.setSecretObjective(card);
+    public void chooseSecretObjective(String playerName, int cardId){
+        Player player = room.getPlayerByName(playerName);
+        ObjectiveCard objective = null;
+        for (ObjectiveCard card : player.getPossibleObjectives()) {
+            if (card.getId() == cardId) {
+                objective = card;
+            }
+        }
+        if (objective != null) {
+            player.setSecretObjective(objective);
+        }else {
+            room.getNotifier().showError(playerName, "No objective found");
+        }
+
     }
 
     /**
      * Flip a card
      *
-     * @param card the card that needs to be flipped
+     * @param playerName the player that want to flip the card
+     * @param cardId the card that needs to be flipped
      */
-    public void flipCard (PlayableCard card) {
-        card.setFront(!card.isFront());
+    public void flipCard (String playerName, int cardId){
+        Player player = room.getPlayerByName(playerName);
+        PlayableCard card = null;
+        for (PlayableCard curr : player.getHand()){
+            if (curr.getId() == cardId){
+                card = curr;
+            }
+        }
+        if (card != null){
+            card.setFront(!card.isFront());
+        }else{
+            room.getNotifier().showError(playerName, "No card found");
+        }
     }
 
     /**
      * Play a card
-     * @param player the player who wants to play the card
-     * @param card the card that needs to be played
+     * @param playerName the player who wants to play the card
+     * @param cardId the card that needs to be played
      * @param position the position of the player field in which the card needs to be played
      */
-    public void playCard (Player player, PlayableCard card, Position position){
-        VirtualView client = player.getNotifier().getObserver(player.getName());
-        if (!room.getCurrentPlayer().equals(player)){
-            try {
-                client.showError("Its not your turn");
-            } catch (RemoteException e) {
-                throw new RuntimeException(e);
+    public void playCard (String playerName, int cardId, Position position){
+        Player player = room.getPlayerByName(playerName);
+        PlayableCard card = null;
+        for (PlayableCard curr : player.getHand()){
+            if (curr.getId() == cardId){
+                card = curr;
             }
+        }
+        if (card != null){
+            card.setFront(!card.isFront());
+        }else{
+            room.getNotifier().showError(playerName, "No card found");
+        }
+
+        if (!room.getCurrentPlayer().equals(player)){
+            room.getNotifier().showError(playerName, "Its not your turn");
         }
 
         if (card.isFront()){
             if (card instanceof GoldenCard){
                 if (!((GoldenCard) card).checkRequirements(room.getCurrentPlayer())){
-                    try {
-                        client.showError("You don't have the required items");
-                    } catch (RemoteException e) {
-                        throw new RuntimeException(e);
-                    }
+                    room.getNotifier().showError(playerName, "You don't have the required items");
                 }
             }
         }
+
         player.playCard(card, position);
 
         if (getState().equals(GameState.LAST_CIRCLE) && player.equals(room.getPlayers().get(room.getPlayers().size() - 1))){
@@ -291,17 +320,13 @@ public class RoomController {
     /**
      * Draw a card from the drawable Cards in the table
      *
-     * @param player the player who is trying to draw a card
+     * @param playerName the player who is trying to draw a card
      * @param position the position where the player wants to draw
      */
-    public void drawCard(Player player, TablePosition position){
-        VirtualView client = player.getNotifier().getObserver(player.getName());
+    public void drawCard(String playerName, TablePosition position){
+        Player player = room.getPlayerByName(playerName);
         if (!room.getCurrentPlayer().equals(player)){
-            try {
-                client.showError("Its not your turn");
-            } catch (RemoteException e) {
-                throw new RuntimeException(e);
-            }
+            room.getNotifier().showError(playerName, "Its not your turn");
             return;
         }
 
@@ -348,27 +373,18 @@ public class RoomController {
     /**
      * Leave a player from a game
      *
-     * @param player the player who wants to leave
+     * @param playerName the player who wants to leave
      */
-    public void leave(Player player){
+    public void leave(String playerName){
         if (room == null) {
-            waitingRoom.removePlayer(player);
+            waitingRoom.removePlayer(waitingRoom.getPlayerByName(playerName));
             if (waitingRoom.getPlayers().isEmpty()) {
-                try {
-                    mainController.deleteRoom(waitingRoom.getRoomId());
-                } catch (Exception e) {
-                    // TODO
-                }
+                mainController.deleteRoom(waitingRoom.getRoomId());
             }
-        }
-        else {
-            room.removePlayer(player);
+        }else {
+            room.removePlayer(room.getPlayerByName(playerName));
             if (room.getPlayers().isEmpty()) {
-                try {
-                    mainController.deleteRoom(room.getRoomId());
-                } catch (Exception e) {
-                    // TODO
-                }
+                mainController.deleteRoom(room.getRoomId());
             }
         }
     }

@@ -14,11 +14,6 @@ public class JoinGameAction extends MainAction{
     @Override
     public void execute(){
         MainController controller = getMainController();
-
-        try {
-            controller.joinGame(getPlayerName(), getClient(), roomId);
-        } catch (Exception e){
-            throw new RuntimeException(e);
-        }
+        controller.joinGame(getPlayerName(), getClient(), roomId);
     }
 }

@@ -11,11 +11,6 @@ public class JoinFirstGameAction extends MainAction{
     @Override
     public void execute(){
         MainController controller = getMainController();
-
-        try {
-            controller.joinFirstGame(getPlayerName(), getClient());
-        } catch (Exception e){
-            throw new RuntimeException(e);
-        }
+        controller.joinFirstGame(getPlayerName(), getClient());
     }
 }

@@ -12,8 +12,6 @@ public class LeaveAction extends RoomAction{
     @Override
     public void execute(){
         RoomController controller = getRoomController();
-        Player playerWhoIsLeaving = controller.getRoom().getPlayerByName(getPlayerName());
-
-        controller.leave(playerWhoIsLeaving);
+        controller.leave(getPlayerName());
     }
 }
