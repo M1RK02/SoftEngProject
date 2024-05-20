@@ -1,9 +1,6 @@
 package it.polimi.ingsw.gc01.network.actions;
 
 import it.polimi.ingsw.gc01.controller.RoomController;
-import it.polimi.ingsw.gc01.controller.exceptions.CardNotValidException;
-import it.polimi.ingsw.gc01.model.cards.PlayableCard;
-import it.polimi.ingsw.gc01.model.player.Player;
 
 public class FlipCardAction extends RoomAction{
     private int cardId;

@@ -1,6 +1,5 @@
 package it.polimi.ingsw.gc01.controller;
 
-import it.polimi.ingsw.gc01.controller.exceptions.*;
 import it.polimi.ingsw.gc01.model.*;
 import it.polimi.ingsw.gc01.model.cards.GoldenCard;
 import it.polimi.ingsw.gc01.model.cards.ObjectiveCard;
@@ -9,7 +8,6 @@ import it.polimi.ingsw.gc01.model.player.*;
 import it.polimi.ingsw.gc01.model.room.*;
 import it.polimi.ingsw.gc01.network.VirtualView;
 
-import java.io.IOException;
 import java.rmi.RemoteException;
 import java.util.List;
 
@@ -170,7 +168,7 @@ public class RoomController {
     }
 
     /**
-     * Starts the game by setting the gamestate to RUNNING
+     * Starts the game by setting the game state to RUNNING
      */
     public void startGame() {
         this.state = GameState.RUNNING;
@@ -239,7 +237,7 @@ public class RoomController {
      * Set the secret objective for a player
      *
      * @param playerName the player that is choosing the objective card
-     * @param cardId the objective choosen by the player
+     * @param cardId the objective chosen by the player
      */
     public void chooseSecretObjective(String playerName, int cardId){
         Player player = room.getPlayerByName(playerName);
