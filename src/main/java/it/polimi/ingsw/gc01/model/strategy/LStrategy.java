@@ -1,98 +1,96 @@
 package it.polimi.ingsw.gc01.model.strategy;
 
-import java.util.*;
 import it.polimi.ingsw.gc01.model.cards.*;
 import it.polimi.ingsw.gc01.model.player.*;
 
+import java.util.*;
+
 public class LStrategy implements Strategy {
     private final CardColor bodyColor;
+    private final CardColor leafColor;
 
     public LStrategy(CardColor bodyColor) {
         this.bodyColor = bodyColor;
+        this.leafColor = getCorrespondingLeafColor(bodyColor);
+    }
+
+    private CardColor getCorrespondingLeafColor(CardColor bodyColor) {
+        switch (bodyColor) {
+            case GREEN:
+                return CardColor.PURPLE;
+            case BLUE:
+                return CardColor.RED;
+            case RED:
+                return CardColor.GREEN;
+            default: //PURPLE
+                return CardColor.BLUE;
+        }
     }
 
     public CardColor getBodyColor() {
         return bodyColor;
     }
 
-    public int check(Player player){
-        Position origin = new Position(0,0);
+    public int check(Player player) {
         Map<Position, PlayableCard> field = player.getField().getPositions();
-        CardColor leafColor = getLeafColor(bodyColor);
+        List<Position> leafCandidates = getLeafCandidates(field);
         Set<Position> found = new HashSet<>();
-        for(Position p : field.keySet()){
-            if (!found.contains(p) && !p.equals(origin)) {
-                ResourceCard c = (ResourceCard) field.get(p);
-                if (c.getColor().equals(leafColor)) {
-                    Position nextPosition = getLower(field, p, leafColor);
-                    while (field.containsKey(nextPosition) && !nextPosition.equals(origin)){
-                        Set <Position> body = getBodyIfRight(field, nextPosition, found);
-                        if (body != null && !found.contains(nextPosition)){
-                            found.add(nextPosition);
-                            found.addAll(body);
-                        }
-                        nextPosition = new Position(nextPosition.getX(), nextPosition.getY() + 2);
-                    }
-                }
+        for (Position leaf : leafCandidates) {
+            List<Position> body = getBodyIfRight(field, leaf);
+            if (body != null && !found.contains(body.get(0)) && !found.contains(body.get(1))) {
+                found.add(leaf);
+                found.addAll(body);
             }
         }
         return found.size();
     }
 
-    private CardColor getLeafColor(CardColor bodyColor) {
-        switch (bodyColor) {
-            case RED:
-                return CardColor.GREEN;
-            case GREEN:
-                return CardColor.PURPLE;
-            case BLUE:
-                return CardColor.RED;
+    private List<Position> getLeafCandidates(Map<Position, PlayableCard> field) {
+        Position origin = new Position(0, 0);
+        List<Position> candidates = new ArrayList<>();
+        for (Position p : field.keySet()) {
+            if (!p.equals(origin)) {
+                ResourceCard card = (ResourceCard) field.get(p);
+                if (card.getColor() == leafColor) {
+                    candidates.add(p);
+                }
+            }
         }
-        // case PURPLE
-        return CardColor.BLUE;
+        candidates.sort(Comparator.comparing(Position::getY));
+        return candidates;
     }
 
-    private Set<Position> getBodyIfRight(Map<Position, PlayableCard> field, Position p, Set<Position> found){
+
+    private List<Position> getBodyIfRight(Map<Position, PlayableCard> field, Position position) {
         Position upperBody = null, lowerBody = null;
-        if (bodyColor.equals(CardColor.RED)) {
-            upperBody = new Position(p.getX() - 1, p.getY() + 3);
-            lowerBody = new Position(p.getX() - 1, p.getY() + 1);
+        switch (bodyColor) {
+            case GREEN:
+                upperBody = new Position(position.getX() + 1, position.getY() + 3);
+                lowerBody = new Position(position.getX() + 1, position.getY() + 1);
+                break;
+            case BLUE:
+                upperBody = new Position(position.getX() - 1, position.getY() - 1);
+                lowerBody = new Position(position.getX() - 1, position.getY() - 3);
+                break;
+            case RED:
+                upperBody = new Position(position.getX() - 1, position.getY() + 3);
+                lowerBody = new Position(position.getX() - 1, position.getY() + 1);
+                break;
+            case PURPLE:
+                upperBody = new Position(position.getX() + 1, position.getY() - 1);
+                lowerBody = new Position(position.getX() + 1, position.getY() - 3);
+                break;
         }
-        if (bodyColor.equals(CardColor.GREEN)) {
-            upperBody = new Position(p.getX() + 1, p.getY() + 3);
-            lowerBody = new Position(p.getX() + 1, p.getY() + 1);
-        }
-        if (bodyColor.equals(CardColor.BLUE)) {
-            upperBody = new Position(p.getX() - 1, p.getY() - 1);
-            lowerBody = new Position(p.getX() - 1, p.getY() - 3);
-        }
-        if (bodyColor.equals(CardColor.PURPLE)) {
-            upperBody = new Position(p.getX() + 1, p.getY() - 1);
-            lowerBody = new Position(p.getX() + 1, p.getY() - 3);
-        }
-        try {
-            if (field.containsKey(upperBody) && field.containsKey(lowerBody) && !(found.contains(upperBody) || found.contains(lowerBody))){
+        Position origin = new Position(0, 0);
+        if (field.containsKey(upperBody) && field.containsKey(lowerBody)) {
+            if (!upperBody.equals(origin) && !lowerBody.equals(origin)) {
                 ResourceCard upperCard = (ResourceCard) field.get(upperBody);
                 ResourceCard lowerCard = (ResourceCard) field.get(lowerBody);
                 if (upperCard.getColor().equals(bodyColor) && lowerCard.getColor().equals(bodyColor)) {
-                    return Set.of(upperBody, lowerBody);
+                    return List.of(upperBody, lowerBody);
                 }
             }
-        } catch (ClassCastException ignore){}
-        return null;
-    }
-
-    private Position getLower(Map<Position, PlayableCard> field, Position p, CardColor color){
-        Position currentPosition = new Position(p.getX(), p.getY());
-        Position nextPosition = new Position(p.getX(), p.getY() - 2);
-        Position origin = new Position(0,0);
-        while (field.containsKey(nextPosition) && !nextPosition.equals(origin)){
-            ResourceCard c = (ResourceCard) field.get(nextPosition);
-            if (c.getColor().equals(color)){
-                currentPosition = nextPosition;
-            }
-            nextPosition = new Position(nextPosition.getX(), nextPosition.getY() - 2);
         }
-        return currentPosition;
+        return null;
     }
 }

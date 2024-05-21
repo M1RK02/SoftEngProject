@@ -35,12 +35,12 @@ public class StairStrategy implements Strategy {
     }
 
 
-private Position getLowerCard(Map<Position, PlayableCard> field, Position p){
+    private Position getLowerCard(Map<Position, PlayableCard> field, Position position){
         Position origin = new Position(0,0);
-        ResourceCard card = (ResourceCard) field.get(p);
-        Position currentPosition = new Position(p.getX(), p.getY()), nextPosition;
+        ResourceCard card = (ResourceCard) field.get(position);
+        Position currentPosition = new Position(position.getX(), position.getY()), nextPosition;
         if (stairColor.equals(CardColor.RED)){
-            nextPosition = new Position(p.getX() - 1, p.getY() - 1);
+            nextPosition = new Position(position.getX() - 1, position.getY() - 1);
             while (!nextPosition.equals(origin) && field.containsKey(nextPosition) && card.getColor().equals(CardColor.RED)){
                 card = (ResourceCard) field.get(nextPosition);
                 if (card.getColor().equals(CardColor.RED)){
@@ -50,7 +50,7 @@ private Position getLowerCard(Map<Position, PlayableCard> field, Position p){
             }
         }
         if (stairColor.equals(CardColor.BLUE)){
-            nextPosition = new Position(p.getX() - 1, p.getY() - 1);
+            nextPosition = new Position(position.getX() - 1, position.getY() - 1);
             while (!nextPosition.equals(origin) && field.containsKey(nextPosition) && card.getColor().equals(CardColor.BLUE)){
                 card = (ResourceCard) field.get(nextPosition);
                 if (card.getColor().equals(CardColor.BLUE)){
@@ -60,7 +60,7 @@ private Position getLowerCard(Map<Position, PlayableCard> field, Position p){
             }
         }
         if (stairColor.equals(CardColor.GREEN)){
-            nextPosition = new Position(p.getX() + 1, p.getY() - 1);
+            nextPosition = new Position(position.getX() + 1, position.getY() - 1);
             while (!nextPosition.equals(origin) && field.containsKey(nextPosition) && card.getColor().equals(CardColor.GREEN)){
                 card = (ResourceCard) field.get(nextPosition);
                 if (card.getColor().equals(CardColor.GREEN)){
@@ -70,7 +70,7 @@ private Position getLowerCard(Map<Position, PlayableCard> field, Position p){
             }
         }
         if (stairColor.equals(CardColor.PURPLE)){
-            nextPosition = new Position(p.getX() + 1, p.getY() - 1);
+            nextPosition = new Position(position.getX() + 1, position.getY() - 1);
             while (!nextPosition.equals(origin) && field.containsKey(nextPosition) && card.getColor().equals(CardColor.PURPLE)){
                 card = (ResourceCard) field.get(nextPosition);
                 if (card.getColor().equals(CardColor.PURPLE)){
@@ -82,12 +82,12 @@ private Position getLowerCard(Map<Position, PlayableCard> field, Position p){
 
 
         return currentPosition;
-}
+    }
 
-private Set<Position> getChainIfRight(Map<Position, PlayableCard> field, Position p){
+    private Set<Position> getChainIfRight(Map<Position, PlayableCard> field, Position position){
         Position origin = new Position(0,0);
-        ResourceCard card = (ResourceCard) field.get(p);
-        Position currentPosition = new Position(p.getX(),p.getY()), nextPosition;
+        ResourceCard card = (ResourceCard) field.get(position);
+        Position currentPosition = new Position(position.getX(),position.getY()), nextPosition;
         Set<Position> found = null;
         int count = 1;
         if (stairColor.equals(CardColor.RED)){
@@ -160,6 +160,5 @@ private Set<Position> getChainIfRight(Map<Position, PlayableCard> field, Positio
         }
 
         return found;
-}
-
+    }
 }

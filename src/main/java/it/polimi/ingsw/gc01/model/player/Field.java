@@ -20,18 +20,31 @@ public class Field {
         this.unavailablePositions = new HashSet<>();
     }
 
+    /**
+     * @return the deck's positions Map, which describes the placed card on the field.
+     */
     public Map<Position, PlayableCard> getPositions() {
         return positions;
     }
 
+    /**
+     * @return the field's positions where the player is allowed to place a card.
+     */
     public Set<Position> getAvailablePositions() {
         return availablePositions;
     }
 
+    /**
+     * @return the field's positions where the player is not allowed to place any card.
+     */
     public Set<Position> getUnavailablePositions() {
         return unavailablePositions;
     }
 
+    /**
+     * @param position for which to return adjacent cards if they have already been placed on the field.
+     * @return a Map containing the adjacent cards of the param 'position'
+     */
     public Map<CornerPosition, PlayableCard> getAdjacentCards(Position position) {
         Map<CornerPosition, PlayableCard> adjacentCards = new HashMap<>();
         Position p = new Position(position.getX() - 1, position.getY() - 1);
@@ -52,6 +65,4 @@ public class Field {
         }
         return adjacentCards;
     }
-
-
 }

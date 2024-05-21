@@ -12,10 +12,16 @@ public class Corner {
         return resource;
     }
 
+    /**
+     * @return true if the corner is covered in the playing field.
+     */
     public boolean isCovered(){
         return covered;
     }
 
+    /**
+     * set the covered attribute true
+     */
     public void cover(){
         covered = true;
     }

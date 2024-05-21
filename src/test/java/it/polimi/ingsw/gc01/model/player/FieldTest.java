@@ -22,7 +22,7 @@ class FieldTest {
     private Map<CornerPosition, PlayableCard> adjacentCards;
     @BeforeEach
     void setUp() {
-        player = new Player("testPlayer", PlayerColor.BLUE);
+        player = new Player("testPlayer", null);
         adjacentCards = new HashMap<>();
         testField = player.getField();
 

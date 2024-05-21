@@ -1,6 +1,7 @@
 package it.polimi.ingsw.gc01.model.decks;
 
 import java.io.*;
+import java.lang.reflect.Type;
 import java.util.*;
 import com.google.gson.*;
 import it.polimi.ingsw.gc01.model.cards.*;
@@ -21,38 +22,47 @@ public abstract class Deck {
         try {
             List<Object> cardList = gson.fromJson(new FileReader(json), List.class);
             for (Object card : cardList) {
-                switch(type){
-                    case "Golden":
-                        deck.add(gson.fromJson(card.toString(), GoldenCard.class));
-                        break;
-                    case "Objective":
-                        deck.add(gson.fromJson(card.toString(), ObjectiveCard.class));
-                        break;
-                    case "Resource":
-                        deck.add(gson.fromJson(card.toString(), ResourceCard.class));
-                        break;
-                    case "Starter":
-                        deck.add(gson.fromJson(card.toString(), StarterCard.class));
-                        break;
-                }
+                deck.add(gson.fromJson(card.toString(), (Type) Class.forName("it.polimi.ingsw.gc01.model.cards."+type+"Card")));
             }
         } catch (Exception ignored) {}
     }
 
+    /**
+     * @return true if the deck does not contain cards.
+     */
     public boolean isEmpty() {
         return deck.isEmpty();
     }
 
+    /**
+     * shuffles the cards' deck
+     */
     public void shuffle() {
         Collections.shuffle(deck);
     }
 
+    /**
+     * @return the card on the top of the deck after removing it
+     */
     public Card pick() {
         Card card = deck.get(0);
         deck.remove(0);
         return card;
     }
 
+    /**
+     * @return the card on the top of the deck
+     */
+    public Card get() {
+        return deck.get(0);
+    }
+
+    /**
+     * ONLY FOR TESTING
+     * @param id of the card to draw from the deck
+     * @return the card whose id is the same of id
+     */
+    @Deprecated
     public Card pickById(int id) {
         Card card;
         for (Card c : deck){
@@ -62,8 +72,5 @@ public abstract class Deck {
             }
         }
         return null;
-    }
-    public Card get() {
-        return deck.get(0);
     }
 }

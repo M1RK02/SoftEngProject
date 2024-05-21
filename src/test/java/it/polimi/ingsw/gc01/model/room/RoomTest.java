@@ -2,12 +2,10 @@ package it.polimi.ingsw.gc01.model.room;
 
 import java.util.*;
 
+import it.polimi.ingsw.gc01.model.ObserverManager;
 import it.polimi.ingsw.gc01.model.cards.GoldenCard;
 import it.polimi.ingsw.gc01.model.cards.PlayableCard;
 import it.polimi.ingsw.gc01.model.cards.ResourceCard;
-import it.polimi.ingsw.gc01.model.decks.GoldenDeck;
-import it.polimi.ingsw.gc01.model.decks.ResourceDeck;
-import it.polimi.ingsw.gc01.model.decks.StarterDeck;
 import it.polimi.ingsw.gc01.model.player.*;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
@@ -22,9 +20,9 @@ class RoomTest {
      static void beforeAll() {
         testPlayers = new ArrayList<>();
         for (int i = 0; i < 4; i++) {
-            testPlayers.add(new Player("Player" + i, PlayerColor.values()[i]));
+            testPlayers.add(new Player("Player" + i, null));
         }
-        testRoom = new Room(testPlayers);
+        testRoom = new Room("testId", testPlayers, new ObserverManager());
     }
 
     @Test
@@ -47,25 +45,37 @@ class RoomTest {
     }
 
     @Test
-    void getDrawableCards(){
-        ResourceCard resourceCard = testRoom.getResourceDeck().get();
-        GoldenCard goldenCard = testRoom.getGoldenDeck().get();
-        List<PlayableCard> visibleCards = testRoom.getVisibleCards();
-        List<PlayableCard> drawableCards = testRoom.getDrawableCards();
-        assertFalse(drawableCards.isEmpty());
-        assertEquals(6, drawableCards.size());
-        assertTrue(drawableCards.containsAll(visibleCards));
-        assertTrue(drawableCards.contains(resourceCard));
-        assertTrue(drawableCards.contains(goldenCard));
+    void getWinnerByTotalPoints(){
+        testPlayers.get(0).addPoints(1);
+        testPlayers.get(0).addObjectivePoints(1);
+        assertEquals(testPlayers.get(0), testRoom.getWinners().get(0));
+        testPlayers.get(0).addPoints(-1);
+        testPlayers.get(0).addObjectivePoints(-1);
     }
 
     @Test
-    void getWinner(){
-        testPlayers.get(0).addPoints(1);
-        testPlayers.get(1).addPoints(4);
-        testPlayers.get(2).addPoints(2);
-        testPlayers.get(3).addPoints(3);
+    void getWinnerByObjectivePoints(){
+        testPlayers.get(0).addPoints(2);
+        testPlayers.get(0).addObjectivePoints(1);
+        testPlayers.get(1).addPoints(1);
+        testPlayers.get(1).addObjectivePoints(2);
+        assertEquals(testPlayers.get(1), testRoom.getWinners().get(0));
+        testPlayers.get(0).addPoints(-2);
+        testPlayers.get(0).addObjectivePoints(-1);
+        testPlayers.get(1).addPoints(-1);
+        testPlayers.get(1).addObjectivePoints(-2);
+    }
 
-        assertEquals(testPlayers.get(1), testRoom.getWinner());
+  @Test
+    void getWinnersIfMultiple(){
+        testPlayers.get(0).addPoints(1);
+        testPlayers.get(0).addObjectivePoints(1);
+        testPlayers.get(1).addPoints(1);
+        testPlayers.get(1).addObjectivePoints(1);
+        assertEquals(List.of(testPlayers.get(0), testPlayers.get(1)), testRoom.getWinners());
+      testPlayers.get(0).addPoints(-1);
+      testPlayers.get(0).addObjectivePoints(-1);
+      testPlayers.get(1).addPoints(-1);
+      testPlayers.get(1).addObjectivePoints(-1);
     }
 }
