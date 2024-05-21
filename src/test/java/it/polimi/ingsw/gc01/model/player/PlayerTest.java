@@ -1,6 +1,6 @@
 package it.polimi.ingsw.gc01.model.player;
 
-import it.polimi.ingsw.gc01.model.Resource;
+import it.polimi.ingsw.gc01.model.*;
 import it.polimi.ingsw.gc01.model.cards.*;
 import it.polimi.ingsw.gc01.model.corners.Corner;
 import it.polimi.ingsw.gc01.model.corners.CornerPosition;
@@ -31,7 +31,7 @@ class PlayerTest {
         goldenDeck = new GoldenDeck();
         starterDeck = new StarterDeck();
         resourceDeck = new ResourceDeck();
-        player = new Player("testPlayer", null);
+        player = new Player("testPlayer", new ObserverManager());
         player.getHand().add(starterDeck.pick());
     }
 

@@ -1,7 +1,6 @@
 package it.polimi.ingsw.gc01.model.room;
 
 import java.util.*;
-import java.util.stream.Collectors;
 
 import it.polimi.ingsw.gc01.model.ObserverManager;
 import it.polimi.ingsw.gc01.model.cards.*;
@@ -148,5 +147,3 @@ public class Room {
         players.remove(player);
     }
 }
-
-//TODO Add calls to notifier
