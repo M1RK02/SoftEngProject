@@ -1,5 +1,6 @@
 package it.polimi.ingsw.gc01.network.rmi;
 
+import it.polimi.ingsw.gc01.UI.UI;
 import it.polimi.ingsw.gc01.model.DefaultValue;
 import it.polimi.ingsw.gc01.model.player.PlayerColor;
 import it.polimi.ingsw.gc01.model.room.TablePosition;
@@ -14,9 +15,11 @@ public class RmiClient extends UnicastRemoteObject implements VirtualView, Netwo
     private final String playerName;
     private VirtualServer server;
     private String roomId;
+    private UI ui;
 
-    public RmiClient(String playerName) throws RemoteException {
+    public RmiClient(String playerName, UI userInterface) throws RemoteException {
         this.playerName = playerName;
+        this.ui = userInterface;
         connect();
     }
 
@@ -51,9 +54,9 @@ public class RmiClient extends UnicastRemoteObject implements VirtualView, Netwo
      * asks stub to join game
      */
     @Override
-    public void joinGame() throws RemoteException {
+    public void joinGame(String roomId) throws RemoteException {
         try {
-            server.joinGame(this.playerName, this, this.roomId);
+            server.joinGame(this.playerName, this, roomId);
         } catch (RemoteException e) {
             //TODO
             System.err.println("Server RMI not working!");
@@ -181,7 +184,8 @@ public class RmiClient extends UnicastRemoteObject implements VirtualView, Netwo
      */
     @Override
     public void updateRoomId(String roomId) throws RemoteException {
-        //TODO
+       this.roomId = roomId;
+       ui.showRoom(roomId);
     }
 
     /**

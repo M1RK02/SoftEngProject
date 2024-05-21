@@ -8,7 +8,7 @@ import java.rmi.RemoteException;
 public interface NetworkClient {
     void createGame() throws RemoteException;
 
-    void joinGame() throws RemoteException;
+    void joinGame(String roomId) throws RemoteException;
 
     void joinFirstGame() throws RemoteException;
 
