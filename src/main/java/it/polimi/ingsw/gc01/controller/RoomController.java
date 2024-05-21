@@ -170,7 +170,7 @@ public class RoomController {
     /**
      * Starts the game by setting the game state to RUNNING
      */
-    public void startGame() {
+    private void startGame() {
         this.state = GameState.RUNNING;
     }
 
@@ -222,7 +222,7 @@ public class RoomController {
      * @param color the color to set to the player who is choosing
      */
     public void chooseColor(String playerName, PlayerColor color){
-        room.getPlayerByName(playerName).setColor(color);
+        waitingRoom.getPlayerByName(playerName).setColor(color);
     }
 
     /**
@@ -230,7 +230,10 @@ public class RoomController {
      * @param playerName the player to set ready or unready
      */
     public void switchReady(String playerName){
-        room.getPlayerByName(playerName).switchReady();
+        waitingRoom.getPlayerByName(playerName).switchReady();
+        if (waitingRoom.readyToStart()){
+            startGame();
+        }
     }
 
     /**
