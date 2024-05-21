@@ -294,7 +294,7 @@ public class RoomController {
             }
         }
         if (card != null){
-            card.setFront(!card.isFront());
+            player.playCard(card, position);
         }else{
             room.getNotifier().showError(playerName, "No card found");
         }
