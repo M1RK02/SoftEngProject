@@ -11,7 +11,7 @@ import java.rmi.server.UnicastRemoteObject;
 import java.util.*;
 
 public class RmiClient extends UnicastRemoteObject implements VirtualView, NetworkClient {
-    final String playerName;
+    private final String playerName;
     private VirtualServer server;
     private String roomId;
 
