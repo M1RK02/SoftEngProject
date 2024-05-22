@@ -1,6 +1,6 @@
 package it.polimi.ingsw.gc01.network.rmi;
 
-import it.polimi.ingsw.gc01.UI.UI;
+import it.polimi.ingsw.gc01.view.UI;
 import it.polimi.ingsw.gc01.model.DefaultValue;
 import it.polimi.ingsw.gc01.model.player.PlayerColor;
 import it.polimi.ingsw.gc01.model.room.TablePosition;
@@ -15,7 +15,7 @@ public class RmiClient extends UnicastRemoteObject implements VirtualView, Netwo
     private final String playerName;
     private VirtualServer server;
     private String roomId;
-    private UI ui;
+    private final UI ui;
 
     public RmiClient(String playerName, UI userInterface) throws RemoteException {
         this.playerName = playerName;

@@ -1,4 +1,4 @@
-package it.polimi.ingsw.gc01.UI;
+package it.polimi.ingsw.gc01.view;
 
 import it.polimi.ingsw.gc01.model.DefaultValue;
 import it.polimi.ingsw.gc01.network.NetworkClient;
@@ -7,7 +7,7 @@ import it.polimi.ingsw.gc01.network.rmi.RmiClient;
 import java.rmi.RemoteException;
 import java.util.Scanner;
 
-public class TUI extends UI {
+public class TUI implements UI {
     private NetworkClient client;
 
     public TUI(){
