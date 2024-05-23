@@ -74,11 +74,11 @@ public class WaitingRoom {
         players.add(new Player(playerName, notifier));
         notifier.addObserver(playerName, client);
         notifier.updateRoomId(playerName, roomId);
-        StringBuilder message = new StringBuilder("[Current players in the room: ");
+        StringBuilder message = new StringBuilder(DefaultValue.ANSI_BLUE + "[Current players in the room: ");
         for (Player p : players){
             message.append("- ").append(p.getName()).append(" ");
         }
-        message.append("]");
+        message.append("]\n" + DefaultValue.ANSI_RESET);
         notifier.addressedServiceMessage(playerName, String.valueOf(message));
         notifier.serviceMessage(DefaultValue.ANSI_GREEN + "-> " + playerName + " joined!" + DefaultValue.ANSI_RESET);
         notifier.showAvailableColor(playerName, availableColors);
@@ -92,7 +92,7 @@ public class WaitingRoom {
     public void removePlayer(Player player){
         players.remove(player);
         notifier.removeObserver(player.getName());
-        notifier.serviceMessage(player.getName() + " left the room");
+        notifier.serviceMessage(DefaultValue.ANSI_RED + "-> " + player.getName() + " left the room!");
     }
 
     /**

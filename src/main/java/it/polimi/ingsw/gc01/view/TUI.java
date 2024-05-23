@@ -5,6 +5,8 @@ import it.polimi.ingsw.gc01.network.NetworkClient;
 import it.polimi.ingsw.gc01.network.rmi.RmiClient;
 
 import java.rmi.RemoteException;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Locale;
 import java.util.Scanner;
 
@@ -12,39 +14,57 @@ public class TUI implements UI {
     private NetworkClient client;
 
     public TUI(){
-        String playerName = askPlayerName();
-        askAndSetIP();
-        askAndSetPort();
-        createRMIClient(playerName);
-        askModalityToEnterGame();
+        new Thread(this).start();
     }
+
+
 
     private String askPlayerName(){
         Scanner scanner = new Scanner(System.in);
-        System.out.println("Type in the nickname that you want to use to play CODEX NATURALIS (lazzar edidtion)");
+        System.out.println("Type in the nickname that you want to use to play CODEX NATURALIS (lazzar edition)");
         return scanner.nextLine();
     }
 
-    private void askAndSetIP(){
-        System.out.println("\nType in the Server IP or leave emtpy for localhost:");
-        Scanner scanner = new Scanner(System.in);
-        String input = scanner.nextLine();
-        if (input.isEmpty()){
-            DefaultValue.ServerIp = "localhost";
-        } else {
+    private void askServerIP(){
+        String input;
+        do {
+            System.out.println("Type in the Remote IP or leave empty for localhost:");
+            input = new Scanner(System.in).nextLine();
+            if (!input.isEmpty() && !isValidIP(input)){
+                System.out.println(DefaultValue.ANSI_RED + "Not valid ip" + DefaultValue.ANSI_RESET);
+            }
+        } while(!input.isEmpty() && !isValidIP(input));
+        if (!input.isEmpty())
             DefaultValue.ServerIp = input;
-        }
     }
 
-    private void askAndSetPort(){
-        System.out.println("On which port are you going to connect your computer?" );
-        Scanner scanner = new Scanner(System.in);
-        String input = scanner.nextLine();
-        if (input.isEmpty()){
-            DefaultValue.RMIPort = 1234;
-        } else {
-            DefaultValue.RMIPort = Integer.parseInt(input);
+    private void askPlayerIP(){
+        String input;
+        do {
+            System.out.println("Type in your IP or leave empty for localhost:");
+            input = new Scanner(System.in).nextLine();
+            if (!input.isEmpty() && !isValidIP(input)){
+                System.out.println(DefaultValue.ANSI_RED + "Not valid ip" + DefaultValue.ANSI_RESET);
+            }
+        } while(!input.isEmpty() && !isValidIP(input));
+        if (!input.isEmpty())
+            System.setProperty("java.rmi.server.hostname", input);
+    }
+
+    private static boolean isValidIP(String input) {
+        List<String> parsed;
+        parsed = Arrays.stream(input.split("\\.")).toList();
+        if (parsed.size() != 4) {
+            return false;
         }
+        for (String part : parsed) {
+            try {
+                Integer.parseInt(part);
+            } catch (NumberFormatException e) {
+                return false;
+            }
+        }
+        return true;
     }
 
     private void createRMIClient(String playerName) {
@@ -95,12 +115,11 @@ public class TUI implements UI {
             ready = scanner.nextLine();
             if (ready.equals("l")){
                 client.leave();
-                System.out.println("Leaved game");
+                System.exit(1);
                 return;
             }
             if (ready.equals("y")){
                 client.switchReady();
-                System.out.println("Ready");
                 return;
             }
         }
@@ -112,8 +131,7 @@ public class TUI implements UI {
 
     @Override
     public void showRoom(String roomId) {
-        System.out.println(DefaultValue.ANSI_BLUE + "[Joined room with id: "+ roomId + "]" + DefaultValue.ANSI_RESET);
-        new Thread(this::askReady).start();
+        System.out.println(DefaultValue.ANSI_BLUE + "\n\n[Joined room with id: "+ roomId + "]" + DefaultValue.ANSI_RESET);
     }
 
     @Override
@@ -130,5 +148,24 @@ public class TUI implements UI {
     @Override
     public void showServiceMessage(String message) {
         System.out.println(message);
+    }
+
+    @Override
+    public void run() {
+        String playerName = askPlayerName();
+        askServerIP();
+        askPlayerIP();
+        createRMIClient(playerName);
+        askModalityToEnterGame();
+        try {
+            Thread.sleep(50);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+        new Thread(this::askReady).start();
+        while (!Thread.interrupted()){
+
+
+        }
     }
 }

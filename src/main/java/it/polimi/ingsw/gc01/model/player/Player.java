@@ -121,7 +121,8 @@ public class Player {
      */
     public void switchReady() {
         ready = !ready;
-        notifier.updateReady(name, ready);
+        //notifier.updateReady(name, ready);
+        notifier.serviceMessage(DefaultValue.ANSI_YELLOW + "-> " + name + " is ready!" + DefaultValue.ANSI_RESET);
     }
 
     /**

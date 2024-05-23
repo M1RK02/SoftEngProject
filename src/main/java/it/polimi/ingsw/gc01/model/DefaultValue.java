@@ -8,8 +8,6 @@ public class DefaultValue {
     public static int RMIPort = 1234;
     public static final int Default_port_Socket = 1235;
     public static final String Remote_ip = "127.0.0.1";
-    public static final int seconds_between_reconnection = 5;
-    public static final int num_of_attempt_to_connect_toServer_before_giveup = 5;
     public static final String ANSI_RESET = "\u001B[0m";
     public static final String ANSI_BLACK = "\u001B[30m";
     public static final String ANSI_RED = "\u001B[31m";

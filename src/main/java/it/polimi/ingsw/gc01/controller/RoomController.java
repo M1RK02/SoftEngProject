@@ -27,14 +27,6 @@ public class RoomController {
 
     /**
      *
-     * @return the Main controller instance (Singleton)
-     */
-    public MainController getMainController() {
-        return MainController.getInstance();
-    }
-
-    /**
-     *
      * @return the Room of the started game
      */
     public Room getRoom() {
@@ -166,6 +158,7 @@ public class RoomController {
      */
     private void startGame() {
         this.state = GameState.RUNNING;
+        room.getNotifier().serviceMessage(DefaultValue.ANSI_PURPLE + "Game is starting!");
     }
 
 

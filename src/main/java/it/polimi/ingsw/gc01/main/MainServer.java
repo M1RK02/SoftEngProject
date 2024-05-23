@@ -2,6 +2,9 @@ package it.polimi.ingsw.gc01.main;
 import it.polimi.ingsw.gc01.controller.MainController;
 import it.polimi.ingsw.gc01.model.DefaultValue;
 import it.polimi.ingsw.gc01.network.rmi.RmiServer;
+
+import java.util.Arrays;
+import java.util.List;
 import java.util.Scanner;
 
 
@@ -9,10 +12,38 @@ import java.util.Scanner;
 public class MainServer {
 
     public static void main(String[] args) {
-        RmiServer rmiServer = new RmiServer();
-        System.out.println("RmiServer e SocketServe istanziati correttamente");
+        String input;
+        
+        do {
+            System.out.println("Type in the Remote IP or leave empty for localhost:\n");
+            input = new Scanner(System.in).nextLine();
+        } while(!input.isEmpty() && !isValidIP(input));
+
+        if (!input.isEmpty()){
+            System.setProperty("java.rmi.server.hostname", DefaultValue.Remote_ip);
+        }
+        else {
+            DefaultValue.ServerIp = input;
+            System.setProperty("java.rmi.server.hostname", input);
+        }
+        new RmiServer();
     }
 
 
+    private static boolean isValidIP(String input) {
+        List<String> parsed;
+        parsed = Arrays.stream(input.split("\\.")).toList();
+        if (parsed.size() != 4) {
+            return false;
+        }
+        for (String part : parsed) {
+            try {
+                Integer.parseInt(part);
+            } catch (NumberFormatException e) {
+                return false;
+            }
+        }
+        return true;
+    }
 
 }
