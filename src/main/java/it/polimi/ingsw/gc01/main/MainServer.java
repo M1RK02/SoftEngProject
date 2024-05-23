@@ -9,13 +9,8 @@ import java.util.Scanner;
 public class MainServer {
 
     public static void main(String[] args) {
-
         RmiServer rmiServer = new RmiServer();
-
-
         System.out.println("RmiServer e SocketServe istanziati correttamente");
-
-
     }
 
 

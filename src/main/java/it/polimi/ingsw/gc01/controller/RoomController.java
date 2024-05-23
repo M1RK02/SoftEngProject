@@ -1,5 +1,7 @@
 package it.polimi.ingsw.gc01.controller;
 
+import it.polimi.ingsw.gc01.controller.exceptions.MaxPlayersInException;
+import it.polimi.ingsw.gc01.controller.exceptions.PlayerAlreadyInException;
 import it.polimi.ingsw.gc01.model.*;
 import it.polimi.ingsw.gc01.model.cards.GoldenCard;
 import it.polimi.ingsw.gc01.model.cards.ObjectiveCard;
@@ -109,7 +111,7 @@ public class RoomController {
      * @param playerName name of the players that needs to be added to the WaitingRoom
      * @param client reference to the client
      */
-    public void addPlayer(String playerName, VirtualView client){
+    public void addPlayer(String playerName, VirtualView client) throws PlayerAlreadyInException, MaxPlayersInException{
         List<Player> players = waitingRoom.getPlayers();
         //First I check that the game isn't full
         //then I check if the player is already in
@@ -118,18 +120,10 @@ public class RoomController {
             if (players.stream().map(Player::getName).noneMatch(x -> x.equals(playerName))) {
                 waitingRoom.addPlayer(playerName, client);
             } else {
-                try {
-                    client.showError("Name already in use");
-                } catch (RemoteException e) {
-                    throw new RuntimeException(e);
-                }
+                throw new PlayerAlreadyInException();
             }
         } else {
-            try {
-                client.showError("Max number of players reached");
-            } catch (RemoteException e) {
-                throw new RuntimeException(e);
-            }
+            throw new MaxPlayersInException();
         }
     }
 

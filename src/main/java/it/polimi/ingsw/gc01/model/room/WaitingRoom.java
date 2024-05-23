@@ -74,6 +74,13 @@ public class WaitingRoom {
         players.add(new Player(playerName, notifier));
         notifier.addObserver(playerName, client);
         notifier.updateRoomId(playerName, roomId);
+        StringBuilder message = new StringBuilder("[Current players in the room: ");
+        for (Player p : players){
+            message.append("- ").append(p.getName()).append(" ");
+        }
+        message.append("]");
+        notifier.addressedServiceMessage(playerName, String.valueOf(message));
+        notifier.serviceMessage(DefaultValue.ANSI_GREEN + "-> " + playerName + " joined!" + DefaultValue.ANSI_RESET);
         notifier.showAvailableColor(playerName, availableColors);
     }
 

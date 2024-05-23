@@ -128,4 +128,13 @@ public class ObserverManager {
             }
         }
     }
+
+    public void addressedServiceMessage(String playerName, String message){
+        VirtualView client = observers.get(playerName);
+        try {
+            client.serviceMessage(message);
+        } catch (RemoteException e) {
+            throw new RuntimeException(e);
+        }
+    }
 }

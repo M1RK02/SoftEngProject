@@ -6,23 +6,23 @@ import it.polimi.ingsw.gc01.model.room.TablePosition;
 import java.rmi.RemoteException;
 
 public interface NetworkClient {
-    void createGame() throws RemoteException;
+    void createGame();
 
-    void joinGame(String roomId) throws RemoteException;
+    void joinGame(String roomId);
 
-    void joinFirstGame() throws RemoteException;
+    void joinFirstGame();
 
-    void chooseColor(PlayerColor color) throws RemoteException;
+    void chooseColor(PlayerColor color);
 
-    void switchReady() throws RemoteException;
+    void switchReady();
 
-    void chooseSecretObjective(int cardId) throws RemoteException;
+    void chooseSecretObjective(int cardId);
 
-    void flipCard(int cardId) throws RemoteException;
+    void flipCard(int cardId);
 
-    void playCard(int cardId, int x, int y) throws RemoteException;
+    void playCard(int cardId, int x, int y);
 
-    void drawCard(TablePosition card) throws RemoteException;
+    void drawCard(TablePosition card);
 
-    void leave() throws RemoteException;
+    void leave();
 }

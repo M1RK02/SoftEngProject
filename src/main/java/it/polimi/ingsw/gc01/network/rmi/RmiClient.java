@@ -41,7 +41,7 @@ public class RmiClient extends UnicastRemoteObject implements VirtualView, Netwo
      * asks stub to create game
      */
     @Override
-    public void createGame() throws RemoteException {
+    public void createGame() {
         try {
             server.createGame(this.playerName, this);
         } catch (RemoteException e) {
@@ -54,7 +54,7 @@ public class RmiClient extends UnicastRemoteObject implements VirtualView, Netwo
      * asks stub to join game
      */
     @Override
-    public void joinGame(String roomId) throws RemoteException {
+    public void joinGame(String roomId) {
         try {
             server.joinGame(this.playerName, this, roomId);
         } catch (RemoteException e) {
@@ -67,7 +67,7 @@ public class RmiClient extends UnicastRemoteObject implements VirtualView, Netwo
      * asks stub to join the first available game
      */
     @Override
-    public void joinFirstGame() throws RemoteException {
+    public void joinFirstGame() {
         try {
             server.joinFirstGame(this.playerName, this);
         } catch (RemoteException e) {
@@ -82,7 +82,7 @@ public class RmiClient extends UnicastRemoteObject implements VirtualView, Netwo
      * @param color the color wich will be given to the player
      */
     @Override
-    public void chooseColor(PlayerColor color) throws RemoteException {
+    public void chooseColor(PlayerColor color) {
         try {
             server.chooseColor(this.playerName, this.roomId, color);
         } catch (RemoteException e) {
@@ -95,7 +95,7 @@ public class RmiClient extends UnicastRemoteObject implements VirtualView, Netwo
      * asks stub to set the player ready
      */
     @Override
-    public void switchReady() throws RemoteException {
+    public void switchReady() {
         try {
             server.switchReady(this.playerName, this.roomId);
         } catch (RemoteException e) {
@@ -110,7 +110,7 @@ public class RmiClient extends UnicastRemoteObject implements VirtualView, Netwo
      * @param cardId the id of the chosen objective card
      */
     @Override
-    public void chooseSecretObjective(int cardId) throws RemoteException {
+    public void chooseSecretObjective(int cardId) {
         try {
             server.chooseSecretObjective(this.playerName, this.roomId, cardId);
         } catch (RemoteException e) {
@@ -125,7 +125,7 @@ public class RmiClient extends UnicastRemoteObject implements VirtualView, Netwo
      * @param cardId the id of the card to flip
      */
     @Override
-    public void flipCard(int cardId) throws RemoteException {
+    public void flipCard(int cardId) {
         try {
             server.flipCard(this.playerName, this.roomId, cardId);
         } catch (RemoteException e) {
@@ -142,7 +142,7 @@ public class RmiClient extends UnicastRemoteObject implements VirtualView, Netwo
      * @param y      the y coordinate in the matrix of the player field
      */
     @Override
-    public void playCard(int cardId, int x, int y) throws RemoteException {
+    public void playCard(int cardId, int x, int y) {
         try {
             server.playCard(this.playerName, this.roomId, cardId, x, y);
         } catch (RemoteException e) {
@@ -157,7 +157,7 @@ public class RmiClient extends UnicastRemoteObject implements VirtualView, Netwo
      * @param card the position of the card to draw in the drawableCard positions
      */
     @Override
-    public void drawCard(TablePosition card) throws RemoteException {
+    public void drawCard(TablePosition card) {
         try {
             server.drawCard(this.playerName, this.roomId, card);
         } catch (RemoteException e) {
@@ -170,7 +170,7 @@ public class RmiClient extends UnicastRemoteObject implements VirtualView, Netwo
      * asks stub to make the player leave the game
      */
     @Override
-    public void leave() throws RemoteException {
+    public void leave() {
         try {
             server.leave(this.playerName, this.roomId);
         } catch (RemoteException e) {
@@ -252,7 +252,7 @@ public class RmiClient extends UnicastRemoteObject implements VirtualView, Netwo
      */
     @Override
     public void showError(String error) throws RemoteException {
-        //TODO
+        ui.showError(error);
     }
 
     /**
@@ -260,6 +260,6 @@ public class RmiClient extends UnicastRemoteObject implements VirtualView, Netwo
      */
     @Override
     public void serviceMessage(String message) throws RemoteException {
-        //TODO
+        ui.showServiceMessage(message);
     }
 }

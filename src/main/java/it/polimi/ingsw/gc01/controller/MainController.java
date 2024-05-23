@@ -58,11 +58,19 @@ public class MainController {
      * @param roomId the id of the room you want to join
      */
     public void joinGame(String playerName, VirtualView client, String roomId){
+        String error = "";
         if (rooms.get(roomId) != null){
-            rooms.get(roomId).addPlayer(playerName, client);
-        } else {
             try {
-                client.showError("No room with this id exists");
+                rooms.get(roomId).addPlayer(playerName, client);
+            } catch (Exception e){
+                error = e.getMessage();
+            }
+        } else {
+            error = "MAIN No room with this id exists";
+        }
+        if (!error.isEmpty()) {
+            try {
+                client.showError(error);
             } catch (RemoteException e) {
                 throw new RuntimeException(e);
             }
@@ -76,15 +84,19 @@ public class MainController {
      * @param client reference to the client
      */
     public void joinFirstGame(String playerName, VirtualView client){
-        for (String roomId : rooms.keySet()){
-            if (rooms.get(roomId).getNumOfWaitingPlayers() < DefaultValue.MaxNumOfPlayer) {
-                rooms.get(roomId).addPlayer(playerName, client);
-            } else {
-                try {
-                    client.showError("No room available");
-                } catch (RemoteException e) {
-                    throw new RuntimeException(e);
-                }
+        boolean joined = false;
+        for (RoomController room : rooms.values()){
+            try {
+                room.addPlayer(playerName, client);
+                joined = true;
+                break;
+            } catch (Exception ignored) {}
+        }
+        if (!joined) {
+            try {
+                client.showError("MAIN No rooms available");
+            } catch (RemoteException e) {
+                throw new RuntimeException(e);
             }
         }
     }

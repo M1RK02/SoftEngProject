@@ -9,8 +9,12 @@ public class MainClient {
     public static void main(String[] args) throws RemoteException {
         printTitle();
         switch (askUI()) {
-            case 1 -> new TUI();
-            case 2 -> System.out.println("Chosen GUI");
+            case 1: System.out.println("Starting TUI...\n");
+                    new TUI();
+                    break;
+            case 2: System.out.println("Starting GUI");
+                    //new GUI();
+                    break;
         }
     }
 
@@ -42,9 +46,9 @@ public class MainClient {
                 if (choice == 1 || choice == 2){
                     return choice;
                 }
-                System.out.println("Wrong choice\n");
+                System.out.println("Wrong choice");
             } catch (NumberFormatException e){
-                System.out.println("Wrong format\n");
+                System.out.println("Wrong format");
             }
         } while (true);
     }
