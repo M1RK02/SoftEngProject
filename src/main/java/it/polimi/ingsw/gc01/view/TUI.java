@@ -9,9 +9,12 @@ import java.util.*;
 public class TUI implements UI {
     private NetworkClient client;
 
-    public TUI(){}
+    public TUI(){
+        new Thread(this).start();
+    }
 
-    public void start() {
+    @Override
+    public void run() {
         String playerName = askPlayerName();
         askServerIP();
         askPlayerIP();
@@ -21,8 +24,15 @@ public class TUI implements UI {
 
     private String askPlayerName(){
         Scanner scanner = new Scanner(System.in);
-        System.out.println("Type in the nickname that you want to use to play CODEX NATURALIS (lazzar edition)");
-        return scanner.nextLine();
+        String input = "";
+        while (input.isEmpty()){
+            System.out.println("Type in the nickname that you want to use to play CODEX NATURALIS (lazzar edition)");
+            input = scanner.nextLine();
+            if (input.isEmpty()){
+                System.out.println(DefaultValue.ANSI_RED + "Name can't be empty" + DefaultValue.ANSI_RESET);
+            }
+        }
+        return input;
     }
 
     private void askServerIP(){
@@ -112,10 +122,10 @@ public class TUI implements UI {
 
     private void askReady(){
         String ready = "";
-        System.out.println("""
+        System.out.println(DefaultValue.ANSI_YELLOW + """
                         (y) to ready up
                         (l) to leave
-                        """);
+                        """ + DefaultValue.ANSI_RESET);
         Scanner scanner = new Scanner(System.in);
         while (true){
             ready = scanner.nextLine();

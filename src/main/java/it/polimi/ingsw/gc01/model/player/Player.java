@@ -106,7 +106,7 @@ public class Player {
 
     /**
      *
-     * @param color set the player color to the choosen one
+     * @param color set the player color to the chosen one
      */
     public void setColor(PlayerColor color){
         this.color = color;

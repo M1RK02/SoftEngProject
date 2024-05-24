@@ -10,7 +10,7 @@ public class MainClient {
         printTitle();
         switch (askUI()) {
             case 1: System.out.println("Starting TUI...\n");
-                    new TUI().start();
+                    new TUI();
                     break;
             case 2: System.out.println("Starting GUI...");
                     //new GUI();

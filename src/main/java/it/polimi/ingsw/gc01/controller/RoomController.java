@@ -5,6 +5,7 @@ import it.polimi.ingsw.gc01.model.*;
 import it.polimi.ingsw.gc01.model.cards.GoldenCard;
 import it.polimi.ingsw.gc01.model.cards.ObjectiveCard;
 import it.polimi.ingsw.gc01.model.cards.PlayableCard;
+import it.polimi.ingsw.gc01.model.cards.StarterCard;
 import it.polimi.ingsw.gc01.model.player.*;
 import it.polimi.ingsw.gc01.model.room.*;
 import it.polimi.ingsw.gc01.network.VirtualView;
@@ -122,11 +123,21 @@ public class RoomController {
      */
     public void prepareGame() {
         room = new Room(waitingRoom.getRoomId(), waitingRoom.getPlayers(), waitingRoom.getNotifier());
+        room.getNotifier().serviceMessage(DefaultValue.ANSI_PURPLE + "Game is starting!" + DefaultValue.ANSI_RESET);
+        ObserverManager notifier = room.getNotifier();
 
         for (Player player : room.getPlayers()) {
+            room.getNotifier().serviceMessage(DefaultValue.ANSI_WHITE + "-> Current player is: " + player.getName() + " !" + DefaultValue.ANSI_RESET);
             player.getHand().add(room.getStarterDeck().pick());
+            notifier.showStarter(player.getName(), (StarterCard) player.getHand().get(0));
         }
-        ObserverManager notifier = room.getNotifier();
+
+        for (Player player : room.getPlayers()){
+            room.getNotifier().serviceMessage(DefaultValue.ANSI_WHITE + "-> Current player is: " + player.getName() + " !" + DefaultValue.ANSI_RESET);
+            notifier.showAvailableColor(player.getName(), waitingRoom.getAvailableColors());
+        }
+
+        //notifier.serviceMessage(DefaultValue.ANSI_CYAN + "-> Is " + room.getCurrentPlayer().getName() + " turn!" + DefaultValue.ANSI_RESET);
         notifier.showTable(room.getDrawableCards());
         notifier.showCommonObjectives(room.getCommonObjectives());
     }
@@ -156,7 +167,6 @@ public class RoomController {
     private void startGame() {
         this.state = GameState.RUNNING;
         prepareGame();
-        room.getNotifier().serviceMessage(DefaultValue.ANSI_PURPLE + "Game is starting!");
     }
 
 
@@ -207,7 +217,7 @@ public class RoomController {
      * @param color the color to set to the player who is choosing
      */
     public void chooseColor(String playerName, PlayerColor color){
-        waitingRoom.getPlayerByName(playerName).setColor(color);
+        waitingRoom.setColor(playerName, color);
     }
 
     /**

@@ -47,7 +47,7 @@ public class WaitingRoom {
         return players;
     }
 
-    public List<PlayerColor> getAvailableColors() {
+    public synchronized List<PlayerColor> getAvailableColors() {
         return availableColors;
     }
 
@@ -64,6 +64,10 @@ public class WaitingRoom {
         return null;
     }
 
+    public synchronized void setColor(String playerName, PlayerColor color){
+        getPlayerByName(playerName).setColor(color);
+        availableColors.remove(color);
+    }
 
     /**
      * Add the player to the waiting room (the check for max size will be done by the controller)
@@ -81,7 +85,6 @@ public class WaitingRoom {
         message.append("]\n" + DefaultValue.ANSI_RESET);
         notifier.addressedServiceMessage(playerName, String.valueOf(message));
         notifier.serviceMessage(DefaultValue.ANSI_GREEN + "-> " + playerName + " joined!" + DefaultValue.ANSI_RESET);
-        notifier.showAvailableColor(playerName, availableColors);
     }
 
     /**

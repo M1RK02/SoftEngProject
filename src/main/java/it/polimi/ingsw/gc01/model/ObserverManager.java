@@ -37,6 +37,14 @@ public class ObserverManager {
         }
     }
 
+    public void showStarter (String playerName, StarterCard card){
+        VirtualView client = observers.get(playerName);
+        try {
+            client.showStarter(card.getId());
+        } catch (RemoteException e) {
+            throw new RuntimeException(e);
+        }
+    }
     public void showAvailableColor (String playerName, List<PlayerColor> colors){
         VirtualView client = observers.get(playerName);
         try {
