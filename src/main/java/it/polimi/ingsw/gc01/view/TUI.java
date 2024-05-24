@@ -9,8 +9,14 @@ import java.util.*;
 public class TUI implements UI {
     private NetworkClient client;
 
-    public TUI(){
-        new Thread(this).start();
+    public TUI(){}
+
+    public void start() {
+        String playerName = askPlayerName();
+        askServerIP();
+        askPlayerIP();
+        createRMIClient(playerName);
+        new Thread(this::askModalityToEnterGame).start();
     }
 
     private String askPlayerName(){
@@ -69,7 +75,7 @@ public class TUI implements UI {
         }
     }
 
-    private boolean askModalityToEnterGame() {
+    private void askModalityToEnterGame() {
         System.out.println("""
                 Would you rather:
                 (1) Create a new Game
@@ -85,20 +91,10 @@ public class TUI implements UI {
         switch (choice){
             case (1):
                 client.createGame();
-                try {
-                    Thread.sleep(50);
-                } catch (InterruptedException e) {
-                    throw new RuntimeException(e);
-                }
-                return client.getRoomId() != null;
+                break;
             case (2):
                 client.joinFirstGame();
-                try {
-                    Thread.sleep(50);
-                } catch (InterruptedException e) {
-                    throw new RuntimeException(e);
-                }
-                return client.getRoomId() != null;
+                break;
             case (3):
                 System.out.println("Type the roomId of the Game you want to join...");
                 String roomId = scanner.nextLine();
@@ -107,13 +103,10 @@ public class TUI implements UI {
                     roomId = scanner.nextLine();
                 }
                 client.joinGame(roomId.toUpperCase());
-                try {
-                    Thread.sleep(50);
-                } catch (InterruptedException e) {
-                    throw new RuntimeException(e);
-                }
-                return client.getRoomId() != null;
-            default: return false;
+                break;
+            default:
+                System.out.println(DefaultValue.ANSI_RED + "Invalid choice" + DefaultValue.ANSI_RESET);
+                askModalityToEnterGame();
         }
     }
 
@@ -145,6 +138,7 @@ public class TUI implements UI {
     @Override
     public void showRoom(String roomId) {
         System.out.println(DefaultValue.ANSI_BLUE + "\n\n[Joined room with id: "+ roomId + "]" + DefaultValue.ANSI_RESET);
+        new Thread(this::askReady).start();
     }
 
     @Override
@@ -154,34 +148,12 @@ public class TUI implements UI {
         switch(type) {
             case "MAIN":
                 System.out.println(DefaultValue.ANSI_RED + message + DefaultValue.ANSI_RESET);
+                new Thread(this::askModalityToEnterGame).start();
         }
     }
 
     @Override
     public void showServiceMessage(String message) {
         System.out.println(message);
-    }
-
-    @Override
-    public void run() {
-        String playerName = askPlayerName();
-        boolean status = false;
-
-        askServerIP();
-        askPlayerIP();
-        createRMIClient(playerName);
-        while (!status){
-            status = askModalityToEnterGame();
-        }
-        try {
-            Thread.sleep(50);
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
-        }
-        new Thread(this::askReady).start();
-        while (!Thread.interrupted()){
-
-
-        }
     }
 }

@@ -1,7 +1,6 @@
 package it.polimi.ingsw.gc01.controller;
 
-import it.polimi.ingsw.gc01.controller.exceptions.MaxPlayersInException;
-import it.polimi.ingsw.gc01.controller.exceptions.PlayerAlreadyInException;
+import it.polimi.ingsw.gc01.controller.exceptions.*;
 import it.polimi.ingsw.gc01.model.*;
 import it.polimi.ingsw.gc01.model.cards.GoldenCard;
 import it.polimi.ingsw.gc01.model.cards.ObjectiveCard;
@@ -10,7 +9,6 @@ import it.polimi.ingsw.gc01.model.player.*;
 import it.polimi.ingsw.gc01.model.room.*;
 import it.polimi.ingsw.gc01.network.VirtualView;
 
-import java.rmi.RemoteException;
 import java.util.List;
 
 public class RoomController {
@@ -104,18 +102,17 @@ public class RoomController {
      * @param client reference to the client
      */
     public void addPlayer(String playerName, VirtualView client) throws PlayerAlreadyInException, MaxPlayersInException{
+        if (state != GameState.WAITING) {
+            throw new GameInProgressException();
+        }
         List<Player> players = waitingRoom.getPlayers();
-        //First I check that the game isn't full
-        //then I check if the player is already in
-        //then I check if the color is not already taken
-        if (players.size() + 1 <= DefaultValue.MaxNumOfPlayer) {
-            if (players.stream().map(Player::getName).noneMatch(x -> x.equals(playerName))) {
-                waitingRoom.addPlayer(playerName, client);
-            } else {
-                throw new PlayerAlreadyInException();
-            }
-        } else {
+        if (players.size() + 1 > DefaultValue.MaxNumOfPlayer) {
             throw new MaxPlayersInException();
+        }
+        if (players.stream().map(Player::getName).noneMatch(x -> x.equals(playerName))) {
+            waitingRoom.addPlayer(playerName, client);
+        } else {
+            throw new PlayerAlreadyInException();
         }
     }
 
@@ -158,6 +155,7 @@ public class RoomController {
      */
     private void startGame() {
         this.state = GameState.RUNNING;
+        prepareGame();
         room.getNotifier().serviceMessage(DefaultValue.ANSI_PURPLE + "Game is starting!");
     }
 
