@@ -6,13 +6,13 @@ import java.rmi.RemoteException;
 import java.util.Scanner;
 
 public class MainClient {
-    public static void main(String[] args) throws RemoteException {
+    public static void main(String[] args) {
         printTitle();
         switch (askUI()) {
             case 1: System.out.println("Starting TUI...\n");
                     new TUI();
                     break;
-            case 2: System.out.println("Starting GUI");
+            case 2: System.out.println("Starting GUI...");
                     //new GUI();
                     break;
         }
@@ -25,7 +25,7 @@ public class MainClient {
                 "\t\t\t\t\t\t\t\t\t██║     ██║   ██║██║  ██║█████╗   ╚███╔╝ \n" +
                 "\t\t\t\t\t\t\t\t\t██║     ██║   ██║██║  ██║██╔══╝   ██╔██╗ \n" +
                 "\t\t\t\t\t\t\t\t\t╚██████╗╚██████╔╝██████╔╝███████╗██╔╝ ██╗\n" +
-                "\t\t\t\t\t\t\t\t\t╚═════╝ ╚═════╝ ╚═════╝ ╚══════╝╚═╝  ╚═╝\n" +
+                "\t\t\t\t\t\t\t\t\t╚═════╝ ╚═════╝ ╚═════╝ ╚══════╝╚═╝   ╚═╝\n" +
                 "\n" +
                 "\t\t\t\t\t\t███╗   ██╗ █████╗ ████████╗██╗   ██╗██████╗  █████╗ ██╗     ██╗███████╗\n" +
                 "\t\t\t\t\t\t████╗  ██║██╔══██╗╚══██╔══╝██║   ██║██╔══██╗██╔══██╗██║     ██║██╔════╝\n" +

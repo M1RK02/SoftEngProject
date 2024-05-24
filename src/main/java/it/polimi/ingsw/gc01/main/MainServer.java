@@ -1,31 +1,25 @@
 package it.polimi.ingsw.gc01.main;
-import it.polimi.ingsw.gc01.controller.MainController;
+
 import it.polimi.ingsw.gc01.model.DefaultValue;
 import it.polimi.ingsw.gc01.network.rmi.RmiServer;
 
-import java.util.Arrays;
-import java.util.List;
-import java.util.Scanner;
+import java.util.*;
 
-
-import java.util.Scanner;
 public class MainServer {
 
     public static void main(String[] args) {
         String input;
         
         do {
-            System.out.println("Type in the Remote IP or leave empty for localhost:\n");
+            System.out.println("Type in the Remote IP or leave empty for localhost:");
             input = new Scanner(System.in).nextLine();
         } while(!input.isEmpty() && !isValidIP(input));
 
-        if (!input.isEmpty()){
-            System.setProperty("java.rmi.server.hostname", DefaultValue.Remote_ip);
-        }
-        else {
+        if (!input.isEmpty()) {
             DefaultValue.ServerIp = input;
-            System.setProperty("java.rmi.server.hostname", input);
         }
+
+        System.setProperty("java.rmi.server.hostname", DefaultValue.ServerIp);
         new RmiServer();
     }
 
@@ -45,5 +39,4 @@ public class MainServer {
         }
         return true;
     }
-
 }

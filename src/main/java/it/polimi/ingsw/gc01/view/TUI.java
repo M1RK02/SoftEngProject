@@ -4,11 +4,7 @@ import it.polimi.ingsw.gc01.model.DefaultValue;
 import it.polimi.ingsw.gc01.network.NetworkClient;
 import it.polimi.ingsw.gc01.network.rmi.RmiClient;
 
-import java.rmi.RemoteException;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Locale;
-import java.util.Scanner;
+import java.util.*;
 
 public class TUI implements UI {
     private NetworkClient client;
@@ -16,8 +12,6 @@ public class TUI implements UI {
     public TUI(){
         new Thread(this).start();
     }
-
-
 
     private String askPlayerName(){
         Scanner scanner = new Scanner(System.in);
