@@ -9,7 +9,7 @@ public class MainServer {
 
     public static void main(String[] args) {
         String input;
-        
+
         do {
             System.out.println("Type in the Remote IP or leave empty for localhost:");
             input = new Scanner(System.in).nextLine();

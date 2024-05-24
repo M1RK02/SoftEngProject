@@ -37,6 +37,10 @@ public class RmiClient extends UnicastRemoteObject implements VirtualView, Netwo
         }
     }
 
+    public String getRoomId(){
+        return roomId;
+    }
+
     /**
      * asks stub to create game
      */

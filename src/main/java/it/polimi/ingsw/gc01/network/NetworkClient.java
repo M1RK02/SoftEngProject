@@ -6,6 +6,7 @@ import it.polimi.ingsw.gc01.model.room.TablePosition;
 import java.rmi.RemoteException;
 
 public interface NetworkClient {
+    String getRoomId();
     void createGame();
 
     void joinGame(String roomId);
