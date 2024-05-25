@@ -91,6 +91,7 @@ public class TUI implements UI {
                 (1) Create a new Game
                 (2) Join the first Available Game
                 (3) Join a Game by ID
+                (4) Exit
                 """);
         Scanner scanner = new Scanner(System.in);
         String input = scanner.nextLine();
@@ -114,6 +115,9 @@ public class TUI implements UI {
                 }
                 networkClient.joinGame(roomId.toUpperCase());
                 break;
+            case (4):
+                System.out.println("Exiting");
+                System.exit(1);
             default:
                 System.out.println(DefaultValue.ANSI_RED + "Invalid choice" + DefaultValue.ANSI_RESET);
                 askModalityToEnterGame();
@@ -131,7 +135,7 @@ public class TUI implements UI {
             ready = scanner.nextLine();
             if (ready.equals("l")){
                 networkClient.leave();
-                System.exit(1);
+                new Thread(this::askModalityToEnterGame).start();
                 return;
             }
             if (ready.equals("y")){
