@@ -156,6 +156,11 @@ public class TUI implements UI {
     }
 
     @Override
+    public void showCurrentPlayer(String playerName) {
+        System.out.println(DefaultValue.ANSI_WHITE + "-> Current player is: " + playerName + " !" + DefaultValue.ANSI_RESET);
+    }
+
+    @Override
     public void showError(String error) {
         String type = error.substring(0, error.indexOf(" "));
         String message = error.substring(error.indexOf(" ")+1);

@@ -193,6 +193,14 @@ public class RmiClient extends UnicastRemoteObject implements VirtualView, Netwo
     }
 
     /**
+     * @param playerName
+     */
+    @Override
+    public void updateCurrentPlayer(String playerName){
+        ui.showCurrentPlayer(playerName);
+    }
+
+    /**
      * @param cardId
      */
     @Override

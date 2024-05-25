@@ -2,6 +2,7 @@ package it.polimi.ingsw.gc01.model.room;
 
 import java.util.*;
 
+import it.polimi.ingsw.gc01.model.DefaultValue;
 import it.polimi.ingsw.gc01.model.ObserverManager;
 import it.polimi.ingsw.gc01.model.cards.*;
 import it.polimi.ingsw.gc01.model.decks.*;
@@ -22,7 +23,7 @@ public class Room {
     public Room(String roomId, List<Player> players, ObserverManager notifier) {
         this.roomId = roomId;
         this.players = players;
-        currentPlayer = players.get(0);
+        currentPlayer = players.getFirst();
         goldenDeck = new GoldenDeck();
         resourceDeck = new ResourceDeck();
         objectiveDeck = new ObjectiveDeck();
@@ -93,6 +94,7 @@ public class Room {
 
     public void setCurrentPlayer(Player currentPlayer) {
         this.currentPlayer = currentPlayer;
+        notifier.updateCurrentPlayer(currentPlayer.getName());
     }
 
     public Player getPlayerByName(String playerName){

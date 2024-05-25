@@ -123,7 +123,6 @@ public class RoomController {
      */
     public void prepareGame() {
         ObserverManager notifier = room.getNotifier();
-        notifier.serviceMessage(DefaultValue.ANSI_WHITE + "-> Current player is: " + room.getCurrentPlayer().getName() + " !" + DefaultValue.ANSI_RESET);
         notifier.showAvailableColor(room.getCurrentPlayer().getName(), waitingRoom.getAvailableColors());
         notifier.showTable(room.getDrawableCards());
         notifier.showCommonObjectives(room.getCommonObjectives());
@@ -162,7 +161,7 @@ public class RoomController {
     private void giveStarter() {
         ObserverManager notifier = room.getNotifier();
         Player player = room.getCurrentPlayer();
-        notifier.serviceMessage(DefaultValue.ANSI_WHITE + "-> Current player is: " + player.getName() + " !" + DefaultValue.ANSI_RESET);
+        notifier.updateCurrentPlayer(player.getName());
         player.getHand().add(room.getStarterDeck().pick());
         notifier.showStarter(player.getName(), (StarterCard) player.getHand().getFirst());
     }
@@ -217,7 +216,6 @@ public class RoomController {
         waitingRoom.setColor(playerName, color);
         nextPlayer();
         if(!room.getCurrentPlayer().equals(getPlayers().getFirst())) {
-            room.getNotifier().serviceMessage(DefaultValue.ANSI_WHITE + "-> Current player is: " + room.getCurrentPlayer().getName() + " !" + DefaultValue.ANSI_RESET);
             room.getNotifier().showAvailableColor(room.getCurrentPlayer().getName(), waitingRoom.getAvailableColors());
         } else {
             room.getNotifier().serviceMessage(DefaultValue.ANSI_BLUE + "-> Distributing cards!" + DefaultValue.ANSI_RESET);
@@ -322,7 +320,6 @@ public class RoomController {
             nextPlayer();
             player = room.getCurrentPlayer();
             if(!player.equals(getPlayers().getFirst())) {
-                notifier.serviceMessage(DefaultValue.ANSI_WHITE + "-> Current player is: " + player.getName() + " !" + DefaultValue.ANSI_RESET);
                 player.getHand().add(room.getStarterDeck().pick());
                 notifier.showStarter(player.getName(), (StarterCard) player.getHand().getFirst());
             } else {

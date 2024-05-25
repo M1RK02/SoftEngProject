@@ -10,4 +10,5 @@ public interface UI {
     void showServiceMessage(String message);
     void showStarter(int cardId);
     void showAvailableColors(List<PlayerColor> availableColors);
+    void showCurrentPlayer(String playerName);
 }
