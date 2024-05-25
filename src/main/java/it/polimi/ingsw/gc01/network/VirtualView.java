@@ -10,6 +10,7 @@ public interface VirtualView extends Remote {
     void updateRoomId(String roomId) throws RemoteException;
 
     void showStarter(int cardId) throws RemoteException;
+
     void showAvailableColors(List<PlayerColor> availableColors) throws RemoteException;
 
     void updateReady(boolean ready) throws RemoteException;

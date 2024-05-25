@@ -122,22 +122,9 @@ public class RoomController {
      * Create the room and gives to all the players 1 Starter Card
      */
     public void prepareGame() {
-        room = new Room(waitingRoom.getRoomId(), waitingRoom.getPlayers(), waitingRoom.getNotifier());
-        room.getNotifier().serviceMessage(DefaultValue.ANSI_PURPLE + "Game is starting!" + DefaultValue.ANSI_RESET);
         ObserverManager notifier = room.getNotifier();
-
-        for (Player player : room.getPlayers()) {
-            room.getNotifier().serviceMessage(DefaultValue.ANSI_WHITE + "-> Current player is: " + player.getName() + " !" + DefaultValue.ANSI_RESET);
-            player.getHand().add(room.getStarterDeck().pick());
-            notifier.showStarter(player.getName(), (StarterCard) player.getHand().get(0));
-        }
-
-        for (Player player : room.getPlayers()){
-            room.getNotifier().serviceMessage(DefaultValue.ANSI_WHITE + "-> Current player is: " + player.getName() + " !" + DefaultValue.ANSI_RESET);
-            notifier.showAvailableColor(player.getName(), waitingRoom.getAvailableColors());
-        }
-
-        //notifier.serviceMessage(DefaultValue.ANSI_CYAN + "-> Is " + room.getCurrentPlayer().getName() + " turn!" + DefaultValue.ANSI_RESET);
+        notifier.serviceMessage(DefaultValue.ANSI_WHITE + "-> Current player is: " + room.getCurrentPlayer().getName() + " !" + DefaultValue.ANSI_RESET);
+        notifier.showAvailableColor(room.getCurrentPlayer().getName(), waitingRoom.getAvailableColors());
         notifier.showTable(room.getDrawableCards());
         notifier.showCommonObjectives(room.getCommonObjectives());
     }
@@ -166,9 +153,19 @@ public class RoomController {
      */
     private void startGame() {
         this.state = GameState.RUNNING;
-        prepareGame();
+        room = new Room(waitingRoom.getRoomId(), waitingRoom.getPlayers(), waitingRoom.getNotifier());
+        ObserverManager notifier = room.getNotifier();
+        notifier.serviceMessage(DefaultValue.ANSI_PURPLE + "Game is starting!" + DefaultValue.ANSI_RESET);
+        giveStarter();
     }
 
+    private void giveStarter() {
+        ObserverManager notifier = room.getNotifier();
+        Player player = room.getCurrentPlayer();
+        notifier.serviceMessage(DefaultValue.ANSI_WHITE + "-> Current player is: " + player.getName() + " !" + DefaultValue.ANSI_RESET);
+        player.getHand().add(room.getStarterDeck().pick());
+        notifier.showStarter(player.getName(), (StarterCard) player.getHand().getFirst());
+    }
 
     /**
      * Change the currentPlayer to the next Player in the circle
@@ -218,6 +215,13 @@ public class RoomController {
      */
     public void chooseColor(String playerName, PlayerColor color){
         waitingRoom.setColor(playerName, color);
+        nextPlayer();
+        if(!room.getCurrentPlayer().equals(getPlayers().getFirst())) {
+            room.getNotifier().serviceMessage(DefaultValue.ANSI_WHITE + "-> Current player is: " + room.getCurrentPlayer().getName() + " !" + DefaultValue.ANSI_RESET);
+            room.getNotifier().showAvailableColor(room.getCurrentPlayer().getName(), waitingRoom.getAvailableColors());
+        } else {
+            room.getNotifier().serviceMessage(DefaultValue.ANSI_BLUE + "-> Distributing cards!" + DefaultValue.ANSI_RESET);
+        }
     }
 
     /**
@@ -283,6 +287,12 @@ public class RoomController {
     public void playCard (String playerName, int cardId, Position position){
         Player player = room.getPlayerByName(playerName);
         PlayableCard card = null;
+        ObserverManager notifier = room.getNotifier();
+
+        if (!room.getCurrentPlayer().equals(player)){
+            notifier.showError(playerName, "Its not your turn");
+        }
+
         for (PlayableCard curr : player.getHand()){
             if (curr.getId() == cardId){
                 card = curr;
@@ -291,25 +301,34 @@ public class RoomController {
         if (card != null){
             player.playCard(card, position);
         }else{
-            room.getNotifier().showError(playerName, "No card found");
-        }
-
-        if (!room.getCurrentPlayer().equals(player)){
-            room.getNotifier().showError(playerName, "Its not your turn");
+            notifier.showError(playerName, "No card found");
         }
 
         if (card.isFront()){
             if (card instanceof GoldenCard){
                 if (!((GoldenCard) card).checkRequirements(room.getCurrentPlayer())){
-                    room.getNotifier().showError(playerName, "You don't have the required items");
+                    notifier.showError(playerName, "You don't have the required items");
                 }
             }
         }
 
         player.playCard(card, position);
 
-        if (getState().equals(GameState.LAST_CIRCLE) && player.equals(room.getPlayers().get(room.getPlayers().size() - 1))){
+        if (getState().equals(GameState.LAST_CIRCLE) && player.equals(room.getPlayers().getLast())){
             endGame();
+        }
+
+        if (card instanceof StarterCard){
+            nextPlayer();
+            player = room.getCurrentPlayer();
+            if(!player.equals(getPlayers().getFirst())) {
+                notifier.serviceMessage(DefaultValue.ANSI_WHITE + "-> Current player is: " + player.getName() + " !" + DefaultValue.ANSI_RESET);
+                player.getHand().add(room.getStarterDeck().pick());
+                notifier.showStarter(player.getName(), (StarterCard) player.getHand().getFirst());
+            } else {
+                prepareGame();
+            }
+
         }
     }
 
@@ -363,7 +382,7 @@ public class RoomController {
             setState(GameState.LAST_CIRCLE);
         }
 
-        room.setCurrentPlayer(room.getNextPlayer());
+        nextPlayer();
     }
 
     /**
