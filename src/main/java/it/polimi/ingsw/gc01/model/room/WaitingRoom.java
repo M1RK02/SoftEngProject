@@ -9,14 +9,12 @@ import it.polimi.ingsw.gc01.network.VirtualView;
 
 public class WaitingRoom {
     private final String roomId;
-    private List<Player> players;
-    private List<PlayerColor> availableColors;
+    private final List<Player> players;
     private final ObserverManager notifier;
 
     public WaitingRoom() {
         roomId = generateRoomId();
         players = new ArrayList<Player>();
-        availableColors = new ArrayList<>(Arrays.asList(PlayerColor.values()));
         notifier = new ObserverManager();
     }
 
@@ -47,10 +45,6 @@ public class WaitingRoom {
         return players;
     }
 
-    public synchronized List<PlayerColor> getAvailableColors() {
-        return availableColors;
-    }
-
     public ObserverManager getNotifier() {
         return notifier;
     }
@@ -62,11 +56,6 @@ public class WaitingRoom {
             }
         }
         return null;
-    }
-
-    public synchronized void setColor(String playerName, PlayerColor color){
-        getPlayerByName(playerName).setColor(color);
-        availableColors.remove(color);
     }
 
     /**
@@ -100,19 +89,12 @@ public class WaitingRoom {
 
     /**
      *
-     * @return the num of players waiting in the Waiting room
-     */
-    public int getNumOfPlayers(){
-        return this.getPlayers().size();
-    }
-
-    /**
-     *
      * @return true if there are at least 2 players and they are all ready to start, else false
      */
     public boolean readyToStart(){
         //If every player is ready, the game starts
-        return players.stream().filter(Player::getReady)
+        return players.stream()
+                .filter(Player::getReady)
                 .count() == players.size() && players.size() >= DefaultValue.MinNumOfPlayer;
     }
 }

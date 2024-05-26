@@ -11,6 +11,7 @@ import it.polimi.ingsw.gc01.model.player.*;
 public class Room {
     private final String roomId;
     private final List<Player> players;
+    private List<PlayerColor> availableColors;
     private Player currentPlayer;
     private GoldenDeck goldenDeck;
     private ResourceDeck resourceDeck;
@@ -23,6 +24,7 @@ public class Room {
     public Room(String roomId, List<Player> players, ObserverManager notifier) {
         this.roomId = roomId;
         this.players = players;
+        availableColors = new ArrayList<>(Arrays.asList(PlayerColor.values()));
         currentPlayer = players.getFirst();
         goldenDeck = new GoldenDeck();
         resourceDeck = new ResourceDeck();
@@ -32,6 +34,8 @@ public class Room {
         drawableCards = new HashMap<>();
         initTable();
         this.notifier = notifier;
+        notifier.serviceMessage(DefaultValue.ANSI_PURPLE + "Game is starting!" + DefaultValue.ANSI_RESET);
+        notifier.updateCurrentPlayer(currentPlayer.getName());
     }
 
     /**
@@ -62,6 +66,10 @@ public class Room {
 
     public List<Player> getPlayers() {
         return players;
+    }
+
+    public List<PlayerColor> getAvailableColors() {
+        return availableColors;
     }
 
     public Player getCurrentPlayer() {
