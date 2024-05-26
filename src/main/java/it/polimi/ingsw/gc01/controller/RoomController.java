@@ -129,16 +129,33 @@ public class RoomController {
                 if(!currentPlayer.equals(room.getPlayers().getFirst())) {
                     showAvailableColors();
                 } else {
-                    distributeCards();
+                    state = GameState.OBJECTIVE_SELECTION;
+                    // mostra gli obiettivi segreti
+                    room.getNotifier().serviceMessage("Distributing CARDS (SONO ARRIVATO QUI)"); //DA RIMUOVERE
                 }
                 break;
             case OBJECTIVE_SELECTION:
+                if(!currentPlayer.equals(room.getPlayers().getFirst())) {
+                    // mostra obiettivi segreti
+                } else {
+                    state = GameState.RUNNING;
+                    // inizia il game normalmente
+                }
                 break;
             case RUNNING:
+                if(currentPlayer.equals(room.getPlayers().getFirst())) {
+                    // se deck finiti oppure un player ha raggiunto i 20 punti
+                        // state = GameState.LAST_CIRCLE;
+                }
+                // continua gioco normale
                 break;
             case LAST_CIRCLE:
-                break;
-            case ENDED:
+                if(!currentPlayer.equals(room.getPlayers().getFirst())) {
+                    // continua gioco normale
+                } else {
+                    state = GameState.ENDED;
+                    // calcola gli obiettivi e dichiara il vincitore
+                }
                 break;
         }
     }
@@ -158,7 +175,6 @@ public class RoomController {
      * for each player distribute 2 Resource Card, 1 Golden Card and 2 Objective Cards
      */
     public void distributeCards(){
-        room.getNotifier().serviceMessage("Distributing CARDS (SONO ARRIVATO QUI)");
         for (Player p : room.getPlayers()){
             p.getHand().add(room.getResourceDeck().pick());
             p.getHand().get(0).setFront(true);
