@@ -289,6 +289,7 @@ public class RoomController {
 
         if (!room.getCurrentPlayer().equals(player)){
             notifier.showError(playerName, "Its not your turn");
+            return;
         }
 
         for (PlayableCard curr : player.getHand()){
@@ -296,21 +297,24 @@ public class RoomController {
                 card = curr;
             }
         }
+
         if (card != null){
-            player.playCard(card, position);
-        }else{
+            if (card.isFront()){
+                if (card instanceof GoldenCard){
+                    if (!((GoldenCard) card).checkRequirements(room.getCurrentPlayer())){
+                        notifier.showError(playerName, "You don't have the required items");
+                    } else {
+                        player.playCard(card, position);
+                    }
+                } else {
+                    player.playCard(card, position);
+                }
+            } else {
+                player.playCard(card, position);
+            }
+        } else{
             notifier.showError(playerName, "No card found");
         }
-
-        if (card.isFront()){
-            if (card instanceof GoldenCard){
-                if (!((GoldenCard) card).checkRequirements(room.getCurrentPlayer())){
-                    notifier.showError(playerName, "You don't have the required items");
-                }
-            }
-        }
-
-        player.playCard(card, position);
 
         if (getState().equals(GameState.LAST_CIRCLE) && player.equals(room.getPlayers().getLast())){
             endGame();
