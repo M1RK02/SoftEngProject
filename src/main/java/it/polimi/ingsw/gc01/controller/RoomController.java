@@ -1,27 +1,24 @@
 package it.polimi.ingsw.gc01.controller;
 
-import it.polimi.ingsw.gc01.controller.exceptions.*;
 import it.polimi.ingsw.gc01.model.*;
-import it.polimi.ingsw.gc01.model.cards.GoldenCard;
-import it.polimi.ingsw.gc01.model.cards.ObjectiveCard;
-import it.polimi.ingsw.gc01.model.cards.PlayableCard;
-import it.polimi.ingsw.gc01.model.cards.StarterCard;
+import it.polimi.ingsw.gc01.model.cards.*;
 import it.polimi.ingsw.gc01.model.player.*;
 import it.polimi.ingsw.gc01.model.room.*;
+import it.polimi.ingsw.gc01.controller.exceptions.*;
 import it.polimi.ingsw.gc01.network.VirtualView;
 
 import java.util.List;
 
 public class RoomController {
-    private MainController mainController;
+    private final MainController mainController;
     private Room room;
-    private WaitingRoom waitingRoom;
+    private final WaitingRoom waitingRoom;
     private GameState state;
 
     public RoomController() {
-        this.waitingRoom = new WaitingRoom();
-        this.state = GameState.WAITING;
         mainController = MainController.getInstance();
+        waitingRoom = new WaitingRoom();
+        state = GameState.WAITING;
     }
 
     /**
@@ -66,39 +63,6 @@ public class RoomController {
 
     /**
      *
-     * @return the number of players playing in the Room
-     */
-    public int getNumOfPlayers(){
-        return room.getPlayers().size();
-    }
-
-    /**
-     *
-     * @return the number of players waiting in the WaitingRoom
-     */
-    public int getNumOfWaitingPlayers(){
-        return waitingRoom.getNumOfPlayers();
-    }
-
-    /**
-     *
-     * @return the list of players currently playing
-     */
-    public List<Player> getPlayers(){
-        return room.getPlayers();
-    }
-
-    /**
-     *
-     * @return the list of players currently waiting
-     */
-    public List<Player> getWaitingPlayers(){
-        return waitingRoom.getPlayers();
-    }
-
-
-    /**
-     *
      * @param playerName name of the players that needs to be added to the WaitingRoom
      * @param client reference to the client
      */
@@ -117,22 +81,84 @@ public class RoomController {
         }
     }
 
+    /**
+     * @param playerName the player to set ready or unready
+     */
+    public void switchReady(String playerName){
+        waitingRoom.getPlayerByName(playerName).switchReady();
+        if (waitingRoom.readyToStart()){
+            prepareGame();
+        }
+    }
+
+    public void prepareGame() {
+        room = new Room(waitingRoom.getRoomId(), waitingRoom.getPlayers(), waitingRoom.getNotifier());
+        state = GameState.STARTER_SELECTION;
+        giveStarter();
+    }
+
+    private void giveStarter() {
+        Player currentPlayer = room.getCurrentPlayer();
+        currentPlayer.getHand().add(room.getStarterDeck().pick());
+        ObserverManager notifier = room.getNotifier();
+        notifier.showStarter(currentPlayer.getName(), (StarterCard) currentPlayer.getHand().getFirst());
+    }
+
+    private void showAvailableColors() {
+        Player currentPlayer = room.getCurrentPlayer();
+        ObserverManager notifier = room.getNotifier();
+        notifier.showAvailableColor(currentPlayer.getName(), room.getAvailableColors());
+    }
 
     /**
-     * Create the room and gives to all the players 1 Starter Card
+     * Change the currentPlayer to the next Player in the circle checking the current state
      */
-    public void prepareGame() {
-        ObserverManager notifier = room.getNotifier();
-        notifier.showAvailableColor(room.getCurrentPlayer().getName(), waitingRoom.getAvailableColors());
-        notifier.showTable(room.getDrawableCards());
-        notifier.showCommonObjectives(room.getCommonObjectives());
+    public void nextPlayer() {
+        room.setCurrentPlayer(room.getNextPlayer());
+        Player currentPlayer = room.getCurrentPlayer();
+        switch (state) {
+            case STARTER_SELECTION:
+                if(!currentPlayer.equals(room.getPlayers().getFirst())) {
+                    giveStarter();
+                } else {
+                    state = GameState.COLOR_SELECTION;
+                    showAvailableColors();
+                }
+                break;
+            case COLOR_SELECTION:
+                if(!currentPlayer.equals(room.getPlayers().getFirst())) {
+                    showAvailableColors();
+                } else {
+                    distributeCards();
+                }
+                break;
+            case OBJECTIVE_SELECTION:
+                break;
+            case RUNNING:
+                break;
+            case LAST_CIRCLE:
+                break;
+            case ENDED:
+                break;
+        }
+    }
+
+    /**
+     *
+     * @param playerName the player to set the color
+     * @param color the color to set to the player who is choosing
+     */
+    public void chooseColor(String playerName, PlayerColor color){
+        room.getPlayerByName(playerName).setColor(color);
+        room.getAvailableColors().remove(color);
+        nextPlayer();
     }
 
     /**
      * for each player distribute 2 Resource Card, 1 Golden Card and 2 Objective Cards
      */
     public void distributeCards(){
-        ObserverManager notifier = room.getNotifier();
+        room.getNotifier().serviceMessage("Distributing CARDS (SONO ARRIVATO QUI)");
         for (Player p : room.getPlayers()){
             p.getHand().add(room.getResourceDeck().pick());
             p.getHand().get(0).setFront(true);
@@ -142,35 +168,7 @@ public class RoomController {
             p.getHand().get(2).setFront(true);
             p.getPossibleObjectives().add(room.getObjectiveDeck().pick());
             p.getPossibleObjectives().add(room.getObjectiveDeck().pick());
-            notifier.showHand(p.getName(), p.getHand());
-            notifier.showSecretObjectives(p.getName(), p.getPossibleObjectives());
         }
-    }
-
-    /**
-     * Starts the game by setting the game state to RUNNING
-     */
-    private void startGame() {
-        this.state = GameState.RUNNING;
-        room = new Room(waitingRoom.getRoomId(), waitingRoom.getPlayers(), waitingRoom.getNotifier());
-        ObserverManager notifier = room.getNotifier();
-        notifier.serviceMessage(DefaultValue.ANSI_PURPLE + "Game is starting!" + DefaultValue.ANSI_RESET);
-        giveStarter();
-    }
-
-    private void giveStarter() {
-        ObserverManager notifier = room.getNotifier();
-        Player player = room.getCurrentPlayer();
-        notifier.updateCurrentPlayer(player.getName());
-        player.getHand().add(room.getStarterDeck().pick());
-        notifier.showStarter(player.getName(), (StarterCard) player.getHand().getFirst());
-    }
-
-    /**
-     * Change the currentPlayer to the next Player in the circle
-     */
-    public void nextPlayer() {
-        room.setCurrentPlayer(room.getNextPlayer());
     }
 
     /**
@@ -204,33 +202,6 @@ public class RoomController {
         List<Player> winners = room.getWinners();
         state = GameState.ENDED;
         room.getNotifier().serviceMessage("The winner is "+winners.get(0).getName());
-    }
-
-
-    /**
-     *
-     * @param playerName the player to set the color
-     * @param color the color to set to the player who is choosing
-     */
-    public void chooseColor(String playerName, PlayerColor color){
-        waitingRoom.setColor(playerName, color);
-        nextPlayer();
-        if(!room.getCurrentPlayer().equals(getPlayers().getFirst())) {
-            room.getNotifier().showAvailableColor(room.getCurrentPlayer().getName(), waitingRoom.getAvailableColors());
-        } else {
-            room.getNotifier().serviceMessage(DefaultValue.ANSI_BLUE + "-> Distributing cards!" + DefaultValue.ANSI_RESET);
-        }
-    }
-
-    /**
-     *
-     * @param playerName the player to set ready or unready
-     */
-    public void switchReady(String playerName){
-        waitingRoom.getPlayerByName(playerName).switchReady();
-        if (waitingRoom.readyToStart()){
-            startGame();
-        }
     }
 
     /**
@@ -322,14 +293,6 @@ public class RoomController {
 
         if (card instanceof StarterCard){
             nextPlayer();
-            player = room.getCurrentPlayer();
-            if(!player.equals(getPlayers().getFirst())) {
-                player.getHand().add(room.getStarterDeck().pick());
-                notifier.showStarter(player.getName(), (StarterCard) player.getHand().getFirst());
-            } else {
-                prepareGame();
-            }
-
         }
     }
 

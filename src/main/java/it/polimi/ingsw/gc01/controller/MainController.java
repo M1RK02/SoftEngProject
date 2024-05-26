@@ -1,11 +1,9 @@
 package it.polimi.ingsw.gc01.controller;
 
-import it.polimi.ingsw.gc01.model.DefaultValue;
 import it.polimi.ingsw.gc01.network.VirtualView;
 
 import java.rmi.RemoteException;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 public class MainController {
     /**
@@ -16,11 +14,9 @@ public class MainController {
     /**
      * List of existing rooms
      */
-    private Map<String, RoomController> rooms;
+    private final Map<String, RoomController> rooms = new HashMap<>();
 
-    private MainController(){
-        rooms = new HashMap<>();
-    }
+    private MainController(){}
 
     /**
      * Singleton Pattern
@@ -69,11 +65,7 @@ public class MainController {
             error = "MAIN No room with this id exists";
         }
         if (!error.isEmpty()) {
-            try {
-                client.showError(error);
-            } catch (RemoteException e) {
-                throw new RuntimeException(e);
-            }
+            sendErrorToClient(client, error);
         }
     }
 
@@ -85,19 +77,24 @@ public class MainController {
      */
     public void joinFirstGame(String playerName, VirtualView client){
         boolean joined = false;
-        for (RoomController room : rooms.values()){
+        Iterator<RoomController> iterator = rooms.values().iterator();
+        while(!joined && iterator.hasNext()){
+            RoomController room = iterator.next();
             try {
                 room.addPlayer(playerName, client);
                 joined = true;
-                break;
             } catch (Exception ignored) {}
         }
         if (!joined) {
-            try {
-                client.showError("MAIN No rooms available");
-            } catch (RemoteException e) {
-                throw new RuntimeException(e);
-            }
+            sendErrorToClient(client, "MAIN No rooms available");
+        }
+    }
+
+    private void sendErrorToClient(VirtualView client, String error) {
+        try {
+            client.showError(error);
+        } catch (RemoteException e) {
+            throw new RuntimeException(e);
         }
     }
 
@@ -107,8 +104,6 @@ public class MainController {
      * @param roomId the id of the room to delete
      */
     public void deleteRoom(String roomId) {
-        if (rooms.get(roomId) != null){
-            rooms.remove(roomId);
-        }
+        rooms.remove(roomId);
     }
 }
