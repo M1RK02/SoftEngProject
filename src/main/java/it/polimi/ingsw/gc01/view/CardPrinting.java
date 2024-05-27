@@ -1,6 +1,6 @@
 package it.polimi.ingsw.gc01.view;
 
-import it.polimi.ingsw.gc01.model.DefaultValue;
+import it.polimi.ingsw.gc01.model.cards.CardColor;
 import it.polimi.ingsw.gc01.model.cards.StarterCard;
 import it.polimi.ingsw.gc01.model.corners.CornerPosition;
 import it.polimi.ingsw.gc01.model.decks.StarterDeck;
@@ -17,9 +17,16 @@ public class CardPrinting {
         StarterCard card = deck.pickById(id);
 
         // CARTA VUOTA
+        String[] colors = new String[5];
+        for (int i = 0; i < 4; i++) {
+            colors[i] = CardColor.values()[i].toString();
+        }
+        colors[4] = "GAY";
+        String color = colors[new Random().nextInt(colors.length)];
+        color = color.substring(0, 3);
         char[][] carta = new char[7][25];
         carta[0] = "╔═══╦═══════════════╦═══╗".toCharArray();
-        carta[1] = "║   ║               ║   ║".toCharArray();
+        carta[1] = ("║   ║      "+color+"      ║   ║").toCharArray();
         carta[2] = "╠═══╝     ╔═══╗     ╚═══╣".toCharArray();
         carta[3] = "║         ║   ║         ║".toCharArray();
         carta[4] = "╠═══╗     ╚═══╝     ╔═══╣".toCharArray();
