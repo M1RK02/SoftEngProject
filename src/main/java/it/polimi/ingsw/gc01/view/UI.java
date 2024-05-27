@@ -12,6 +12,7 @@ public interface UI {
     void showStarter(int cardId);
     void showAvailableColors(List<PlayerColor> availableColors);
     void showCurrentPlayer(String playerName);
-    void showField(Field field);
+    void showField();
+    void showPossibleObjectives(List<Integer> possibleObjectiveIds);
     void updateReady(String playerName, boolean ready);
 }

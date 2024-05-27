@@ -171,7 +171,7 @@ public class TUI implements UI {
     }
 
     @Override
-    public void showField(Field field) {
+    public void showField() {
         //TOTAL FIELD TYPO
         System.out.println("""
                     ╔═══╦═══════════════╦═══╗               ╔═══╦═══════════════╦═══╗               ╔═══╦═══════════════╦═══╗               ╔═══╦═══════════════╦═══╗
@@ -188,7 +188,7 @@ public class TUI implements UI {
                     ║         ║ ▓ ║         ║               ║         ║ ▓ ║         ║               ║         ║ ▓ ║         ║               ║         ║ ▓ ║         ║
                     ╠═══╗     ╚═══╝     ╔═══╬═══════════════╬═══╗     ╚═══╝     ╔═══╬═══════════════╬═══╗     ╚═══╝     ╔═══╬═══════════════╬═══╗     ╚═══╝     ╔═══╣
                     ║ ▓ ║               ║ ▓ ║               ║ ▓ ║               ║ ▓ ║               ║ ▓ ║               ║ ▓ ║               ║ ▓ ║               ║ ▓ ║
-                    ╚═══╩═══════════════╬═══╝     ╔═══╗     ╚═══╬═══════════════╬═══╝     ╔═══╗     ╚═══╬═══════════════╬═══╝     ╔═══╗     ╚═══╬═══════════════╬═══╝
+                    ╚═══╩═══════════════╬═══╝     ╔═══╗     ╚═══╬═══════════════╬═══╝     ╔═══╗     ╚═══╬═══════════════╬═══╝     ╔═══╗     ╚═══╬═══════════════╩═══╝
                                         ║         ║ ▓ ║         ║               ║         ║SSS║         ║               ║         ║ ▓ ║         ║
                     ╔═══╦═══════════════╬═══╗     ╚═══╝     ╔═══╬═══════════════╬═══╗     ╚═══╝     ╔═══╬═══════════════╬═══╗     ╚═══╝     ╔═══╬═══════════════╦═══╗
                     ║ ▓ ║               ║ ▓ ║               ║ ▓ ║               ║ ▓ ║               ║ ▓ ║               ║ ▓ ║               ║ ▓ ║               ║ ▓ ║
@@ -196,7 +196,7 @@ public class TUI implements UI {
                     ║         ║ ▓ ║         ║               ║         ║ ▓ ║         ║               ║         ║ ▓ ║         ║               ║         ║ ▓ ║         ║
                     ╠═══╗     ╚═══╝     ╔═══╬═══════════════╬═══╗     ╚═══╝     ╔═══╬═══════════════╬═══╗     ╚═══╝     ╔═══╬═══════════════╬═══╗     ╚═══╝     ╔═══╣
                     ║ ▓ ║               ║ ▓ ║               ║ ▓ ║               ║ ▓ ║               ║ ▓ ║               ║ ▓ ║               ║ ▓ ║               ║ ▓ ║
-                    ╚═══╩═══════════════╬═══╝     ╔═══╗     ╚═══╬═══════════════╬═══╝     ╔═══╗     ╚═══╬═══════════════╬═══╝     ╔═══╗     ╚═══╬═══════════════╬═══╝
+                    ╚═══╩═══════════════╬═══╝     ╔═══╗     ╚═══╬═══════════════╬═══╝     ╔═══╗     ╚═══╬═══════════════╬═══╝     ╔═══╗     ╚═══╬═══════════════╩═══╝
                                         ║         ║ ▓ ║         ║               ║         ║ ▓ ║         ║               ║         ║ ▓ ║         ║
                     ╔═══╦═══════════════╬═══╗     ╚═══╝     ╔═══╬═══════════════╬═══╗     ╚═══╝     ╔═══╬═══════════════╬═══╗     ╚═══╝     ╔═══╬═══════════════╦═══╗
                     ║ ▓ ║               ║ ▓ ║               ║ ▓ ║               ║ ▓ ║               ║ ▓ ║               ║ ▓ ║               ║ ▓ ║               ║ ▓ ║
@@ -207,43 +207,6 @@ public class TUI implements UI {
                     ╚═══╩═══════════════╩═══╝               ╚═══╩═══════════════╩═══╝               ╚═══╩═══════════════╩═══╝               ╚═══╩═══════════════╩═══╝
                     """);
 
-
-        //(BAD) IDEA FOR BUILDING THE FIELD TO PRINT
-        StringBuilder result = new StringBuilder();
-
-        if (field.getPositions().get(new Position(-3,3)) != null){
-            result.append("╔═══╦═══════════════╦═══╗");
-        }
-        else{
-            result.append("                         ");
-        }
-        result.append("               ");
-
-        if (field.getPositions().get(new Position(-1,3)) != null){
-            result.append("╔═══╦═══════════════╦═══╗");
-        }
-        else{
-            result.append("                         ");
-        }
-        result.append("               ");
-
-        if (field.getPositions().get(new Position(1,3)) != null){
-            result.append("╔═══╦═══════════════╦═══╗");
-        }
-        else{
-            result.append("                         ");
-        }
-        result.append("               ");
-
-        if (field.getPositions().get(new Position(3,3)) != null){
-            result.append("╔═══╦═══════════════╦═══╗");
-        }
-        else{
-            result.append("                         ");
-        }
-        result.append("               ");
-
-        System.out.println(result);
     }
 
     @Override
@@ -417,4 +380,71 @@ public class TUI implements UI {
             System.out.println(DefaultValue.ANSI_YELLOW + "-> " + playerName + " is not ready!" + DefaultValue.ANSI_RESET);
         }
     }
+
+
+
+    @Override
+    public void showPossibleObjectives(List<Integer> possibleObjectiveIds){
+        //TODO
+        if (possibleObjectiveIds.get(0) == 87){
+            System.out.println(DefaultValue.ANSI_RED + """
+                    ╔═════════╦═════╦═════════╗  
+                    ║         ║  2  ║         ║     
+                    ║         ╚═════╝         ║
+                    ║                ┌───┐    ║       
+                    ║          ┌───┐ └───┘    ║       
+                    ║    ┌───┐ └───┘          ║       
+                    ║    └───┘                ║              
+                    ╚═════════════════════════╝       
+                    """ + DefaultValue.ANSI_RESET);
+        }
+        if (possibleObjectiveIds.get(0) == 88){
+
+        }
+        if (possibleObjectiveIds.get(0) == 89){
+
+        }
+        if (possibleObjectiveIds.get(0) == 90){
+
+        }
+        if (possibleObjectiveIds.get(0) == 91){
+
+        }
+        if (possibleObjectiveIds.get(0) == 92){
+
+        }
+        if (possibleObjectiveIds.get(0) == 93){
+
+        }
+        if (possibleObjectiveIds.get(0) == 94){
+
+        }
+        if (possibleObjectiveIds.get(0) == 95){
+
+        }
+        if (possibleObjectiveIds.get(0) == 96){
+
+        }
+        if (possibleObjectiveIds.get(0) == 97){
+
+        }
+        if (possibleObjectiveIds.get(0) == 98){
+
+        }
+        if (possibleObjectiveIds.get(0) == 99){
+
+        }
+        if (possibleObjectiveIds.get(0) == 100){
+
+        }
+        if (possibleObjectiveIds.get(0) == 101){
+
+        }
+        if (possibleObjectiveIds.get(0) == 102){
+
+        }
+    }
+
+
+
 }
