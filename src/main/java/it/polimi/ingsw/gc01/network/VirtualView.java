@@ -15,7 +15,7 @@ public interface VirtualView extends Remote {
 
     void showAvailableColors(List<PlayerColor> availableColors) throws RemoteException;
 
-    void updateReady(boolean ready) throws RemoteException;
+    void updateReady(String playerName, boolean ready) throws RemoteException;
 
     void showCommonObjectives(List<Integer> objectivesIds) throws RemoteException;
 

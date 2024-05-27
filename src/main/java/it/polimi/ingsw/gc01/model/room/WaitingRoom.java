@@ -94,7 +94,7 @@ public class WaitingRoom {
     public boolean readyToStart(){
         //If every player is ready, the game starts
         return players.stream()
-                .filter(Player::getReady)
+                .filter(Player::isReady)
                 .count() == players.size() && players.size() >= DefaultValue.MinNumOfPlayer;
     }
 }

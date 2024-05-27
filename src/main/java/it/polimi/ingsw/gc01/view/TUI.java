@@ -126,22 +126,30 @@ public class TUI implements UI {
         }
     }
 
-    private void askReady(){
-        String ready = "";
-        System.out.println(DefaultValue.ANSI_YELLOW + """
+    private void askReady(boolean ready){
+        String input = "";
+        if (!ready) {
+            System.out.println(DefaultValue.ANSI_YELLOW + """
                         (y) to ready up
                         (l) to leave
                         """ + DefaultValue.ANSI_RESET);
+        } else {
+            System.out.println(DefaultValue.ANSI_YELLOW + """
+                        (y) to set not ready
+                        (l) to leave
+                        """ + DefaultValue.ANSI_RESET);
+        }
         Scanner scanner = new Scanner(System.in);
         while (true){
-            ready = scanner.nextLine();
-            if (ready.equals("l")){
+            input = scanner.nextLine();
+            if (input.equals("l")){
                 networkClient.leave();
                 new Thread(this::askModalityToEnterGame).start();
                 return;
             }
-            if (ready.equals("y")){
+            if (input.equals("y")){
                 networkClient.switchReady();
+                new Thread(() -> askReady(!ready)).start();
                 return;
             }
         }
@@ -154,7 +162,7 @@ public class TUI implements UI {
     @Override
     public void showRoom(String roomId) {
         System.out.println(DefaultValue.ANSI_BLUE + "\n\n[Joined room with id: "+ roomId + "]" + DefaultValue.ANSI_RESET);
-        new Thread(this::askReady).start();
+        new Thread(() -> askReady(false)).start();
     }
 
     @Override
@@ -398,6 +406,15 @@ public class TUI implements UI {
             case 2 -> networkClient.chooseColor(PlayerColor.BLUE);
             case 3 -> networkClient.chooseColor(PlayerColor.GREEN);
             case 4 -> networkClient.chooseColor(PlayerColor.YELLOW);
+        }
+    }
+
+    @Override
+    public void updateReady(String playerName, boolean ready) {
+        if(ready) {
+            System.out.println(DefaultValue.ANSI_YELLOW + "-> " + playerName + " is ready!" + DefaultValue.ANSI_RESET);
+        } else {
+            System.out.println(DefaultValue.ANSI_YELLOW + "-> " + playerName + " is not ready!" + DefaultValue.ANSI_RESET);
         }
     }
 }

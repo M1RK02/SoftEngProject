@@ -65,11 +65,12 @@ public class ObserverManager {
     }
 
     public void updateReady (String playerName, boolean ready){
-        VirtualView client = observers.get(playerName);
-        try {
-            client.updateReady(ready);
-        } catch (RemoteException e) {
-            throw new RuntimeException(e);
+        for (VirtualView client : observers.values()) {
+            try {
+                client.updateReady(playerName, ready);
+            } catch (RemoteException e) {
+                throw new RuntimeException(e);
+            }
         }
     }
 

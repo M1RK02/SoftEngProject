@@ -220,8 +220,8 @@ public class RmiClient extends UnicastRemoteObject implements VirtualView, Netwo
      * @param ready
      */
     @Override
-    public void updateReady(boolean ready) throws RemoteException {
-        //TODO
+    public void updateReady(String playerName, boolean ready) throws RemoteException {
+        ui.updateReady(playerName, ready);
     }
 
     /**

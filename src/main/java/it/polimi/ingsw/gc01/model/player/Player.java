@@ -121,16 +121,7 @@ public class Player {
      */
     public void switchReady() {
         ready = !ready;
-        //notifier.updateReady(name, ready);
-        notifier.serviceMessage(DefaultValue.ANSI_YELLOW + "-> " + name + " is ready!" + DefaultValue.ANSI_RESET);
-    }
-
-    /**
-     *
-     * @return the player readiness to start
-     */
-    public boolean getReady(){
-        return ready;
+        notifier.updateReady(name, ready);
     }
 
     /**

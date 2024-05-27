@@ -13,4 +13,5 @@ public interface UI {
     void showAvailableColors(List<PlayerColor> availableColors);
     void showCurrentPlayer(String playerName);
     void showField(Field field);
+    void updateReady(String playerName, boolean ready);
 }

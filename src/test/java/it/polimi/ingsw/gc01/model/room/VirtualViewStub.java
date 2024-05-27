@@ -14,12 +14,22 @@ public class VirtualViewStub implements VirtualView {
     }
 
     @Override
+    public void updateCurrentPlayer(String playerName) throws RemoteException {
+
+    }
+
+    @Override
+    public void showStarter(int cardId) throws RemoteException {
+
+    }
+
+    @Override
     public void showAvailableColors(List<PlayerColor> availableColors) throws RemoteException {
 
     }
 
     @Override
-    public void updateReady(boolean ready) throws RemoteException {
+    public void updateReady(String playerName, boolean ready) throws RemoteException {
 
     }
 
