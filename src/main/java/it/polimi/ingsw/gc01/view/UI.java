@@ -1,6 +1,5 @@
 package it.polimi.ingsw.gc01.view;
 
-import it.polimi.ingsw.gc01.model.player.Field;
 import it.polimi.ingsw.gc01.model.player.PlayerColor;
 
 import java.util.List;
@@ -15,5 +14,4 @@ public interface UI {
     void showField();
     void showPossibleObjectives(List<Integer> possibleObjectiveIds);
     void updateReady(String playerName, boolean ready);
-    void showCard();
 }
