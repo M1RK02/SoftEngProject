@@ -1,9 +1,7 @@
 package it.polimi.ingsw.gc01.view;
 
 import it.polimi.ingsw.gc01.model.DefaultValue;
-import it.polimi.ingsw.gc01.model.player.Field;
 import it.polimi.ingsw.gc01.model.player.PlayerColor;
-import it.polimi.ingsw.gc01.model.player.Position;
 import it.polimi.ingsw.gc01.network.NetworkClient;
 import it.polimi.ingsw.gc01.network.rmi.RmiClient;
 
@@ -17,6 +15,7 @@ public class TUI implements UI {
     }
 
     public void start() {
+        showCard();
         String playerName = askPlayerName();
         askServerIP();
         askPlayerIP();
@@ -381,22 +380,29 @@ public class TUI implements UI {
         }
     }
 
-
-
     @Override
     public void showPossibleObjectives(List<Integer> possibleObjectiveIds){
         //TODO
         if (possibleObjectiveIds.get(0) == 87){
-            System.out.println(DefaultValue.ANSI_RED + """
+            String string = DefaultValue.ANSI_YELLOW + """
                     ╔═════════╦═════╦═════════╗  
                     ║         ║  2  ║         ║     
                     ║         ╚═════╝         ║
-                    ║                ┌───┐    ║       
-                    ║          ┌───┐ └───┘    ║       
-                    ║    ┌───┐ └───┘          ║       
-                    ║    └───┘                ║              
+                    ║""" +
+                    DefaultValue.ANSI_RED + "              ╔═══╗" + DefaultValue.ANSI_YELLOW + "      ║" + """
+                    
+                    ║""" +
+                    DefaultValue.ANSI_RED + "          ╔═══╬═══╝" + DefaultValue.ANSI_YELLOW + "      ║" + """
+                    
+                    ║""" +
+                    DefaultValue.ANSI_RED + "      ╔═══╬═══╝" + DefaultValue.ANSI_YELLOW + "          ║" + """
+                           
+                    ║""" +
+                    DefaultValue.ANSI_RED + "      ╚═══╝" + DefaultValue.ANSI_YELLOW + "              ║" + """              
+                    
                     ╚═════════════════════════╝       
-                    """ + DefaultValue.ANSI_RESET);
+                    """ + DefaultValue.ANSI_RESET;
+            System.out.println(string);
         }
         if (possibleObjectiveIds.get(0) == 88){
 
@@ -408,7 +414,26 @@ public class TUI implements UI {
 
         }
         if (possibleObjectiveIds.get(0) == 91){
-
+            String string = DefaultValue.ANSI_YELLOW + """
+                    ╔═════════╦═════╦═════════╗  
+                    ║         ║  3  ║         ║     
+                    ║         ╚═════╝         ║       
+                    ║""" +
+                    DefaultValue.ANSI_RED + "          ╔═══╗" + DefaultValue.ANSI_YELLOW + "          ║" + """
+                                        
+                    ║""" +
+                    DefaultValue.ANSI_RED + "          ╠═══╣" + DefaultValue.ANSI_YELLOW + "          ║" + """
+                                        
+                    ║""" +
+                    DefaultValue.ANSI_RED + "          ╚═══╬" + DefaultValue.ANSI_GREEN + "═══╗" + DefaultValue.ANSI_YELLOW + "      ║" + """
+                                        
+                    ║""" +
+                    DefaultValue.ANSI_GREEN + "              ╚═══╝" + DefaultValue.ANSI_YELLOW + "      ║" + """
+                                        
+                    ╚═════════════════════════╝       
+                    """ +
+                    DefaultValue.ANSI_RESET;
+            System.out.println(string);
         }
         if (possibleObjectiveIds.get(0) == 92){
 
@@ -443,6 +468,30 @@ public class TUI implements UI {
         if (possibleObjectiveIds.get(0) == 102){
 
         }
+    }
+
+    //PROVA PER VEDERE COM'E LA CARTA
+    @Override
+    public void showCard(){
+        String string = DefaultValue.ANSI_YELLOW + """
+                    ╔═════════╦═════╦═════════╗  
+                    ║         ║  2  ║         ║     
+                    ║         ╚═════╝         ║
+                    ║""" +
+                    DefaultValue.ANSI_RED + "              ╔═══╗" + DefaultValue.ANSI_YELLOW + "      ║" + """
+                    
+                    ║""" +
+                    DefaultValue.ANSI_RED + "          ╔═══╬═══╝" + DefaultValue.ANSI_YELLOW + "      ║" + """
+                    
+                    ║""" +
+                    DefaultValue.ANSI_RED + "      ╔═══╬═══╝" + DefaultValue.ANSI_YELLOW + "          ║" + """
+                           
+                    ║""" +
+                    DefaultValue.ANSI_RED + "      ╚═══╝" + DefaultValue.ANSI_YELLOW + "              ║" + """              
+                    
+                    ╚═════════════════════════╝       
+                    """ + DefaultValue.ANSI_RESET;
+        System.out.println(string);
     }
 
 
