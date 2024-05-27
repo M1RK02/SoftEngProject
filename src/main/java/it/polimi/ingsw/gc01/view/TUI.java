@@ -1,7 +1,9 @@
 package it.polimi.ingsw.gc01.view;
 
 import it.polimi.ingsw.gc01.model.DefaultValue;
+import it.polimi.ingsw.gc01.model.player.Field;
 import it.polimi.ingsw.gc01.model.player.PlayerColor;
+import it.polimi.ingsw.gc01.model.player.Position;
 import it.polimi.ingsw.gc01.network.NetworkClient;
 import it.polimi.ingsw.gc01.network.rmi.RmiClient;
 
@@ -15,7 +17,7 @@ public class TUI implements UI {
     }
 
     public void start() {
-        showCard();
+        showCard(); //DA TOGLIERE, PER VEDERE COME STAMPAVA LE OBJECTIVES
         String playerName = askPlayerName();
         askServerIP();
         askPlayerIP();
@@ -380,6 +382,8 @@ public class TUI implements UI {
         }
     }
 
+
+
     @Override
     public void showPossibleObjectives(List<Integer> possibleObjectiveIds){
         //TODO
@@ -406,12 +410,72 @@ public class TUI implements UI {
             System.out.println(string);
         }
         if (possibleObjectiveIds.contains(88)){
+            String string = DefaultValue.ANSI_YELLOW + """
+                    ╔═════════╦═════╦═════════╗  
+                    ║         ║  2  ║         ║     
+                    ║         ╚═════╝         ║
+                    ║""" +
+                    DefaultValue.ANSI_GREEN + "      ╔═══╗" + DefaultValue.ANSI_YELLOW + "              ║" + """
+                    
+                    ║""" +
+                    DefaultValue.ANSI_GREEN + "      ╚═══╬═══╗" + DefaultValue.ANSI_YELLOW + "          ║" + """
+                    
+                    ║""" +
+                    DefaultValue.ANSI_GREEN + "          ╚═══╬═══╗" + DefaultValue.ANSI_YELLOW + "      ║" + """
+                           
+                    ║""" +
+                    DefaultValue.ANSI_GREEN + "              ╚═══╝" + DefaultValue.ANSI_YELLOW + "      ║" + """              
+                    
+                    ╚═════════════════════════╝       
+                    """ + DefaultValue.ANSI_RESET;
+            System.out.println("         cardID = 88");
+            System.out.println(string);
 
         }
         if (possibleObjectiveIds.contains(89)){
+            String string = DefaultValue.ANSI_YELLOW + """
+                    ╔═════════╦═════╦═════════╗  
+                    ║         ║  2  ║         ║     
+                    ║         ╚═════╝         ║
+                    ║""" +
+                    DefaultValue.ANSI_BLUE + "              ╔═══╗" + DefaultValue.ANSI_YELLOW + "      ║" + """
+                    
+                    ║""" +
+                    DefaultValue.ANSI_BLUE + "          ╔═══╬═══╝" + DefaultValue.ANSI_YELLOW + "      ║" + """
+                    
+                    ║""" +
+                    DefaultValue.ANSI_BLUE + "      ╔═══╬═══╝" + DefaultValue.ANSI_YELLOW + "          ║" + """
+                           
+                    ║""" +
+                    DefaultValue.ANSI_BLUE + "      ╚═══╝" + DefaultValue.ANSI_YELLOW + "              ║" + """              
+                    
+                    ╚═════════════════════════╝   
+                    """ + DefaultValue.ANSI_RESET;
+            System.out.println("         cardID = 89");
+            System.out.println(string);
 
         }
         if (possibleObjectiveIds.contains(90)){
+            String string = DefaultValue.ANSI_YELLOW + """
+                    ╔═════════╦═════╦═════════╗  
+                    ║         ║  2  ║         ║     
+                    ║         ╚═════╝         ║
+                    ║""" +
+                    DefaultValue.ANSI_PURPLE + "      ╔═══╗" + DefaultValue.ANSI_YELLOW + "              ║" + """
+                    
+                    ║""" +
+                    DefaultValue.ANSI_PURPLE + "      ╚═══╬═══╗" + DefaultValue.ANSI_YELLOW + "          ║" + """
+                    
+                    ║""" +
+                    DefaultValue.ANSI_PURPLE + "          ╚═══╬═══╗" + DefaultValue.ANSI_YELLOW + "      ║" + """
+                           
+                    ║""" +
+                    DefaultValue.ANSI_PURPLE + "              ╚═══╝" + DefaultValue.ANSI_YELLOW + "      ║" + """              
+                    
+                    ╚═════════════════════════╝       
+                    """ + DefaultValue.ANSI_RESET;
+            System.out.println("         cardID = 90");
+            System.out.println(string);
 
         }
         if (possibleObjectiveIds.contains(91)){
@@ -437,7 +501,7 @@ public class TUI implements UI {
             System.out.println("         cardID = 91");
             System.out.println(string);
         }
-        if (possibleObjectiveIds.contains(92)){
+        if (possibleObjectiveIds.contains(92)) {
             String string = DefaultValue.ANSI_YELLOW + """
                     ╔═════════╦═════╦═════════╗  
                     ║         ║  3  ║         ║     
@@ -460,6 +524,7 @@ public class TUI implements UI {
             System.out.println("         cardID = 92");
             System.out.println(string);
         }
+
         if (possibleObjectiveIds.contains(93)){
             String string = DefaultValue.ANSI_YELLOW + """
                     ╔═════════╦═════╦═════════╗  
@@ -507,27 +572,161 @@ public class TUI implements UI {
             System.out.println(string);
         }
         if (possibleObjectiveIds.contains(95)){
+                String string = DefaultValue.ANSI_YELLOW + """
+                    ╔═════════╦═════╦═════════╗  
+                    ║         ║  2  ║         ║     
+                    ║         ╚═════╝         ║
+                    ║""" +
+                        DefaultValue.ANSI_RED + "       ╔═════════╗ " +  DefaultValue.ANSI_YELLOW +"      ║" +"""
+                    
+                    ║"""+
+                        DefaultValue.ANSI_RED + "       ║    F    ║  " +  DefaultValue.ANSI_YELLOW +"     ║" +"""
+                    
+                    ║"""+
+                        DefaultValue.ANSI_RED + "       ║  F   F  ║  " + DefaultValue.ANSI_YELLOW    +"     ║" +"""
+                    
+                    ║"""+
+                        DefaultValue.ANSI_RED + "       ╚═════════╝  " + DefaultValue.ANSI_YELLOW   +"     ║" +"""
+                    
+                    ╚═════════════════════════╝       
+                        """ + DefaultValue.ANSI_RESET;
 
+            System.out.println("         cardID = 95");
+            System.out.println(string);
         }
         if (possibleObjectiveIds.contains(96)){
+            String string = DefaultValue.ANSI_YELLOW + """
+                    ╔═════════╦═════╦═════════╗  
+                    ║         ║  2  ║         ║     
+                    ║         ╚═════╝         ║
+                    ║""" +
+                    DefaultValue.ANSI_GREEN + "       ╔═════════╗ " + DefaultValue.ANSI_YELLOW + "      ║" + """
+                                        
+                    ║""" +
+                    DefaultValue.ANSI_GREEN + "       ║    P    ║  " + DefaultValue.ANSI_YELLOW + "     ║" + """
+                                        
+                    ║""" +
+                    DefaultValue.ANSI_GREEN + "       ║  P   P  ║  " + DefaultValue.ANSI_YELLOW + "     ║" + """
+                                        
+                    ║""" +
+                    DefaultValue.ANSI_GREEN + "       ╚═════════╝  " + DefaultValue.ANSI_YELLOW + "     ║" + """
+                                        
+                    ╚═════════════════════════╝       
+                        """ + DefaultValue.ANSI_RESET;
+            System.out.println("         cardID = 96");
+            System.out.println(string);
 
         }
+
+
+
+
+
+
         if (possibleObjectiveIds.contains(97)){
+            String string = DefaultValue.ANSI_YELLOW + """
+                    ╔═════════╦═════╦═════════╗  
+                    ║         ║  2  ║         ║     
+                    ║         ╚═════╝         ║
+                    ║""" +
+                    DefaultValue.ANSI_CYAN + "       ╔═════════╗ " +  DefaultValue.ANSI_YELLOW +"      ║" +"""
+                    
+                    ║"""+
+                    DefaultValue.ANSI_CYAN + "       ║    A    ║  " +  DefaultValue.ANSI_YELLOW +"     ║" +"""
+                    
+                    ║"""+
+                    DefaultValue.ANSI_CYAN + "       ║  A   A  ║  " + DefaultValue.ANSI_YELLOW    +"     ║" +"""
+                    
+                    ║"""+
+                    DefaultValue.ANSI_CYAN + "       ╚═════════╝  " + DefaultValue.ANSI_YELLOW   +"     ║" +"""
+                    
+                    ╚═════════════════════════╝       
+                        """ + DefaultValue.ANSI_RESET;
+            System.out.println("         cardID = 97");
+            System.out.println(string);
+
 
         }
         if (possibleObjectiveIds.contains(98)){
+            String string = DefaultValue.ANSI_YELLOW + """
+                    ╔═════════╦═════╦═════════╗  
+                    ║         ║  2  ║         ║     
+                    ║         ╚═════╝         ║
+                    ║""" +
+                    DefaultValue.ANSI_PURPLE + "       ╔═════════╗ " +  DefaultValue.ANSI_YELLOW +"      ║" +"""
+                    
+                    ║"""+
+                    DefaultValue.ANSI_PURPLE + "       ║    I    ║  " +  DefaultValue.ANSI_YELLOW +"     ║" +"""
+                    
+                    ║"""+
+                    DefaultValue.ANSI_PURPLE + "       ║  I   I  ║  " + DefaultValue.ANSI_YELLOW    +"     ║" +"""
+                    
+                    ║"""+
+                    DefaultValue.ANSI_PURPLE + "       ╚═════════╝  " + DefaultValue.ANSI_YELLOW   +"     ║" +"""
+                    
+                    ╚═════════════════════════╝       
+                        """ + DefaultValue.ANSI_RESET;
+            System.out.println("         cardID = 98");
+            System.out.println(string);
 
         }
         if (possibleObjectiveIds.contains(99)){
+            String string = DefaultValue.ANSI_YELLOW + """
+                    ╔═════════╦═════╦═════════╗  
+                    ║         ║  3  ║         ║     
+                    ║     ╔═══╩═════╩═══╗     ║
+                    ║     ║    QUILL    ║     ║
+                    ║     ║   INKWELL   ║     ║
+                    ║     ║  MANUSCRIPT ║     ║
+                    ║     ╚═════════════╝     ║
+                    ╚═════════════════════════╝       
+                        """ + DefaultValue.ANSI_RESET;
+            System.out.println("         cardID = 99");
+            System.out.println(string);
 
         }
         if (possibleObjectiveIds.contains(100)){
-
+            String string = DefaultValue.ANSI_YELLOW + """
+                    ╔═════════╦═════╦═════════╗  
+                    ║         ║  3  ║         ║     
+                    ║         ╚═════╝         ║
+                    ║     ╔═════════════╗     ║
+                    ║     ║  MANUSCRIPT ║     ║
+                    ║     ║  MANUSCRIPT ║     ║
+                    ║     ╚═════════════╝     ║
+                    ╚═════════════════════════╝       
+                        """ + DefaultValue.ANSI_RESET;
+            System.out.println("         cardID = 100");
+            System.out.println(string);
         }
         if (possibleObjectiveIds.contains(101)){
+            String string = DefaultValue.ANSI_YELLOW + """
+                    ╔═════════╦═════╦═════════╗  
+                    ║         ║  3  ║         ║     
+                    ║         ╚═════╝         ║
+                    ║     ╔═════════════╗     ║
+                    ║     ║   INKWELL   ║     ║
+                    ║     ║   INKWELL   ║     ║
+                    ║     ╚═════════════╝     ║
+                    ╚═════════════════════════╝       
+                        """ + DefaultValue.ANSI_RESET;
+            System.out.println("         cardID = 101");
+            System.out.println(string);
 
         }
         if (possibleObjectiveIds.contains(102)){
+            String string = DefaultValue.ANSI_YELLOW + """
+                    ╔═════════╦═════╦═════════╗  
+                    ║         ║  3  ║         ║     
+                    ║         ╚═════╝         ║
+                    ║     ╔═════════════╗     ║
+                    ║     ║    QUILL    ║     ║
+                    ║     ║    QUILL    ║     ║
+                    ║     ╚═════════════╝     ║
+                    ╚═════════════════════════╝       
+                        """ + DefaultValue.ANSI_RESET;
+            System.out.println("         cardID = 102");
+            System.out.println(string);
 
         }
     }
@@ -544,6 +743,14 @@ public class TUI implements UI {
         ids.add(92);
         ids.add(93);
         ids.add(94);
+        ids.add(95);
+        ids.add(96);
+        ids.add(97);
+        ids.add(98);
+        ids.add(99);
+        ids.add(100);
+        ids.add(101);
+        ids.add(102);
         showPossibleObjectives(ids);
     }
 
