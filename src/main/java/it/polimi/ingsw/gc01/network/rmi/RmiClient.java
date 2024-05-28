@@ -193,6 +193,14 @@ public class RmiClient extends UnicastRemoteObject implements VirtualView, Netwo
     }
 
     /**
+     * Starts the game
+     */
+    @Override
+    public void startGame() throws RemoteException {
+        ui.startGame();
+    }
+
+    /**
      * @param playerName
      */
     @Override

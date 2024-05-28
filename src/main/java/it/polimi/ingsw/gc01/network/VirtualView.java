@@ -9,6 +9,8 @@ import java.util.*;
 public interface VirtualView extends Remote {
     void updateRoomId(String roomId) throws RemoteException;
 
+    void startGame() throws RemoteException;
+
     void updateCurrentPlayer(String playerName) throws RemoteException;
 
     void showStarter(int cardId) throws RemoteException;

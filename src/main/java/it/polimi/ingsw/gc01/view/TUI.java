@@ -166,6 +166,11 @@ public class TUI implements UI {
     }
 
     @Override
+    public void startGame() {
+        System.out.println(DefaultValue.ANSI_PURPLE + "Game is starting!" + DefaultValue.ANSI_RESET);
+    }
+
+    @Override
     public void showCurrentPlayer(String playerName) {
         System.out.println(DefaultValue.ANSI_WHITE + "-> Current player is: " + playerName + " !" + DefaultValue.ANSI_RESET);
     }

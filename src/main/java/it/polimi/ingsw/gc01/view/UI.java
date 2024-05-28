@@ -14,4 +14,5 @@ public interface UI {
     void showField();
     void showPossibleObjectives(List<Integer> possibleObjectiveIds);
     void updateReady(String playerName, boolean ready);
+    void startGame();
 }

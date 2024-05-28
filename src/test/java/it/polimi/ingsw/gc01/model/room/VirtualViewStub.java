@@ -67,4 +67,9 @@ public class VirtualViewStub implements VirtualView {
     public void serviceMessage(String message) throws RemoteException {
 
     }
+
+    @Override
+    public void startGame() throws RemoteException {
+
+    }
 }

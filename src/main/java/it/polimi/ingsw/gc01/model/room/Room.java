@@ -34,7 +34,7 @@ public class Room {
         drawableCards = new HashMap<>();
         initTable();
         this.notifier = notifier;
-        notifier.serviceMessage(DefaultValue.ANSI_PURPLE + "Game is starting!" + DefaultValue.ANSI_RESET);
+        notifier.startGame();
         notifier.updateCurrentPlayer(currentPlayer.getName());
     }
 

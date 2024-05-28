@@ -37,6 +37,16 @@ public class ObserverManager {
         }
     }
 
+    public void startGame(){
+        for (VirtualView client : observers.values()) {
+            try {
+                client.startGame();
+            } catch (RemoteException e) {
+                throw new RuntimeException(e);
+            }
+        }
+    }
+
     public void updateCurrentPlayer (String playerName) {
         for (VirtualView client : observers.values()) {
             try {
