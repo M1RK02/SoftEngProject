@@ -38,6 +38,14 @@ public class GoldenCard extends ResourceCard {
         this.scoreCondition = scoreCondition;
     }
 
+    public ScoreCondition getScoreCondition() {
+        return scoreCondition;
+    }
+
+    public Map<Resource, Integer> getRequirements() {
+        return requirements;
+    }
+
     /**
      * @param player which to check the requirements
      * @return true if player can play the card else false

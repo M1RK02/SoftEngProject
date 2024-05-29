@@ -126,19 +126,12 @@ public class TUI implements UI {
         }
     }
 
-    private void askReady(boolean ready){
+    private void askReady(){
         String input = "";
-        if (!ready) {
-            System.out.println(DefaultValue.ANSI_YELLOW + """
+        System.out.println(DefaultValue.ANSI_YELLOW + """
                         (y) to ready up
                         (l) to leave
                         """ + DefaultValue.ANSI_RESET);
-        } else {
-            System.out.println(DefaultValue.ANSI_YELLOW + """
-                        (y) to set not ready
-                        (l) to leave
-                        """ + DefaultValue.ANSI_RESET);
-        }
         Scanner scanner = new Scanner(System.in);
         while (true){
             input = scanner.nextLine();
@@ -149,7 +142,6 @@ public class TUI implements UI {
             }
             if (input.equals("y")){
                 networkClient.switchReady();
-                new Thread(() -> askReady(!ready)).start();
                 return;
             }
         }
@@ -162,7 +154,7 @@ public class TUI implements UI {
     @Override
     public void showRoom(String roomId) {
         System.out.println(DefaultValue.ANSI_BLUE + "\n\n[Joined room with id: "+ roomId + "]" + DefaultValue.ANSI_RESET);
-        new Thread(() -> askReady(false)).start();
+        new Thread(this::askReady).start();
     }
 
     @Override
@@ -197,9 +189,11 @@ public class TUI implements UI {
     }
 
     public void showStarter(int cardId){
-        String[] card = clientDeck.generateCardById(cardId);
-        for (String line : card) {
-            System.out.println(line);
+        String[] cardFront = clientDeck.generateCardById(cardId, true);
+        String[] cardBack = clientDeck.generateCardById(cardId, false);
+        for (int i = 0; i < cardFront.length; i++){
+            System.out.print(DefaultValue.ANSI_YELLOW + cardFront[i] + "\t\t");
+            System.out.println(cardBack[i] + DefaultValue.ANSI_RESET);
         }
         System.out.println("Choose (1) front or (2) back of the radix card:");
         new Thread(() -> chooseStarter(cardId)).start();

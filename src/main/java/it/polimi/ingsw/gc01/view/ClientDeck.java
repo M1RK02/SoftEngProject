@@ -2,6 +2,8 @@ package it.polimi.ingsw.gc01.view;
 
 import com.google.gson.*;
 import it.polimi.ingsw.gc01.model.DefaultValue;
+import it.polimi.ingsw.gc01.model.Item;
+import it.polimi.ingsw.gc01.model.Resource;
 import it.polimi.ingsw.gc01.model.cards.*;
 import it.polimi.ingsw.gc01.model.corners.*;
 import it.polimi.ingsw.gc01.model.decks.*;
@@ -34,190 +36,277 @@ public class ClientDeck {
         }
     }
 
-    public String[] generateCardById(int id) {
+    public String[] generateCardById(int id, boolean front) {
+        String type = getTypeById(id);
+        return switch (type) {
+            case "Resource" -> generateResourceCardById(id, front);
+            case "Golden" -> generateGoldenCardById(id, front);
+            case "Starter" -> generateStarterCardById(id, front);
+            default -> generateObjectiveCardById(id);
+        };
+    }
+
+    private String getTypeById(int id) {
         if (id >= 1 && id <= 40) {
-            return generateResourceCardById(id);
+            return "Resource";
         }
         if (id >= 41 && id <= 80) {
-            return generateGoldenCardById(id);
+            return "Golden";
         }
         if (id >= 81 && id <= 86) {
-            return generateStarterCardById(id);
+            return "Starter";
         }
-        if (id >= 87 && id <= 102) {
-            return generateObjectiveCardById(id);
-        }
-        return null;
+        return "Objective";
     }
 
-    private String[] generateResourceCardById(int id) {
-        ResourceCard card = (ResourceCard) deck.get(id);
+    private String[] generateResourceCardById(int id, boolean front) {
+        if (front) {
+            return generateResourceCardFrontById(id);
+        } else {
+            return generateResourceCardBackById(id);
+        }
+    }
 
-        // CARTA VUOTA
-        String[] carta = new String[7];
-        String color = card.getColor().toString().substring(0, 3);
-        carta[0] = "╔═══╦═══════════════╦═══╗";
-        carta[1] = "║ x ║               ║ w ║";
-        carta[2] = "╠═══╝               ╚═══╣";
-        carta[3] = "║          " + color + "          ║";
-        carta[4] = "╠═══╗               ╔═══╣";
-        carta[5] = "║ y ║               ║ z ║";
-        carta[6] = "╚═══╩═══════════════╩═══╝";
+    private String[] generateResourceCardFrontById(int id) {
+        ResourceCard resourceCard = (ResourceCard) deck.get(id);
 
-        // SIMBOLI AI CORNER
-        char x = ' ', y = ' ', w = ' ', z = ' ';
-        String topLeft = card.getCorners().get(CornerPosition.TOP_LEFT).getResource().toString();
-        String bottomLeft = card.getCorners().get(CornerPosition.BOTTOM_LEFT).getResource().toString();
-        String topRight = card.getCorners().get(CornerPosition.TOP_RIGHT).getResource().toString();
-        String bottomRight = card.getCorners().get(CornerPosition.BOTTOM_RIGHT).getResource().toString();
+        String[] card = generateEmptyCard();
+
+        String topLeft = resourceCard.getCorners().get(CornerPosition.TOP_LEFT).getResource().toString();
+        String bottomLeft = resourceCard.getCorners().get(CornerPosition.BOTTOM_LEFT).getResource().toString();
+        String topRight = resourceCard.getCorners().get(CornerPosition.TOP_RIGHT).getResource().toString();
+        String bottomRight = resourceCard.getCorners().get(CornerPosition.BOTTOM_RIGHT).getResource().toString();
 
         switch (topLeft) {
-            case "EMPTY" -> x = ' ';
-            case "FULL" -> {
-                carta[0] = carta[0].substring(0, 4) + "═" + carta[0].substring(5);
-                carta[1] = carta[1].substring(0, 4) + " " + carta[1].substring(5);
-                carta[2] = "║    " + carta[2].substring(5);
-            }
-            default -> x = topLeft.charAt(0);
+            case "EMPTY":
+                break;
+            case "FULL":
+                card[0] = card[0].substring(0, 4) + "═" + card[0].substring(5);
+                card[1] = card[1].substring(0, 4) + " " + card[1].substring(5);
+                card[2] = "║    " + card[2].substring(5);
+                break;
+            case "INKWELL":
+                card[1] = card[1].substring(0, 2) + "K" + card[1].substring(3);
+                break;
+            default:
+                card[1] = card[1].substring(0, 2) + topLeft.charAt(0) + card[1].substring(3);
         }
 
         switch (bottomLeft) {
-            case "EMPTY" -> y = ' ';
-            case "FULL" -> {
-                carta[4] = "║    " + carta[4].substring(5);
-                carta[5] = carta[5].substring(0, 4) + " " + carta[5].substring(5);
-                carta[6] = carta[6].substring(0, 4) + "═" + carta[6].substring(5);
-            }
-            default -> y = bottomLeft.charAt(0);
+            case "EMPTY":
+                break;
+            case "FULL":
+                card[4] = "║    " + card[4].substring(5);
+                card[5] = card[5].substring(0, 4) + " " + card[5].substring(5);
+                card[6] = card[6].substring(0, 4) + "═" + card[6].substring(5);
+                break;
+            case "INKWELL":
+                card[5] = card[5].substring(0, 2) + "K" + card[5].substring(3);
+                break;
+            default:
+                card[5] = card[5].substring(0, 2) + bottomLeft.charAt(0) + card[5].substring(3);
         }
 
         switch (topRight) {
-            case "EMPTY" -> w = ' ';
-            case "FULL" -> {
-                carta[0] = carta[0].substring(0, 20) + "═" + carta[0].substring(21);
-                carta[1] = carta[1].substring(0, 20) + " " + carta[1].substring(21);
-                carta[2] = carta[2].substring(0, 20) + "    ║";
-            }
-            default -> w = topRight.charAt(0);
+            case "EMPTY":
+                break;
+            case "FULL":
+                card[0] = card[0].substring(0, 20) + "═" + card[0].substring(21);
+                card[1] = card[1].substring(0, 20) + " " + card[1].substring(21);
+                card[2] = card[2].substring(0, 20) + "    ║";
+                break;
+            case "INKWELL":
+                card[1] = card[1].substring(0, 22) + "K" + card[1].substring(23);
+                break;
+            default:
+                card[1] = card[1].substring(0, 22) + topRight.charAt(0) + card[1].substring(23);
         }
 
         switch (bottomRight) {
-            case "EMPTY" -> z = ' ';
-            case "FULL" -> {
-                carta[4] = carta[4].substring(0, 20) + "    ║";
-                carta[5] = carta[5].substring(0, 20) + " " + carta[5].substring(21);
-                carta[6] = carta[6].substring(0, 20) + "═" + carta[6].substring(21);
-            }
-            default -> z = bottomRight.charAt(0);
+            case "EMPTY":
+                break;
+            case "FULL":
+                card[4] = card[4].substring(0, 20) + "    ║";
+                card[5] = card[5].substring(0, 20) + " " + card[5].substring(21);
+                card[6] = card[6].substring(0, 20) + "═" + card[6].substring(21);
+                break;
+            case "INKWELL":
+                card[5] = card[5].substring(0, 22) + "K" + card[5].substring(23);
+                break;
+            default:
+                card[5] = card[5].substring(0, 22) + bottomRight.charAt(0) + card[5].substring(23);
         }
 
-        carta[1] = carta[1].replace('x', x);
-        carta[5] = carta[5].replace('y', y);
-        carta[1] = carta[1].replace('w', w);
-        carta[5] = carta[5].replace('z', z);
+        card[3] = card[3].substring(0, 11) + resourceCard.getColor().toString().substring(0, 3) + card[3].substring(14);
 
-        return carta;
+        int score = resourceCard.getScore();
+        if (resourceCard.getScore() != 0) {
+            card[0] = card[0].substring(0, 9) + "╦═════╦" + card[0].substring(16);
+            card[1] = card[1].substring(0, 9) + "║  " + score + "  ║" + card[1].substring(16);
+            card[2] = card[2].substring(0, 9) + "╚═════╝" + card[2].substring(16);
+        }
+
+        return card;
     }
 
-    private String[] generateGoldenCardById(int id) {
-        //TODO
-        return null;
+    private String[] generateResourceCardBackById(int id) {
+        ResourceCard resourceCard = (ResourceCard) deck.get(id);
+
+        String[] card = generateEmptyCard();
+
+        CardColor color = resourceCard.getColor();
+
+        card[2] = card[2].substring(0,10) + "╔═══╗" + card[2].substring(15);
+        card[3] = card[3].substring(0,10) + "║ " + getSymbolByColor(color) + " ║" + card[3].substring(15);
+        card[4] = card[4].substring(0,10) + "╚═══╝" + card[4].substring(15);
+
+        card[1] = card[1].substring(0, 11) + color.toString().substring(0, 3) + card[1].substring(14);
+
+        return card;
     }
 
-    private String[] generateStarterCardById(int id) {
-        StarterCard card = (StarterCard) deck.get(id);
+    private String[] generateGoldenCardById(int id, boolean front) {
+        if (front) {
+            return generateGoldenCardFrontById(id);
+        } else {
+            return generateGoldenCardBackById(id);
+        }
+    }
 
-        // CARTA VUOTA
-        String[] carta = new String[7];
-        carta[0] = DefaultValue.ANSI_YELLOW + "╔═══╦═══════════════╦═══╗        ╔═══╦═══════════════╦═══╗" + DefaultValue.ANSI_RESET;
-        carta[1] = DefaultValue.ANSI_YELLOW + "║ x ║               ║ w ║        ║ h ║               ║ k ║" + DefaultValue.ANSI_RESET;
-        carta[2] = DefaultValue.ANSI_YELLOW + "╠═══╝     ╔═══╗     ╚═══╣        ╠═══╝               ╚═══╣" + DefaultValue.ANSI_RESET;
-        carta[3] = DefaultValue.ANSI_YELLOW + "║         ║abc║         ║        ║                       ║" + DefaultValue.ANSI_RESET;
-        carta[4] = DefaultValue.ANSI_YELLOW + "╠═══╗     ╚═══╝     ╔═══╣        ╠═══╗               ╔═══╣" + DefaultValue.ANSI_RESET;
-        carta[5] = DefaultValue.ANSI_YELLOW + "║ y ║               ║ z ║        ║ j ║               ║ l ║" + DefaultValue.ANSI_RESET;
-        carta[6] = DefaultValue.ANSI_YELLOW + "╚═══╩═══════════════╩═══╝        ╚═══╩═══════════════╩═══╝" + DefaultValue.ANSI_RESET;
+    private String[] generateGoldenCardFrontById(int id) {
+        GoldenCard goldenCard = (GoldenCard) deck.get(id);
 
-        // SIMBOLI CENTRALI
-        char a = ' ', b = ' ', c = ' ', x = ' ', y = ' ', w = ' ', z = ' ', h = ' ', j = ' ', k = ' ', l = ' ';
-        switch (card.getCenterResources().size()) {
-            case 1 -> {
-                b = card.getCenterResources().toArray()[0].toString().charAt(0);
-            }
-            case 2 -> {
-                a = card.getCenterResources().toArray()[0].toString().charAt(0);
-                c = card.getCenterResources().toArray()[1].toString().charAt(0);
-            }
-            case 3 -> {
-                a = card.getCenterResources().toArray()[0].toString().charAt(0);
-                b = card.getCenterResources().toArray()[1].toString().charAt(0);
-                c = card.getCenterResources().toArray()[2].toString().charAt(0);
+        String[] card = generateResourceCardFrontById(id);
+
+        ScoreCondition scoreCondition = goldenCard.getScoreCondition();
+        int score = goldenCard.getScore();
+
+        if (!scoreCondition.equals(ConditionType.EMPTY)) {
+            if (scoreCondition.equals(Item.INKWELL)) {
+                card[1] = card[1].substring(0, 11) + score + " " + "K" + card[1].substring(14);
+            } else {
+                card[1] = card[1].substring(0, 11) + score + " " + scoreCondition.toString().charAt(0) + card[1].substring(14);
             }
         }
 
-        // SIMBOLI AI CORNER
-        String topLeft = card.getCorners().get(CornerPosition.TOP_LEFT).getResource().toString();
-        String bottomLeft = card.getCorners().get(CornerPosition.BOTTOM_LEFT).getResource().toString();
-        String topRight = card.getCorners().get(CornerPosition.TOP_RIGHT).getResource().toString();
-        String bottomRight = card.getCorners().get(CornerPosition.BOTTOM_RIGHT).getResource().toString();
-
-        h = card.getBackCorners().get(CornerPosition.TOP_LEFT).getResource().toString().charAt(0);
-        j = card.getBackCorners().get(CornerPosition.BOTTOM_LEFT).getResource().toString().charAt(0);
-        k = card.getBackCorners().get(CornerPosition.TOP_RIGHT).getResource().toString().charAt(0);
-        l = card.getBackCorners().get(CornerPosition.BOTTOM_RIGHT).getResource().toString().charAt(0);
-
-        switch (topLeft) {
-            case "EMPTY" -> x = ' ';
-            case "FULL" -> {
-                carta[0] = carta[0].substring(0, 9) + "═" + carta[0].substring(10);
-                carta[1] = carta[1].substring(0, 9) + " " + carta[1].substring(10);
-                carta[2] = carta[2].substring(0, 5) + "║    " + carta[2].substring(10);
-            }
-            default -> x = topLeft.charAt(0);
+        String requirements = "";
+        for (Resource res : goldenCard.getRequirements().keySet()) {
+            requirements += String.valueOf(res.toString().charAt(0)).repeat(goldenCard.getRequirements().get(res));
         }
 
-        switch (bottomLeft) {
-            case "EMPTY" -> y = ' ';
-            case "FULL" -> {
-                carta[4] = carta[4].substring(0, 5) + "║    " + carta[4].substring(10);
-                carta[5] = carta[5].substring(0, 9) + " " + carta[5].substring(10);
-                carta[6] = carta[6].substring(0, 9) + "═" + carta[6].substring(10);
+        if (!requirements.isEmpty()) {
+            card[4] = card[4].substring(0, 9) + "╔═════╗" + card[4].substring(16);
+            card[5] = card[5].substring(0, 9) + "║     ║" + card[5].substring(16);
+            card[6] = card[6].substring(0, 9) + "╩═════╩" + card[6].substring(16);
+
+            switch(requirements.length()) {
+                case 3 -> card[5] = card[5].substring(0, 11) + requirements + card[5].substring(14);
+                case 4 -> card[5] = card[5].substring(0, 10) + requirements.substring(0,2) + " " + requirements.substring(2) + card[5].substring(15);
+                case 5 -> card[5] = card[5].substring(0, 10) + requirements + card[5].substring(15);
             }
-            default -> y = bottomLeft.charAt(0);
         }
 
-        switch (topRight) {
-            case "EMPTY" -> w = ' ';
-            case "FULL" -> {
-                carta[0] = carta[0].substring(0, 25) + "═" + carta[0].substring(26);
-                carta[1] = carta[1].substring(0, 25) + " " + carta[1].substring(26);
-                carta[2] = carta[2].substring(0, 25) + "    ║" + carta[2].substring(30);
-            }
-            default -> w = topRight.charAt(0);
+        return card;
+    }
+
+    private String[] generateGoldenCardBackById(int id) {
+        return generateResourceCardBackById(id);
+    }
+
+    private String[] generateStarterCardById(int id, boolean front) {
+        if (front) {
+            return generateStarterCardFrontById(id);
+        } else {
+            return generateStarterCardBackById(id);
+        }
+    }
+
+    private String[] generateStarterCardFrontById(int id) {
+        StarterCard starterCard = (StarterCard) deck.get(id);
+
+        String[] card = generateEmptyCard();
+
+        String topLeft = starterCard.getCorners().get(CornerPosition.TOP_LEFT).getResource().toString();
+        String bottomLeft = starterCard.getCorners().get(CornerPosition.BOTTOM_LEFT).getResource().toString();
+        String topRight = starterCard.getCorners().get(CornerPosition.TOP_RIGHT).getResource().toString();
+        String bottomRight = starterCard.getCorners().get(CornerPosition.BOTTOM_RIGHT).getResource().toString();
+
+        if (topLeft.equals("INKWELL")) {
+            card[1] = card[1].substring(0, 2) + "K" + card[1].substring(3);
+        } else {
+            card[1] = card[1].substring(0, 2) + topLeft.charAt(0) + card[1].substring(3);
         }
 
-        switch (bottomRight) {
-            case "EMPTY" -> z = ' ';
-            case "FULL" -> {
-                carta[4] = carta[4].substring(0, 25) + "    ║" + carta[4].substring(30);
-                carta[5] = carta[5].substring(0, 25) + " " + carta[5].substring(26);
-                carta[6] = carta[6].substring(0, 25) + "═" + carta[6].substring(26);
-            }
-            default -> z = bottomRight.charAt(0);
+        if (bottomLeft.equals("INKWELL")) {
+            card[5] = card[5].substring(0, 2) + "K" + card[5].substring(3);
+        } else {
+            card[5] = card[5].substring(0, 2) + bottomLeft.charAt(0) + card[5].substring(3);
         }
 
-        carta[3] = carta[3].replace('a', a);
-        carta[3] = carta[3].replace('b', b);
-        carta[3] = carta[3].replace('c', c);
-        carta[1] = carta[1].replace('x', x);
-        carta[5] = carta[5].replace('y', y);
-        carta[1] = carta[1].replace('w', w);
-        carta[5] = carta[5].replace('z', z);
-        carta[1] = carta[1].replace('h', h);
-        carta[5] = carta[5].replace('j', j);
-        carta[1] = carta[1].replace('k', k);
-        carta[5] = carta[5].replace('l', l);
+        if (topRight.equals("INKWELL")) {
+            card[1] = card[1].substring(0, 22) + "K" + card[1].substring(23);
+        } else {
+            card[1] = card[1].substring(0, 22) + topRight.charAt(0) + card[1].substring(23);
+        }
 
-        return carta;
+        if (bottomRight.equals("INKWELL")) {
+            card[5] = card[5].substring(0, 22) + bottomRight.charAt(0) + card[5].substring(23);
+        } else {
+            card[5] = card[5].substring(0, 22) + bottomRight.charAt(0) + card[5].substring(23);
+        }
+
+        card[2] = card[2].substring(0,10) + "╔═══╗" + card[2].substring(15);
+        card[3] = card[3].substring(0,10) + "║   ║" + card[3].substring(15);
+        card[4] = card[4].substring(0,10) + "╚═══╝" + card[4].substring(15);
+
+        switch (starterCard.getCenterResources().size()) {
+            case 1 -> card[3] = card[3].substring(0,12) + starterCard.getCenterResources().toArray()[0].toString().charAt(0) + card[3].substring(13);
+            case 2 -> card[3] = card[3].substring(0,11) + starterCard.getCenterResources().toArray()[0].toString().charAt(0) + " " + starterCard.getCenterResources().toArray()[1].toString().charAt(0) + card[3].substring(14);
+            case 3 -> card[3] = card[3].substring(0,11) + starterCard.getCenterResources().toArray()[0].toString().charAt(0) + starterCard.getCenterResources().toArray()[1].toString().charAt(0) + starterCard.getCenterResources().toArray()[1].toString().charAt(0) + card[3].substring(14);
+        }
+
+        card[1] = card[1].substring(0, 11) + "STR" + card[1].substring(14);
+
+        return card;
+    }
+
+    private String[] generateStarterCardBackById(int id) {
+        StarterCard starterCard = (StarterCard) deck.get(id);
+
+        String card[] = generateEmptyCard();
+
+        String topLeft = starterCard.getBackCorners().get(CornerPosition.TOP_LEFT).getResource().toString();
+        String bottomLeft = starterCard.getBackCorners().get(CornerPosition.BOTTOM_LEFT).getResource().toString();
+        String topRight = starterCard.getBackCorners().get(CornerPosition.TOP_RIGHT).getResource().toString();
+        String bottomRight = starterCard.getBackCorners().get(CornerPosition.BOTTOM_RIGHT).getResource().toString();
+
+        if (topLeft.equals("INKWELL")) {
+            card[1] = card[1].substring(0, 2) + "K" + card[1].substring(3);
+        } else {
+            card[1] = card[1].substring(0, 2) + topLeft.charAt(0) + card[1].substring(3);
+        }
+
+        if (bottomLeft.equals("INKWELL")) {
+            card[5] = card[5].substring(0, 2) + "K" + card[5].substring(3);
+        } else {
+            card[5] = card[5].substring(0, 2) + bottomLeft.charAt(0) + card[5].substring(3);
+        }
+
+        if (topRight.equals("INKWELL")) {
+            card[1] = card[1].substring(0, 22) + "K" + card[1].substring(23);
+        } else {
+            card[1] = card[1].substring(0, 22) + topRight.charAt(0) + card[1].substring(23);
+        }
+
+        if (bottomRight.equals("INKWELL")) {
+            card[5] = card[5].substring(0, 22) + bottomRight.charAt(0) + card[5].substring(23);
+        } else {
+            card[5] = card[5].substring(0, 22) + bottomRight.charAt(0) + card[5].substring(23);
+        }
+
+        card[3] = card[3].substring(0, 11) + "STR" + card[3].substring(14);
+
+        return card;
     }
 
     private String[] generateObjectiveCardById(int id) {
@@ -400,5 +489,26 @@ public class ClientDeck {
         }
 
         return objectiveCard;
+    }
+
+    private String[] generateEmptyCard() {
+        String[] card = new String[7];
+        card[0] = "╔═══╦═══════════════╦═══╗";
+        card[1] = "║   ║               ║   ║";
+        card[2] = "╠═══╝               ╚═══╣";
+        card[3] = "║                       ║";
+        card[4] = "╠═══╗               ╔═══╣";
+        card[5] = "║   ║               ║   ║";
+        card[6] = "╚═══╩═══════════════╩═══╝";
+        return card;
+    }
+
+    private char getSymbolByColor(CardColor color) {
+        return switch (color) {
+            case RED -> 'F';
+            case GREEN -> 'P';
+            case BLUE -> 'A';
+            default -> 'I';
+        };
     }
 }
