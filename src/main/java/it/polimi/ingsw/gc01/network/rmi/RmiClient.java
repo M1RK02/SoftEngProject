@@ -258,13 +258,11 @@ public class RmiClient extends UnicastRemoteObject implements VirtualView, Netwo
 
     /**
      * @param playerName
-     * @param cardId
-     * @param x
-     * @param y
+     *
      */
     @Override
-    public void showField(String playerName, int cardId, int x, int y) throws RemoteException {
-        //TODO
+    public void showField(String playerName) throws RemoteException {
+        ui.showField();
     }
 
     /**
@@ -272,7 +270,7 @@ public class RmiClient extends UnicastRemoteObject implements VirtualView, Netwo
      */
     @Override
     public void showSecretObjectives(List<Integer> possibleObjectivesIds) throws RemoteException {
-        //TODO
+        ui.showPossibleObjectives(possibleObjectivesIds);
     }
 
     /**

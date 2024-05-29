@@ -110,6 +110,23 @@ public class RoomController {
         notifier.showAvailableColor(currentPlayer.getName(), room.getAvailableColors());
     }
 
+    private void showObjective(){
+        Player currentPlayer = room.getCurrentPlayer();
+        ObserverManager notifier = room.getNotifier();
+        notifier.showSecretObjectives(currentPlayer.getName(), currentPlayer.getPossibleObjectives());
+    }
+
+    private void showField(){
+        Player currentPlayer = room.getCurrentPlayer();
+        ObserverManager notifier = room.getNotifier();
+        notifier.showField(currentPlayer.getName());
+    }
+
+    private void showHand(){
+
+    }
+
+
     /**
      * Change the currentPlayer to the next Player in the circle checking the current state
      */
@@ -131,12 +148,14 @@ public class RoomController {
                 } else {
                     state = GameState.OBJECTIVE_SELECTION;
                     // mostra gli obiettivi segreti
-                    room.getNotifier().serviceMessage("Distributing CARDS (SONO ARRIVATO QUI)"); //DA RIMUOVERE
+                    distributeCards();
+                    showObjective();
                 }
                 break;
             case OBJECTIVE_SELECTION:
                 if(!currentPlayer.equals(room.getPlayers().getFirst())) {
                     // mostra obiettivi segreti
+                    showObjective();
                 } else {
                     state = GameState.RUNNING;
                     // inizia il game normalmente
@@ -236,6 +255,7 @@ public class RoomController {
         }
         if (objective != null) {
             player.setSecretObjective(objective);
+            nextPlayer();
         }else {
             room.getNotifier().showError(playerName, "No objective found");
         }

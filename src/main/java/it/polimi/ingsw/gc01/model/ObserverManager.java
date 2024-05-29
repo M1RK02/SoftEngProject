@@ -119,13 +119,12 @@ public class ObserverManager {
         }
     }
 
-    public void showField (String playerName, Position position, PlayableCard card){
-        for (VirtualView client : observers.values()) {
-            try {
-                client.showField(playerName, card.getId(), position.getX(), position.getY());
-            } catch (RemoteException e) {
-                throw new RuntimeException(e);
-            }
+    public void showField (String playerName){
+        VirtualView client = observers.get(playerName);
+        try {
+            client.showField(playerName);
+        } catch (RemoteException e) {
+            throw new RuntimeException(e);
         }
     }
 

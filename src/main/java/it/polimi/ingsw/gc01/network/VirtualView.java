@@ -25,7 +25,7 @@ public interface VirtualView extends Remote {
 
     void showHand(List<Integer> cardIds) throws RemoteException;
 
-    void showField(String playerName, int cardId, int x, int y) throws RemoteException;
+    void showField(String playerName) throws RemoteException;
 
     void showSecretObjectives(List<Integer> possibleObjectivesIds) throws RemoteException;
 

@@ -49,7 +49,7 @@ public class VirtualViewStub implements VirtualView {
     }
 
     @Override
-    public void showField(String playerName, int cardId, int x, int y) throws RemoteException {
+    public void showField(String playerName) throws RemoteException {
 
     }
 
