@@ -10,9 +10,11 @@ import java.util.*;
 public class TUI implements UI {
     private NetworkClient networkClient;
     private final ClientDeck clientDeck;
+    private FieldUtil field;
 
     public TUI(){
         clientDeck = new ClientDeck();
+        field = new FieldUtil();
         start();
     }
 
@@ -169,7 +171,7 @@ public class TUI implements UI {
 
     @Override
     public void showField() {
-
+        field.printUsedField();
     }
 
     @Override
@@ -202,9 +204,9 @@ public class TUI implements UI {
     private void chooseStarter(int cardId){
         String input = "";
         Scanner scanner = new Scanner(System.in);
-        while (input.isEmpty()){
+        while (input.isEmpty() || (!input.equals("1") && !input.equals("2"))){
             input = scanner.nextLine();
-            if (input.isEmpty()){
+            if (input.isEmpty() || (!input.equals("1") && !input.equals("2"))){
                 System.out.println(DefaultValue.ANSI_RED + "Wrong choice" + DefaultValue.ANSI_RESET);
             }
         }
@@ -214,23 +216,6 @@ public class TUI implements UI {
         } else {
             networkClient.flipCard(cardId);
             networkClient.playCard(cardId, 0, 0);
-        }
-    }
-
-    private void chooseSecret(int obj1, int obj2){
-        String input = "";
-        Scanner scanner = new Scanner(System.in);
-        while (input.isEmpty()){
-            input = scanner.nextLine();
-            if (input.isEmpty()){
-                System.out.println(DefaultValue.ANSI_RED + "Wrong choice" + DefaultValue.ANSI_RESET);
-            }
-        }
-        int choice = Integer.parseInt(input);
-        if (choice == 1){
-            networkClient.chooseSecretObjective(obj1);
-        } else {
-            networkClient.chooseSecretObjective(obj2);
         }
     }
 
@@ -255,10 +240,6 @@ public class TUI implements UI {
             input = scanner.nextLine();
             try {
                 choice = Integer.parseInt(input);
-                if (choice != 1 && choice != 2 && choice != 3 && choice != 4) {
-                    input = "";
-                    System.out.println(DefaultValue.ANSI_RED + "Wrong choice" + DefaultValue.ANSI_RESET);
-                }
                 if (choice == 1 && !availableColors.contains(PlayerColor.RED)) {
                     input = "";
                     System.out.println("Color RED already taken");
@@ -278,8 +259,9 @@ public class TUI implements UI {
             } catch (NumberFormatException e) {
                 input = "";
             }
-            if (input.isEmpty()) {
-                System.out.println(DefaultValue.ANSI_RED + "Wrong choice" + DefaultValue.ANSI_RESET);
+            if (input.isEmpty() || (choice != 1 && choice != 2 && choice != 3 && choice != 4)) {
+                System.out.println(DefaultValue.ANSI_RED + "Wrong choices" + DefaultValue.ANSI_RESET);
+                input = "";
             }
         }
 
@@ -292,6 +274,11 @@ public class TUI implements UI {
     }
 
     @Override
+    public void updateField(int id, int x, int y, boolean front){
+        field.playCard(id, x, y, front);
+    }
+
+    @Override
     public void updateReady(String playerName, boolean ready) {
         if(ready) {
             System.out.println(DefaultValue.ANSI_YELLOW + "-> " + playerName + " is ready!" + DefaultValue.ANSI_RESET);
@@ -299,8 +286,6 @@ public class TUI implements UI {
             System.out.println(DefaultValue.ANSI_YELLOW + "-> " + playerName + " is not ready!" + DefaultValue.ANSI_RESET);
         }
     }
-
-
 
     @Override
     public void showPossibleObjectives(List<Integer> possibleObjectiveIds){
@@ -312,5 +297,28 @@ public class TUI implements UI {
         }
         System.out.println("Choose (1) for the left objective card or (2) for the right objective card:");
         new Thread(() -> chooseSecret(possibleObjectiveIds.get(0), possibleObjectiveIds.get(1))).start();
+    }
+
+    @Override
+    public void showHand() {
+        //TODO
+        System.out.println("\n\n");
+        System.out.println("PRINTARE LA MANO DEL PLAYER");
+    }
+
+    private void chooseSecret(int obj1, int obj2){
+        String input = "";
+        Scanner scanner = new Scanner(System.in);
+        input = scanner.nextLine();
+        while (input.isEmpty() || (!input.equals("1") && !input.equals("2"))){
+            System.out.println(DefaultValue.ANSI_RED + "Wrong choice" + DefaultValue.ANSI_RESET);
+            input = scanner.nextLine();
+        }
+        int choice = Integer.parseInt(input);
+        if (choice == 1){
+            networkClient.chooseSecretObjective(obj1);
+        } else {
+            networkClient.chooseSecretObjective(obj2);
+        }
     }
 }

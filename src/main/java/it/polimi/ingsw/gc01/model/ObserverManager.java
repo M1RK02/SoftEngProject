@@ -84,6 +84,15 @@ public class ObserverManager {
         }
     }
 
+    public void updateField (String playerName, int id, int x, int y, boolean front){
+        VirtualView client = observers.get(playerName);
+        try {
+            client.updateField(id, x, y, front);
+        } catch (RemoteException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
     public void showCommonObjectives(List<ObjectiveCard> commonObjectives){
         List<Integer> commonObjectivesIds = commonObjectives.stream().map(ObjectiveCard::getId).collect(Collectors.toList());
         for (VirtualView client : observers.values()) {

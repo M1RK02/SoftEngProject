@@ -100,6 +100,7 @@ public class RoomController {
     private void giveStarter() {
         Player currentPlayer = room.getCurrentPlayer();
         currentPlayer.getHand().add(room.getStarterDeck().pick());
+        currentPlayer.getHand().get(0).setFront(true);
         ObserverManager notifier = room.getNotifier();
         notifier.showStarter(currentPlayer.getName(), (StarterCard) currentPlayer.getHand().getFirst());
     }
@@ -123,7 +124,9 @@ public class RoomController {
     }
 
     private void showHand(){
-
+        Player currentPlayer = room.getCurrentPlayer();
+        ObserverManager notifier = room.getNotifier();
+        notifier.showHand(currentPlayer.getName(), currentPlayer.getHand());
     }
 
 
@@ -159,12 +162,18 @@ public class RoomController {
                 } else {
                     state = GameState.RUNNING;
                     // inizia il game normalmente
+                    showField();
+                    showHand();
                 }
                 break;
             case RUNNING:
-                if(currentPlayer.equals(room.getPlayers().getFirst())) {
+                if(!currentPlayer.equals(room.getPlayers().getFirst())) {
                     // se deck finiti oppure un player ha raggiunto i 20 punti
                         // state = GameState.LAST_CIRCLE;
+                    showField();
+                    showHand();
+                } else {
+                    changeStateIfTwenty();
                 }
                 // continua gioco normale
                 break;

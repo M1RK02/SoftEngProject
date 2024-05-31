@@ -192,6 +192,10 @@ public class RmiClient extends UnicastRemoteObject implements VirtualView, Netwo
        ui.showRoom(roomId);
     }
 
+    public void updateField(int id, int x, int y, boolean front){
+        ui.updateField(id, x, y, front);
+    }
+
     /**
      * Starts the game
      */
@@ -253,7 +257,7 @@ public class RmiClient extends UnicastRemoteObject implements VirtualView, Netwo
      */
     @Override
     public void showHand(List<Integer> cardIds) throws RemoteException {
-        //TODO
+        ui.showHand();
     }
 
     /**

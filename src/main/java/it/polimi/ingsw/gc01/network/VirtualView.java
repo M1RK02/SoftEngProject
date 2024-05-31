@@ -32,4 +32,6 @@ public interface VirtualView extends Remote {
     void showError(String error) throws RemoteException;
 
     void serviceMessage(String message) throws RemoteException;
+
+    void updateField(int id, int x, int y, boolean front) throws RemoteException;
 }

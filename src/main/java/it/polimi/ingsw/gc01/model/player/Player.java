@@ -201,6 +201,8 @@ public class Player {
         if (card instanceof ResourceCard) {
             updatePoints((ResourceCard) card, position);
         }
+
+        notifier.updateField(name, card.getId(), position.getX(), position.getY(), card.isFront());
     }
 
     /**
