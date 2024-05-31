@@ -171,6 +171,7 @@ public class TUI implements UI {
 
     @Override
     public void showField() {
+        System.out.println(DefaultValue.ANSI_YELLOW + "-> Your Field:\n" + DefaultValue.ANSI_RESET);
         field.printUsedField();
     }
 
@@ -299,17 +300,9 @@ public class TUI implements UI {
         new Thread(() -> chooseSecret(possibleObjectiveIds.get(0), possibleObjectiveIds.get(1))).start();
     }
 
-    @Override
-    public void showHand() {
-        //TODO
-        System.out.println("\n\n");
-        System.out.println("PRINTARE LA MANO DEL PLAYER");
-    }
-
     private void chooseSecret(int obj1, int obj2){
-        String input = "";
         Scanner scanner = new Scanner(System.in);
-        input = scanner.nextLine();
+        String input = scanner.nextLine();
         while (input.isEmpty() || (!input.equals("1") && !input.equals("2"))){
             System.out.println(DefaultValue.ANSI_RED + "Wrong choice" + DefaultValue.ANSI_RESET);
             input = scanner.nextLine();
@@ -321,4 +314,108 @@ public class TUI implements UI {
             networkClient.chooseSecretObjective(obj2);
         }
     }
+
+    @Override
+    public void showHand(List<Integer> handIds) {
+        String[] card1Front = clientDeck.generateCardById(handIds.get(0), true);
+        String[] card2Front = clientDeck.generateCardById(handIds.get(1), true);
+        String[] card3Front = clientDeck.generateCardById(handIds.get(2), true);
+
+        String[] card1Back = clientDeck.generateCardById(handIds.get(0), false);
+        String[] card2Back = clientDeck.generateCardById(handIds.get(1), false);
+        String[] card3Back = clientDeck.generateCardById(handIds.get(2), false);
+        System.out.println("\n\n-> Your hand:");
+        //Carte front
+        for (int i = 0; i < card1Front.length; i++){
+            System.out.print(card1Front[i] + "\t\t");
+            System.out.print(card2Front[i] + "\t\t");
+            System.out.print(card3Front[i]);
+            if (i == 3) System.out.print("\t\t Front");
+            System.out.print("\n");
+        }
+        //Carte back
+        for (int i = 0; i < card1Front.length; i++){
+            System.out.print(card1Back[i] + "\t\t");
+            System.out.print(card2Back[i] + "\t\t");
+            System.out.print(card3Back[i]);
+            if (i == 3) System.out.print("\t\t Back");
+            System.out.print("\n");
+        }
+        System.out.println("\t\t   (1) \t\t\t\t\t\t\t   (2) \t\t\t\t\t\t\t   (3)");
+        new Thread(() -> chooseCardToPlay(handIds)).start();
+    }
+
+    private void chooseCardToPlay(List<Integer> handIds){
+        System.out.println(DefaultValue.ANSI_YELLOW + "Choose which card you want to play: " + DefaultValue.ANSI_RESET);
+        Scanner scanner = new Scanner(System.in);
+        String input = scanner.nextLine();
+        while (input.isEmpty() || (!input.equals("1") && !input.equals("2") && !input.equals("3"))){
+            System.out.println(DefaultValue.ANSI_RED + "Wrong choice" + DefaultValue.ANSI_RESET);
+            input = scanner.nextLine();
+        }
+        int cardSelected = Integer.parseInt(input);
+
+        System.out.println("Choose (1) Front or (2) back: ");
+        input = scanner.nextLine();
+        while (input.isEmpty() || (!input.equals("1") && !input.equals("2"))){
+            System.out.println(DefaultValue.ANSI_RED + "Wrong choice" + DefaultValue.ANSI_RESET);
+            input = scanner.nextLine();
+        }
+        int front = Integer.parseInt(input);
+
+        //TODO DA AGGIUNGERE AL WHILE CLAUSOLA PER VEDERE SE LA POSITION IMMESSA ESISTE NELLE AVAILABLE
+        int x = 0, y = 1;
+        while (((x + y) % 2) != 0){
+            System.out.println("Choose the x coordinate where the card will be played: ");
+            input = "";
+            while (input.isEmpty()){
+                input = scanner.nextLine();
+                try {
+                    x = Integer.parseInt(input);
+                } catch (NumberFormatException e){
+                    input = "";
+                    System.out.println(DefaultValue.ANSI_RED + "Wrong choice" + DefaultValue.ANSI_RESET);
+                }
+            }
+
+            System.out.println("Choose the y coordinate where the card will be played: ");
+            input = "";
+            while (input.isEmpty()){
+                input = scanner.nextLine();
+                try {
+                    y = Integer.parseInt(input);
+                } catch (NumberFormatException e){
+                    input = "";
+                    System.out.println(DefaultValue.ANSI_RED + "Wrong choice" + DefaultValue.ANSI_RESET);
+                }
+            }
+
+            if(((x + y) % 2) != 0){
+                System.out.println(DefaultValue.ANSI_RED + "Not a possible position" + DefaultValue.ANSI_RESET);
+            }
+        }
+
+        switch (cardSelected){
+            case 1: {
+                if (front == 2) networkClient.flipCard(handIds.get(0));
+                networkClient.playCard(handIds.get(0), x, y);
+                break;
+            }
+            case 2: {
+                if (front == 2) networkClient.flipCard(handIds.get(1));
+                networkClient.playCard(handIds.get(1), x, y);
+                break;
+            }
+            case 3: {
+                if (front == 2) networkClient.flipCard(handIds.get(2));
+                networkClient.playCard(handIds.get(2), x, y);
+                break;
+            }
+        }
+
+        //new Thread(() -> showDrawableCards()).start();
+    }
+
+
+
 }

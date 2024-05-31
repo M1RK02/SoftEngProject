@@ -253,11 +253,11 @@ public class RmiClient extends UnicastRemoteObject implements VirtualView, Netwo
     }
 
     /**
-     * @param cardIds
+     * @param handIds
      */
     @Override
-    public void showHand(List<Integer> cardIds) throws RemoteException {
-        ui.showHand();
+    public void showHand(List<Integer> handIds) throws RemoteException {
+        ui.showHand(handIds);
     }
 
     /**

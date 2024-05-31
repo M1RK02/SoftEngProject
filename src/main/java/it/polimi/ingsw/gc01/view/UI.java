@@ -12,7 +12,7 @@ public interface UI {
     void showAvailableColors(List<PlayerColor> availableColors);
     void showCurrentPlayer(String playerName);
     void showField();
-    void showHand();
+    void showHand(List<Integer> handIds);
     void showPossibleObjectives(List<Integer> possibleObjectiveIds);
     void updateReady(String playerName, boolean ready);
     void startGame();
