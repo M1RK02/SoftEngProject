@@ -1,8 +1,9 @@
 package it.polimi.ingsw.gc01.model.player;
 
+import java.io.Serializable;
 import java.util.Objects;
 
-public class Position {
+public class Position implements Serializable {
     private final int x;
     private final int y;
 

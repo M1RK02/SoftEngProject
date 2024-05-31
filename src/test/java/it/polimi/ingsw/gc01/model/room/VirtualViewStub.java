@@ -1,6 +1,7 @@
 package it.polimi.ingsw.gc01.model.room;
 
 import it.polimi.ingsw.gc01.model.player.PlayerColor;
+import it.polimi.ingsw.gc01.model.player.Position;
 import it.polimi.ingsw.gc01.network.VirtualView;
 
 import java.rmi.RemoteException;
@@ -65,6 +66,11 @@ public class VirtualViewStub implements VirtualView {
 
     @Override
     public void serviceMessage(String message) throws RemoteException {
+
+    }
+
+    @Override
+    public void updateField(int id, boolean front, Position position, Set<Position> availablePositions) throws RemoteException {
 
     }
 

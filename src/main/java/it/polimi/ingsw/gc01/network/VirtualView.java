@@ -1,6 +1,7 @@
 package it.polimi.ingsw.gc01.network;
 
 import it.polimi.ingsw.gc01.model.player.PlayerColor;
+import it.polimi.ingsw.gc01.model.player.Position;
 import it.polimi.ingsw.gc01.model.room.TablePosition;
 
 import java.rmi.*;
@@ -33,5 +34,5 @@ public interface VirtualView extends Remote {
 
     void serviceMessage(String message) throws RemoteException;
 
-    void updateField(int id, int x, int y, boolean front) throws RemoteException;
+    void updateField(int id, boolean front, Position position, Set<Position> availablePositions) throws RemoteException;
 }

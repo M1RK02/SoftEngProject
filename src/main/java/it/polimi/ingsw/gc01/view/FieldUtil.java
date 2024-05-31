@@ -4,10 +4,13 @@ import it.polimi.ingsw.gc01.model.player.Position;
 
 import java.util.*;
 
+import static java.util.stream.Stream.concat;
+
 public class FieldUtil {
     private final List<Integer> cards;
     private final Map<Integer, Boolean> side;
     private final Map<Integer, Position> field;
+    private Set<Position> availablePositions;
     private final ClientDeck clientDeck;
 
     public FieldUtil(){
@@ -17,17 +20,21 @@ public class FieldUtil {
         clientDeck = new ClientDeck();
     }
 
-    public void playCard(int id, int x, int y, boolean front) {
+    public void setAvailablePositions(Set<Position> availablePositions) {
+        this.availablePositions = availablePositions;
+    };
+
+    public void playCard(int id, boolean front, Position position) {
         cards.add(id);
         side.put(id, front);
-        field.put(id, new Position(x, y));
+        field.put(id, position);
     }
 
     public void printUsedField() {
-        int maxX = field.values().stream().mapToInt(Position::getX).max().orElse(1624);
-        int maxY = field.values().stream().mapToInt(Position::getY).max().orElse(203);
-        int minX = field.values().stream().mapToInt(Position::getX).min().orElse(0);
-        int minY = field.values().stream().mapToInt(Position::getY).min().orElse(0);
+        int maxX = concat(field.values().stream(), availablePositions.stream()).mapToInt(Position::getX).max().orElse(1624);
+        int maxY = concat(field.values().stream(), availablePositions.stream()).mapToInt(Position::getY).max().orElse(203);
+        int minX = concat(field.values().stream(), availablePositions.stream()).mapToInt(Position::getX).min().orElse(0);
+        int minY = concat(field.values().stream(), availablePositions.stream()).mapToInt(Position::getY).min().orElse(0);
 
         maxX = realX(maxX);
         maxY = realY(maxY);
@@ -43,6 +50,14 @@ public class FieldUtil {
     private String[] generateField() {
         String[] printableField = new String[204];
         Arrays.fill(printableField, new String(new char[1625]).replace('\u0000', ' '));
+
+        for (Position p : availablePositions) {
+            String[] card = clientDeck.generateAvailablePosition(p);
+            for (int j = 0; j < card.length; j++) {
+                String riga = printableField[realY(p.getY())+j];
+                printableField[realY(p.getY())+j] = riga.substring(0, realX(p.getX())) + card[j] + riga.substring(realX(p.getX())+25, 1625);
+            }
+        }
 
         for (Integer i : cards) {
             String[] card = clientDeck.generateCardById(i, side.get(i));

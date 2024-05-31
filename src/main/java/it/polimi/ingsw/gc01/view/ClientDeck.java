@@ -7,6 +7,7 @@ import it.polimi.ingsw.gc01.model.Resource;
 import it.polimi.ingsw.gc01.model.cards.*;
 import it.polimi.ingsw.gc01.model.corners.*;
 import it.polimi.ingsw.gc01.model.decks.*;
+import it.polimi.ingsw.gc01.model.player.Position;
 import it.polimi.ingsw.gc01.model.strategy.*;
 
 import java.io.*;
@@ -34,6 +35,18 @@ public class ClientDeck {
                 }
             } catch (Exception ignored){}
         }
+    }
+
+    public String[] generateAvailablePosition(Position position) {
+        String[] card = new String[7];
+        card[0] = "╔═══════════════════════╗";
+        card[1] = "║                       ║";
+        card[2] = "║                       ║";
+        card[3] = String.format("║      (%3d , %3d)      ║", position.getX(), position.getY());
+        card[4] = "║                       ║";
+        card[5] = "║                       ║";
+        card[6] = "╚═══════════════════════╝";
+        return card;
     }
 
     public String[] generateCardById(int id, boolean front) {
@@ -231,28 +244,64 @@ public class ClientDeck {
         String topRight = starterCard.getCorners().get(CornerPosition.TOP_RIGHT).getResource().toString();
         String bottomRight = starterCard.getCorners().get(CornerPosition.BOTTOM_RIGHT).getResource().toString();
 
-        if (topLeft.equals("INKWELL")) {
-            card[1] = card[1].substring(0, 2) + "K" + card[1].substring(3);
-        } else {
-            card[1] = card[1].substring(0, 2) + topLeft.charAt(0) + card[1].substring(3);
+        switch (topLeft) {
+            case "EMPTY":
+                break;
+            case "FULL":
+                card[0] = card[0].substring(0, 4) + "═" + card[0].substring(5);
+                card[1] = card[1].substring(0, 4) + " " + card[1].substring(5);
+                card[2] = "║    " + card[2].substring(5);
+                break;
+            case "INKWELL":
+                card[1] = card[1].substring(0, 2) + "K" + card[1].substring(3);
+                break;
+            default:
+                card[1] = card[1].substring(0, 2) + topLeft.charAt(0) + card[1].substring(3);
         }
 
-        if (bottomLeft.equals("INKWELL")) {
-            card[5] = card[5].substring(0, 2) + "K" + card[5].substring(3);
-        } else {
-            card[5] = card[5].substring(0, 2) + bottomLeft.charAt(0) + card[5].substring(3);
+        switch (bottomLeft) {
+            case "EMPTY":
+                break;
+            case "FULL":
+                card[4] = "║    " + card[4].substring(5);
+                card[5] = card[5].substring(0, 4) + " " + card[5].substring(5);
+                card[6] = card[6].substring(0, 4) + "═" + card[6].substring(5);
+                break;
+            case "INKWELL":
+                card[5] = card[5].substring(0, 2) + "K" + card[5].substring(3);
+                break;
+            default:
+                card[5] = card[5].substring(0, 2) + bottomLeft.charAt(0) + card[5].substring(3);
         }
 
-        if (topRight.equals("INKWELL")) {
-            card[1] = card[1].substring(0, 22) + "K" + card[1].substring(23);
-        } else {
-            card[1] = card[1].substring(0, 22) + topRight.charAt(0) + card[1].substring(23);
+        switch (topRight) {
+            case "EMPTY":
+                break;
+            case "FULL":
+                card[0] = card[0].substring(0, 20) + "═" + card[0].substring(21);
+                card[1] = card[1].substring(0, 20) + " " + card[1].substring(21);
+                card[2] = card[2].substring(0, 20) + "    ║";
+                break;
+            case "INKWELL":
+                card[1] = card[1].substring(0, 22) + "K" + card[1].substring(23);
+                break;
+            default:
+                card[1] = card[1].substring(0, 22) + topRight.charAt(0) + card[1].substring(23);
         }
 
-        if (bottomRight.equals("INKWELL")) {
-            card[5] = card[5].substring(0, 22) + bottomRight.charAt(0) + card[5].substring(23);
-        } else {
-            card[5] = card[5].substring(0, 22) + bottomRight.charAt(0) + card[5].substring(23);
+        switch (bottomRight) {
+            case "EMPTY":
+                break;
+            case "FULL":
+                card[4] = card[4].substring(0, 20) + "    ║";
+                card[5] = card[5].substring(0, 20) + " " + card[5].substring(21);
+                card[6] = card[6].substring(0, 20) + "═" + card[6].substring(21);
+                break;
+            case "INKWELL":
+                card[5] = card[5].substring(0, 22) + "K" + card[5].substring(23);
+                break;
+            default:
+                card[5] = card[5].substring(0, 22) + bottomRight.charAt(0) + card[5].substring(23);
         }
 
         card[2] = card[2].substring(0,10) + "╔═══╗" + card[2].substring(15);
@@ -262,7 +311,7 @@ public class ClientDeck {
         switch (starterCard.getCenterResources().size()) {
             case 1 -> card[3] = card[3].substring(0,12) + starterCard.getCenterResources().toArray()[0].toString().charAt(0) + card[3].substring(13);
             case 2 -> card[3] = card[3].substring(0,11) + starterCard.getCenterResources().toArray()[0].toString().charAt(0) + " " + starterCard.getCenterResources().toArray()[1].toString().charAt(0) + card[3].substring(14);
-            case 3 -> card[3] = card[3].substring(0,11) + starterCard.getCenterResources().toArray()[0].toString().charAt(0) + starterCard.getCenterResources().toArray()[1].toString().charAt(0) + starterCard.getCenterResources().toArray()[1].toString().charAt(0) + card[3].substring(14);
+            case 3 -> card[3] = card[3].substring(0,11) + starterCard.getCenterResources().toArray()[0].toString().charAt(0) + starterCard.getCenterResources().toArray()[1].toString().charAt(0) + starterCard.getCenterResources().toArray()[2].toString().charAt(0) + card[3].substring(14);
         }
 
         card[1] = card[1].substring(0, 11) + "STR" + card[1].substring(14);
@@ -299,10 +348,11 @@ public class ClientDeck {
         }
 
         if (bottomRight.equals("INKWELL")) {
-            card[5] = card[5].substring(0, 22) + bottomRight.charAt(0) + card[5].substring(23);
+            card[5] = card[5].substring(0, 22) + "K" + card[5].substring(23);
         } else {
             card[5] = card[5].substring(0, 22) + bottomRight.charAt(0) + card[5].substring(23);
         }
+
 
         card[3] = card[3].substring(0, 11) + "STR" + card[3].substring(14);
 

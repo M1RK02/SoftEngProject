@@ -1,5 +1,6 @@
 package it.polimi.ingsw.gc01.network.rmi;
 
+import it.polimi.ingsw.gc01.model.player.Position;
 import it.polimi.ingsw.gc01.view.UI;
 import it.polimi.ingsw.gc01.model.DefaultValue;
 import it.polimi.ingsw.gc01.model.player.PlayerColor;
@@ -192,8 +193,9 @@ public class RmiClient extends UnicastRemoteObject implements VirtualView, Netwo
        ui.showRoom(roomId);
     }
 
-    public void updateField(int id, int x, int y, boolean front){
-        ui.updateField(id, x, y, front);
+    @Override
+    public void updateField(int id, boolean front, Position position, Set<Position> availablePositions) throws RemoteException {
+        ui.updateField(id, front, position, availablePositions);
     }
 
     /**

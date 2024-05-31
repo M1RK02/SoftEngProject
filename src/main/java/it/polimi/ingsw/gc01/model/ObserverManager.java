@@ -84,10 +84,10 @@ public class ObserverManager {
         }
     }
 
-    public void updateField (String playerName, int id, int x, int y, boolean front){
+    public void updateField (String playerName, int id, boolean front, Position position, Set<Position> availablePositions){
         VirtualView client = observers.get(playerName);
         try {
-            client.updateField(id, x, y, front);
+            client.updateField(id, front, position, availablePositions);
         } catch (RemoteException e) {
             throw new RuntimeException(e);
         }
