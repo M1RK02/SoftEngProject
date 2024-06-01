@@ -129,7 +129,6 @@ public class RoomController {
         notifier.showHand(currentPlayer.getName(), currentPlayer.getHand());
     }
 
-
     /**
      * Change the currentPlayer to the next Player in the circle checking the current state
      */
@@ -150,43 +149,36 @@ public class RoomController {
                     showAvailableColors();
                 } else {
                     state = GameState.OBJECTIVE_SELECTION;
-                    // mostra gli obiettivi segreti
                     distributeCards();
                     showObjective();
                 }
                 break;
             case OBJECTIVE_SELECTION:
                 if(!currentPlayer.equals(room.getPlayers().getFirst())) {
-                    // mostra obiettivi segreti
                     showObjective();
                 } else {
                     state = GameState.RUNNING;
-                    // inizia il game normalmente
                     showField();
                     showHand();
                 }
                 break;
             case RUNNING:
-                if(!currentPlayer.equals(room.getPlayers().getFirst())) {
-                    // se deck finiti oppure un player ha raggiunto i 20 punti
-                        // state = GameState.LAST_CIRCLE;
-                    showField();
-                    showHand();
-                } else {
-                    changeStateIfTwenty();
-                    showField();
-                    showHand();
+                if(currentPlayer.equals(room.getPlayers().getFirst())) {
+                    if(hasOneReachedTwenty() || areDecksEmpty()){
+                        state = GameState.LAST_CIRCLE;
+                    }
                 }
-                // continua gioco normale
+                showField();
+                showHand();
                 break;
             case LAST_CIRCLE:
                 if(!currentPlayer.equals(room.getPlayers().getFirst())) {
-                    // continua gioco normale
+                    showField();
+                    showHand();
                 } else {
                     state = GameState.ENDED;
-                    // calcola gli obiettivi e dichiara il vincitore
+                    endGame();
                 }
-                break;
         }
     }
 
@@ -231,13 +223,23 @@ public class RoomController {
     }
 
     /**
-     * if the current players reach 20 or more points the game state is switched to the last circle (1 last turn for each player)
+     * @return true if a player has reached 20 points
      */
-    public void changeStateIfTwenty () {
-        Player currentPlayer = room.getCurrentPlayer();
-        if (currentPlayer.getPoints() >= 20) {
-            state = GameState.LAST_CIRCLE;
+    public boolean hasOneReachedTwenty () {
+        for (Player p : room.getPlayers()) {
+            if (p.getPoints() >= 20) {
+                return true;
+            }
         }
+        return false;
+    }
+
+
+    /**
+     * @return true if both decks are empty
+     */
+    public boolean areDecksEmpty () {
+        return room.getResourceDeck().isEmpty() && room.getGoldenDeck().isEmpty();
     }
 
     /**
@@ -246,8 +248,16 @@ public class RoomController {
     public void endGame (){
         calculateStrategy();
         List<Player> winners = room.getWinners();
-        state = GameState.ENDED;
-        room.getNotifier().serviceMessage("The winner is "+winners.get(0).getName());
+        ObserverManager notifier = room.getNotifier();
+        if (winners.size() == 1) {
+            notifier.serviceMessage("The winner is " + winners.getFirst().getName() + "!");
+        } else {
+            String winnersName = "";
+            for (Player p : winners) {
+                winnersName += p.getName() + ", ";
+            }
+            notifier.serviceMessage("The winners are " + winnersName.substring(0, winnersName.length() - 2) + "!");
+        }
     }
 
     /**
@@ -270,7 +280,6 @@ public class RoomController {
         }else {
             room.getNotifier().showError(playerName, "No objective found");
         }
-
     }
 
     /**
@@ -304,12 +313,6 @@ public class RoomController {
         Player player = room.getPlayerByName(playerName);
         PlayableCard card = null;
         ObserverManager notifier = room.getNotifier();
-        boolean start = false;
-
-        if (!room.getCurrentPlayer().equals(player)){
-            notifier.showError(playerName, "Its not your turn");
-            return;
-        }
 
         for (PlayableCard curr : player.getHand()){
             if (curr.getId() == cardId){
@@ -321,7 +324,8 @@ public class RoomController {
             if (card.isFront()){
                 if (card instanceof GoldenCard){
                     if (!((GoldenCard) card).checkRequirements(room.getCurrentPlayer())){
-                        notifier.showError(playerName, "You don't have the required items");
+                        notifier.showError(playerName, "PLAY You don't have the required items");
+                        return;
                     } else {
                         player.playCard(card, position);
                     }
@@ -335,16 +339,11 @@ public class RoomController {
             notifier.showError(playerName, "No card found");
         }
 
-        if (getState().equals(GameState.LAST_CIRCLE) && player.equals(room.getPlayers().getLast())){
-            endGame();
-        }
-
         if (card instanceof StarterCard){
             nextPlayer();
-            start = true;
+        } else {
+            notifier.showTable(playerName, room.getDrawableCards());
         }
-
-        if (!start) notifier.showTable(playerName, room.getDrawableCards());
     }
 
     /**
@@ -355,10 +354,6 @@ public class RoomController {
      */
     public void drawCard(String playerName, TablePosition position){
         Player player = room.getPlayerByName(playerName);
-        if (!room.getCurrentPlayer().equals(player)){
-            room.getNotifier().showError(playerName, "Its not your turn");
-            return;
-        }
 
         if (position.equals(TablePosition.RESOURCEDECK)){
             player.getHand().add(room.getDrawableCards().get(position));

@@ -33,7 +33,6 @@ public class RmiClient extends UnicastRemoteObject implements VirtualView, Netwo
             this.server = (VirtualServer) registry.lookup(DefaultValue.RMIServerName);
             System.out.println("Client RMI ready");
         } catch (RemoteException | NotBoundException e) {
-            //TODO
             System.err.println("Server RMI not working!");
         }
     }
@@ -50,7 +49,6 @@ public class RmiClient extends UnicastRemoteObject implements VirtualView, Netwo
         try {
             server.createGame(this.playerName, this);
         } catch (RemoteException e) {
-            //TODO
             System.err.println("Server RMI not working!");
         }
     }
@@ -63,7 +61,6 @@ public class RmiClient extends UnicastRemoteObject implements VirtualView, Netwo
         try {
             server.joinGame(this.playerName, this, roomId);
         } catch (RemoteException e) {
-            //TODO
             System.err.println("Server RMI not working!");
         }
     }
@@ -76,7 +73,6 @@ public class RmiClient extends UnicastRemoteObject implements VirtualView, Netwo
         try {
             server.joinFirstGame(this.playerName, this);
         } catch (RemoteException e) {
-            //TODO
             System.err.println("Server RMI not working!");
         }
     }
@@ -91,7 +87,6 @@ public class RmiClient extends UnicastRemoteObject implements VirtualView, Netwo
         try {
             server.chooseColor(this.playerName, this.roomId, color);
         } catch (RemoteException e) {
-            //TODO
             System.err.println("Server RMI not working!");
         }
     }
@@ -104,7 +99,6 @@ public class RmiClient extends UnicastRemoteObject implements VirtualView, Netwo
         try {
             server.switchReady(this.playerName, this.roomId);
         } catch (RemoteException e) {
-            //TODO
             System.err.println("Server RMI not working!");
         }
     }
@@ -119,7 +113,6 @@ public class RmiClient extends UnicastRemoteObject implements VirtualView, Netwo
         try {
             server.chooseSecretObjective(this.playerName, this.roomId, cardId);
         } catch (RemoteException e) {
-            //TODO
             System.err.println("Server RMI not working!");
         }
     }
@@ -134,7 +127,6 @@ public class RmiClient extends UnicastRemoteObject implements VirtualView, Netwo
         try {
             server.flipCard(this.playerName, this.roomId, cardId);
         } catch (RemoteException e) {
-            //TODO
             System.err.println("Server RMI not working!");
         }
     }
@@ -151,7 +143,6 @@ public class RmiClient extends UnicastRemoteObject implements VirtualView, Netwo
         try {
             server.playCard(this.playerName, this.roomId, cardId, x, y);
         } catch (RemoteException e) {
-            //TODO
             System.err.println("Server RMI not working!");
         }
     }
@@ -166,7 +157,6 @@ public class RmiClient extends UnicastRemoteObject implements VirtualView, Netwo
         try {
             server.drawCard(this.playerName, this.roomId, choice);
         } catch (RemoteException e) {
-            //TODO
             System.err.println("Server RMI not working!");
         }
     }
@@ -179,7 +169,6 @@ public class RmiClient extends UnicastRemoteObject implements VirtualView, Netwo
         try {
             server.leave(this.playerName, this.roomId);
         } catch (RemoteException e) {
-            //TODO
             System.err.println("Server RMI not working!");
         }
     }

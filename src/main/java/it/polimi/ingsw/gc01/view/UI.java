@@ -20,6 +20,5 @@ public interface UI {
     void updateReady(String playerName, boolean ready);
     void startGame();
     void updateField(int id, boolean front, Position position, Set<Position> availablePositions);
-    //MIO void updateField(int id, int x, int y, boolean front);
     void showTable(Map<Integer, Integer> drawableCardsIds);
 }

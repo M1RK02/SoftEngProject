@@ -12,6 +12,7 @@ public class TUI implements UI {
     private NetworkClient networkClient;
     private final ClientDeck clientDeck;
     private FieldUtil field;
+    private List<Integer> handIds;
 
     public TUI(){
         clientDeck = new ClientDeck();
@@ -184,6 +185,9 @@ public class TUI implements UI {
             case "MAIN":
                 System.out.println(DefaultValue.ANSI_RED + message + DefaultValue.ANSI_RESET);
                 new Thread(this::askModalityToEnterGame).start();
+            case "PLAY":
+                System.out.println(DefaultValue.ANSI_RED + message + DefaultValue.ANSI_RESET);
+                new Thread(this::chooseCardToPlay).start();
         }
     }
 
@@ -320,6 +324,7 @@ public class TUI implements UI {
 
     @Override
     public void showHand(List<Integer> handIds) {
+        this.handIds = handIds;
         String[] card1Front = clientDeck.generateCardById(handIds.get(0), true);
         String[] card2Front = clientDeck.generateCardById(handIds.get(1), true);
         String[] card3Front = clientDeck.generateCardById(handIds.get(2), true);
@@ -345,10 +350,10 @@ public class TUI implements UI {
             System.out.print("\n");
         }
         System.out.println("\t\t   (1) \t\t\t\t\t\t\t   (2) \t\t\t\t\t\t\t   (3)");
-        new Thread(() -> chooseCardToPlay(handIds)).start();
+        new Thread(this::chooseCardToPlay).start();
     }
 
-    private void chooseCardToPlay(List<Integer> handIds){
+    private void chooseCardToPlay(){
         System.out.println(DefaultValue.ANSI_YELLOW + "Choose which card you want to play: " + DefaultValue.ANSI_RESET);
         Scanner scanner = new Scanner(System.in);
         String input = scanner.nextLine();
@@ -356,7 +361,7 @@ public class TUI implements UI {
             System.out.println(DefaultValue.ANSI_RED + "Wrong choice" + DefaultValue.ANSI_RESET);
             input = scanner.nextLine();
         }
-        int cardSelected = Integer.parseInt(input);
+        int cardSelected = Integer.parseInt(input) - 1;
 
         System.out.println("Choose (1) Front or (2) back: ");
         input = scanner.nextLine();
@@ -395,23 +400,9 @@ public class TUI implements UI {
             if (!field.getAvailablePositions().contains(new Position(x,y))) System.out.println(DefaultValue.ANSI_RED + "Position not available" + DefaultValue.ANSI_RESET);
         }
 
-        switch (cardSelected){
-            case 1: {
-                if (front == 2) networkClient.flipCard(handIds.get(0));
-                networkClient.playCard(handIds.get(0), x, y);
-                break;
-            }
-            case 2: {
-                if (front == 2) networkClient.flipCard(handIds.get(1));
-                networkClient.playCard(handIds.get(1), x, y);
-                break;
-            }
-            case 3: {
-                if (front == 2) networkClient.flipCard(handIds.get(2));
-                networkClient.playCard(handIds.get(2), x, y);
-                break;
-            }
-        }
+        if(front == 2)
+            networkClient.flipCard(handIds.get(cardSelected));
+        networkClient.playCard(handIds.get(cardSelected), x, y);
     }
 
     @Override
