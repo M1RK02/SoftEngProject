@@ -297,46 +297,33 @@ public class Player {
                 switch (cornerPosition) {
                     case TOP_LEFT:
                         p = new Position(position.getX() - 1, position.getY() + 1);
-                        if (corners.get(cornerPosition).getResource().equals(FULL)) {
-                            field.getUnavailablePositions().add(p);
-                        }else {
-                            if (!field.getUnavailablePositions().contains(p)) {
-                                field.getAvailablePositions().add(p);
-                            }
-                        }
+                        checkPosition(corners, cornerPosition, p);
                         break;
                     case TOP_RIGHT:
                         p = new Position(position.getX() + 1, position.getY() + 1);
-                        if (corners.get(cornerPosition).getResource().equals(FULL)) {
-                            field.getUnavailablePositions().add(p);
-                        }else {
-                            if (!field.getUnavailablePositions().contains(p)) {
-                                field.getAvailablePositions().add(p);
-                            }
-                        }
+                        checkPosition(corners, cornerPosition, p);
                         break;
                     case BOTTOM_LEFT:
                         p = new Position(position.getX() - 1, position.getY() - 1);
-                        if (corners.get(cornerPosition).getResource().equals(FULL)) {
-                            field.getUnavailablePositions().add(p);
-                        }else {
-                            if (!field.getUnavailablePositions().contains(p)) {
-                                field.getAvailablePositions().add(p);
-                            }
-                        }
+                        checkPosition(corners, cornerPosition, p);
                         break;
                     case BOTTOM_RIGHT:
                         p = new Position(position.getX() + 1, position.getY() - 1);
-                        if (corners.get(cornerPosition).getResource().equals(FULL)) {
-                            field.getUnavailablePositions().add(p);
-                        }else {
-                            if (!field.getUnavailablePositions().contains(p)) {
-                                field.getAvailablePositions().add(p);
-                            }
-                        }
+                        checkPosition(corners, cornerPosition, p);
                         break;
                     default:
                 }
+            }
+        }
+    }
+
+    private void checkPosition(Map<CornerPosition, Corner> corners, CornerPosition cornerPosition, Position p) {
+        if (corners.get(cornerPosition).getResource().equals(FULL)) {
+            field.getUnavailablePositions().add(p);
+            field.getAvailablePositions().remove(p);
+        }else {
+            if (!field.getUnavailablePositions().contains(p)) {
+                field.getAvailablePositions().add(p);
             }
         }
     }
