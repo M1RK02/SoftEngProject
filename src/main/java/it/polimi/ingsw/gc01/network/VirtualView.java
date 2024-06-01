@@ -22,7 +22,7 @@ public interface VirtualView extends Remote {
 
     void showCommonObjectives(List<Integer> objectivesIds) throws RemoteException;
 
-    void showTable(Map<TablePosition, Integer> drawableCardsIds) throws RemoteException;
+    void showTable(Map<Integer, Integer> drawableCardsIds) throws RemoteException;
 
     void showHand(List<Integer> cardIds) throws RemoteException;
 

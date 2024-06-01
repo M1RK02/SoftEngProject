@@ -207,11 +207,11 @@ public class RmiServer implements VirtualServer {
      *
      * @param playerName The name of the player
      * @param roomId     The id of the room in which is the player who is making the action
-     * @param card       The position of the card to draw in the Drawable cards
+     * @param choice     The position of the card to draw in the Drawable cards
      */
     @Override
-    public void drawCard(String playerName, String roomId, TablePosition card) throws RemoteException {
-        DrawCardAction drawCard = new DrawCardAction(playerName, mainController.getRooms().get(roomId), card);
+    public void drawCard(String playerName, String roomId, int choice) throws RemoteException {
+        DrawCardAction drawCard = new DrawCardAction(playerName, mainController.getRooms().get(roomId), choice);
         try {
             actions.put(drawCard);
         } catch (InterruptedException e) {

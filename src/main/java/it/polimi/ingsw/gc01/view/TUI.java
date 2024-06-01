@@ -222,7 +222,7 @@ public class TUI implements UI {
     }
 
     /**
-     * @param availableColors
+     * @param availableColors The list of colors that are still available
      */
     @Override
     public void showAvailableColors(List<PlayerColor> availableColors){
@@ -279,6 +279,7 @@ public class TUI implements UI {
     public void updateField(int id, boolean front, Position position, Set<Position> availablePositions){
         field.playCard(id, front, position);
         field.setAvailablePositions(availablePositions);
+
     }
 
     @Override
@@ -365,9 +366,8 @@ public class TUI implements UI {
         }
         int front = Integer.parseInt(input);
 
-        //TODO DA AGGIUNGERE AL WHILE CLAUSOLA PER VEDERE SE LA POSITION IMMESSA ESISTE NELLE AVAILABLE
-        int x = 0, y = 1;
-        while (((x + y) % 2) != 0){
+        int x = 999, y = 1000;
+        while (!field.getAvailablePositions().contains(new Position(x,y))){
             System.out.println("Choose the x coordinate where the card will be played: ");
             input = "";
             while (input.isEmpty()){
@@ -392,9 +392,7 @@ public class TUI implements UI {
                 }
             }
 
-            if(((x + y) % 2) != 0){
-                System.out.println(DefaultValue.ANSI_RED + "Not a possible position" + DefaultValue.ANSI_RESET);
-            }
+            if (!field.getAvailablePositions().contains(new Position(x,y))) System.out.println(DefaultValue.ANSI_RED + "Position not available" + DefaultValue.ANSI_RESET);
         }
 
         switch (cardSelected){
@@ -414,10 +412,51 @@ public class TUI implements UI {
                 break;
             }
         }
-
-        //new Thread(() -> showDrawableCards()).start();
     }
 
+    @Override
+    public void showTable(Map<Integer, Integer> drawableCardsIds){
+        String[] resourceDeck = clientDeck.generateCardById(drawableCardsIds.get(1), false);
+        String[] resourceLeft = clientDeck.generateCardById(drawableCardsIds.get(2), true);
+        String[] resourceRight = clientDeck.generateCardById(drawableCardsIds.get(3), true);
 
+        String[] goldenDeck = clientDeck.generateCardById(drawableCardsIds.get(4), false);
+        String[] goldenLeft = clientDeck.generateCardById(drawableCardsIds.get(5), true);
+        String[] goldenRight = clientDeck.generateCardById(drawableCardsIds.get(6), true);
+
+        System.out.println("\n\n-> Drawable Cards: ");
+        //Carte Resource
+        System.out.println("\n\t\t   (1) \t\t\t\t\t\t\t   (2) \t\t\t\t\t\t\t   (3)");
+        for (int i = 0; i < resourceDeck.length; i++){
+            System.out.print(resourceDeck[i] + "\t\t");
+            System.out.print(resourceLeft[i] + "\t\t");
+            System.out.print(resourceRight[i]);
+            if (i == 3) System.out.print("\t\t Resource Cards");
+            System.out.print("\n");
+        }
+        //Carte back
+        for (int i = 0; i < goldenDeck.length; i++){
+            System.out.print(goldenDeck[i] + "\t\t");
+            System.out.print(goldenLeft[i] + "\t\t");
+            System.out.print(goldenRight[i]);
+            if (i == 3) System.out.print("\t\t Golden cards");
+            System.out.print("\n");
+        }
+        System.out.println("\t\t   (4) \t\t\t\t\t\t\t   (5) \t\t\t\t\t\t\t   (6)");
+        new Thread(this::chooseCardToDraw).start();
+    }
+
+    private void chooseCardToDraw(){
+        System.out.println(DefaultValue.ANSI_YELLOW + "Choose which card you want to draw: " + DefaultValue.ANSI_RESET);
+        Scanner scanner = new Scanner(System.in);
+        String input = scanner.nextLine();
+        while (input.isEmpty() || (!input.equals("1") && !input.equals("2") && !input.equals("3") && !input.equals("4") && !input.equals("5") && !input.equals("6"))){
+            System.out.println(DefaultValue.ANSI_RED + "Wrong choice" + DefaultValue.ANSI_RESET);
+            input = scanner.nextLine();
+        }
+        int cardSelected = Integer.parseInt(input);
+
+        networkClient.drawCard(cardSelected);
+    }
 
 }

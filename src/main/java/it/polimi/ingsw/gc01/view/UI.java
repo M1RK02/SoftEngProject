@@ -4,6 +4,7 @@ import it.polimi.ingsw.gc01.model.player.PlayerColor;
 import it.polimi.ingsw.gc01.model.player.Position;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 public interface UI {
@@ -19,4 +20,6 @@ public interface UI {
     void updateReady(String playerName, boolean ready);
     void startGame();
     void updateField(int id, boolean front, Position position, Set<Position> availablePositions);
+    //MIO void updateField(int id, int x, int y, boolean front);
+    void showTable(Map<Integer, Integer> drawableCardsIds);
 }

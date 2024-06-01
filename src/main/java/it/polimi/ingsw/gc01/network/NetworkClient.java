@@ -23,7 +23,7 @@ public interface NetworkClient {
 
     void playCard(int cardId, int x, int y);
 
-    void drawCard(TablePosition card);
+    void drawCard(int choice);
 
     void leave();
 }

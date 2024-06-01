@@ -23,7 +23,7 @@ public interface VirtualServer extends Remote {
 
     void playCard(String playerName, String roomId, int cardId, int x, int y) throws RemoteException;
 
-    void drawCard(String playerName, String roomId, TablePosition card) throws RemoteException;
+    void drawCard(String playerName, String roomId, int choice) throws RemoteException;
 
     void leave(String playerName, String roomId) throws RemoteException;
 }

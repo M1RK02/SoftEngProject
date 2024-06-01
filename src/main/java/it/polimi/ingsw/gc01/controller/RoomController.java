@@ -174,6 +174,8 @@ public class RoomController {
                     showHand();
                 } else {
                     changeStateIfTwenty();
+                    showField();
+                    showHand();
                 }
                 // continua gioco normale
                 break;
@@ -302,6 +304,7 @@ public class RoomController {
         Player player = room.getPlayerByName(playerName);
         PlayableCard card = null;
         ObserverManager notifier = room.getNotifier();
+        boolean start = false;
 
         if (!room.getCurrentPlayer().equals(player)){
             notifier.showError(playerName, "Its not your turn");
@@ -338,7 +341,10 @@ public class RoomController {
 
         if (card instanceof StarterCard){
             nextPlayer();
+            start = true;
         }
+
+        if (!start) notifier.showTable(playerName, room.getDrawableCards());
     }
 
     /**

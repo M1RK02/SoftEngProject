@@ -40,7 +40,7 @@ public class VirtualViewStub implements VirtualView {
     }
 
     @Override
-    public void showTable(Map<TablePosition, Integer> drawableCardsIds) throws RemoteException {
+    public void showTable(Map<Integer, Integer> drawableCardsIds) throws RemoteException {
 
     }
 

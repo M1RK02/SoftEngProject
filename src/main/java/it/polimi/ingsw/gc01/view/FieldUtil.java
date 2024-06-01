@@ -22,7 +22,11 @@ public class FieldUtil {
 
     public void setAvailablePositions(Set<Position> availablePositions) {
         this.availablePositions = availablePositions;
-    };
+    }
+
+    public Set<Position> getAvailablePositions() {
+        return availablePositions;
+    }
 
     public void playCard(int id, boolean front, Position position) {
         cards.add(id);

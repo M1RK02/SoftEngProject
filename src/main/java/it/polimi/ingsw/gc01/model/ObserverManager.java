@@ -93,25 +93,31 @@ public class ObserverManager {
         }
     }
 
+    public void showTable (String playerName, Map<TablePosition, ResourceCard> drawableCards){
+        VirtualView client = observers.get(playerName);
+        Map<Integer, Integer> drawableIds = new HashMap<>();
+        for (TablePosition position : TablePosition.values()){
+            switch (position){
+                case RESOURCEDECK -> drawableIds.put(1, drawableCards.get(TablePosition.RESOURCEDECK).getId());
+                case RESOURCELEFT -> drawableIds.put(2, drawableCards.get(TablePosition.RESOURCELEFT).getId());
+                case RESOURCERIGHT -> drawableIds.put(3, drawableCards.get(TablePosition.RESOURCERIGHT).getId());
+                case GOLDENDECK -> drawableIds.put(4, drawableCards.get(TablePosition.GOLDENDECK).getId());
+                case GOLDENLEFT -> drawableIds.put(5, drawableCards.get(TablePosition.GOLDENLEFT).getId());
+                case GOLDENRIGHT -> drawableIds.put(6, drawableCards.get(TablePosition.GOLDENRIGHT).getId());
+            }
+        }
+        try {
+            client.showTable(drawableIds);
+        } catch (RemoteException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
     public void showCommonObjectives(List<ObjectiveCard> commonObjectives){
         List<Integer> commonObjectivesIds = commonObjectives.stream().map(ObjectiveCard::getId).collect(Collectors.toList());
         for (VirtualView client : observers.values()) {
             try {
                 client.showCommonObjectives(commonObjectivesIds);
-            } catch (RemoteException e) {
-                throw new RuntimeException(e);
-            }
-        }
-    }
-
-    public void showTable (Map<TablePosition, ResourceCard> drawableCards){
-        Map<TablePosition, Integer> drawableCardsIds = new HashMap<>();
-        for (TablePosition tablePosition : drawableCards.keySet()) {
-            drawableCardsIds.put(tablePosition, drawableCards.get(tablePosition).getId());
-        }
-        for (VirtualView client : observers.values()) {
-            try {
-                client.showTable(drawableCardsIds);
             } catch (RemoteException e) {
                 throw new RuntimeException(e);
             }

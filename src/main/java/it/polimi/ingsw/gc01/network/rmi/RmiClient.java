@@ -159,12 +159,12 @@ public class RmiClient extends UnicastRemoteObject implements VirtualView, Netwo
     /**
      * asks stub to draw card from a certain Table position
      *
-     * @param card the position of the card to draw in the drawableCard positions
+     * @param choice the position of the card to draw in the drawableCard positions
      */
     @Override
-    public void drawCard(TablePosition card) {
+    public void drawCard(int choice) {
         try {
-            server.drawCard(this.playerName, this.roomId, card);
+            server.drawCard(this.playerName, this.roomId, choice);
         } catch (RemoteException e) {
             //TODO
             System.err.println("Server RMI not working!");
@@ -250,8 +250,8 @@ public class RmiClient extends UnicastRemoteObject implements VirtualView, Netwo
      * @param drawableCardsIds
      */
     @Override
-    public void showTable(Map<TablePosition, Integer> drawableCardsIds) throws RemoteException {
-        //TODO
+    public void showTable(Map<Integer, Integer> drawableCardsIds) throws RemoteException {
+        ui.showTable(drawableCardsIds);
     }
 
     /**
