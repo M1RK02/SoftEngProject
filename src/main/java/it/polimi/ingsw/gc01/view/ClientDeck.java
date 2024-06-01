@@ -7,7 +7,6 @@ import it.polimi.ingsw.gc01.model.Resource;
 import it.polimi.ingsw.gc01.model.cards.*;
 import it.polimi.ingsw.gc01.model.corners.*;
 import it.polimi.ingsw.gc01.model.decks.*;
-import it.polimi.ingsw.gc01.model.player.Position;
 import it.polimi.ingsw.gc01.model.strategy.*;
 
 import java.io.*;
@@ -37,15 +36,15 @@ public class ClientDeck {
         }
     }
 
-    public String[] generateAvailablePosition(Position position) {
+    public String[] generateAvailablePosition(int index) {
         String[] card = new String[7];
-        card[0] = "╔═══════════════════════╗";
-        card[1] = "║                       ║";
-        card[2] = "║                       ║";
-        card[3] = String.format("║      (%3d , %3d)      ║", position.getX(), position.getY());
-        card[4] = "║                       ║";
-        card[5] = "║                       ║";
-        card[6] = "╚═══════════════════════╝";
+        card[0] = "┌─ ── ── ── ─ ── ── ── ─┐";
+        card[1] = "                         ";
+        card[2] = "│                       │";
+        card[3] = String.format("           %2d            ", index);
+        card[4] = "│                       │";
+        card[5] = "                         ";
+        card[6] = "└─ ── ── ── ─ ── ── ── ─┘";
         return card;
     }
 

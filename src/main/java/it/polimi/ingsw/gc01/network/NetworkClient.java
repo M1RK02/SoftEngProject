@@ -1,12 +1,11 @@
 package it.polimi.ingsw.gc01.network;
 
 import it.polimi.ingsw.gc01.model.player.PlayerColor;
-import it.polimi.ingsw.gc01.model.room.TablePosition;
-
-import java.rmi.RemoteException;
+import it.polimi.ingsw.gc01.model.player.Position;
 
 public interface NetworkClient {
     String getRoomId();
+
     void createGame();
 
     void joinGame(String roomId);
@@ -21,7 +20,7 @@ public interface NetworkClient {
 
     void flipCard(int cardId);
 
-    void playCard(int cardId, int x, int y);
+    void playCard(int cardId, Position position);
 
     void drawCard(int choice);
 

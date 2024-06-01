@@ -33,7 +33,6 @@ public class RmiServer implements VirtualServer {
             registry.bind(DefaultValue.RMIServerName, stub);
             System.out.println("Server RMI ready");
         } catch (RemoteException | AlreadyBoundException e) {
-            //TODO
             System.out.println("Server RMI not working!");
         }
     }
@@ -51,7 +50,6 @@ public class RmiServer implements VirtualServer {
                     action.execute();
                 }
             } catch (InterruptedException e) {
-                //TODO
                 System.err.println("Il thread che esegue le Action è stato interrotto");
             }
         }).start();
@@ -69,7 +67,6 @@ public class RmiServer implements VirtualServer {
         try {
             actions.put(createGame);
         } catch (InterruptedException e) {
-            //TODO
             System.err.println("L'inserimento dell'azione createGame nella coda è stato interrotto.");
         }
     }
@@ -87,7 +84,6 @@ public class RmiServer implements VirtualServer {
         try {
             actions.put(joinGame);
         } catch (InterruptedException e) {
-            //TODO
             System.err.println("L'inserimento dell'azione joinGame nella coda è stato interrotto.");
         }
     }
@@ -104,7 +100,6 @@ public class RmiServer implements VirtualServer {
         try {
             actions.put(joinFirstGame);
         } catch (InterruptedException e) {
-            //TODO
             System.err.println("L'inserimento dell'azione joinFirstGame nella coda è stato interrotto.");
         }
     }
@@ -123,7 +118,6 @@ public class RmiServer implements VirtualServer {
         try {
             actions.put(chooseColor);
         } catch (InterruptedException e) {
-            //TODO
             System.err.println("L'inserimento dell'azione chooseColor nella coda è stato interrotto.");
         }
 
@@ -141,7 +135,6 @@ public class RmiServer implements VirtualServer {
         try {
             actions.put(switchReady);
         } catch (InterruptedException e) {
-            //TODO
             System.err.println("L'inserimento dell'azione changeReady nella coda è stato interrotto.");
         }
     }
@@ -159,7 +152,6 @@ public class RmiServer implements VirtualServer {
         try {
             actions.put(chooseSecretObjective);
         } catch (InterruptedException e) {
-            //TODO
             System.err.println("L'inserimento dell'azione chooseSecretObjective nella coda è stato interrotto.");
         }
     }
@@ -177,7 +169,6 @@ public class RmiServer implements VirtualServer {
         try {
             actions.put(flipCard);
         } catch (InterruptedException e) {
-            //TODO
             System.err.println("L'inserimento dell'azione fliCard nella coda è stato interrotto.");
         }
     }
@@ -188,16 +179,14 @@ public class RmiServer implements VirtualServer {
      * @param playerName The name of the player
      * @param roomId     The id of the room in which is the player who is making the action
      * @param cardId     The id of the card to play
-     * @param x          The x coordinate in the matrix of the player field
-     * @param y          The y coordinate in the matrix of the player field
+     * @param position   The position in the player field
      */
     @Override
-    public void playCard(String playerName, String roomId, int cardId, int x, int y) throws RemoteException {
-        PlayCardAction playCard = new PlayCardAction(playerName, mainController.getRooms().get(roomId), cardId, new Position(x, y));
+    public void playCard(String playerName, String roomId, int cardId, Position position) throws RemoteException {
+        PlayCardAction playCard = new PlayCardAction(playerName, mainController.getRooms().get(roomId), cardId, position);
         try {
             actions.put(playCard);
         } catch (InterruptedException e) {
-            //TODO
             System.err.println("L'inserimento dell'azione playCard nella coda è stato interrotto.");
         }
     }
@@ -215,7 +204,6 @@ public class RmiServer implements VirtualServer {
         try {
             actions.put(drawCard);
         } catch (InterruptedException e) {
-            //TODO
             System.err.println("L'inserimento dell'azione drawCard nella coda è stato interrotto.");
         }
     }
@@ -232,7 +220,6 @@ public class RmiServer implements VirtualServer {
         try {
             actions.put(leave);
         } catch (InterruptedException e) {
-            //TODO
             System.err.println("L'inserimento dell'azione leave nella coda è stato interrotto.");
         }
     }

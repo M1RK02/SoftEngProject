@@ -34,5 +34,5 @@ public interface VirtualView extends Remote {
 
     void serviceMessage(String message) throws RemoteException;
 
-    void updateField(int id, boolean front, Position position, Set<Position> availablePositions) throws RemoteException;
+    void updateField(int id, boolean front, Position position, List<Position> availablePositions) throws RemoteException;
 }

@@ -84,7 +84,7 @@ public class ObserverManager {
         }
     }
 
-    public void updateField (String playerName, int id, boolean front, Position position, Set<Position> availablePositions){
+    public void updateField (String playerName, int id, boolean front, Position position, List<Position> availablePositions){
         VirtualView client = observers.get(playerName);
         try {
             client.updateField(id, front, position, availablePositions);

@@ -19,6 +19,6 @@ public interface UI {
     void showPossibleObjectives(List<Integer> possibleObjectiveIds);
     void updateReady(String playerName, boolean ready);
     void startGame();
-    void updateField(int id, boolean front, Position position, Set<Position> availablePositions);
+    void updateField(int id, boolean front, Position position, List<Position> availablePositions);
     void showTable(Map<Integer, Integer> drawableCardsIds);
 }

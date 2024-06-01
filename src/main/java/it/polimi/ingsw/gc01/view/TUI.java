@@ -218,10 +218,10 @@ public class TUI implements UI {
         }
         int choice = Integer.parseInt(input);
         if (choice == 1){
-            networkClient.playCard(cardId, 0, 0);
+            networkClient.playCard(cardId, new Position(0, 0));
         } else {
             networkClient.flipCard(cardId);
-            networkClient.playCard(cardId, 0, 0);
+            networkClient.playCard(cardId, new Position (0,0));
         }
     }
 
@@ -280,7 +280,7 @@ public class TUI implements UI {
     }
 
     @Override
-    public void updateField(int id, boolean front, Position position, Set<Position> availablePositions){
+    public void updateField(int id, boolean front, Position position, List<Position> availablePositions){
         field.playCard(id, front, position);
         field.setAvailablePositions(availablePositions);
 
@@ -371,38 +371,29 @@ public class TUI implements UI {
         }
         int front = Integer.parseInt(input);
 
-        int x = 999, y = 1000;
-        while (!field.getAvailablePositions().contains(new Position(x,y))){
-            System.out.println("Choose the x coordinate where the card will be played: ");
+        int index = -1;
+        while (index == -1){
+            System.out.println("Choose the position where the card will be played: ");
             input = "";
             while (input.isEmpty()){
                 input = scanner.nextLine();
                 try {
-                    x = Integer.parseInt(input);
+                    index = Integer.parseInt(input);
                 } catch (NumberFormatException e){
-                    input = "";
+                    index = -1;
                     System.out.println(DefaultValue.ANSI_RED + "Wrong choice" + DefaultValue.ANSI_RESET);
                 }
             }
 
-            System.out.println("Choose the y coordinate where the card will be played: ");
-            input = "";
-            while (input.isEmpty()){
-                input = scanner.nextLine();
-                try {
-                    y = Integer.parseInt(input);
-                } catch (NumberFormatException e){
-                    input = "";
-                    System.out.println(DefaultValue.ANSI_RED + "Wrong choice" + DefaultValue.ANSI_RESET);
-                }
+            if (index < 0 || index >= field.getAvailablePositions().size()){
+                index = -1;
+                System.out.println(DefaultValue.ANSI_RED + "Position not available" + DefaultValue.ANSI_RESET);
             }
-
-            if (!field.getAvailablePositions().contains(new Position(x,y))) System.out.println(DefaultValue.ANSI_RED + "Position not available" + DefaultValue.ANSI_RESET);
         }
 
         if(front == 2)
             networkClient.flipCard(handIds.get(cardSelected));
-        networkClient.playCard(handIds.get(cardSelected), x, y);
+        networkClient.playCard(handIds.get(cardSelected), field.getAvailablePositions().get(index));
     }
 
     @Override

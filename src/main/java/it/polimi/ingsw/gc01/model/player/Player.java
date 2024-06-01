@@ -202,7 +202,7 @@ public class Player {
             updatePoints((ResourceCard) card, position);
         }
 
-        notifier.updateField(name, card.getId(), card.isFront(), position, field.getAvailablePositions());
+        notifier.updateField(name, card.getId(), card.isFront(), position, field.getAvailablePositions().stream().toList());
     }
 
     /**

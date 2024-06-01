@@ -70,7 +70,7 @@ public class VirtualViewStub implements VirtualView {
     }
 
     @Override
-    public void updateField(int id, boolean front, Position position, Set<Position> availablePositions) throws RemoteException {
+    public void updateField(int id, boolean front, Position position, List<Position> availablePositions) throws RemoteException {
 
     }
 

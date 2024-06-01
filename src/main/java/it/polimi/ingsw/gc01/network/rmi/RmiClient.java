@@ -135,13 +135,12 @@ public class RmiClient extends UnicastRemoteObject implements VirtualView, Netwo
      * asks stub to play the card in the position with coordinates x ,y
      *
      * @param cardId the id of the card to play
-     * @param x      the x coordinate in the matrix of the player field
-     * @param y      the y coordinate in the matrix of the player field
+     * @param position the position in the player field
      */
     @Override
-    public void playCard(int cardId, int x, int y) {
+    public void playCard(int cardId, Position position) {
         try {
-            server.playCard(this.playerName, this.roomId, cardId, x, y);
+            server.playCard(this.playerName, this.roomId, cardId, position);
         } catch (RemoteException e) {
             System.err.println("Server RMI not working!");
         }
@@ -183,7 +182,7 @@ public class RmiClient extends UnicastRemoteObject implements VirtualView, Netwo
     }
 
     @Override
-    public void updateField(int id, boolean front, Position position, Set<Position> availablePositions) throws RemoteException {
+    public void updateField(int id, boolean front, Position position, List<Position> availablePositions) throws RemoteException {
         ui.updateField(id, front, position, availablePositions);
     }
 

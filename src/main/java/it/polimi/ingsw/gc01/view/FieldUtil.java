@@ -10,7 +10,7 @@ public class FieldUtil {
     private final List<Integer> cards;
     private final Map<Integer, Boolean> side;
     private final Map<Integer, Position> field;
-    private Set<Position> availablePositions;
+    private List<Position> availablePositions;
     private final ClientDeck clientDeck;
 
     public FieldUtil(){
@@ -20,11 +20,11 @@ public class FieldUtil {
         clientDeck = new ClientDeck();
     }
 
-    public void setAvailablePositions(Set<Position> availablePositions) {
+    public void setAvailablePositions(List<Position> availablePositions) {
         this.availablePositions = availablePositions;
     }
 
-    public Set<Position> getAvailablePositions() {
+    public List<Position> getAvailablePositions() {
         return availablePositions;
     }
 
@@ -55,11 +55,12 @@ public class FieldUtil {
         String[] printableField = new String[204];
         Arrays.fill(printableField, new String(new char[1625]).replace('\u0000', ' '));
 
-        for (Position p : availablePositions) {
-            String[] card = clientDeck.generateAvailablePosition(p);
+        for (int i = 0 ; i < availablePositions.size(); i++) {
+            String[] card = clientDeck.generateAvailablePosition(i);
             for (int j = 0; j < card.length; j++) {
-                String riga = printableField[realY(p.getY())+j];
-                printableField[realY(p.getY())+j] = riga.substring(0, realX(p.getX())) + card[j] + riga.substring(realX(p.getX())+25, 1625);
+                Position position = availablePositions.get(i);
+                String riga = printableField[realY(position.getY())+j];
+                printableField[realY(position.getY())+j] = riga.substring(0, realX(position.getX())) + card[j] + riga.substring(realX(position.getX())+25, 1625);
             }
         }
 
