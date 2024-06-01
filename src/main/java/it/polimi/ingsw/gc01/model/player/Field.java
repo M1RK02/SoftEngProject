@@ -1,17 +1,14 @@
 package it.polimi.ingsw.gc01.model.player;
 
+import it.polimi.ingsw.gc01.model.cards.PlayableCard;
+import it.polimi.ingsw.gc01.model.corners.CornerPosition;
+
 import java.util.*;
 
-import it.polimi.ingsw.gc01.model.CornerValue;
-import it.polimi.ingsw.gc01.model.cards.*;
-import it.polimi.ingsw.gc01.model.corners.*;
-
-import static it.polimi.ingsw.gc01.model.CornerValue.EMPTY;
-
 public class Field {
-    private Map<Position, PlayableCard> positions;
-    private Set<Position> availablePositions;
-    private Set<Position> unavailablePositions;
+    private final Map<Position, PlayableCard> positions;
+    private final Set<Position> availablePositions;
+    private final Set<Position> unavailablePositions;
 
     public Field() {
         this.positions = new HashMap<Position, PlayableCard>();

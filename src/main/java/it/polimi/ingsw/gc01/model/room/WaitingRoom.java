@@ -1,11 +1,10 @@
 package it.polimi.ingsw.gc01.model.room;
 
-import java.util.*;
-
-import it.polimi.ingsw.gc01.model.DefaultValue;
-import it.polimi.ingsw.gc01.model.ObserverManager;
-import it.polimi.ingsw.gc01.model.player.*;
+import it.polimi.ingsw.gc01.model.*;
+import it.polimi.ingsw.gc01.model.player.Player;
 import it.polimi.ingsw.gc01.network.VirtualView;
+
+import java.util.*;
 
 public class WaitingRoom {
     private final String roomId;
@@ -20,6 +19,7 @@ public class WaitingRoom {
 
     /**
      * Randomly generates a room id
+     *
      * @return a 5 character string
      */
     private String generateRoomId() {
@@ -29,7 +29,7 @@ public class WaitingRoom {
         StringBuilder sb = new StringBuilder();
         Random random = new Random();
         int length = 5;
-        for(int i = 0; i < length; i++) {
+        for (int i = 0; i < length; i++) {
             int index = random.nextInt(alphaNumeric.length());
             char randomChar = alphaNumeric.charAt(index);
             sb.append(randomChar);
@@ -37,7 +37,7 @@ public class WaitingRoom {
         return sb.toString();
     }
 
-    public String getRoomId(){
+    public String getRoomId() {
         return roomId;
     }
 
@@ -49,9 +49,9 @@ public class WaitingRoom {
         return notifier;
     }
 
-    public Player getPlayerByName(String playerName){
-        for (Player player : players){
-            if (player.getName().equals(playerName)){
+    public Player getPlayerByName(String playerName) {
+        for (Player player : players) {
+            if (player.getName().equals(playerName)) {
                 return player;
             }
         }
@@ -60,15 +60,15 @@ public class WaitingRoom {
 
     /**
      * Add the player to the waiting room (the check for max size will be done by the controller)
-     * @param playerName chosen player name
      *
+     * @param playerName chosen player name
      */
-    public void addPlayer(String playerName, VirtualView client){
+    public void addPlayer(String playerName, VirtualView client) {
         players.add(new Player(playerName, notifier));
         notifier.addObserver(playerName, client);
         notifier.updateRoomId(playerName, roomId);
         StringBuilder message = new StringBuilder(DefaultValue.ANSI_BLUE + "[Current players in the room: ");
-        for (Player p : players){
+        for (Player p : players) {
             message.append("- ").append(p.getName()).append(" ");
         }
         message.append("]\n" + DefaultValue.ANSI_RESET);
@@ -81,17 +81,16 @@ public class WaitingRoom {
      *
      * @param player the player to remove
      */
-    public void removePlayer(Player player){
+    public void removePlayer(Player player) {
         players.remove(player);
         notifier.removeObserver(player.getName());
         notifier.serviceMessage(DefaultValue.ANSI_RED + "-> " + player.getName() + " left the room!" + DefaultValue.ANSI_RESET);
     }
 
     /**
-     *
      * @return true if there are at least 2 players and they are all ready to start, else false
      */
-    public boolean readyToStart(){
+    public boolean readyToStart() {
         //If every player is ready, the game starts
         return players.stream()
                 .filter(Player::isReady)

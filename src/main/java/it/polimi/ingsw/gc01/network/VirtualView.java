@@ -1,8 +1,6 @@
 package it.polimi.ingsw.gc01.network;
 
-import it.polimi.ingsw.gc01.model.player.PlayerColor;
-import it.polimi.ingsw.gc01.model.player.Position;
-import it.polimi.ingsw.gc01.model.room.TablePosition;
+import it.polimi.ingsw.gc01.model.player.*;
 
 import java.rmi.*;
 import java.util.*;

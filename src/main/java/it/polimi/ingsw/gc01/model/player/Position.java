@@ -23,8 +23,7 @@ public class Position implements Serializable {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof Position)) return false;
-        Position position = (Position) o;
+        if (!(o instanceof Position position)) return false;
         return getX() == position.getX() && getY() == position.getY();
     }
 

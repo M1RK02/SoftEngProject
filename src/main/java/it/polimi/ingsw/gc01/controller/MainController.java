@@ -16,7 +16,8 @@ public class MainController {
      */
     private final Map<String, RoomController> rooms = new HashMap<>();
 
-    private MainController(){}
+    private MainController() {
+    }
 
     /**
      * Singleton Pattern
@@ -38,7 +39,7 @@ public class MainController {
      * Create a new room
      *
      * @param playerName name of the player who wants to create the Room
-     * @param client reference to the client
+     * @param client     reference to the client
      */
     public void createGame(String playerName, VirtualView client) {
         RoomController roomController = new RoomController();
@@ -50,15 +51,15 @@ public class MainController {
      * Join the room with the given id
      *
      * @param playerName the name of the player who wants to join the room
-     * @param client reference to the client
-     * @param roomId the id of the room you want to join
+     * @param client     reference to the client
+     * @param roomId     the id of the room you want to join
      */
-    public void joinGame(String playerName, VirtualView client, String roomId){
+    public void joinGame(String playerName, VirtualView client, String roomId) {
         String error = "";
-        if (rooms.get(roomId) != null){
+        if (rooms.get(roomId) != null) {
             try {
                 rooms.get(roomId).addPlayer(playerName, client);
-            } catch (Exception e){
+            } catch (Exception e) {
                 error = e.getMessage();
             }
         } else {
@@ -73,17 +74,18 @@ public class MainController {
      * Join the first available room
      *
      * @param playerName the name of the player who wants to join the room
-     * @param client reference to the client
+     * @param client     reference to the client
      */
-    public void joinFirstGame(String playerName, VirtualView client){
+    public void joinFirstGame(String playerName, VirtualView client) {
         boolean joined = false;
         Iterator<RoomController> iterator = rooms.values().iterator();
-        while(!joined && iterator.hasNext()){
+        while (!joined && iterator.hasNext()) {
             RoomController room = iterator.next();
             try {
                 room.addPlayer(playerName, client);
                 joined = true;
-            } catch (Exception ignored) {}
+            } catch (Exception ignored) {
+            }
         }
         if (!joined) {
             sendErrorToClient(client, "MAIN No rooms available");

@@ -1,10 +1,11 @@
 package it.polimi.ingsw.gc01.model.decks;
 
-import java.lang.reflect.Type;
-import java.util.stream.Stream;
 import com.google.gson.*;
 import it.polimi.ingsw.gc01.model.*;
-import it.polimi.ingsw.gc01.model.corners.*;
+import it.polimi.ingsw.gc01.model.corners.CardResource;
+
+import java.lang.reflect.Type;
+import java.util.stream.Stream;
 
 public class CardResourcesDeserializer implements JsonDeserializer<CardResource> {
     public CardResource deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) throws JsonParseException {

@@ -8,8 +8,8 @@ public abstract class MainAction extends Action {
     /**
      * Create a new action for the MainController
      *
-     * @param playerName     the name of the player who is creating the action
-     * @param client         the client of the player who is creating the action
+     * @param playerName the name of the player who is creating the action
+     * @param client     the client of the player who is creating the action
      */
     public MainAction(String playerName, VirtualView client) {
         super(playerName);

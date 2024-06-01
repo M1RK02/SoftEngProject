@@ -10,13 +10,13 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 public class ObserverManager {
-    private Map<String, VirtualView> observers;
+    private final Map<String, VirtualView> observers;
 
     public ObserverManager() {
         observers = new HashMap<>();
     }
 
-    public void addObserver (String playerName, VirtualView client) {
+    public void addObserver(String playerName, VirtualView client) {
         observers.put(playerName, client);
     }
 
@@ -28,7 +28,7 @@ public class ObserverManager {
         return observers.get(playerName);
     }
 
-    public void updateRoomId (String playerName, String roomId){
+    public void updateRoomId(String playerName, String roomId) {
         VirtualView client = observers.get(playerName);
         try {
             client.updateRoomId(roomId);
@@ -37,7 +37,7 @@ public class ObserverManager {
         }
     }
 
-    public void startGame(){
+    public void startGame() {
         for (VirtualView client : observers.values()) {
             try {
                 client.startGame();
@@ -47,7 +47,7 @@ public class ObserverManager {
         }
     }
 
-    public void updateCurrentPlayer (String playerName) {
+    public void updateCurrentPlayer(String playerName) {
         for (VirtualView client : observers.values()) {
             try {
                 client.updateCurrentPlayer(playerName);
@@ -57,7 +57,7 @@ public class ObserverManager {
         }
     }
 
-    public void showStarter (String playerName, StarterCard card){
+    public void showStarter(String playerName, StarterCard card) {
         VirtualView client = observers.get(playerName);
         try {
             client.showStarter(card.getId());
@@ -65,7 +65,8 @@ public class ObserverManager {
             throw new RuntimeException(e);
         }
     }
-    public void showAvailableColor (String playerName, List<PlayerColor> colors){
+
+    public void showAvailableColor(String playerName, List<PlayerColor> colors) {
         VirtualView client = observers.get(playerName);
         try {
             client.showAvailableColors(colors);
@@ -74,7 +75,7 @@ public class ObserverManager {
         }
     }
 
-    public void updateReady (String playerName, boolean ready){
+    public void updateReady(String playerName, boolean ready) {
         for (VirtualView client : observers.values()) {
             try {
                 client.updateReady(playerName, ready);
@@ -84,7 +85,7 @@ public class ObserverManager {
         }
     }
 
-    public void updateField (String playerName, int id, boolean front, Position position, List<Position> availablePositions){
+    public void updateField(String playerName, int id, boolean front, Position position, List<Position> availablePositions) {
         VirtualView client = observers.get(playerName);
         try {
             client.updateField(id, front, position, availablePositions);
@@ -93,11 +94,11 @@ public class ObserverManager {
         }
     }
 
-    public void showTable (String playerName, Map<TablePosition, ResourceCard> drawableCards){
+    public void showTable(String playerName, Map<TablePosition, ResourceCard> drawableCards) {
         VirtualView client = observers.get(playerName);
         Map<Integer, Integer> drawableIds = new HashMap<>();
-        for (TablePosition position : TablePosition.values()){
-            switch (position){
+        for (TablePosition position : TablePosition.values()) {
+            switch (position) {
                 case RESOURCEDECK -> drawableIds.put(1, drawableCards.get(TablePosition.RESOURCEDECK).getId());
                 case RESOURCELEFT -> drawableIds.put(2, drawableCards.get(TablePosition.RESOURCELEFT).getId());
                 case RESOURCERIGHT -> drawableIds.put(3, drawableCards.get(TablePosition.RESOURCERIGHT).getId());
@@ -113,7 +114,7 @@ public class ObserverManager {
         }
     }
 
-    public void showCommonObjectives(List<ObjectiveCard> commonObjectives){
+    public void showCommonObjectives(List<ObjectiveCard> commonObjectives) {
         List<Integer> commonObjectivesIds = commonObjectives.stream().map(ObjectiveCard::getId).collect(Collectors.toList());
         for (VirtualView client : observers.values()) {
             try {
@@ -124,7 +125,7 @@ public class ObserverManager {
         }
     }
 
-    public void showHand (String playerName, List<PlayableCard> hand){
+    public void showHand(String playerName, List<PlayableCard> hand) {
         List<Integer> handIds = hand.stream().map(PlayableCard::getId).collect(Collectors.toList());
         VirtualView client = observers.get(playerName);
         try {
@@ -134,7 +135,7 @@ public class ObserverManager {
         }
     }
 
-    public void showField (String playerName){
+    public void showField(String playerName) {
         VirtualView client = observers.get(playerName);
         try {
             client.showField(playerName);
@@ -143,7 +144,7 @@ public class ObserverManager {
         }
     }
 
-    public void showSecretObjectives (String playerName, List<ObjectiveCard> possibleObjectives){
+    public void showSecretObjectives(String playerName, List<ObjectiveCard> possibleObjectives) {
         VirtualView client = observers.get(playerName);
         List<Integer> possibleObjectivesIds = possibleObjectives.stream().map(ObjectiveCard::getId).collect(Collectors.toList());
         try {
@@ -153,7 +154,7 @@ public class ObserverManager {
         }
     }
 
-    public void showError(String playerName, String error){
+    public void showError(String playerName, String error) {
         VirtualView client = observers.get(playerName);
         try {
             client.showError(error);
@@ -162,7 +163,7 @@ public class ObserverManager {
         }
     }
 
-    public void serviceMessage(String message){
+    public void serviceMessage(String message) {
         for (VirtualView client : observers.values()) {
             try {
                 client.serviceMessage(message);
@@ -172,7 +173,7 @@ public class ObserverManager {
         }
     }
 
-    public void addressedServiceMessage(String playerName, String message){
+    public void addressedServiceMessage(String playerName, String message) {
         VirtualView client = observers.get(playerName);
         try {
             client.serviceMessage(message);

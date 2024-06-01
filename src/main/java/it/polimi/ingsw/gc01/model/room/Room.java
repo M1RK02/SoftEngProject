@@ -1,25 +1,24 @@
 package it.polimi.ingsw.gc01.model.room;
 
-import java.util.*;
-
-import it.polimi.ingsw.gc01.model.DefaultValue;
 import it.polimi.ingsw.gc01.model.ObserverManager;
 import it.polimi.ingsw.gc01.model.cards.*;
 import it.polimi.ingsw.gc01.model.decks.*;
 import it.polimi.ingsw.gc01.model.player.*;
 
+import java.util.*;
+
 public class Room {
     private final String roomId;
     private final List<Player> players;
-    private List<PlayerColor> availableColors;
+    private final List<PlayerColor> availableColors;
+    private final GoldenDeck goldenDeck;
+    private final ResourceDeck resourceDeck;
+    private final ObjectiveDeck objectiveDeck;
+    private final StarterDeck starterDeck;
+    private final List<ObjectiveCard> commonObjectives;
+    private final Map<TablePosition, ResourceCard> drawableCards;
+    private final ObserverManager notifier;
     private Player currentPlayer;
-    private GoldenDeck goldenDeck;
-    private ResourceDeck resourceDeck;
-    private ObjectiveDeck objectiveDeck;
-    private StarterDeck starterDeck;
-    private List<ObjectiveCard> commonObjectives;
-    private Map<TablePosition, ResourceCard> drawableCards;
-    private ObserverManager notifier;
 
     public Room(String roomId, List<Player> players, ObserverManager notifier) {
         this.roomId = roomId;
@@ -76,6 +75,11 @@ public class Room {
         return currentPlayer;
     }
 
+    public void setCurrentPlayer(Player currentPlayer) {
+        this.currentPlayer = currentPlayer;
+        notifier.updateCurrentPlayer(currentPlayer.getName());
+    }
+
     public StarterDeck getStarterDeck() {
         return starterDeck;
     }
@@ -100,14 +104,9 @@ public class Room {
         return notifier;
     }
 
-    public void setCurrentPlayer(Player currentPlayer) {
-        this.currentPlayer = currentPlayer;
-        notifier.updateCurrentPlayer(currentPlayer.getName());
-    }
-
-    public Player getPlayerByName(String playerName){
-        for (Player player : players){
-            if (player.getName().equals(playerName)){
+    public Player getPlayerByName(String playerName) {
+        for (Player player : players) {
+            if (player.getName().equals(playerName)) {
                 return player;
             }
         }
@@ -116,15 +115,17 @@ public class Room {
 
     /**
      * Return the next player
+     *
      * @return the next player
      */
     public Player getNextPlayer() {
         int currentPlayerIndex = players.indexOf(getCurrentPlayer());
-        return currentPlayerIndex == players.size() - 1 ? players.get(0) : players.get(currentPlayerIndex+1);
+        return currentPlayerIndex == players.size() - 1 ? players.get(0) : players.get(currentPlayerIndex + 1);
     }
 
     /**
      * Return the Map of drawable cards: the four in the center + the two on top of the decks
+     *
      * @return the Map of drawable cards
      */
     public Map<TablePosition, ResourceCard> getDrawableCards() {
@@ -133,6 +134,7 @@ public class Room {
 
     /**
      * Get the game winners
+     *
      * @return the list of winners
      */
     public List<Player> getWinners() {
@@ -153,7 +155,7 @@ public class Room {
      *
      * @param player the player to remove
      */
-    public void removePlayer(Player player){
+    public void removePlayer(Player player) {
         players.remove(player);
     }
 }

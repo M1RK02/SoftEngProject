@@ -60,7 +60,7 @@ public class GoldenCard extends ResourceCard {
     }
 
     /**
-     * @param player for whom to calculate the points earned after placing the golden card in his field.
+     * @param player   for whom to calculate the points earned after placing the golden card in his field.
      * @param position on which the golden card has been played.
      * @return number of points earned after placing the golden card
      */

@@ -1,70 +1,22 @@
 package it.polimi.ingsw.gc01.view;
 
 import it.polimi.ingsw.gc01.model.DefaultValue;
-import it.polimi.ingsw.gc01.model.player.PlayerColor;
-import it.polimi.ingsw.gc01.model.player.Position;
+import it.polimi.ingsw.gc01.model.player.*;
 import it.polimi.ingsw.gc01.network.NetworkClient;
 import it.polimi.ingsw.gc01.network.rmi.RmiClient;
 
 import java.util.*;
 
 public class TUI implements UI {
-    private NetworkClient networkClient;
     private final ClientDeck clientDeck;
-    private FieldUtil field;
+    private final FieldUtil field;
+    private NetworkClient networkClient;
     private List<Integer> handIds;
 
-    public TUI(){
+    public TUI() {
         clientDeck = new ClientDeck();
         field = new FieldUtil();
         start();
-    }
-
-    public void start() {
-        String playerName = askPlayerName();
-        askServerIP();
-        askPlayerIP();
-        createRMIClient(playerName);
-        new Thread(this::askModalityToEnterGame).start();
-    }
-
-    private String askPlayerName(){
-        Scanner scanner = new Scanner(System.in);
-        String input = "";
-        while (input.isEmpty()){
-            System.out.println("Type in the nickname that you want to use to play CODEX NATURALIS (lazzar edition)");
-            input = scanner.nextLine();
-            if (input.isEmpty()){
-                System.out.println(DefaultValue.ANSI_RED + "Name can't be empty" + DefaultValue.ANSI_RESET);
-            }
-        }
-        return input;
-    }
-
-    private void askServerIP(){
-        String input;
-        do {
-            System.out.println("Type in the Remote IP or leave empty for localhost:");
-            input = new Scanner(System.in).nextLine();
-            if (!input.isEmpty() && !isValidIP(input)){
-                System.out.println(DefaultValue.ANSI_RED + "Not valid ip" + DefaultValue.ANSI_RESET);
-            }
-        } while(!input.isEmpty() && !isValidIP(input));
-        if (!input.isEmpty())
-            DefaultValue.ServerIp = input;
-    }
-
-    private void askPlayerIP(){
-        String input;
-        do {
-            System.out.println("Type in your IP or leave empty for localhost:");
-            input = new Scanner(System.in).nextLine();
-            if (!input.isEmpty() && !isValidIP(input)){
-                System.out.println(DefaultValue.ANSI_RED + "Not valid ip" + DefaultValue.ANSI_RESET);
-            }
-        } while(!input.isEmpty() && !isValidIP(input));
-        if (!input.isEmpty())
-            System.setProperty("java.rmi.server.hostname", input);
     }
 
     private static boolean isValidIP(String input) {
@@ -83,10 +35,57 @@ public class TUI implements UI {
         return true;
     }
 
+    public void start() {
+        String playerName = askPlayerName();
+        askServerIP();
+        askPlayerIP();
+        createRMIClient(playerName);
+        new Thread(this::askModalityToEnterGame).start();
+    }
+
+    private String askPlayerName() {
+        Scanner scanner = new Scanner(System.in);
+        String input = "";
+        while (input.isEmpty()) {
+            System.out.println("Type in the nickname that you want to use to play CODEX NATURALIS (lazzar edition)");
+            input = scanner.nextLine();
+            if (input.isEmpty()) {
+                System.out.println(DefaultValue.ANSI_RED + "Name can't be empty" + DefaultValue.ANSI_RESET);
+            }
+        }
+        return input;
+    }
+
+    private void askServerIP() {
+        String input;
+        do {
+            System.out.println("Type in the Remote IP or leave empty for localhost:");
+            input = new Scanner(System.in).nextLine();
+            if (!input.isEmpty() && !isValidIP(input)) {
+                System.out.println(DefaultValue.ANSI_RED + "Not valid ip" + DefaultValue.ANSI_RESET);
+            }
+        } while (!input.isEmpty() && !isValidIP(input));
+        if (!input.isEmpty())
+            DefaultValue.ServerIp = input;
+    }
+
+    private void askPlayerIP() {
+        String input;
+        do {
+            System.out.println("Type in your IP or leave empty for localhost:");
+            input = new Scanner(System.in).nextLine();
+            if (!input.isEmpty() && !isValidIP(input)) {
+                System.out.println(DefaultValue.ANSI_RED + "Not valid ip" + DefaultValue.ANSI_RESET);
+            }
+        } while (!input.isEmpty() && !isValidIP(input));
+        if (!input.isEmpty())
+            System.setProperty("java.rmi.server.hostname", input);
+    }
+
     private void createRMIClient(String playerName) {
-        try{
+        try {
             networkClient = new RmiClient(playerName, this);
-        } catch (Exception e){
+        } catch (Exception e) {
             System.out.println(DefaultValue.ANSI_RED + "Cannot instance RmiClient" + DefaultValue.ANSI_RESET);
         }
     }
@@ -104,8 +103,9 @@ public class TUI implements UI {
         int choice = 0;
         try {
             choice = Integer.parseInt(input);
-        } catch (Exception ignored){}
-        switch (choice){
+        } catch (Exception ignored) {
+        }
+        switch (choice) {
             case (1):
                 networkClient.createGame();
                 break;
@@ -115,7 +115,7 @@ public class TUI implements UI {
             case (3):
                 System.out.println("Type the roomId of the Game you want to join...");
                 String roomId = scanner.nextLine();
-                while (!checkRoomId(roomId)){
+                while (!checkRoomId(roomId)) {
                     System.out.println(DefaultValue.ANSI_RED + "RoomId not valid" + DefaultValue.ANSI_RESET);
                     roomId = scanner.nextLine();
                 }
@@ -130,34 +130,34 @@ public class TUI implements UI {
         }
     }
 
-    private void askReady(){
+    private void askReady() {
         String input = "";
         System.out.println(DefaultValue.ANSI_YELLOW + """
-                        (y) to ready up
-                        (l) to leave
-                        """ + DefaultValue.ANSI_RESET);
+                (y) to ready up
+                (l) to leave
+                """ + DefaultValue.ANSI_RESET);
         Scanner scanner = new Scanner(System.in);
-        while (true){
+        while (true) {
             input = scanner.nextLine();
-            if (input.equals("l")){
+            if (input.equals("l")) {
                 networkClient.leave();
                 new Thread(this::askModalityToEnterGame).start();
                 return;
             }
-            if (input.equals("y")){
+            if (input.equals("y")) {
                 networkClient.switchReady();
                 return;
             }
         }
     }
 
-    private boolean checkRoomId(String roomId){
+    private boolean checkRoomId(String roomId) {
         return roomId.length() == 5;
     }
 
     @Override
     public void showRoom(String roomId) {
-        System.out.println(DefaultValue.ANSI_BLUE + "\n\n[Joined room with id: "+ roomId + "]" + DefaultValue.ANSI_RESET);
+        System.out.println(DefaultValue.ANSI_BLUE + "\n\n[Joined room with id: " + roomId + "]" + DefaultValue.ANSI_RESET);
         new Thread(this::askReady).start();
     }
 
@@ -180,8 +180,8 @@ public class TUI implements UI {
     @Override
     public void showError(String error) {
         String type = error.substring(0, error.indexOf(" "));
-        String message = error.substring(error.indexOf(" ")+1);
-        switch(type) {
+        String message = error.substring(error.indexOf(" ") + 1);
+        switch (type) {
             case "MAIN":
                 System.out.println(DefaultValue.ANSI_RED + message + DefaultValue.ANSI_RESET);
                 new Thread(this::askModalityToEnterGame).start();
@@ -196,10 +196,10 @@ public class TUI implements UI {
         System.out.println(message);
     }
 
-    public void showStarter(int cardId){
+    public void showStarter(int cardId) {
         String[] cardFront = clientDeck.generateCardById(cardId, true);
         String[] cardBack = clientDeck.generateCardById(cardId, false);
-        for (int i = 0; i < cardFront.length; i++){
+        for (int i = 0; i < cardFront.length; i++) {
             System.out.print(DefaultValue.ANSI_YELLOW + cardFront[i] + "\t\t");
             System.out.println(cardBack[i] + DefaultValue.ANSI_RESET);
         }
@@ -207,21 +207,21 @@ public class TUI implements UI {
         new Thread(() -> chooseStarter(cardId)).start();
     }
 
-    private void chooseStarter(int cardId){
+    private void chooseStarter(int cardId) {
         String input = "";
         Scanner scanner = new Scanner(System.in);
-        while (input.isEmpty() || (!input.equals("1") && !input.equals("2"))){
+        while (input.isEmpty() || (!input.equals("1") && !input.equals("2"))) {
             input = scanner.nextLine();
-            if (input.isEmpty() || (!input.equals("1") && !input.equals("2"))){
+            if (input.isEmpty() || (!input.equals("1") && !input.equals("2"))) {
                 System.out.println(DefaultValue.ANSI_RED + "Wrong choice" + DefaultValue.ANSI_RESET);
             }
         }
         int choice = Integer.parseInt(input);
-        if (choice == 1){
+        if (choice == 1) {
             networkClient.playCard(cardId, new Position(0, 0));
         } else {
             networkClient.flipCard(cardId);
-            networkClient.playCard(cardId, new Position (0,0));
+            networkClient.playCard(cardId, new Position(0, 0));
         }
     }
 
@@ -229,16 +229,20 @@ public class TUI implements UI {
      * @param availableColors The list of colors that are still available
      */
     @Override
-    public void showAvailableColors(List<PlayerColor> availableColors){
+    public void showAvailableColors(List<PlayerColor> availableColors) {
         System.out.println("Select your color:\n");
-        if (availableColors.contains(PlayerColor.RED)) System.out.println(DefaultValue.ANSI_RED +"(1) RED" + DefaultValue.ANSI_RESET);
-        if (availableColors.contains(PlayerColor.BLUE)) System.out.println(DefaultValue.ANSI_BLUE +"(2) BLUE" + DefaultValue.ANSI_RESET);
-        if (availableColors.contains(PlayerColor.GREEN)) System.out.println(DefaultValue.ANSI_GREEN +"(3) GREEN" + DefaultValue.ANSI_RESET);
-        if (availableColors.contains(PlayerColor.YELLOW)) System.out.println(DefaultValue.ANSI_YELLOW +"(4) YELLOW" + DefaultValue.ANSI_RESET);
+        if (availableColors.contains(PlayerColor.RED))
+            System.out.println(DefaultValue.ANSI_RED + "(1) RED" + DefaultValue.ANSI_RESET);
+        if (availableColors.contains(PlayerColor.BLUE))
+            System.out.println(DefaultValue.ANSI_BLUE + "(2) BLUE" + DefaultValue.ANSI_RESET);
+        if (availableColors.contains(PlayerColor.GREEN))
+            System.out.println(DefaultValue.ANSI_GREEN + "(3) GREEN" + DefaultValue.ANSI_RESET);
+        if (availableColors.contains(PlayerColor.YELLOW))
+            System.out.println(DefaultValue.ANSI_YELLOW + "(4) YELLOW" + DefaultValue.ANSI_RESET);
         new Thread(() -> chooseColor(availableColors)).start();
     }
 
-    private void chooseColor(List<PlayerColor> availableColors){
+    private void chooseColor(List<PlayerColor> availableColors) {
         String input = "";
         int choice = 0;
         Scanner scanner = new Scanner(System.in);
@@ -271,7 +275,7 @@ public class TUI implements UI {
             }
         }
 
-        switch (choice){
+        switch (choice) {
             case 1 -> networkClient.chooseColor(PlayerColor.RED);
             case 2 -> networkClient.chooseColor(PlayerColor.BLUE);
             case 3 -> networkClient.chooseColor(PlayerColor.GREEN);
@@ -280,7 +284,7 @@ public class TUI implements UI {
     }
 
     @Override
-    public void updateField(int id, boolean front, Position position, List<Position> availablePositions){
+    public void updateField(int id, boolean front, Position position, List<Position> availablePositions) {
         field.playCard(id, front, position);
         field.setAvailablePositions(availablePositions);
 
@@ -288,7 +292,7 @@ public class TUI implements UI {
 
     @Override
     public void updateReady(String playerName, boolean ready) {
-        if(ready) {
+        if (ready) {
             System.out.println(DefaultValue.ANSI_YELLOW + "-> " + playerName + " is ready!" + DefaultValue.ANSI_RESET);
         } else {
             System.out.println(DefaultValue.ANSI_YELLOW + "-> " + playerName + " is not ready!" + DefaultValue.ANSI_RESET);
@@ -296,10 +300,10 @@ public class TUI implements UI {
     }
 
     @Override
-    public void showPossibleObjectives(List<Integer> possibleObjectiveIds){
+    public void showPossibleObjectives(List<Integer> possibleObjectiveIds) {
         String[] obj1 = clientDeck.generateCardById(possibleObjectiveIds.get(0), true);
         String[] obj2 = clientDeck.generateCardById(possibleObjectiveIds.get(1), true);
-        for (int i = 0; i < obj1.length; i++){
+        for (int i = 0; i < obj1.length; i++) {
             System.out.print(obj1[i] + "\t\t");
             System.out.println(obj2[i]);
         }
@@ -307,15 +311,15 @@ public class TUI implements UI {
         new Thread(() -> chooseSecret(possibleObjectiveIds.get(0), possibleObjectiveIds.get(1))).start();
     }
 
-    private void chooseSecret(int obj1, int obj2){
+    private void chooseSecret(int obj1, int obj2) {
         Scanner scanner = new Scanner(System.in);
         String input = scanner.nextLine();
-        while (input.isEmpty() || (!input.equals("1") && !input.equals("2"))){
+        while (input.isEmpty() || (!input.equals("1") && !input.equals("2"))) {
             System.out.println(DefaultValue.ANSI_RED + "Wrong choice" + DefaultValue.ANSI_RESET);
             input = scanner.nextLine();
         }
         int choice = Integer.parseInt(input);
-        if (choice == 1){
+        if (choice == 1) {
             networkClient.chooseSecretObjective(obj1);
         } else {
             networkClient.chooseSecretObjective(obj2);
@@ -334,7 +338,7 @@ public class TUI implements UI {
         String[] card3Back = clientDeck.generateCardById(handIds.get(2), false);
         System.out.println("\n\n-> Your hand:");
         //Carte front
-        for (int i = 0; i < card1Front.length; i++){
+        for (int i = 0; i < card1Front.length; i++) {
             System.out.print(card1Front[i] + "\t\t");
             System.out.print(card2Front[i] + "\t\t");
             System.out.print(card3Front[i]);
@@ -342,7 +346,7 @@ public class TUI implements UI {
             System.out.print("\n");
         }
         //Carte back
-        for (int i = 0; i < card1Front.length; i++){
+        for (int i = 0; i < card1Front.length; i++) {
             System.out.print(card1Back[i] + "\t\t");
             System.out.print(card2Back[i] + "\t\t");
             System.out.print(card3Back[i]);
@@ -353,11 +357,11 @@ public class TUI implements UI {
         new Thread(this::chooseCardToPlay).start();
     }
 
-    private void chooseCardToPlay(){
+    private void chooseCardToPlay() {
         System.out.println(DefaultValue.ANSI_YELLOW + "Choose which card you want to play: " + DefaultValue.ANSI_RESET);
         Scanner scanner = new Scanner(System.in);
         String input = scanner.nextLine();
-        while (input.isEmpty() || (!input.equals("1") && !input.equals("2") && !input.equals("3"))){
+        while (input.isEmpty() || (!input.equals("1") && !input.equals("2") && !input.equals("3"))) {
             System.out.println(DefaultValue.ANSI_RED + "Wrong choice" + DefaultValue.ANSI_RESET);
             input = scanner.nextLine();
         }
@@ -365,39 +369,39 @@ public class TUI implements UI {
 
         System.out.println("Choose (1) Front or (2) back: ");
         input = scanner.nextLine();
-        while (input.isEmpty() || (!input.equals("1") && !input.equals("2"))){
+        while (input.isEmpty() || (!input.equals("1") && !input.equals("2"))) {
             System.out.println(DefaultValue.ANSI_RED + "Wrong choice" + DefaultValue.ANSI_RESET);
             input = scanner.nextLine();
         }
         int front = Integer.parseInt(input);
 
         int index = -1;
-        while (index == -1){
+        while (index == -1) {
             System.out.println("Choose the position where the card will be played: ");
             input = "";
-            while (input.isEmpty()){
+            while (input.isEmpty()) {
                 input = scanner.nextLine();
                 try {
                     index = Integer.parseInt(input);
-                } catch (NumberFormatException e){
+                } catch (NumberFormatException e) {
                     index = -1;
                     System.out.println(DefaultValue.ANSI_RED + "Wrong choice" + DefaultValue.ANSI_RESET);
                 }
             }
 
-            if (index < 0 || index >= field.getAvailablePositions().size()){
+            if (index < 0 || index >= field.getAvailablePositions().size()) {
                 index = -1;
                 System.out.println(DefaultValue.ANSI_RED + "Position not available" + DefaultValue.ANSI_RESET);
             }
         }
 
-        if(front == 2)
+        if (front == 2)
             networkClient.flipCard(handIds.get(cardSelected));
         networkClient.playCard(handIds.get(cardSelected), field.getAvailablePositions().get(index));
     }
 
     @Override
-    public void showTable(Map<Integer, Integer> drawableCardsIds){
+    public void showTable(Map<Integer, Integer> drawableCardsIds) {
         String[] resourceDeck = clientDeck.generateCardById(drawableCardsIds.get(1), false);
         String[] resourceLeft = clientDeck.generateCardById(drawableCardsIds.get(2), true);
         String[] resourceRight = clientDeck.generateCardById(drawableCardsIds.get(3), true);
@@ -409,7 +413,7 @@ public class TUI implements UI {
         System.out.println("\n\n-> Drawable Cards: ");
         //Carte Resource
         System.out.println("\n\t\t   (1) \t\t\t\t\t\t\t   (2) \t\t\t\t\t\t\t   (3)");
-        for (int i = 0; i < resourceDeck.length; i++){
+        for (int i = 0; i < resourceDeck.length; i++) {
             System.out.print(resourceDeck[i] + "\t\t");
             System.out.print(resourceLeft[i] + "\t\t");
             System.out.print(resourceRight[i]);
@@ -417,7 +421,7 @@ public class TUI implements UI {
             System.out.print("\n");
         }
         //Carte back
-        for (int i = 0; i < goldenDeck.length; i++){
+        for (int i = 0; i < goldenDeck.length; i++) {
             System.out.print(goldenDeck[i] + "\t\t");
             System.out.print(goldenLeft[i] + "\t\t");
             System.out.print(goldenRight[i]);
@@ -428,11 +432,11 @@ public class TUI implements UI {
         new Thread(this::chooseCardToDraw).start();
     }
 
-    private void chooseCardToDraw(){
+    private void chooseCardToDraw() {
         System.out.println(DefaultValue.ANSI_YELLOW + "Choose which card you want to draw: " + DefaultValue.ANSI_RESET);
         Scanner scanner = new Scanner(System.in);
         String input = scanner.nextLine();
-        while (input.isEmpty() || (!input.equals("1") && !input.equals("2") && !input.equals("3") && !input.equals("4") && !input.equals("5") && !input.equals("6"))){
+        while (input.isEmpty() || (!input.equals("1") && !input.equals("2") && !input.equals("3") && !input.equals("4") && !input.equals("5") && !input.equals("6"))) {
             System.out.println(DefaultValue.ANSI_RED + "Wrong choice" + DefaultValue.ANSI_RESET);
             input = scanner.nextLine();
         }

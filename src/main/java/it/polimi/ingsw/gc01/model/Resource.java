@@ -7,5 +7,5 @@ public enum Resource implements CardResource, PlayerResource {
     ANIMAL,
     PLANT,
     FUNGI,
-    INSECT;
+    INSECT
 }

@@ -1,29 +1,30 @@
 package it.polimi.ingsw.gc01.model.player;
 
-import java.util.*;
 import it.polimi.ingsw.gc01.model.*;
 import it.polimi.ingsw.gc01.model.cards.*;
 import it.polimi.ingsw.gc01.model.corners.*;
 
+import java.util.*;
+
 import static it.polimi.ingsw.gc01.model.CornerValue.*;
 import static it.polimi.ingsw.gc01.model.Item.*;
 import static it.polimi.ingsw.gc01.model.Resource.*;
-import static it.polimi.ingsw.gc01.model.corners.CornerPosition.*;
 import static it.polimi.ingsw.gc01.model.cards.CardColor.*;
+import static it.polimi.ingsw.gc01.model.corners.CornerPosition.*;
 
 
 public class Player {
     private final String name;
+    private final Map<PlayerResource, Integer> resources;
+    private final List<PlayableCard> hand;
+    private final Field field;
+    private final List<ObjectiveCard> possibleObjectives;
+    private final ObserverManager notifier;
     private PlayerColor color;
     private int points;
     private int objectivePoints;
-    private Map<PlayerResource, Integer> resources;
-    private List<PlayableCard> hand;
-    private Field field;
     private ObjectiveCard secretObjective;
-    private List<ObjectiveCard> possibleObjectives;
     private boolean ready = false;
-    private ObserverManager notifier;
 
     public Player(String name, ObserverManager notifier) {
         this.name = name;
@@ -60,6 +61,13 @@ public class Player {
         return color;
     }
 
+    /**
+     * @param color set the player color to the chosen one
+     */
+    public void setColor(PlayerColor color) {
+        this.color = color;
+    }
+
     public int getPoints() {
         return points;
     }
@@ -88,12 +96,15 @@ public class Player {
         return secretObjective;
     }
 
+    public void setSecretObjective(ObjectiveCard secretObjective) {
+        this.secretObjective = secretObjective;
+    }
+
     public List<ObjectiveCard> getPossibleObjectives() {
         return possibleObjectives;
     }
 
     /**
-     *
      * @return the readiness of the player
      */
     public boolean isReady() {
@@ -102,18 +113,6 @@ public class Player {
 
     public ObserverManager getNotifier() {
         return notifier;
-    }
-
-    /**
-     *
-     * @param color set the player color to the chosen one
-     */
-    public void setColor(PlayerColor color){
-        this.color = color;
-    }
-
-    public void setSecretObjective(ObjectiveCard secretObjective) {
-        this.secretObjective = secretObjective;
     }
 
     /**
@@ -150,29 +149,29 @@ public class Player {
     }
 
     /**
-     * @param card to play on the player's field.
+     * @param card     to play on the player's field.
      * @param position where the player wants to place the card.
      */
-    public void playCard(PlayableCard card, Position position){
+    public void playCard(PlayableCard card, Position position) {
         Map<CornerPosition, Corner> corners = card.getCorners();
 
         //If card is an available card, check the side of the card
-        if (card instanceof StarterCard){
+        if (card instanceof StarterCard) {
             if (card.isFront()) {
                 addCenterResources((StarterCard) card);
-            }else {
+            } else {
                 corners = ((StarterCard) card).getBackCorners();
             }
-        }else if (!card.isFront()) {
+        } else if (!card.isFront()) {
             //Add center resources depending on the card color
             CardColor color = ((ResourceCard) card).getColor();
-            if(color.equals(RED)) {
+            if (color.equals(RED)) {
                 addResource(FUNGI);
-            }else if(color.equals(BLUE)) {
+            } else if (color.equals(BLUE)) {
                 addResource(ANIMAL);
-            }else if(color.equals(GREEN)) {
+            } else if (color.equals(GREEN)) {
                 addResource(PLANT);
-            }else if (color.equals(PURPLE)) {
+            } else if (color.equals(PURPLE)) {
                 addResource(INSECT);
             }
             //Set corners like a Map with four empty corners
@@ -207,19 +206,21 @@ public class Player {
 
     /**
      * PRIVATE METHOD FOR THE METHOD PLAY
-     * @param card just placed on the field for which to calculate the points the player earns.
+     *
+     * @param card     just placed on the field for which to calculate the points the player earns.
      * @param position of the card in the player's field
      */
     private void updatePoints(ResourceCard card, Position position) {
         if (card instanceof GoldenCard) {
             addPoints(((GoldenCard) card).calculatePoints(this, position));
-        }else {
+        } else {
             addPoints(card.getScore());
         }
     }
 
     /**
      * PRIVATE METHOD FOR THE METHOD PLAY
+     *
      * @param card is the Starter card of the player, this method adds to the PlayerResources the CardResources present in the card
      */
     private void addCenterResources(StarterCard card) {
@@ -230,6 +231,7 @@ public class Player {
 
     /**
      * PRIVATE METHOD FOR THE METHOD PLAY
+     *
      * @param corners is a map of a card's corners that are going to update the PlayerResource count
      *                this method is called when the player has just placed a card on hi field
      */
@@ -243,15 +245,15 @@ public class Player {
 
     /**
      * PRIVATE METHOD FOR THE METHOD PLAY
-     * @param adjacentCard map of the adjacentCards to cover in the player's field
      *
+     * @param adjacentCard map of the adjacentCards to cover in the player's field
      */
     private void coverAdjacentCorners(Map<CornerPosition, PlayableCard> adjacentCard) {
         for (CornerPosition cornerPosition : adjacentCard.keySet()) {
             Map<CornerPosition, Corner> corners;
-            if (adjacentCard.get(cornerPosition) instanceof StarterCard && !((StarterCard) adjacentCard.get(cornerPosition)).isFront()) {
-                corners = ((StarterCard)adjacentCard.get(cornerPosition)).getBackCorners();
-            }else{
+            if (adjacentCard.get(cornerPosition) instanceof StarterCard && !adjacentCard.get(cornerPosition).isFront()) {
+                corners = ((StarterCard) adjacentCard.get(cornerPosition)).getBackCorners();
+            } else {
                 corners = adjacentCard.get(cornerPosition).getCorners();
             }
             switch (cornerPosition) {
@@ -286,9 +288,10 @@ public class Player {
 
     /**
      * PRIVATE METHOD FOR THE METHOD PLAY
-     * @param corners of the card just played in the position
+     *
+     * @param corners      of the card just played in the position
      * @param adjacentCard map of the adjacent cards of the position
-     * @param position of the just played card in the player's field
+     * @param position     of the just played card in the player's field
      */
     private void updateAvailablePosition(Map<CornerPosition, Corner> corners, Map<CornerPosition, PlayableCard> adjacentCard, Position position) {
         for (CornerPosition cornerPosition : corners.keySet()) {
@@ -321,7 +324,7 @@ public class Player {
         if (corners.get(cornerPosition).getResource().equals(FULL)) {
             field.getUnavailablePositions().add(p);
             field.getAvailablePositions().remove(p);
-        }else {
+        } else {
             if (!field.getUnavailablePositions().contains(p)) {
                 field.getAvailablePositions().add(p);
             }

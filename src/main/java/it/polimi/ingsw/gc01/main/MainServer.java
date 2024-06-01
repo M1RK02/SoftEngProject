@@ -13,7 +13,7 @@ public class MainServer {
         do {
             System.out.println("Type in the Remote IP or leave empty for localhost:");
             input = new Scanner(System.in).nextLine();
-        } while(!input.isEmpty() && !isValidIP(input));
+        } while (!input.isEmpty() && !isValidIP(input));
 
         if (!input.isEmpty()) {
             DefaultValue.ServerIp = input;

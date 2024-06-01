@@ -1,11 +1,9 @@
 package it.polimi.ingsw.gc01.network.rmi;
 
-import it.polimi.ingsw.gc01.model.player.Position;
-import it.polimi.ingsw.gc01.view.UI;
 import it.polimi.ingsw.gc01.model.DefaultValue;
-import it.polimi.ingsw.gc01.model.player.PlayerColor;
-import it.polimi.ingsw.gc01.model.room.TablePosition;
+import it.polimi.ingsw.gc01.model.player.*;
 import it.polimi.ingsw.gc01.network.*;
+import it.polimi.ingsw.gc01.view.UI;
 
 import java.rmi.*;
 import java.rmi.registry.*;
@@ -14,9 +12,9 @@ import java.util.*;
 
 public class RmiClient extends UnicastRemoteObject implements VirtualView, NetworkClient {
     private final String playerName;
+    private final UI ui;
     private VirtualServer server;
     private String roomId;
-    private final UI ui;
 
     public RmiClient(String playerName, UI userInterface) throws RemoteException {
         this.playerName = playerName;
@@ -37,7 +35,7 @@ public class RmiClient extends UnicastRemoteObject implements VirtualView, Netwo
         }
     }
 
-    public String getRoomId(){
+    public String getRoomId() {
         return roomId;
     }
 
@@ -134,7 +132,7 @@ public class RmiClient extends UnicastRemoteObject implements VirtualView, Netwo
     /**
      * asks stub to play the card in the position with coordinates x ,y
      *
-     * @param cardId the id of the card to play
+     * @param cardId   the id of the card to play
      * @param position the position in the player field
      */
     @Override
@@ -176,9 +174,9 @@ public class RmiClient extends UnicastRemoteObject implements VirtualView, Netwo
      * @param roomId
      */
     @Override
-    public void updateRoomId(String roomId){
-       this.roomId = roomId;
-       ui.showRoom(roomId);
+    public void updateRoomId(String roomId) {
+        this.roomId = roomId;
+        ui.showRoom(roomId);
     }
 
     @Override
@@ -198,7 +196,7 @@ public class RmiClient extends UnicastRemoteObject implements VirtualView, Netwo
      * @param playerName
      */
     @Override
-    public void updateCurrentPlayer(String playerName){
+    public void updateCurrentPlayer(String playerName) {
         ui.showCurrentPlayer(playerName);
     }
 
@@ -206,7 +204,7 @@ public class RmiClient extends UnicastRemoteObject implements VirtualView, Netwo
      * @param cardId
      */
     @Override
-    public void showStarter(int cardId){
+    public void showStarter(int cardId) {
         ui.showStarter(cardId);
     }
 
@@ -214,7 +212,7 @@ public class RmiClient extends UnicastRemoteObject implements VirtualView, Netwo
      * @param availableColors
      */
     @Override
-    public void showAvailableColors(List<PlayerColor> availableColors){
+    public void showAvailableColors(List<PlayerColor> availableColors) {
         ui.showAvailableColors(availableColors);
     }
 
@@ -252,7 +250,6 @@ public class RmiClient extends UnicastRemoteObject implements VirtualView, Netwo
 
     /**
      * @param playerName
-     *
      */
     @Override
     public void showField(String playerName) throws RemoteException {

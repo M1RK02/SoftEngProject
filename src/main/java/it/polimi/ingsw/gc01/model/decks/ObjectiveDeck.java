@@ -1,8 +1,8 @@
 package it.polimi.ingsw.gc01.model.decks;
 
-import it.polimi.ingsw.gc01.model.cards.*;
+import it.polimi.ingsw.gc01.model.cards.ObjectiveCard;
 
-public class ObjectiveDeck extends Deck{
+public class ObjectiveDeck extends Deck {
     public ObjectiveDeck() {
         super("Objective");
     }
@@ -16,7 +16,7 @@ public class ObjectiveDeck extends Deck{
     }
 
     @Deprecated
-    public ObjectiveCard pickById(int id){
+    public ObjectiveCard pickById(int id) {
         return (ObjectiveCard) super.pickById(id);
     }
 }

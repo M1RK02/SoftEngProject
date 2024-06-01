@@ -1,8 +1,8 @@
 package it.polimi.ingsw.gc01.model.decks;
 
-import it.polimi.ingsw.gc01.model.cards.*;
+import it.polimi.ingsw.gc01.model.cards.ResourceCard;
 
-public class ResourceDeck extends Deck{
+public class ResourceDeck extends Deck {
     public ResourceDeck() {
         super("Resource");
     }
@@ -11,12 +11,12 @@ public class ResourceDeck extends Deck{
         return (ResourceCard) super.pick();
     }
 
-    public ResourceCard get(){
+    public ResourceCard get() {
         return (ResourceCard) super.get();
     }
 
     @Deprecated
-    public ResourceCard pickById(int id){
+    public ResourceCard pickById(int id) {
         return (ResourceCard) super.pickById(id);
     }
 }

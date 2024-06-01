@@ -3,7 +3,6 @@ package it.polimi.ingsw.gc01.network.rmi;
 import it.polimi.ingsw.gc01.controller.MainController;
 import it.polimi.ingsw.gc01.model.DefaultValue;
 import it.polimi.ingsw.gc01.model.player.*;
-import it.polimi.ingsw.gc01.model.room.TablePosition;
 import it.polimi.ingsw.gc01.network.VirtualView;
 import it.polimi.ingsw.gc01.network.actions.*;
 
@@ -16,7 +15,7 @@ public class RmiServer implements VirtualServer {
     private final MainController mainController;
     private final BlockingQueue<Action> actions;
 
-    public RmiServer(){
+    public RmiServer() {
         this.mainController = MainController.getInstance();
         actions = new ArrayBlockingQueue<Action>(100);
         bind();

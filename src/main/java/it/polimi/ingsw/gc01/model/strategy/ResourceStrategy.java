@@ -1,7 +1,7 @@
 package it.polimi.ingsw.gc01.model.strategy;
 
-import it.polimi.ingsw.gc01.model.*;
-import it.polimi.ingsw.gc01.model.player.*;
+import it.polimi.ingsw.gc01.model.Resource;
+import it.polimi.ingsw.gc01.model.player.Player;
 
 public class ResourceStrategy implements Strategy {
     private final Resource resource;
@@ -14,7 +14,7 @@ public class ResourceStrategy implements Strategy {
         return resource;
     }
 
-    public int check(Player player){
+    public int check(Player player) {
         return (player.getResources().get(resource) / 3) * 2;
     }
 }

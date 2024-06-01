@@ -8,7 +8,7 @@ public class DrawCardAction extends RoomAction {
 
     public DrawCardAction(String playerName, RoomController room, int choice) {
         super(playerName, room);
-        switch (choice){
+        switch (choice) {
             case 1 -> this.position = TablePosition.RESOURCEDECK;
             case 2 -> this.position = TablePosition.RESOURCELEFT;
             case 3 -> this.position = TablePosition.RESOURCERIGHT;

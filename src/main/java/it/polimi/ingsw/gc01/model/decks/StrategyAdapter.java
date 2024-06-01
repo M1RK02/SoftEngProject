@@ -1,11 +1,12 @@
 package it.polimi.ingsw.gc01.model.decks;
 
-import java.io.*;
-import com.google.gson.*;
+import com.google.gson.TypeAdapter;
 import com.google.gson.stream.*;
 import it.polimi.ingsw.gc01.model.*;
-import it.polimi.ingsw.gc01.model.cards.*;
+import it.polimi.ingsw.gc01.model.cards.CardColor;
 import it.polimi.ingsw.gc01.model.strategy.*;
+
+import java.io.IOException;
 
 public class StrategyAdapter extends TypeAdapter<Strategy> {
 
@@ -40,7 +41,7 @@ public class StrategyAdapter extends TypeAdapter<Strategy> {
         Strategy strategy = null;
         in.beginObject();
         String value = in.nextName();
-        switch(value) {
+        switch (value) {
             case "item":
                 Item item = Item.valueOf(in.nextString());
                 strategy = new ItemStrategy(item);

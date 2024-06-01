@@ -1,7 +1,6 @@
 package it.polimi.ingsw.gc01.network;
 
-import it.polimi.ingsw.gc01.model.player.PlayerColor;
-import it.polimi.ingsw.gc01.model.player.Position;
+import it.polimi.ingsw.gc01.model.player.*;
 
 public interface NetworkClient {
     String getRoomId();

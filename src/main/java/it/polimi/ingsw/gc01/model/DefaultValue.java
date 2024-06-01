@@ -3,9 +3,7 @@ package it.polimi.ingsw.gc01.model;
 public class DefaultValue {
     public static final int MaxNumOfPlayer = 4;
     public static final int MinNumOfPlayer = 2;
-    public static String ServerIp = "127.0.0.1";
     public static final String RMIServerName = "ServerLazzaro";
-    public static int RMIPort = 1234;
     public static final int Default_port_Socket = 1235;
     public static final String Remote_ip = "127.0.0.1";
     public static final String ANSI_RESET = "\u001B[0m";
@@ -17,4 +15,6 @@ public class DefaultValue {
     public static final String ANSI_PURPLE = "\u001B[35m";
     public static final String ANSI_CYAN = "\u001B[36m";
     public static final String ANSI_WHITE = "\u001B[37m";
+    public static String ServerIp = "127.0.0.1";
+    public static int RMIPort = 1234;
 }

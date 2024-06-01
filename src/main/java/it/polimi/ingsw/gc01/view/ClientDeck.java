@@ -1,22 +1,20 @@
 package it.polimi.ingsw.gc01.view;
 
 import com.google.gson.*;
-import it.polimi.ingsw.gc01.model.DefaultValue;
-import it.polimi.ingsw.gc01.model.Item;
-import it.polimi.ingsw.gc01.model.Resource;
+import it.polimi.ingsw.gc01.model.*;
 import it.polimi.ingsw.gc01.model.cards.*;
 import it.polimi.ingsw.gc01.model.corners.*;
 import it.polimi.ingsw.gc01.model.decks.*;
-import it.polimi.ingsw.gc01.model.strategy.*;
+import it.polimi.ingsw.gc01.model.strategy.Strategy;
 
-import java.io.*;
+import java.io.FileReader;
 import java.lang.reflect.Type;
 import java.util.*;
 
 public class ClientDeck {
     private final Map<Integer, Card> deck;
 
-    public ClientDeck(){
+    public ClientDeck() {
         deck = new HashMap<>();
         Gson gson = new GsonBuilder()
                 .registerTypeAdapter(CardResource.class, new CardResourcesDeserializer())
@@ -25,14 +23,15 @@ public class ClientDeck {
                 .create();
         String[] types = {"Resource", "Golden", "Starter", "Objective"};
         for (String type : types) {
-            String json = "src/main/resources/it/polimi/ingsw/gc01/model/decks/"+type+"Deck.json";
-            try{
+            String json = "src/main/resources/it/polimi/ingsw/gc01/model/decks/" + type + "Deck.json";
+            try {
                 List<Object> cardList = gson.fromJson(new FileReader(json), List.class);
                 for (Object card : cardList) {
-                    Card c = gson.fromJson(card.toString(), (Type) Class.forName("it.polimi.ingsw.gc01.model.cards."+type+"Card"));
+                    Card c = gson.fromJson(card.toString(), (Type) Class.forName("it.polimi.ingsw.gc01.model.cards." + type + "Card"));
                     deck.put(c.getId(), c);
                 }
-            } catch (Exception ignored){}
+            } catch (Exception ignored) {
+            }
         }
     }
 
@@ -168,9 +167,9 @@ public class ClientDeck {
 
         CardColor color = resourceCard.getColor();
 
-        card[2] = card[2].substring(0,10) + "╔═══╗" + card[2].substring(15);
-        card[3] = card[3].substring(0,10) + "║ " + getSymbolByColor(color) + " ║" + card[3].substring(15);
-        card[4] = card[4].substring(0,10) + "╚═══╝" + card[4].substring(15);
+        card[2] = card[2].substring(0, 10) + "╔═══╗" + card[2].substring(15);
+        card[3] = card[3].substring(0, 10) + "║ " + getSymbolByColor(color) + " ║" + card[3].substring(15);
+        card[4] = card[4].substring(0, 10) + "╚═══╝" + card[4].substring(15);
 
         card[1] = card[1].substring(0, 11) + color.toString().substring(0, 3) + card[1].substring(14);
 
@@ -211,9 +210,10 @@ public class ClientDeck {
             card[5] = card[5].substring(0, 9) + "║     ║" + card[5].substring(16);
             card[6] = card[6].substring(0, 9) + "╩═════╩" + card[6].substring(16);
 
-            switch(requirements.length()) {
+            switch (requirements.length()) {
                 case 3 -> card[5] = card[5].substring(0, 11) + requirements + card[5].substring(14);
-                case 4 -> card[5] = card[5].substring(0, 10) + requirements.substring(0,2) + " " + requirements.substring(2) + card[5].substring(15);
+                case 4 ->
+                        card[5] = card[5].substring(0, 10) + requirements.substring(0, 2) + " " + requirements.substring(2) + card[5].substring(15);
                 case 5 -> card[5] = card[5].substring(0, 10) + requirements + card[5].substring(15);
             }
         }
@@ -303,14 +303,17 @@ public class ClientDeck {
                 card[5] = card[5].substring(0, 22) + bottomRight.charAt(0) + card[5].substring(23);
         }
 
-        card[2] = card[2].substring(0,10) + "╔═══╗" + card[2].substring(15);
-        card[3] = card[3].substring(0,10) + "║   ║" + card[3].substring(15);
-        card[4] = card[4].substring(0,10) + "╚═══╝" + card[4].substring(15);
+        card[2] = card[2].substring(0, 10) + "╔═══╗" + card[2].substring(15);
+        card[3] = card[3].substring(0, 10) + "║   ║" + card[3].substring(15);
+        card[4] = card[4].substring(0, 10) + "╚═══╝" + card[4].substring(15);
 
         switch (starterCard.getCenterResources().size()) {
-            case 1 -> card[3] = card[3].substring(0,12) + starterCard.getCenterResources().toArray()[0].toString().charAt(0) + card[3].substring(13);
-            case 2 -> card[3] = card[3].substring(0,11) + starterCard.getCenterResources().toArray()[0].toString().charAt(0) + " " + starterCard.getCenterResources().toArray()[1].toString().charAt(0) + card[3].substring(14);
-            case 3 -> card[3] = card[3].substring(0,11) + starterCard.getCenterResources().toArray()[0].toString().charAt(0) + starterCard.getCenterResources().toArray()[1].toString().charAt(0) + starterCard.getCenterResources().toArray()[2].toString().charAt(0) + card[3].substring(14);
+            case 1 ->
+                    card[3] = card[3].substring(0, 12) + starterCard.getCenterResources().toArray()[0].toString().charAt(0) + card[3].substring(13);
+            case 2 ->
+                    card[3] = card[3].substring(0, 11) + starterCard.getCenterResources().toArray()[0].toString().charAt(0) + " " + starterCard.getCenterResources().toArray()[1].toString().charAt(0) + card[3].substring(14);
+            case 3 ->
+                    card[3] = card[3].substring(0, 11) + starterCard.getCenterResources().toArray()[0].toString().charAt(0) + starterCard.getCenterResources().toArray()[1].toString().charAt(0) + starterCard.getCenterResources().toArray()[2].toString().charAt(0) + card[3].substring(14);
         }
 
         card[1] = card[1].substring(0, 11) + "STR" + card[1].substring(14);
@@ -321,7 +324,7 @@ public class ClientDeck {
     private String[] generateStarterCardBackById(int id) {
         StarterCard starterCard = (StarterCard) deck.get(id);
 
-        String card[] = generateEmptyCard();
+        String[] card = generateEmptyCard();
 
         String topLeft = starterCard.getBackCorners().get(CornerPosition.TOP_LEFT).getResource().toString();
         String bottomLeft = starterCard.getBackCorners().get(CornerPosition.BOTTOM_LEFT).getResource().toString();
@@ -361,7 +364,7 @@ public class ClientDeck {
     private String[] generateObjectiveCardById(int id) {
         String[] objectiveCard = new String[8];
 
-        if(id == 87) {
+        if (id == 87) {
             objectiveCard[0] = DefaultValue.ANSI_YELLOW + "╔═════════╦═════╦═════════╗" + DefaultValue.ANSI_RESET;
             objectiveCard[1] = DefaultValue.ANSI_YELLOW + "║         ║  2  ║         ║" + DefaultValue.ANSI_RESET;
             objectiveCard[2] = DefaultValue.ANSI_YELLOW + "║         ╚═════╝         ║" + DefaultValue.ANSI_RESET;
@@ -372,7 +375,7 @@ public class ClientDeck {
             objectiveCard[7] = DefaultValue.ANSI_YELLOW + "╚═════════════════════════╝" + DefaultValue.ANSI_RESET;
         }
 
-        if(id == 88) {
+        if (id == 88) {
             objectiveCard[0] = DefaultValue.ANSI_YELLOW + "╔═════════╦═════╦═════════╗" + DefaultValue.ANSI_RESET;
             objectiveCard[1] = DefaultValue.ANSI_YELLOW + "║         ║  2  ║         ║" + DefaultValue.ANSI_RESET;
             objectiveCard[2] = DefaultValue.ANSI_YELLOW + "║         ╚═════╝         ║" + DefaultValue.ANSI_RESET;
@@ -383,7 +386,7 @@ public class ClientDeck {
             objectiveCard[7] = DefaultValue.ANSI_YELLOW + "╚═════════════════════════╝" + DefaultValue.ANSI_RESET;
         }
 
-        if(id == 89) {
+        if (id == 89) {
             objectiveCard[0] = DefaultValue.ANSI_YELLOW + "╔═════════╦═════╦═════════╗" + DefaultValue.ANSI_RESET;
             objectiveCard[1] = DefaultValue.ANSI_YELLOW + "║         ║  2  ║         ║" + DefaultValue.ANSI_RESET;
             objectiveCard[2] = DefaultValue.ANSI_YELLOW + "║         ╚═════╝         ║" + DefaultValue.ANSI_RESET;
@@ -394,7 +397,7 @@ public class ClientDeck {
             objectiveCard[7] = DefaultValue.ANSI_YELLOW + "╚═════════════════════════╝" + DefaultValue.ANSI_RESET;
         }
 
-        if(id == 90) {
+        if (id == 90) {
             objectiveCard[0] = DefaultValue.ANSI_YELLOW + "╔═════════╦═════╦═════════╗" + DefaultValue.ANSI_RESET;
             objectiveCard[1] = DefaultValue.ANSI_YELLOW + "║         ║  2  ║         ║" + DefaultValue.ANSI_RESET;
             objectiveCard[2] = DefaultValue.ANSI_YELLOW + "║         ╚═════╝         ║" + DefaultValue.ANSI_RESET;
@@ -405,7 +408,7 @@ public class ClientDeck {
             objectiveCard[7] = DefaultValue.ANSI_YELLOW + "╚═════════════════════════╝" + DefaultValue.ANSI_RESET;
         }
 
-        if(id == 91) {
+        if (id == 91) {
             objectiveCard[0] = DefaultValue.ANSI_YELLOW + "╔═════════╦═════╦═════════╗" + DefaultValue.ANSI_RESET;
             objectiveCard[1] = DefaultValue.ANSI_YELLOW + "║         ║  3  ║         ║" + DefaultValue.ANSI_RESET;
             objectiveCard[2] = DefaultValue.ANSI_YELLOW + "║         ╚═════╝         ║" + DefaultValue.ANSI_RESET;
@@ -416,7 +419,7 @@ public class ClientDeck {
             objectiveCard[7] = DefaultValue.ANSI_YELLOW + "╚═════════════════════════╝" + DefaultValue.ANSI_RESET;
         }
 
-        if(id == 92) {
+        if (id == 92) {
             objectiveCard[0] = DefaultValue.ANSI_YELLOW + "╔═════════╦═════╦═════════╗" + DefaultValue.ANSI_RESET;
             objectiveCard[1] = DefaultValue.ANSI_YELLOW + "║         ║  3  ║         ║" + DefaultValue.ANSI_RESET;
             objectiveCard[2] = DefaultValue.ANSI_YELLOW + "║         ╚═════╝         ║" + DefaultValue.ANSI_RESET;
@@ -427,7 +430,7 @@ public class ClientDeck {
             objectiveCard[7] = DefaultValue.ANSI_YELLOW + "╚═════════════════════════╝" + DefaultValue.ANSI_RESET;
         }
 
-        if(id == 93) {
+        if (id == 93) {
             objectiveCard[0] = DefaultValue.ANSI_YELLOW + "╔═════════╦═════╦═════════╗" + DefaultValue.ANSI_RESET;
             objectiveCard[1] = DefaultValue.ANSI_YELLOW + "║         ║  3  ║         ║" + DefaultValue.ANSI_RESET;
             objectiveCard[2] = DefaultValue.ANSI_YELLOW + "║         ╚═════╝         ║" + DefaultValue.ANSI_RESET;
@@ -438,7 +441,7 @@ public class ClientDeck {
             objectiveCard[7] = DefaultValue.ANSI_YELLOW + "╚═════════════════════════╝" + DefaultValue.ANSI_RESET;
         }
 
-        if(id == 94) {
+        if (id == 94) {
             objectiveCard[0] = DefaultValue.ANSI_YELLOW + "╔═════════╦═════╦═════════╗" + DefaultValue.ANSI_RESET;
             objectiveCard[1] = DefaultValue.ANSI_YELLOW + "║         ║  3  ║         ║" + DefaultValue.ANSI_RESET;
             objectiveCard[2] = DefaultValue.ANSI_YELLOW + "║         ╚═════╝         ║" + DefaultValue.ANSI_RESET;
@@ -449,7 +452,7 @@ public class ClientDeck {
             objectiveCard[7] = DefaultValue.ANSI_YELLOW + "╚═════════════════════════╝" + DefaultValue.ANSI_RESET;
         }
 
-        if(id == 95) {
+        if (id == 95) {
             objectiveCard[0] = DefaultValue.ANSI_YELLOW + "╔═════════╦═════╦═════════╗" + DefaultValue.ANSI_RESET;
             objectiveCard[1] = DefaultValue.ANSI_YELLOW + "║         ║  2  ║         ║" + DefaultValue.ANSI_RESET;
             objectiveCard[2] = DefaultValue.ANSI_YELLOW + "║         ╚═════╝         ║" + DefaultValue.ANSI_RESET;
@@ -460,7 +463,7 @@ public class ClientDeck {
             objectiveCard[7] = DefaultValue.ANSI_YELLOW + "╚═════════════════════════╝" + DefaultValue.ANSI_RESET;
         }
 
-        if(id == 96) {
+        if (id == 96) {
             objectiveCard[0] = DefaultValue.ANSI_YELLOW + "╔═════════╦═════╦═════════╗" + DefaultValue.ANSI_RESET;
             objectiveCard[1] = DefaultValue.ANSI_YELLOW + "║         ║  2  ║         ║" + DefaultValue.ANSI_RESET;
             objectiveCard[2] = DefaultValue.ANSI_YELLOW + "║         ╚═════╝         ║" + DefaultValue.ANSI_RESET;
@@ -471,7 +474,7 @@ public class ClientDeck {
             objectiveCard[7] = DefaultValue.ANSI_YELLOW + "╚═════════════════════════╝" + DefaultValue.ANSI_RESET;
         }
 
-        if(id == 97) {
+        if (id == 97) {
             objectiveCard[0] = DefaultValue.ANSI_YELLOW + "╔═════════╦═════╦═════════╗" + DefaultValue.ANSI_RESET;
             objectiveCard[1] = DefaultValue.ANSI_YELLOW + "║         ║  2  ║         ║" + DefaultValue.ANSI_RESET;
             objectiveCard[2] = DefaultValue.ANSI_YELLOW + "║         ╚═════╝         ║" + DefaultValue.ANSI_RESET;
@@ -482,7 +485,7 @@ public class ClientDeck {
             objectiveCard[7] = DefaultValue.ANSI_YELLOW + "╚═════════════════════════╝" + DefaultValue.ANSI_RESET;
         }
 
-        if(id == 98) {
+        if (id == 98) {
             objectiveCard[0] = DefaultValue.ANSI_YELLOW + "╔═════════╦═════╦═════════╗" + DefaultValue.ANSI_RESET;
             objectiveCard[1] = DefaultValue.ANSI_YELLOW + "║         ║  2  ║         ║" + DefaultValue.ANSI_RESET;
             objectiveCard[2] = DefaultValue.ANSI_YELLOW + "║         ╚═════╝         ║" + DefaultValue.ANSI_RESET;
@@ -493,7 +496,7 @@ public class ClientDeck {
             objectiveCard[7] = DefaultValue.ANSI_YELLOW + "╚═════════════════════════╝" + DefaultValue.ANSI_RESET;
         }
 
-        if(id == 99) {
+        if (id == 99) {
             objectiveCard[0] = DefaultValue.ANSI_YELLOW + "╔═════════╦═════╦═════════╗" + DefaultValue.ANSI_RESET;
             objectiveCard[1] = DefaultValue.ANSI_YELLOW + "║         ║  3  ║         ║" + DefaultValue.ANSI_RESET;
             objectiveCard[2] = DefaultValue.ANSI_YELLOW + "║     ╔═══╩═════╩═══╗     ║" + DefaultValue.ANSI_RESET;
@@ -504,7 +507,7 @@ public class ClientDeck {
             objectiveCard[7] = DefaultValue.ANSI_YELLOW + "╚═════════════════════════╝" + DefaultValue.ANSI_RESET;
         }
 
-        if(id == 100) {
+        if (id == 100) {
             objectiveCard[0] = DefaultValue.ANSI_YELLOW + "╔═════════╦═════╦═════════╗" + DefaultValue.ANSI_RESET;
             objectiveCard[1] = DefaultValue.ANSI_YELLOW + "║         ║  3  ║         ║" + DefaultValue.ANSI_RESET;
             objectiveCard[2] = DefaultValue.ANSI_YELLOW + "║         ╚═════╝         ║" + DefaultValue.ANSI_RESET;
@@ -515,7 +518,7 @@ public class ClientDeck {
             objectiveCard[7] = DefaultValue.ANSI_YELLOW + "╚═════════════════════════╝" + DefaultValue.ANSI_RESET;
         }
 
-        if(id == 101) {
+        if (id == 101) {
             objectiveCard[0] = DefaultValue.ANSI_YELLOW + "╔═════════╦═════╦═════════╗" + DefaultValue.ANSI_RESET;
             objectiveCard[1] = DefaultValue.ANSI_YELLOW + "║         ║  3  ║         ║" + DefaultValue.ANSI_RESET;
             objectiveCard[2] = DefaultValue.ANSI_YELLOW + "║         ╚═════╝         ║" + DefaultValue.ANSI_RESET;
@@ -526,7 +529,7 @@ public class ClientDeck {
             objectiveCard[7] = DefaultValue.ANSI_YELLOW + "╚═════════════════════════╝" + DefaultValue.ANSI_RESET;
         }
 
-        if(id == 102) {
+        if (id == 102) {
             objectiveCard[0] = DefaultValue.ANSI_YELLOW + "╔═════════╦═════╦═════════╗" + DefaultValue.ANSI_RESET;
             objectiveCard[1] = DefaultValue.ANSI_YELLOW + "║         ║  3  ║         ║" + DefaultValue.ANSI_RESET;
             objectiveCard[2] = DefaultValue.ANSI_YELLOW + "║         ╚═════╝         ║" + DefaultValue.ANSI_RESET;
