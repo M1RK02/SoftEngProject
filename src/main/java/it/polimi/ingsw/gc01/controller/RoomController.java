@@ -190,6 +190,7 @@ public class RoomController {
      * for each player distribute 2 Resource Card, 1 Golden Card and 2 Objective Cards
      */
     public void distributeCards() {
+        room.getNotifier().showCommonObjectives(room.getCommonObjectives());
         for (Player p : room.getPlayers()) {
             p.getHand().add(room.getResourceDeck().pick());
             p.getHand().get(0).setFront(true);

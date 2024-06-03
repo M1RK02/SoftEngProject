@@ -306,14 +306,25 @@ public class TUI implements UI {
     }
 
     @Override
+    public void showCommonObjectives(List<Integer> objectiveIds) {
+        System.out.println("Showing common objectives!");
+        String[] obj1 = clientDeck.generateCardById(objectiveIds.get(0), true);
+        String[] obj2 = clientDeck.generateCardById(objectiveIds.get(1), true);
+        for (int i = 0; i < obj1.length; i++) {
+            System.out.print(obj1[i] + "\t\t");
+            System.out.println(obj2[i]);
+        }
+    }
+
+    @Override
     public void showPossibleObjectives(List<Integer> possibleObjectiveIds) {
+        System.out.println("Choose (1) for the left objective card or (2) for the right objective card:");
         String[] obj1 = clientDeck.generateCardById(possibleObjectiveIds.get(0), true);
         String[] obj2 = clientDeck.generateCardById(possibleObjectiveIds.get(1), true);
         for (int i = 0; i < obj1.length; i++) {
             System.out.print(obj1[i] + "\t\t");
             System.out.println(obj2[i]);
         }
-        System.out.println("Choose (1) for the left objective card or (2) for the right objective card:");
         new Thread(() -> chooseSecret(possibleObjectiveIds.get(0), possibleObjectiveIds.get(1))).start();
     }
 

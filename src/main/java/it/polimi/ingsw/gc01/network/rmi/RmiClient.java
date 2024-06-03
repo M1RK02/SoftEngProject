@@ -229,7 +229,7 @@ public class RmiClient extends UnicastRemoteObject implements VirtualView, Netwo
      */
     @Override
     public void showCommonObjectives(List<Integer> objectivesIds) throws RemoteException {
-        //TODO
+        ui.showCommonObjectives(objectivesIds);
     }
 
     /**

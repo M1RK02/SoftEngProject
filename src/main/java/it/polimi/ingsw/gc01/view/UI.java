@@ -30,4 +30,6 @@ public interface UI {
     void updateField(int id, boolean front, Position position, List<Position> availablePositions);
 
     void showTable(Map<Integer, Integer> drawableCardsIds);
+
+    void showCommonObjectives(List<Integer> objectiveIds);
 }
