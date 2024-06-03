@@ -1,6 +1,6 @@
 package it.polimi.ingsw.gc01.model.room;
 
-import it.polimi.ingsw.gc01.model.ObserverManager;
+import it.polimi.ingsw.gc01.network.ObserverManager;
 import it.polimi.ingsw.gc01.model.player.Player;
 import org.junit.jupiter.api.*;
 

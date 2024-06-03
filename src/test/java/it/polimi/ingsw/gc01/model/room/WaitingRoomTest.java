@@ -1,5 +1,6 @@
 package it.polimi.ingsw.gc01.model.room;
 
+import it.polimi.ingsw.gc01.model.VirtualViewStub;
 import it.polimi.ingsw.gc01.model.player.Player;
 import org.junit.jupiter.api.*;
 

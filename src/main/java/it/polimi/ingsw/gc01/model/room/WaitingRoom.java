@@ -2,7 +2,7 @@ package it.polimi.ingsw.gc01.model.room;
 
 import it.polimi.ingsw.gc01.model.*;
 import it.polimi.ingsw.gc01.model.player.Player;
-import it.polimi.ingsw.gc01.network.VirtualView;
+import it.polimi.ingsw.gc01.network.*;
 
 import java.util.*;
 

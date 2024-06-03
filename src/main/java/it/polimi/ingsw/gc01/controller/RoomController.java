@@ -5,7 +5,7 @@ import it.polimi.ingsw.gc01.model.*;
 import it.polimi.ingsw.gc01.model.cards.*;
 import it.polimi.ingsw.gc01.model.player.*;
 import it.polimi.ingsw.gc01.model.room.*;
-import it.polimi.ingsw.gc01.network.VirtualView;
+import it.polimi.ingsw.gc01.network.*;
 
 import java.util.List;
 

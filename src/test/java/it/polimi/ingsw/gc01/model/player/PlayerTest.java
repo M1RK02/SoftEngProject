@@ -4,7 +4,8 @@ import it.polimi.ingsw.gc01.model.*;
 import it.polimi.ingsw.gc01.model.cards.*;
 import it.polimi.ingsw.gc01.model.corners.*;
 import it.polimi.ingsw.gc01.model.decks.*;
-import it.polimi.ingsw.gc01.model.room.VirtualViewStub;
+import it.polimi.ingsw.gc01.model.VirtualViewStub;
+import it.polimi.ingsw.gc01.network.ObserverManager;
 import org.junit.jupiter.api.*;
 
 import java.util.*;

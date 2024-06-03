@@ -1,9 +1,8 @@
-package it.polimi.ingsw.gc01.model;
+package it.polimi.ingsw.gc01.network;
 
 import it.polimi.ingsw.gc01.model.cards.*;
 import it.polimi.ingsw.gc01.model.player.*;
 import it.polimi.ingsw.gc01.model.room.TablePosition;
-import it.polimi.ingsw.gc01.network.VirtualView;
 
 import java.rmi.RemoteException;
 import java.util.*;

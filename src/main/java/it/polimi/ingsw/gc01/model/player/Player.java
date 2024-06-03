@@ -3,6 +3,7 @@ package it.polimi.ingsw.gc01.model.player;
 import it.polimi.ingsw.gc01.model.*;
 import it.polimi.ingsw.gc01.model.cards.*;
 import it.polimi.ingsw.gc01.model.corners.*;
+import it.polimi.ingsw.gc01.network.ObserverManager;
 
 import java.util.*;
 
