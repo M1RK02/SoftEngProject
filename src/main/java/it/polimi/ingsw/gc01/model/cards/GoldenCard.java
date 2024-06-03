@@ -8,7 +8,7 @@ import java.util.Map;
 
 /**
  * This class is used to represent cards that give points
- * It is similar to {@link ResourceCard} but with some requirements and benefits
+ * It is similar to ResourceCard but with some requirements and benefits
  */
 public class GoldenCard extends ResourceCard {
     /**
@@ -23,14 +23,13 @@ public class GoldenCard extends ResourceCard {
     /**
      * Constructor of the golden card (adds requirements and scoreCondition)
      *
-     * @param id
-     * @param info
-     * @param corners
-     * @param color
-     * @param score
-     * @param requirements
-     * @param scoreCondition
-     * @see ResourceCard
+     * @param id             of the card
+     * @param info           for the card
+     * @param corners        map of corners
+     * @param color          of the card
+     * @param score          of the card
+     * @param requirements   to play the card
+     * @param scoreCondition condition to get the points
      */
     public GoldenCard(int id, String info, Map<CornerPosition, Corner> corners, CardColor color, int score, Map<Resource, Integer> requirements, ScoreCondition scoreCondition) {
         super(id, info, corners, color, score);
@@ -38,10 +37,16 @@ public class GoldenCard extends ResourceCard {
         this.scoreCondition = scoreCondition;
     }
 
+    /**
+     * @return the scoreCondition to get the points
+     */
     public ScoreCondition getScoreCondition() {
         return scoreCondition;
     }
 
+    /**
+     * @return the requirements to play che card
+     */
     public Map<Resource, Integer> getRequirements() {
         return requirements;
     }

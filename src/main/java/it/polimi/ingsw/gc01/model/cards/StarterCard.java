@@ -21,12 +21,11 @@ public class StarterCard extends PlayableCard {
     /**
      * Constructor of starter card (adds center resources and back corners)
      *
-     * @param id
-     * @param info
-     * @param corners
-     * @param centerResources
-     * @param backCorners
-     * @see PlayableCard
+     * @param id              of the card
+     * @param info            for the card
+     * @param corners         map of corners
+     * @param centerResources set of centerResources
+     * @param backCorners     map of back corners
      */
     public StarterCard(int id, String info, Map<CornerPosition, Corner> corners, Set<Resource> centerResources, Map<CornerPosition, Corner> backCorners) {
         super(id, info, corners);
