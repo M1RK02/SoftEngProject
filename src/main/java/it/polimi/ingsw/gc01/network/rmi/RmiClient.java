@@ -279,4 +279,7 @@ public class RmiClient extends UnicastRemoteObject implements VirtualView, Netwo
     public void serviceMessage(String message) throws RemoteException {
         ui.showServiceMessage(message);
     }
+
+    @Override
+    public void isAlive() throws RemoteException {}
 }

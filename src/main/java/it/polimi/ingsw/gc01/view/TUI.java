@@ -185,9 +185,15 @@ public class TUI implements UI {
             case "MAIN":
                 System.out.println(DefaultValue.ANSI_RED + message + DefaultValue.ANSI_RESET);
                 new Thread(this::askModalityToEnterGame).start();
+                break;
             case "PLAY":
                 System.out.println(DefaultValue.ANSI_RED + message + DefaultValue.ANSI_RESET);
                 new Thread(this::chooseCardToPlay).start();
+                break;
+            case "GAME":
+                System.out.println(DefaultValue.ANSI_RED + message + DefaultValue.ANSI_RESET);
+                networkClient.leave();
+                System.exit(0);
         }
     }
 

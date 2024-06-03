@@ -1,5 +1,6 @@
 package it.polimi.ingsw.gc01.network;
 
+import it.polimi.ingsw.gc01.controller.MainController;
 import it.polimi.ingsw.gc01.model.cards.*;
 import it.polimi.ingsw.gc01.model.player.*;
 import it.polimi.ingsw.gc01.model.room.TablePosition;
@@ -13,88 +14,94 @@ public class ObserverManager {
 
     public ObserverManager() {
         observers = new HashMap<>();
+        new Thread(this::heartBeat).start();
     }
 
     public void addObserver(String playerName, VirtualView client) {
-        observers.put(playerName, client);
+        synchronized (observers) {
+            observers.put(playerName, client);
+        }
     }
 
     public void removeObserver(String playerName) {
-        observers.remove(playerName);
+        synchronized (observers) {
+            observers.remove(playerName);
+        }
     }
 
     public VirtualView getObserver(String playerName) {
-        return observers.get(playerName);
+        synchronized (observers) {
+            return observers.get(playerName);
+        }
     }
 
     public void updateRoomId(String playerName, String roomId) {
-        VirtualView client = observers.get(playerName);
-        try {
-            client.updateRoomId(roomId);
-        } catch (RemoteException e) {
-            throw new RuntimeException(e);
+        synchronized (observers) {
+            VirtualView client = observers.get(playerName);
+            try {
+                client.updateRoomId(roomId);
+            } catch (RemoteException ignored) {}
         }
     }
 
     public void startGame() {
-        for (VirtualView client : observers.values()) {
-            try {
-                client.startGame();
-            } catch (RemoteException e) {
-                throw new RuntimeException(e);
+        synchronized (observers) {
+            for (VirtualView client : observers.values()) {
+                try {
+                    client.startGame();
+                } catch (RemoteException ignored) {}
             }
         }
     }
 
     public void updateCurrentPlayer(String playerName) {
-        for (VirtualView client : observers.values()) {
-            try {
-                client.updateCurrentPlayer(playerName);
-            } catch (RemoteException e) {
-                throw new RuntimeException(e);
+        synchronized (observers) {
+            for (VirtualView client : observers.values()) {
+                try {
+                    client.updateCurrentPlayer(playerName);
+                } catch (RemoteException ignored) {}
             }
         }
     }
 
     public void showStarter(String playerName, StarterCard card) {
-        VirtualView client = observers.get(playerName);
-        try {
-            client.showStarter(card.getId());
-        } catch (RemoteException e) {
-            throw new RuntimeException(e);
+        synchronized (observers) {
+            VirtualView client = observers.get(playerName);
+            try {
+                client.showStarter(card.getId());
+            } catch (RemoteException ignored) {}
         }
     }
 
     public void showAvailableColor(String playerName, List<PlayerColor> colors) {
-        VirtualView client = observers.get(playerName);
-        try {
-            client.showAvailableColors(colors);
-        } catch (RemoteException e) {
-            throw new RuntimeException(e);
+        synchronized (observers) {
+            VirtualView client = observers.get(playerName);
+            try {
+                client.showAvailableColors(colors);
+            } catch (RemoteException ignored) {}
         }
     }
 
     public void updateReady(String playerName, boolean ready) {
-        for (VirtualView client : observers.values()) {
-            try {
-                client.updateReady(playerName, ready);
-            } catch (RemoteException e) {
-                throw new RuntimeException(e);
+        synchronized (observers) {
+            for (VirtualView client : observers.values()) {
+                try {
+                    client.updateReady(playerName, ready);
+                } catch (RemoteException ignored) {}
             }
         }
     }
 
     public void updateField(String playerName, int id, boolean front, Position position, List<Position> availablePositions) {
-        VirtualView client = observers.get(playerName);
-        try {
-            client.updateField(id, front, position, availablePositions);
-        } catch (RemoteException e) {
-            throw new RuntimeException(e);
+        synchronized (observers) {
+            VirtualView client = observers.get(playerName);
+            try {
+                client.updateField(id, front, position, availablePositions);
+            } catch (RemoteException ignored) {}
         }
     }
 
     public void showTable(String playerName, Map<TablePosition, ResourceCard> drawableCards) {
-        VirtualView client = observers.get(playerName);
         Map<Integer, Integer> drawableIds = new HashMap<>();
         for (TablePosition position : TablePosition.values()) {
             switch (position) {
@@ -106,78 +113,111 @@ public class ObserverManager {
                 case GOLDENRIGHT -> drawableIds.put(6, drawableCards.get(TablePosition.GOLDENRIGHT).getId());
             }
         }
-        try {
-            client.showTable(drawableIds);
-        } catch (RemoteException e) {
-            throw new RuntimeException(e);
+        synchronized (observers) {
+            VirtualView client = observers.get(playerName);
+            try {
+                client.showTable(drawableIds);
+            } catch (RemoteException ignored) {}
         }
     }
 
     public void showCommonObjectives(List<ObjectiveCard> commonObjectives) {
-        List<Integer> commonObjectivesIds = commonObjectives.stream().map(ObjectiveCard::getId).collect(Collectors.toList());
-        for (VirtualView client : observers.values()) {
-            try {
-                client.showCommonObjectives(commonObjectivesIds);
-            } catch (RemoteException e) {
-                throw new RuntimeException(e);
+        synchronized (observers) {
+            List<Integer> commonObjectivesIds = commonObjectives.stream().map(ObjectiveCard::getId).collect(Collectors.toList());
+            for (VirtualView client : observers.values()) {
+                try {
+                    client.showCommonObjectives(commonObjectivesIds);
+                } catch (RemoteException ignored) {}
             }
         }
     }
 
     public void showHand(String playerName, List<PlayableCard> hand) {
         List<Integer> handIds = hand.stream().map(PlayableCard::getId).collect(Collectors.toList());
-        VirtualView client = observers.get(playerName);
-        try {
-            client.showHand(handIds);
-        } catch (RemoteException e) {
-            throw new RuntimeException(e);
+        synchronized (observers) {
+            VirtualView client = observers.get(playerName);
+            try {
+                client.showHand(handIds);
+            } catch (RemoteException ignored) {}
         }
     }
 
     public void showField(String playerName) {
-        VirtualView client = observers.get(playerName);
-        try {
-            client.showField(playerName);
-        } catch (RemoteException e) {
-            throw new RuntimeException(e);
+        synchronized (observers) {
+            VirtualView client = observers.get(playerName);
+            try {
+                client.showField(playerName);
+            } catch (RemoteException ignored) {}
         }
     }
 
     public void showSecretObjectives(String playerName, List<ObjectiveCard> possibleObjectives) {
-        VirtualView client = observers.get(playerName);
         List<Integer> possibleObjectivesIds = possibleObjectives.stream().map(ObjectiveCard::getId).collect(Collectors.toList());
-        try {
-            client.showSecretObjectives(possibleObjectivesIds);
-        } catch (RemoteException e) {
-            throw new RuntimeException(e);
+        synchronized (observers) {
+            VirtualView client = observers.get(playerName);
+            try {
+                client.showSecretObjectives(possibleObjectivesIds);
+            } catch (RemoteException ignored) {}
         }
+
     }
 
     public void showError(String playerName, String error) {
-        VirtualView client = observers.get(playerName);
-        try {
-            client.showError(error);
-        } catch (RemoteException e) {
-            throw new RuntimeException(e);
+        synchronized (observers) {
+            VirtualView client = observers.get(playerName);
+            try {
+                client.showError(error);
+            } catch (RemoteException ignored) {}
+        }
+    }
+
+    public void showGameError(String error) {
+        synchronized (observers) {
+            for (VirtualView client : observers.values()) {
+                try {
+                    client.showError(error);
+                } catch (RemoteException ignored) {}
+            }
         }
     }
 
     public void serviceMessage(String message) {
-        for (VirtualView client : observers.values()) {
-            try {
-                client.serviceMessage(message);
-            } catch (RemoteException e) {
-                throw new RuntimeException(e);
+        synchronized (observers) {
+            for (VirtualView client : observers.values()) {
+                try {
+                    client.serviceMessage(message);
+                } catch (RemoteException ignored) {}
             }
         }
     }
 
     public void addressedServiceMessage(String playerName, String message) {
-        VirtualView client = observers.get(playerName);
+        synchronized (observers) {
+            VirtualView client = observers.get(playerName);
+            try {
+                client.serviceMessage(message);
+            } catch (RemoteException ignored) {}
+        }
+    }
+
+    private void heartBeat() {
         try {
-            client.serviceMessage(message);
-        } catch (RemoteException e) {
-            throw new RuntimeException(e);
+            Thread.sleep(30*1000);
+        } catch (InterruptedException ignored) {}
+        String dead = "";
+        synchronized (observers) {
+            for (String playerName : observers.keySet()) {
+                try {
+                    observers.get(playerName).isAlive();
+                } catch (RemoteException e) {
+                    observers.remove(playerName);
+                    dead = playerName;
+                    break;
+                }
+            }
+        }
+        if (!dead.isEmpty()) {
+            showGameError("GAME " + dead + " has left the game");
         }
     }
 }
