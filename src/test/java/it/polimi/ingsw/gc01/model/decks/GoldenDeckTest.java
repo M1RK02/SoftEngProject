@@ -1,9 +1,7 @@
 package it.polimi.ingsw.gc01.model.decks;
 
 import it.polimi.ingsw.gc01.model.cards.GoldenCard;
-import it.polimi.ingsw.gc01.model.cards.ResourceCard;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -14,7 +12,7 @@ class GoldenDeckTest {
     @BeforeEach
     void setUp() {
         goldenDeck = new GoldenDeck();
-        assert(!goldenDeck.isEmpty());
+        assert (!goldenDeck.isEmpty());
     }
 
 

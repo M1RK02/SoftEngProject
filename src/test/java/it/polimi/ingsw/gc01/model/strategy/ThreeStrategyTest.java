@@ -2,15 +2,14 @@ package it.polimi.ingsw.gc01.model.strategy;
 
 import it.polimi.ingsw.gc01.model.Item;
 import it.polimi.ingsw.gc01.model.player.Player;
-import it.polimi.ingsw.gc01.model.player.PlayerColor;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class ThreeStrategyTest {
     private static Player player;
     private static ThreeStrategy threeStrategy;
+
     @BeforeEach
     void setUp() {
         player = new Player("lazzaro", null);

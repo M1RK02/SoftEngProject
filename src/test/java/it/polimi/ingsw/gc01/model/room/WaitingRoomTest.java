@@ -1,9 +1,7 @@
 package it.polimi.ingsw.gc01.model.room;
 
 import it.polimi.ingsw.gc01.model.player.Player;
-import it.polimi.ingsw.gc01.network.VirtualView;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -12,7 +10,7 @@ class WaitingRoomTest {
     private Player p1, p2, p3, p4;
 
     @BeforeEach
-    void setup(){
+    void setup() {
         waitingRoom = new WaitingRoom();
         p1 = new Player("Player1", waitingRoom.getNotifier());
         p2 = new Player("Player2", waitingRoom.getNotifier());

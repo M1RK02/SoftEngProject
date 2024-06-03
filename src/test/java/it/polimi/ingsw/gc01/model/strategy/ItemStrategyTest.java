@@ -2,16 +2,14 @@ package it.polimi.ingsw.gc01.model.strategy;
 
 import it.polimi.ingsw.gc01.model.Item;
 import it.polimi.ingsw.gc01.model.player.Player;
-import it.polimi.ingsw.gc01.model.player.PlayerColor;
-import it.polimi.ingsw.gc01.model.player.PlayerResource;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class ItemStrategyTest {
     private static Player player;
     private static ItemStrategy quillStrategy, inkwellStrategy, manuscriptStrategy;
+
     @BeforeEach
     void setUp() {
 
