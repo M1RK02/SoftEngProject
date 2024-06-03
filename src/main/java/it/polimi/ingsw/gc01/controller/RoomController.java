@@ -85,7 +85,7 @@ public class RoomController {
         }
     }
 
-    public void prepareGame() {
+    private void prepareGame() {
         room = new Room(waitingRoom.getRoomId(), waitingRoom.getPlayers(), waitingRoom.getNotifier());
         state = GameState.STARTER_SELECTION;
         giveStarter();
@@ -189,7 +189,7 @@ public class RoomController {
     /**
      * for each player distribute 2 Resource Card, 1 Golden Card and 2 Objective Cards
      */
-    public void distributeCards() {
+    private void distributeCards() {
         room.getNotifier().showCommonObjectives(room.getCommonObjectives());
         for (Player p : room.getPlayers()) {
             p.getHand().add(room.getResourceDeck().pick());
@@ -206,7 +206,7 @@ public class RoomController {
     /**
      * Calculate all the points done by the strategies (both Common and the Secret one) for every player
      */
-    public void calculateStrategy() {
+    private void calculateStrategy() {
         List<Player> players = room.getPlayers();
         List<ObjectiveCard> commonObjectives = room.getCommonObjectives();
         for (Player p : players) {
@@ -219,7 +219,7 @@ public class RoomController {
     /**
      * @return true if a player has reached 20 points
      */
-    public boolean hasOneReachedTwenty() {
+    private boolean hasOneReachedTwenty() {
         for (Player p : room.getPlayers()) {
             if (p.getPoints() >= 20) {
                 return true;
@@ -232,7 +232,7 @@ public class RoomController {
     /**
      * @return true if both decks are empty
      */
-    public boolean areDecksEmpty() {
+    private boolean areDecksEmpty() {
         return room.getResourceDeck().isEmpty() && room.getGoldenDeck().isEmpty();
     }
 
@@ -397,7 +397,7 @@ public class RoomController {
      */
     public void leave(String playerName) {
         if (room == null) {
-            waitingRoom.removePlayer(waitingRoom.getPlayerByName(playerName));
+            waitingRoom.removePlayer(playerName);
             if (waitingRoom.getPlayers().isEmpty()) {
                 mainController.deleteRoom(waitingRoom.getRoomId());
             }

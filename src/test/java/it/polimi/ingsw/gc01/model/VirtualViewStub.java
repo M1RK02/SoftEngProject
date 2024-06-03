@@ -8,9 +8,12 @@ import java.util.*;
 
 public class VirtualViewStub implements VirtualView {
 
+    public String roomId;
+    public String error;
+
     @Override
     public void updateRoomId(String roomId) throws RemoteException {
-
+        this.roomId = roomId;
     }
 
     @Override
@@ -60,7 +63,7 @@ public class VirtualViewStub implements VirtualView {
 
     @Override
     public void showError(String error) throws RemoteException {
-
+        this.error = error;
     }
 
     @Override
@@ -70,6 +73,11 @@ public class VirtualViewStub implements VirtualView {
 
     @Override
     public void updateField(int id, boolean front, Position position, List<Position> availablePositions) throws RemoteException {
+
+    }
+
+    @Override
+    public void isAlive() throws RemoteException {
 
     }
 

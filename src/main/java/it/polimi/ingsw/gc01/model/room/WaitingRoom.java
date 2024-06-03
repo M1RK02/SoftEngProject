@@ -81,10 +81,10 @@ public class WaitingRoom {
      *
      * @param player the player to remove
      */
-    public void removePlayer(Player player) {
-        players.remove(player);
-        notifier.removeObserver(player.getName());
-        notifier.serviceMessage(DefaultValue.ANSI_RED + "-> " + player.getName() + " left the room!" + DefaultValue.ANSI_RESET);
+    public void removePlayer(String playerName) {
+        players.remove(getPlayerByName(playerName));
+        notifier.removeObserver(playerName);
+        notifier.serviceMessage(DefaultValue.ANSI_RED + "-> " + playerName + " left the room!" + DefaultValue.ANSI_RESET);
     }
 
     /**

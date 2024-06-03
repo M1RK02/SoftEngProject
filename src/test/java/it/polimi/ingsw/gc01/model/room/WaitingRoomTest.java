@@ -51,13 +51,13 @@ class WaitingRoomTest {
         waitingRoom.addPlayer(p3.getName(), new VirtualViewStub());
         waitingRoom.addPlayer(p4.getName(), new VirtualViewStub());
         assertEquals(4, waitingRoom.getPlayers().size());
-        waitingRoom.removePlayer(p1);
+        waitingRoom.removePlayer(p1.getName());
         assertEquals(3, waitingRoom.getPlayers().size());
-        waitingRoom.removePlayer(p2);
+        waitingRoom.removePlayer(p2.getName());
         assertEquals(2, waitingRoom.getPlayers().size());
-        waitingRoom.removePlayer(p3);
+        waitingRoom.removePlayer(p3.getName());
         assertEquals(1, waitingRoom.getPlayers().size());
-        waitingRoom.removePlayer(p4);
+        waitingRoom.removePlayer(p4.getName());
         assertEquals(0, waitingRoom.getPlayers().size());
     }
 

@@ -13,7 +13,7 @@ class RoomTest {
     private static List<Player> testPlayers;
 
     @BeforeAll
-    static void beforeAll() {
+    static void setup() {
         testPlayers = new ArrayList<>();
         for (int i = 0; i < 4; i++) {
             testPlayers.add(new Player("Player" + i, null));
