@@ -126,6 +126,7 @@ class PlayerTest {
                             p = new Position(position.getX() - 1, position.getY() + 1);
                             if (card.getCorners().get(cornerPosition).getResource().equals(FULL)) {
                                 assert (player.getField().getUnavailablePositions().contains(p));
+                                assert (!player.getField().getAvailablePositions().contains(p));
                             } else {
                                 assert player.getField().getUnavailablePositions().contains(p) || (player.getField().getAvailablePositions().contains(p));
                             }
@@ -134,6 +135,7 @@ class PlayerTest {
                             p = new Position(position.getX() + 1, position.getY() + 1);
                             if (card.getCorners().get(cornerPosition).getResource().equals(FULL)) {
                                 assert (player.getField().getUnavailablePositions().contains(p));
+                                assert (!player.getField().getAvailablePositions().contains(p));
                             } else {
                                 assert player.getField().getUnavailablePositions().contains(p) || (player.getField().getAvailablePositions().contains(p));
                             }
@@ -142,6 +144,7 @@ class PlayerTest {
                             p = new Position(position.getX() - 1, position.getY() - 1);
                             if (card.getCorners().get(cornerPosition).getResource().equals(FULL)) {
                                 assert (player.getField().getUnavailablePositions().contains(p));
+                                assert (!player.getField().getAvailablePositions().contains(p));
                             } else {
                                 assert player.getField().getUnavailablePositions().contains(p) || (player.getField().getAvailablePositions().contains(p));
                             }
@@ -150,6 +153,7 @@ class PlayerTest {
                             p = new Position(position.getX() + 1, position.getY() - 1);
                             if (card.getCorners().get(cornerPosition).getResource().equals(FULL)) {
                                 assert (player.getField().getUnavailablePositions().contains(p));
+                                assert (!player.getField().getAvailablePositions().contains(p));
                             } else {
                                 assert player.getField().getUnavailablePositions().contains(p) || (player.getField().getAvailablePositions().contains(p));
                             }

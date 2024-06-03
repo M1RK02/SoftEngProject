@@ -301,19 +301,19 @@ public class Player {
                 switch (cornerPosition) {
                     case TOP_LEFT:
                         p = new Position(position.getX() - 1, position.getY() + 1);
-                        checkPosition(corners, cornerPosition, p);
+                        checkPositionAvailability(corners, cornerPosition, p);
                         break;
                     case TOP_RIGHT:
                         p = new Position(position.getX() + 1, position.getY() + 1);
-                        checkPosition(corners, cornerPosition, p);
+                        checkPositionAvailability(corners, cornerPosition, p);
                         break;
                     case BOTTOM_LEFT:
                         p = new Position(position.getX() - 1, position.getY() - 1);
-                        checkPosition(corners, cornerPosition, p);
+                        checkPositionAvailability(corners, cornerPosition, p);
                         break;
                     case BOTTOM_RIGHT:
                         p = new Position(position.getX() + 1, position.getY() - 1);
-                        checkPosition(corners, cornerPosition, p);
+                        checkPositionAvailability(corners, cornerPosition, p);
                         break;
                     default:
                 }
@@ -321,13 +321,13 @@ public class Player {
         }
     }
 
-    private void checkPosition(Map<CornerPosition, Corner> corners, CornerPosition cornerPosition, Position p) {
+    private void checkPositionAvailability(Map<CornerPosition, Corner> corners, CornerPosition cornerPosition, Position position) {
         if (corners.get(cornerPosition).getResource().equals(FULL)) {
-            field.getUnavailablePositions().add(p);
-            field.getAvailablePositions().remove(p);
+            field.getUnavailablePositions().add(position);
+            field.getAvailablePositions().remove(position);
         } else {
-            if (!field.getUnavailablePositions().contains(p)) {
-                field.getAvailablePositions().add(p);
+            if (!field.getUnavailablePositions().contains(position)) {
+                field.getAvailablePositions().add(position);
             }
         }
     }
