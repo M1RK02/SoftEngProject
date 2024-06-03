@@ -5,7 +5,7 @@ import it.polimi.ingsw.gc01.model.cards.*;
 import it.polimi.ingsw.gc01.model.corners.CardResource;
 import it.polimi.ingsw.gc01.model.strategy.Strategy;
 
-import java.io.FileReader;
+import java.io.*;
 import java.lang.reflect.Type;
 import java.util.*;
 
@@ -13,7 +13,7 @@ public abstract class Deck {
     private final List<Card> deck;
 
     public Deck(String type) {
-        String json = "src/main/resources/it/polimi/ingsw/gc01/model/decks/" + type + "Deck.json";
+        InputStream json = this.getClass().getResourceAsStream("/it/polimi/ingsw/gc01/model/decks/" + type + "Deck.json");
         deck = new ArrayList<>();
         Gson gson = new GsonBuilder()
                 .registerTypeAdapter(CardResource.class, new CardResourcesDeserializer())
@@ -21,7 +21,7 @@ public abstract class Deck {
                 .registerTypeHierarchyAdapter(Strategy.class, new StrategyAdapter())
                 .create();
         try {
-            List<Object> cardList = gson.fromJson(new FileReader(json), List.class);
+            List<Object> cardList = gson.fromJson(new InputStreamReader(json), List.class);
             for (Object card : cardList) {
                 deck.add(gson.fromJson(card.toString(), (Type) Class.forName("it.polimi.ingsw.gc01.model.cards." + type + "Card")));
             }

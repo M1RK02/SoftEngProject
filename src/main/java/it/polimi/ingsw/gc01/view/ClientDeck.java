@@ -7,7 +7,7 @@ import it.polimi.ingsw.gc01.model.corners.*;
 import it.polimi.ingsw.gc01.model.decks.*;
 import it.polimi.ingsw.gc01.model.strategy.Strategy;
 
-import java.io.FileReader;
+import java.io.*;
 import java.lang.reflect.Type;
 import java.util.*;
 
@@ -23,9 +23,9 @@ public class ClientDeck {
                 .create();
         String[] types = {"Resource", "Golden", "Starter", "Objective"};
         for (String type : types) {
-            String json = "src/main/resources/it/polimi/ingsw/gc01/model/decks/" + type + "Deck.json";
+            InputStream json = this.getClass().getResourceAsStream("/it/polimi/ingsw/gc01/model/decks/" + type + "Deck.json");
             try {
-                List<Object> cardList = gson.fromJson(new FileReader(json), List.class);
+                List<Object> cardList = gson.fromJson(new InputStreamReader(json), List.class);
                 for (Object card : cardList) {
                     Card c = gson.fromJson(card.toString(), (Type) Class.forName("it.polimi.ingsw.gc01.model.cards." + type + "Card"));
                     deck.put(c.getId(), c);
