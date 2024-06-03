@@ -383,10 +383,6 @@ public class RoomController {
             }
         }
 
-        if (room.getResourceDeck().isEmpty() && room.getGoldenDeck().isEmpty() && room.getPlayers().get(room.getPlayers().size() - 1).equals(player)) {
-            setState(GameState.LAST_CIRCLE);
-        }
-
         nextPlayer();
     }
 

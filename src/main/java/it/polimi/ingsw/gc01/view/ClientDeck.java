@@ -509,7 +509,7 @@ public class ClientDeck {
 
         if (id == 100) {
             objectiveCard[0] = DefaultValue.ANSI_YELLOW + "╔═════════╦═════╦═════════╗" + DefaultValue.ANSI_RESET;
-            objectiveCard[1] = DefaultValue.ANSI_YELLOW + "║         ║  3  ║         ║" + DefaultValue.ANSI_RESET;
+            objectiveCard[1] = DefaultValue.ANSI_YELLOW + "║         ║  2  ║         ║" + DefaultValue.ANSI_RESET;
             objectiveCard[2] = DefaultValue.ANSI_YELLOW + "║         ╚═════╝         ║" + DefaultValue.ANSI_RESET;
             objectiveCard[3] = DefaultValue.ANSI_YELLOW + "║     ╔═════════════╗     ║" + DefaultValue.ANSI_RESET;
             objectiveCard[4] = DefaultValue.ANSI_YELLOW + "║     ║  MANUSCRIPT ║     ║" + DefaultValue.ANSI_RESET;
@@ -520,7 +520,7 @@ public class ClientDeck {
 
         if (id == 101) {
             objectiveCard[0] = DefaultValue.ANSI_YELLOW + "╔═════════╦═════╦═════════╗" + DefaultValue.ANSI_RESET;
-            objectiveCard[1] = DefaultValue.ANSI_YELLOW + "║         ║  3  ║         ║" + DefaultValue.ANSI_RESET;
+            objectiveCard[1] = DefaultValue.ANSI_YELLOW + "║         ║  2  ║         ║" + DefaultValue.ANSI_RESET;
             objectiveCard[2] = DefaultValue.ANSI_YELLOW + "║         ╚═════╝         ║" + DefaultValue.ANSI_RESET;
             objectiveCard[3] = DefaultValue.ANSI_YELLOW + "║     ╔═════════════╗     ║" + DefaultValue.ANSI_RESET;
             objectiveCard[4] = DefaultValue.ANSI_YELLOW + "║     ║   INKWELL   ║     ║" + DefaultValue.ANSI_RESET;
@@ -531,7 +531,7 @@ public class ClientDeck {
 
         if (id == 102) {
             objectiveCard[0] = DefaultValue.ANSI_YELLOW + "╔═════════╦═════╦═════════╗" + DefaultValue.ANSI_RESET;
-            objectiveCard[1] = DefaultValue.ANSI_YELLOW + "║         ║  3  ║         ║" + DefaultValue.ANSI_RESET;
+            objectiveCard[1] = DefaultValue.ANSI_YELLOW + "║         ║  2  ║         ║" + DefaultValue.ANSI_RESET;
             objectiveCard[2] = DefaultValue.ANSI_YELLOW + "║         ╚═════╝         ║" + DefaultValue.ANSI_RESET;
             objectiveCard[3] = DefaultValue.ANSI_YELLOW + "║     ╔═════════════╗     ║" + DefaultValue.ANSI_RESET;
             objectiveCard[4] = DefaultValue.ANSI_YELLOW + "║     ║    QUILL    ║     ║" + DefaultValue.ANSI_RESET;
