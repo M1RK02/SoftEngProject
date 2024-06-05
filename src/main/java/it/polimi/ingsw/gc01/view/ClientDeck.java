@@ -35,19 +35,10 @@ public class ClientDeck {
         }
     }
 
-    public String[] generateAvailablePosition(int index) {
-        String[] card = new String[7];
-        card[0] = "┌─ ── ── ── ─ ── ── ── ─┐";
-        card[1] = "                         ";
-        card[2] = "│                       │";
-        card[3] = String.format("           %2d            ", index);
-        card[4] = "│                       │";
-        card[5] = "                         ";
-        card[6] = "└─ ── ── ── ─ ── ── ── ─┘";
-        return card;
-    }
-
-    public String[] generateCardById(int id, boolean front) {
+    public String[] generateCardById(Integer id, boolean front) {
+        if (id == null) {
+            return generateEmptySpace();
+        }
         String type = getTypeById(id);
         return switch (type) {
             case "Resource" -> generateResourceCardById(id, front);
@@ -541,6 +532,30 @@ public class ClientDeck {
         }
 
         return objectiveCard;
+    }
+
+    public String[] generateAvailablePosition(int index) {
+        String[] position = new String[7];
+        position[0] = "┌─ ── ── ── ─ ── ── ── ─┐";
+        position[1] = "                         ";
+        position[2] = "│                       │";
+        position[3] = String.format("           %2d            ", index);
+        position[4] = "│                       │";
+        position[5] = "                         ";
+        position[6] = "└─ ── ── ── ─ ── ── ── ─┘";
+        return position;
+    }
+
+    private String[] generateEmptySpace() {
+        String[] space = new String[7];
+        space[0] = "┌───────────────────────┐";
+        space[1] = "│                       │";
+        space[2] = "│                       │";
+        space[3] = "│                       │";
+        space[4] = "│                       │";
+        space[5] = "│                       │";
+        space[6] = "└───────────────────────┘";
+        return space;
     }
 
     private String[] generateEmptyCard() {

@@ -103,7 +103,7 @@ public class ObserverManager {
 
     public void showTable(String playerName, Map<TablePosition, ResourceCard> drawableCards) {
         Map<Integer, Integer> drawableIds = new HashMap<>();
-        for (TablePosition position : TablePosition.values()) {
+        for (TablePosition position : drawableCards.keySet()) {
             switch (position) {
                 case RESOURCEDECK -> drawableIds.put(1, drawableCards.get(TablePosition.RESOURCEDECK).getId());
                 case RESOURCELEFT -> drawableIds.put(2, drawableCards.get(TablePosition.RESOURCELEFT).getId());

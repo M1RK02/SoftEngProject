@@ -334,7 +334,7 @@ public class RoomController {
             notifier.showError(playerName, "No card found");
         }
 
-        if (card instanceof StarterCard) {
+        if (card instanceof StarterCard || state.equals(GameState.LAST_CIRCLE)) {
             nextPlayer();
         } else {
             notifier.showTable(playerName, room.getDrawableCards());
@@ -349,6 +349,12 @@ public class RoomController {
      */
     public void drawCard(String playerName, TablePosition position) {
         Player player = room.getPlayerByName(playerName);
+        ObserverManager notifier = room.getNotifier();
+
+        if (room.getDrawableCards().get(position) == null) {
+            notifier.showError(playerName, "DRAW Invalid position");
+            return;
+        }
 
         if (position.equals(TablePosition.RESOURCEDECK)) {
             player.getHand().add(room.getDrawableCards().get(position));
