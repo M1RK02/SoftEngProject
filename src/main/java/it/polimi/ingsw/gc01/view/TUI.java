@@ -39,7 +39,10 @@ public class TUI implements UI {
         String playerName = askPlayerName();
         askServerIP();
         askPlayerIP();
-        createRMIClient(playerName);
+        switch (askConnection()){
+            case 1 -> createRMIClient(playerName);
+            case 2 -> createSocketClient(playerName);
+        }
         new Thread(this::askModalityToEnterGame).start();
     }
 
@@ -82,9 +85,36 @@ public class TUI implements UI {
             System.setProperty("java.rmi.server.hostname", input);
     }
 
+    private int askConnection(){
+        System.out.println("Select connection type:\n(1) RMI\n(2) SOCKET");
+        do {
+            Scanner scanner = new Scanner(System.in);
+            String input = scanner.nextLine();
+            try {
+                int choice = Integer.parseInt(input);
+                if (choice == 1 || choice == 2) {
+                    return choice;
+                }
+                System.out.println("Wrong choice");
+            } catch (NumberFormatException e) {
+                System.out.println("Wrong format");
+            }
+        } while (true);
+    }
+
     private void createRMIClient(String playerName) {
         try {
             networkClient = new RmiClient(playerName, this);
+        } catch (Exception e) {
+            System.out.println(DefaultValue.ANSI_RED + "Cannot instance RmiClient" + DefaultValue.ANSI_RESET);
+        }
+    }
+
+    private void createSocketClient(String playerName){
+        try {
+            //networkClient = new SocketClient(playerName, this);
+            System.out.println(DefaultValue.ANSI_RED + "Why are you gay?" + DefaultValue.ANSI_RESET);
+            System.exit(-1);
         } catch (Exception e) {
             System.out.println(DefaultValue.ANSI_RED + "Cannot instance RmiClient" + DefaultValue.ANSI_RESET);
         }

@@ -35,10 +35,10 @@ public class FieldUtil {
     }
 
     public void printUsedField() {
-        int maxX = concat(field.values().stream(), availablePositions.stream()).mapToInt(Position::getX).max().orElse(1624);
-        int maxY = concat(field.values().stream(), availablePositions.stream()).mapToInt(Position::getY).max().orElse(203);
-        int minX = concat(field.values().stream(), availablePositions.stream()).mapToInt(Position::getX).min().orElse(0);
-        int minY = concat(field.values().stream(), availablePositions.stream()).mapToInt(Position::getY).min().orElse(0);
+        int maxX = concat(field.values().stream(), availablePositions.stream()).mapToInt(Position::getX).max().orElse(40);
+        int maxY = concat(field.values().stream(), availablePositions.stream()).mapToInt(Position::getY).max().orElse(40);
+        int minX = concat(field.values().stream(), availablePositions.stream()).mapToInt(Position::getX).min().orElse(-40);
+        int minY = concat(field.values().stream(), availablePositions.stream()).mapToInt(Position::getY).min().orElse(-40);
 
         maxX = realX(maxX);
         maxY = realY(maxY);
@@ -52,7 +52,7 @@ public class FieldUtil {
     }
 
     private String[] generateField() {
-        String[] printableField = new String[204];
+        String[] printableField = new String[327];
         Arrays.fill(printableField, new String(new char[1625]).replace('\u0000', ' '));
 
         for (int i = 0; i < availablePositions.size(); i++) {

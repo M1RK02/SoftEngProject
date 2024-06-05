@@ -198,8 +198,10 @@ public class Player {
         field.getPositions().put(position, card);
 
         //If card is a ResourceCard, add card points to the player
-        if (card instanceof ResourceCard) {
-            updatePoints((ResourceCard) card, position);
+        if(card.isFront()){
+            if (card instanceof ResourceCard) {
+                updatePoints((ResourceCard) card, position);
+            }
         }
 
         notifier.updateField(name, card.getId(), card.isFront(), position, field.getAvailablePositions().stream().toList());

@@ -7,6 +7,7 @@ import it.polimi.ingsw.gc01.model.player.*;
 import it.polimi.ingsw.gc01.model.room.*;
 import it.polimi.ingsw.gc01.network.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class RoomController {
@@ -117,6 +118,20 @@ public class RoomController {
         notifier.showField(currentPlayer.getName());
     }
 
+    private void showPoints() {
+        ObserverManager notifier = room.getNotifier();
+        List<Player> players = new ArrayList<>(room.getPlayers());
+        StringBuilder leaderboard = new StringBuilder();
+        players.sort((p1, p2) -> Integer.compare(p2.getPoints(), p1.getPoints()));
+        leaderboard.append(DefaultValue.ANSI_BLUE).append("\n-> Leaderboard: \n").append(DefaultValue.ANSI_RESET);
+        for (int i = 0; i < players.size(); i++) {
+            Player player = players.get(i);
+            leaderboard.append(DefaultValue.ANSI_BLUE).append("(").append((i + 1)).append(") ").append(player.getName()).append(" : ").append(player.getPoints()).append(" points").append(DefaultValue.ANSI_RESET).append("\n");
+        }
+        notifier.serviceMessage(leaderboard.toString());
+
+    }
+
     private void showHand() {
         Player currentPlayer = room.getCurrentPlayer();
         ObserverManager notifier = room.getNotifier();
@@ -127,6 +142,7 @@ public class RoomController {
      * Change the currentPlayer to the next Player in the circle checking the current state
      */
     public void nextPlayer() {
+        ObserverManager notifier = room.getNotifier();
         room.setCurrentPlayer(room.getNextPlayer());
         Player currentPlayer = room.getCurrentPlayer();
         switch (state) {
@@ -152,6 +168,7 @@ public class RoomController {
                     showObjective();
                 } else {
                     state = GameState.RUNNING;
+                    showPoints();
                     showField();
                     showHand();
                 }
@@ -160,13 +177,16 @@ public class RoomController {
                 if (currentPlayer.equals(room.getPlayers().getFirst())) {
                     if (hasOneReachedTwenty() || areDecksEmpty()) {
                         state = GameState.LAST_CIRCLE;
+                        notifier.serviceMessage(DefaultValue.ANSI_YELLOW + "-> Last circle!");
                     }
                 }
+                showPoints();
                 showField();
                 showHand();
                 break;
             case LAST_CIRCLE:
                 if (!currentPlayer.equals(room.getPlayers().getFirst())) {
+                    showPoints();
                     showField();
                     showHand();
                 } else {
@@ -252,6 +272,7 @@ public class RoomController {
             }
             notifier.serviceMessage("The winners are " + winnersName.substring(0, winnersName.length() - 2) + "!");
         }
+        //notifier.backToMenu();
     }
 
     /**
