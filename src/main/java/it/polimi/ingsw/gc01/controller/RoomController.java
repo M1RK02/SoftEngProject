@@ -242,7 +242,6 @@ public class RoomController {
         return false;
     }
 
-
     /**
      * @return true if both decks are empty
      */

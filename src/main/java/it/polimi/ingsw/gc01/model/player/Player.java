@@ -25,7 +25,7 @@ public class Player {
     private int points;
     private int objectivePoints;
     private ObjectiveCard secretObjective;
-    private boolean ready = false;
+    private boolean ready;
 
     public Player(String name, ObserverManager notifier) {
         this.name = name;

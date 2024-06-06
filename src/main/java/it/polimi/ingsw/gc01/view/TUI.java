@@ -262,6 +262,7 @@ public class TUI implements UI {
         System.out.println(DefaultValue.ANSI_PURPLE + "-> Last circle!");
     }
 
+    @Override
     public void showStarter(int cardId) {
         String[] cardFront = clientDeck.generateCardById(cardId, true);
         String[] cardBack = clientDeck.generateCardById(cardId, false);

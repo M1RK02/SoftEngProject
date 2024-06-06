@@ -61,7 +61,7 @@ public class RmiServer implements VirtualServer {
      * @param client     The client  of the player who is creating the room
      */
     @Override
-    public void createGame(String playerName, VirtualView client) throws RemoteException {
+    public void createGame(String playerName, VirtualView client) {
         CreateGameAction createGame = new CreateGameAction(playerName, client);
         try {
             actions.put(createGame);
@@ -78,7 +78,7 @@ public class RmiServer implements VirtualServer {
      * @param roomId     The id of the game to join
      */
     @Override
-    public void joinGame(String playerName, VirtualView client, String roomId) throws RemoteException {
+    public void joinGame(String playerName, VirtualView client, String roomId) {
         JoinGameAction joinGame = new JoinGameAction(playerName, client, roomId);
         try {
             actions.put(joinGame);
@@ -94,7 +94,7 @@ public class RmiServer implements VirtualServer {
      * @param client     The client of the player who is trying to join a game
      */
     @Override
-    public void joinFirstGame(String playerName, VirtualView client) throws RemoteException {
+    public void joinFirstGame(String playerName, VirtualView client) {
         JoinFirstGameAction joinFirstGame = new JoinFirstGameAction(playerName, client);
         try {
             actions.put(joinFirstGame);
@@ -111,7 +111,7 @@ public class RmiServer implements VirtualServer {
      * @param color      the color chosen by the player
      */
     @Override
-    public void chooseColor(String playerName, String roomId, PlayerColor color) throws RemoteException {
+    public void chooseColor(String playerName, String roomId, PlayerColor color) {
 
         ChooseColorAction chooseColor = new ChooseColorAction(playerName, mainController.getRooms().get(roomId), color);
         try {
@@ -129,7 +129,7 @@ public class RmiServer implements VirtualServer {
      * @param roomId     The id of the room in which is the player who is making the action
      */
     @Override
-    public void switchReady(String playerName, String roomId) throws RemoteException {
+    public void switchReady(String playerName, String roomId) {
         SwitchReadyAction switchReady = new SwitchReadyAction(playerName, mainController.getRooms().get(roomId));
         try {
             actions.put(switchReady);
@@ -146,7 +146,7 @@ public class RmiServer implements VirtualServer {
      * @param cardId     The id of the objective card chosen
      */
     @Override
-    public void chooseSecretObjective(String playerName, String roomId, int cardId) throws RemoteException {
+    public void chooseSecretObjective(String playerName, String roomId, int cardId) {
         ChooseSecretObjectiveAction chooseSecretObjective = new ChooseSecretObjectiveAction(playerName, mainController.getRooms().get(roomId), cardId);
         try {
             actions.put(chooseSecretObjective);
@@ -163,7 +163,7 @@ public class RmiServer implements VirtualServer {
      * @param cardId     The id of the card to flip
      */
     @Override
-    public void flipCard(String playerName, String roomId, int cardId) throws RemoteException {
+    public void flipCard(String playerName, String roomId, int cardId) {
         FlipCardAction flipCard = new FlipCardAction(playerName, mainController.getRooms().get(roomId), cardId);
         try {
             actions.put(flipCard);
@@ -181,7 +181,7 @@ public class RmiServer implements VirtualServer {
      * @param position   The position in the player field
      */
     @Override
-    public void playCard(String playerName, String roomId, int cardId, Position position) throws RemoteException {
+    public void playCard(String playerName, String roomId, int cardId, Position position) {
         PlayCardAction playCard = new PlayCardAction(playerName, mainController.getRooms().get(roomId), cardId, position);
         try {
             actions.put(playCard);
@@ -198,7 +198,7 @@ public class RmiServer implements VirtualServer {
      * @param choice     The position of the card to draw in the Drawable cards
      */
     @Override
-    public void drawCard(String playerName, String roomId, int choice) throws RemoteException {
+    public void drawCard(String playerName, String roomId, int choice) {
         DrawCardAction drawCard = new DrawCardAction(playerName, mainController.getRooms().get(roomId), choice);
         try {
             actions.put(drawCard);
@@ -214,7 +214,7 @@ public class RmiServer implements VirtualServer {
      * @param roomId     The id of the room in which is the player who is making the action
      */
     @Override
-    public void leave(String playerName, String roomId) throws RemoteException {
+    public void leave(String playerName, String roomId) {
         LeaveAction leave = new LeaveAction(playerName, mainController.getRooms().get(roomId));
         try {
             actions.put(leave);

@@ -185,7 +185,7 @@ public class RmiClient extends UnicastRemoteObject implements VirtualView, Netwo
     }
 
     @Override
-    public void updateField(String playerName, int id, boolean front, Position position, List<Position> availablePositions) throws RemoteException {
+    public void updateField(String playerName, int id, boolean front, Position position, List<Position> availablePositions) {
         ui.updateField(playerName, id, front, position, availablePositions);
     }
 
@@ -193,7 +193,7 @@ public class RmiClient extends UnicastRemoteObject implements VirtualView, Netwo
      * Starts the game
      */
     @Override
-    public void startGame() throws RemoteException {
+    public void startGame() {
         ui.startGame();
     }
 
@@ -225,7 +225,7 @@ public class RmiClient extends UnicastRemoteObject implements VirtualView, Netwo
      * @param ready
      */
     @Override
-    public void updateReady(String playerName, boolean ready) throws RemoteException {
+    public void updateReady(String playerName, boolean ready) {
         ui.updateReady(playerName, ready);
     }
 
@@ -233,7 +233,7 @@ public class RmiClient extends UnicastRemoteObject implements VirtualView, Netwo
      * @param objectivesIds
      */
     @Override
-    public void showCommonObjectives(List<Integer> objectivesIds) throws RemoteException {
+    public void showCommonObjectives(List<Integer> objectivesIds) {
         ui.showCommonObjectives(objectivesIds);
     }
 
@@ -241,7 +241,7 @@ public class RmiClient extends UnicastRemoteObject implements VirtualView, Netwo
      * @param drawableCardsIds
      */
     @Override
-    public void showTable(Map<Integer, Integer> drawableCardsIds) throws RemoteException {
+    public void showTable(Map<Integer, Integer> drawableCardsIds) {
         ui.showTable(drawableCardsIds);
     }
 
@@ -249,7 +249,7 @@ public class RmiClient extends UnicastRemoteObject implements VirtualView, Netwo
      * @param handIds
      */
     @Override
-    public void showHand(List<Integer> handIds) throws RemoteException {
+    public void showHand(List<Integer> handIds) {
         ui.showHand(handIds);
     }
 
@@ -257,12 +257,12 @@ public class RmiClient extends UnicastRemoteObject implements VirtualView, Netwo
      * @param playerName
      */
     @Override
-    public void showField(String playerName) throws RemoteException {
+    public void showField(String playerName) {
         ui.showField(playerName);
     }
 
     @Override
-    public void showPoints(Map<String, Integer> points) throws RemoteException {
+    public void showPoints(Map<String, Integer> points) {
         ui.showPoints(points);
     }
 
@@ -270,7 +270,7 @@ public class RmiClient extends UnicastRemoteObject implements VirtualView, Netwo
      * @param possibleObjectivesIds
      */
     @Override
-    public void showSecretObjectives(List<Integer> possibleObjectivesIds) throws RemoteException {
+    public void showSecretObjectives(List<Integer> possibleObjectivesIds) {
         ui.showPossibleObjectives(possibleObjectivesIds);
     }
 
@@ -278,7 +278,7 @@ public class RmiClient extends UnicastRemoteObject implements VirtualView, Netwo
      * @param error
      */
     @Override
-    public void showError(String error) throws RemoteException {
+    public void showError(String error) {
         ui.showError(error);
     }
 
@@ -286,20 +286,20 @@ public class RmiClient extends UnicastRemoteObject implements VirtualView, Netwo
      * @param message
      */
     @Override
-    public void serviceMessage(String message) throws RemoteException {
+    public void serviceMessage(String message) {
         ui.showServiceMessage(message);
     }
 
     @Override
-    public void showLastCircle() throws RemoteException {
+    public void showLastCircle() {
         ui.showLastCircle();
     }
 
     @Override
-    public void showWinners(List<String> winners) throws RemoteException {
+    public void showWinners(List<String> winners) {
         ui.showWinners(winners);
     }
 
     @Override
-    public void isAlive() throws RemoteException {}
+    public void isAlive() {}
 }
