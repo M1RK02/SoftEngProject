@@ -21,7 +21,7 @@ public interface UI {
 
     void showCurrentPlayer(String playerName);
 
-    void showField();
+    void showField(String playerName);
 
     void showPoints(Map<String, Integer> points);
 
@@ -33,7 +33,7 @@ public interface UI {
 
     void startGame();
 
-    void updateField(int id, boolean front, Position position, List<Position> availablePositions);
+    void updateField(String playerName, int id, boolean front, Position position, List<Position> availablePositions);
 
     void showTable(Map<Integer, Integer> drawableCardsIds);
 

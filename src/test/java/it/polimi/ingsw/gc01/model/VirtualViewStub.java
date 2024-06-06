@@ -57,6 +57,11 @@ public class VirtualViewStub implements VirtualView {
     }
 
     @Override
+    public void showPoints(Map<String, Integer> points) throws RemoteException {
+
+    }
+
+    @Override
     public void showSecretObjectives(List<Integer> possibleObjectivesIds) throws RemoteException {
 
     }
@@ -72,12 +77,27 @@ public class VirtualViewStub implements VirtualView {
     }
 
     @Override
-    public void updateField(int id, boolean front, Position position, List<Position> availablePositions) throws RemoteException {
+    public void showLastCircle() throws RemoteException {
+
+    }
+
+    @Override
+    public void showWinners(List<String> winners) throws RemoteException {
+
+    }
+
+    @Override
+    public void updateField(String playerName, int id, boolean front, Position position, List<Position> availablePositions) throws RemoteException {
 
     }
 
     @Override
     public void isAlive() throws RemoteException {
+
+    }
+
+    @Override
+    public void backToMenu() throws RemoteException {
 
     }
 

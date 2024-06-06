@@ -9,13 +9,17 @@ import java.util.*;
 
 public class TUI implements UI {
     private final ClientDeck clientDeck;
+    private final String playerName;
     private final FieldUtil field;
+    private Map<String, FieldUtil> otherFields;
     private NetworkClient networkClient;
     private List<Integer> handIds;
 
     public TUI() {
         clientDeck = new ClientDeck();
         field = new FieldUtil();
+        otherFields = new HashMap<>();
+        playerName = askPlayerName();
         start();
     }
 
@@ -36,7 +40,6 @@ public class TUI implements UI {
     }
 
     public void start() {
-        String playerName = askPlayerName();
         askServerIP();
         askPlayerIP();
         switch (askConnection()){
@@ -198,13 +201,22 @@ public class TUI implements UI {
 
     @Override
     public void showCurrentPlayer(String playerName) {
-        System.out.println(DefaultValue.ANSI_WHITE + "-> Current player is: " + playerName + " !" + DefaultValue.ANSI_RESET);
+        if (playerName.equals(this.playerName)) {
+            System.out.println(DefaultValue.ANSI_WHITE + "-> It's your turn!" + DefaultValue.ANSI_RESET);
+        } else {
+            System.out.println(DefaultValue.ANSI_WHITE + "-> Current player is: " + playerName + " !" + DefaultValue.ANSI_RESET);
+        }
     }
 
     @Override
-    public void showField() {
-        System.out.println(DefaultValue.ANSI_YELLOW + "-> Your Field:\n" + DefaultValue.ANSI_RESET);
-        field.printUsedField();
+    public void showField(String playerName) {
+        if (playerName.equals(this.playerName)) {
+            System.out.println(DefaultValue.ANSI_YELLOW + "-> Your Field:\n" + DefaultValue.ANSI_RESET);
+            field.printUsedField();
+        } else {
+            System.out.println(DefaultValue.ANSI_YELLOW + "-> " + playerName + "'s Field:\n" + DefaultValue.ANSI_RESET);
+            otherFields.get(playerName).printUsedField();
+        }
     }
 
     @Override
@@ -337,10 +349,16 @@ public class TUI implements UI {
     }
 
     @Override
-    public void updateField(int id, boolean front, Position position, List<Position> availablePositions) {
-        field.playCard(id, front, position);
-        field.setAvailablePositions(availablePositions);
-
+    public void updateField(String playerName, int id, boolean front, Position position, List<Position> availablePositions) {
+        if(playerName.equals(this.playerName)) {
+            field.playCard(id, front, position);
+            field.setAvailablePositions(availablePositions);
+        } else {
+            if (!otherFields.containsKey(playerName)) {
+                otherFields.put(playerName, new FieldUtil());
+            }
+            otherFields.get(playerName).playCard(id, front, position);
+        }
     }
 
     @Override

@@ -38,7 +38,7 @@ public interface VirtualView extends Remote {
 
     void showWinners(List<String> winners) throws RemoteException;
 
-    void updateField(int id, boolean front, Position position, List<Position> availablePositions) throws RemoteException;
+    void updateField(String playerName, int id, boolean front, Position position, List<Position> availablePositions) throws RemoteException;
 
     void isAlive() throws RemoteException;
 

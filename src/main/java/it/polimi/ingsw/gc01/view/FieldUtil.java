@@ -18,6 +18,7 @@ public class FieldUtil {
         side = new HashMap<>();
         field = new HashMap<>();
         clientDeck = new ClientDeck();
+        availablePositions = new ArrayList<>();
     }
 
     public List<Position> getAvailablePositions() {

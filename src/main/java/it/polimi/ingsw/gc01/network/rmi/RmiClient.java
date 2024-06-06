@@ -185,8 +185,8 @@ public class RmiClient extends UnicastRemoteObject implements VirtualView, Netwo
     }
 
     @Override
-    public void updateField(int id, boolean front, Position position, List<Position> availablePositions) throws RemoteException {
-        ui.updateField(id, front, position, availablePositions);
+    public void updateField(String playerName, int id, boolean front, Position position, List<Position> availablePositions) throws RemoteException {
+        ui.updateField(playerName, id, front, position, availablePositions);
     }
 
     /**
@@ -258,7 +258,7 @@ public class RmiClient extends UnicastRemoteObject implements VirtualView, Netwo
      */
     @Override
     public void showField(String playerName) throws RemoteException {
-        ui.showField();
+        ui.showField(playerName);
     }
 
     @Override

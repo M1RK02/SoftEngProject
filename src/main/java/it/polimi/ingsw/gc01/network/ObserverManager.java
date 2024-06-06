@@ -94,10 +94,11 @@ public class ObserverManager {
 
     public void updateField(String playerName, int id, boolean front, Position position, List<Position> availablePositions) {
         synchronized (observers) {
-            VirtualView client = observers.get(playerName);
-            try {
-                client.updateField(id, front, position, availablePositions);
-            } catch (RemoteException ignored) {}
+            for (VirtualView client : observers.values()) {
+                try {
+                    client.updateField(playerName, id, front, position, availablePositions);
+                } catch (RemoteException ignored) {}
+            }
         }
     }
 
@@ -144,10 +145,11 @@ public class ObserverManager {
 
     public void showField(String playerName) {
         synchronized (observers) {
-            VirtualView client = observers.get(playerName);
-            try {
-                client.showField(playerName);
-            } catch (RemoteException ignored) {}
+            for (VirtualView client : observers.values()) {
+                try {
+                    client.showField(playerName);
+                } catch (RemoteException ignored) {}
+            }
         }
     }
 

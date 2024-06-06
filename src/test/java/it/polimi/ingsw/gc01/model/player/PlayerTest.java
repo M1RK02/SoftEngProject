@@ -168,10 +168,12 @@ class PlayerTest {
             assert (player.getField().getPositions().get(position).equals(card));
 
             //Check score
-            if (card instanceof GoldenCard) {
-                assert (player.getPoints() == oldScore + ((GoldenCard) card).calculatePoints(player, position));
-            } else {
-                assert (player.getPoints() == oldScore + card.getScore());
+            if(card.isFront()){
+                if (card instanceof GoldenCard) {
+                    assert (player.getPoints() == oldScore + ((GoldenCard) card).calculatePoints(player, position));
+                } else {
+                    assert (player.getPoints() == oldScore + card.getScore());
+                }
             }
 
             n = generatore.nextInt(2);
