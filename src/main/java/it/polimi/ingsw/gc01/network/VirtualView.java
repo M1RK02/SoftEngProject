@@ -26,11 +26,17 @@ public interface VirtualView extends Remote {
 
     void showField(String playerName) throws RemoteException;
 
+    void showPoints(Map<String, Integer> points) throws RemoteException;
+
     void showSecretObjectives(List<Integer> possibleObjectivesIds) throws RemoteException;
 
     void showError(String error) throws RemoteException;
 
     void serviceMessage(String message) throws RemoteException;
+
+    void showLastCircle() throws RemoteException;
+
+    void showWinners(List<String> winners) throws RemoteException;
 
     void updateField(int id, boolean front, Position position, List<Position> availablePositions) throws RemoteException;
 

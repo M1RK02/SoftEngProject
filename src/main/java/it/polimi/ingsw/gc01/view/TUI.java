@@ -208,6 +208,14 @@ public class TUI implements UI {
     }
 
     @Override
+    public void showPoints(Map<String, Integer> points) {
+        System.out.println(DefaultValue.ANSI_BLUE + "-> Points:" + DefaultValue.ANSI_RESET);
+        for (String playerName : points.keySet()) {
+            System.out.println(DefaultValue.ANSI_BLUE + playerName + ": " + points.get(playerName) + " points" + DefaultValue.ANSI_RESET);
+        }
+    }
+
+    @Override
     public void showError(String error) {
         String type = error.substring(0, error.indexOf(" "));
         String message = error.substring(error.indexOf(" ") + 1);
@@ -234,6 +242,11 @@ public class TUI implements UI {
     @Override
     public void showServiceMessage(String message) {
         System.out.println(message);
+    }
+
+    @Override
+    public void showLastCircle() {
+        System.out.println(DefaultValue.ANSI_YELLOW + "-> Last circle!");
     }
 
     public void showStarter(int cardId) {
@@ -494,6 +507,19 @@ public class TUI implements UI {
         int cardSelected = Integer.parseInt(input);
 
         networkClient.drawCard(cardSelected);
+    }
+
+    @Override
+    public void showWinners(List<String> winners) {
+        if (winners.size() == 1) {
+            System.out.println(DefaultValue.ANSI_BLUE + "-> The winner is " + winners.getFirst() + "!" + DefaultValue.ANSI_RESET);
+        } else {
+            System.out.println(DefaultValue.ANSI_BLUE + "-> The winners are:");
+            for (String winner : winners) {
+                System.out.println("-> " + winner);
+            }
+            System.out.println(DefaultValue.ANSI_RESET);
+        }
     }
 
     @Override

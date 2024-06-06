@@ -7,8 +7,7 @@ import it.polimi.ingsw.gc01.model.player.*;
 import it.polimi.ingsw.gc01.model.room.*;
 import it.polimi.ingsw.gc01.network.*;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 public class RoomController {
     private final MainController mainController;
@@ -120,16 +119,11 @@ public class RoomController {
 
     private void showPoints() {
         ObserverManager notifier = room.getNotifier();
-        List<Player> players = new ArrayList<>(room.getPlayers());
-        StringBuilder leaderboard = new StringBuilder();
-        players.sort((p1, p2) -> Integer.compare(p2.getPoints(), p1.getPoints()));
-        leaderboard.append(DefaultValue.ANSI_BLUE).append("\n-> Leaderboard: \n").append(DefaultValue.ANSI_RESET);
-        for (int i = 0; i < players.size(); i++) {
-            Player player = players.get(i);
-            leaderboard.append(DefaultValue.ANSI_BLUE).append("(").append((i + 1)).append(") ").append(player.getName()).append(" : ").append(player.getPoints()).append(" points").append(DefaultValue.ANSI_RESET).append("\n");
+        Map<String, Integer> points = new HashMap<>();
+        for (Player player : room.getPlayers()) {
+            points.put(player.getName(), player.getPoints());
         }
-        notifier.serviceMessage(leaderboard.toString());
-
+        notifier.showPoints(points);
     }
 
     private void showHand() {
@@ -177,7 +171,7 @@ public class RoomController {
                 if (currentPlayer.equals(room.getPlayers().getFirst())) {
                     if (hasOneReachedTwenty() || areDecksEmpty()) {
                         state = GameState.LAST_CIRCLE;
-                        notifier.serviceMessage(DefaultValue.ANSI_YELLOW + "-> Last circle!");
+                        notifier.showLastCircle();
                     }
                 }
                 showPoints();
@@ -261,17 +255,9 @@ public class RoomController {
      */
     public void endGame() {
         calculateStrategy();
-        List<Player> winners = room.getWinners();
+        List<String> winners = room.getWinners().stream().map(Player::getName).toList();
         ObserverManager notifier = room.getNotifier();
-        if (winners.size() == 1) {
-            notifier.serviceMessage(DefaultValue.ANSI_BLUE + "-> The winner is " + winners.getFirst().getName() + "!" + DefaultValue.ANSI_RESET);
-        } else {
-            String winnersName = "";
-            for (Player p : winners) {
-                winnersName += p.getName() + ", ";
-            }
-            notifier.serviceMessage(DefaultValue.ANSI_BLUE + "-> The winners are " + winnersName.substring(0, winnersName.length() - 2) + "!" + DefaultValue.ANSI_RESET);
-        }
+        notifier.showWinners(winners);
         notifier.backToMenu();
     }
 

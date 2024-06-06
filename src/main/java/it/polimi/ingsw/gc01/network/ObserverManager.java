@@ -151,6 +151,16 @@ public class ObserverManager {
         }
     }
 
+    public void showPoints(Map<String, Integer> points) {
+        synchronized (observers) {
+            for (VirtualView client : observers.values()) {
+                try {
+                    client.showPoints(points);
+                } catch (RemoteException ignored) {}
+            }
+        }
+    }
+
     public void backToMenu(){
         synchronized (observers) {
             for (VirtualView client : observers.values()) {
@@ -196,6 +206,26 @@ public class ObserverManager {
             for (VirtualView client : observers.values()) {
                 try {
                     client.serviceMessage(message);
+                } catch (RemoteException ignored) {}
+            }
+        }
+    }
+
+    public void showLastCircle() {
+        synchronized (observers) {
+            for (VirtualView client : observers.values()) {
+                try {
+                    client.showLastCircle();
+                } catch (RemoteException ignored) {}
+            }
+        }
+    }
+
+    public void showWinners(List<String> winners) {
+        synchronized (observers) {
+            for (VirtualView client : observers.values()) {
+                try {
+                    client.showWinners(winners);
                 } catch (RemoteException ignored) {}
             }
         }

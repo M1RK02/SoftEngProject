@@ -11,6 +11,10 @@ public interface UI {
 
     void showServiceMessage(String message);
 
+    void showLastCircle();
+
+    void showWinners(List<String> winners);
+
     void showStarter(int cardId);
 
     void showAvailableColors(List<PlayerColor> availableColors);
@@ -18,6 +22,8 @@ public interface UI {
     void showCurrentPlayer(String playerName);
 
     void showField();
+
+    void showPoints(Map<String, Integer> points);
 
     void showHand(List<Integer> handIds);
 

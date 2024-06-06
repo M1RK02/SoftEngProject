@@ -261,6 +261,11 @@ public class RmiClient extends UnicastRemoteObject implements VirtualView, Netwo
         ui.showField();
     }
 
+    @Override
+    public void showPoints(Map<String, Integer> points) throws RemoteException {
+        ui.showPoints(points);
+    }
+
     /**
      * @param possibleObjectivesIds
      */
@@ -283,6 +288,16 @@ public class RmiClient extends UnicastRemoteObject implements VirtualView, Netwo
     @Override
     public void serviceMessage(String message) throws RemoteException {
         ui.showServiceMessage(message);
+    }
+
+    @Override
+    public void showLastCircle() throws RemoteException {
+        ui.showLastCircle();
+    }
+
+    @Override
+    public void showWinners(List<String> winners) throws RemoteException {
+        ui.showWinners(winners);
     }
 
     @Override
