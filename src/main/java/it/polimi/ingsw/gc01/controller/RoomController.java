@@ -241,7 +241,7 @@ public class RoomController {
      */
     private boolean hasOneReachedTwenty() {
         for (Player p : room.getPlayers()) {
-            if (p.getPoints() >= 20) {
+            if (p.getPoints() >= DefaultValue.PointsToFinish) {
                 return true;
             }
         }
@@ -264,15 +264,15 @@ public class RoomController {
         List<Player> winners = room.getWinners();
         ObserverManager notifier = room.getNotifier();
         if (winners.size() == 1) {
-            notifier.serviceMessage("The winner is " + winners.getFirst().getName() + "!");
+            notifier.serviceMessage(DefaultValue.ANSI_BLUE + "-> The winner is " + winners.getFirst().getName() + "!" + DefaultValue.ANSI_RESET);
         } else {
             String winnersName = "";
             for (Player p : winners) {
                 winnersName += p.getName() + ", ";
             }
-            notifier.serviceMessage("The winners are " + winnersName.substring(0, winnersName.length() - 2) + "!");
+            notifier.serviceMessage(DefaultValue.ANSI_BLUE + "-> The winners are " + winnersName.substring(0, winnersName.length() - 2) + "!" + DefaultValue.ANSI_RESET);
         }
-        //notifier.backToMenu();
+        notifier.backToMenu();
     }
 
     /**

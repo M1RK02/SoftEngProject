@@ -170,6 +170,11 @@ public class RmiClient extends UnicastRemoteObject implements VirtualView, Netwo
         }
     }
 
+    @Override
+    public void backToMenu(){
+        ui.backToMenu();
+    }
+
     /**
      * @param roomId
      */

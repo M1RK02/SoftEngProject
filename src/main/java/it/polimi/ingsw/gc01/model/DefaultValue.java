@@ -17,4 +17,5 @@ public class DefaultValue {
     public static final String ANSI_WHITE = "\u001B[37m";
     public static String ServerIp = "127.0.0.1";
     public static int RMIPort = 1234;
+    public static final int PointsToFinish = 20;
 }

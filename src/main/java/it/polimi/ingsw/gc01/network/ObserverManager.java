@@ -151,6 +151,16 @@ public class ObserverManager {
         }
     }
 
+    public void backToMenu(){
+        synchronized (observers) {
+            for (VirtualView client : observers.values()) {
+                try {
+                    client.backToMenu();
+                } catch (RemoteException ignored) {}
+            }
+        }
+    }
+
     public void showSecretObjectives(String playerName, List<ObjectiveCard> possibleObjectives) {
         List<Integer> possibleObjectivesIds = possibleObjectives.stream().map(ObjectiveCard::getId).collect(Collectors.toList());
         synchronized (observers) {

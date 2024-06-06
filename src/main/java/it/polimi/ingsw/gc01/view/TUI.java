@@ -496,4 +496,11 @@ public class TUI implements UI {
         networkClient.drawCard(cardSelected);
     }
 
+    @Override
+    public void backToMenu(){
+        networkClient.leave();
+        System.out.println(DefaultValue.ANSI_GREEN + "\n\n-> Going back to menu\n" + DefaultValue.ANSI_RESET);
+        new Thread(this::askModalityToEnterGame).start();
+    }
+
 }

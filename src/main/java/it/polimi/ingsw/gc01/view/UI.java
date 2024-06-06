@@ -32,4 +32,6 @@ public interface UI {
     void showTable(Map<Integer, Integer> drawableCardsIds);
 
     void showCommonObjectives(List<Integer> objectiveIds);
+
+    void backToMenu();
 }

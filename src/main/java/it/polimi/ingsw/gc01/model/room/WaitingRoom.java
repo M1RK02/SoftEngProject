@@ -79,7 +79,7 @@ public class WaitingRoom {
     /**
      * Remove a player from the waiting room
      *
-     * @param player the player to remove
+     * @param playerName the name of the player to remove
      */
     public void removePlayer(String playerName) {
         players.remove(getPlayerByName(playerName));
