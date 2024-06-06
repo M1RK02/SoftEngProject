@@ -10,15 +10,13 @@ import java.util.*;
 public class TUI implements UI {
     private final ClientDeck clientDeck;
     private final String playerName;
-    private final FieldUtil field;
+    private FieldUtil field;
     private Map<String, FieldUtil> otherFields;
     private NetworkClient networkClient;
     private List<Integer> handIds;
 
     public TUI() {
         clientDeck = new ClientDeck();
-        field = new FieldUtil();
-        otherFields = new HashMap<>();
         playerName = askPlayerName();
         start();
     }
@@ -174,6 +172,7 @@ public class TUI implements UI {
             input = scanner.nextLine();
             if (input.equals("l")) {
                 networkClient.leave();
+                System.out.println(DefaultValue.ANSI_GREEN + "\n\n-> Going back to menu\n" + DefaultValue.ANSI_RESET);
                 new Thread(this::askModalityToEnterGame).start();
                 return;
             }
@@ -196,6 +195,8 @@ public class TUI implements UI {
 
     @Override
     public void startGame() {
+        field = new FieldUtil();
+        otherFields = new HashMap<>();
         System.out.println(DefaultValue.ANSI_PURPLE + "Game is starting!" + DefaultValue.ANSI_RESET);
     }
 
@@ -258,7 +259,7 @@ public class TUI implements UI {
 
     @Override
     public void showLastCircle() {
-        System.out.println(DefaultValue.ANSI_YELLOW + "-> Last circle!");
+        System.out.println(DefaultValue.ANSI_PURPLE + "-> Last circle!");
     }
 
     public void showStarter(int cardId) {
