@@ -12,6 +12,11 @@ import java.util.*;
 public abstract class Deck {
     private final List<Card> deck;
 
+    /**
+     *
+     * @param type The type of the deck, used to determine the JSON file to read and
+     *  *          the type of cards to create.
+     */
     public Deck(String type) {
         InputStream json = this.getClass().getResourceAsStream("/it/polimi/ingsw/gc01/model/decks/" + type + "Deck.json");
         deck = new ArrayList<>();

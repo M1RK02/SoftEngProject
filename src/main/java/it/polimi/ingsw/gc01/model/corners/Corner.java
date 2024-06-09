@@ -8,6 +8,10 @@ public class Corner {
         this.resource = resource;
     }
 
+    /**
+     *
+     * @return the corner's resource
+     */
     public CardResource getResource() {
         return resource;
     }

@@ -10,6 +10,10 @@ public class Field {
     private final Set<Position> availablePositions;
     private final Set<Position> unavailablePositions;
 
+    /**
+     * Constructs a new `Field` object, initializing the positions, available positions,
+     * and unavailable positions.
+     */
     public Field() {
         this.positions = new HashMap<Position, PlayableCard>();
         this.availablePositions = new HashSet<Position>();

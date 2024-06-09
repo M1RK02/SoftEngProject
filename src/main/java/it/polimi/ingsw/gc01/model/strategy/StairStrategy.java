@@ -8,14 +8,28 @@ import java.util.*;
 public class StairStrategy implements Strategy {
     private final CardColor stairColor;
 
+    /**
+     * Constructor of the stair strategy Object
+     * @param stairColor color of the cards making the stair shape in the field
+     */
     public StairStrategy(CardColor stairColor) {
         this.stairColor = stairColor;
     }
 
+    /**
+     *
+     * @return the color of the cards making the stair shape in the field
+     */
     public CardColor getStairColor() {
         return stairColor;
     }
 
+    /**
+     * Checks the number of cards forming a chain structure on the player's field
+     *
+     * @param player The player whose field will be checked.
+     * @return points gained by the player performing the stair strategy in his field
+     */
     public int check(Player player) {
         Position origin = new Position(0, 0);
         Map<Position, PlayableCard> field = player.getField().getPositions();
@@ -35,7 +49,13 @@ public class StairStrategy implements Strategy {
         return (found.size() / 3) * 2;
     }
 
-
+    /**
+     * Retrieves the position of the lower card in a stair structure starting from the specified position.
+     *
+     * @param field The field to search for the lower card.
+     * @param position The position of the upper card in the stair structure.
+     * @return The position of the lower card in the stair structure.
+     */
     private Position getLowerCard(Map<Position, PlayableCard> field, Position position) {
         Position origin = new Position(0, 0);
         ResourceCard card = (ResourceCard) field.get(position);
@@ -85,6 +105,13 @@ public class StairStrategy implements Strategy {
         return currentPosition;
     }
 
+    /**
+     * Retrieves the positions forming a chain structure starting from the specified position.
+     *
+     * @param field The field to search for the chain structure.
+     * @param position The position of the upper card in the stair structure.
+     * @return A set containing the positions forming the chain structure.
+     */
     private Set<Position> getChainIfRight(Map<Position, PlayableCard> field, Position position) {
         Position origin = new Position(0, 0);
         ResourceCard card = (ResourceCard) field.get(position);

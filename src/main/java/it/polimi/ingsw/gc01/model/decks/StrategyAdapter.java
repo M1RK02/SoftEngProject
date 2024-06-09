@@ -9,7 +9,12 @@ import it.polimi.ingsw.gc01.model.strategy.*;
 import java.io.IOException;
 
 public class StrategyAdapter extends TypeAdapter<Strategy> {
-
+    /**
+     * Serializes a `Strategy` object into JSON format using the specified `JsonWriter`.
+     * @param out The `JsonWriter` to write the JSON output to.
+     * @param value the Java object to write. May be null.
+     * @throws IOException
+     */
     @Override
     public void write(JsonWriter out, Strategy value) throws IOException {
         out.beginObject();
@@ -36,6 +41,13 @@ public class StrategyAdapter extends TypeAdapter<Strategy> {
         out.endObject();
     }
 
+    /**
+     * Deserializes a JSON object into a `Strategy` object using the specified `JsonReader`.
+     *
+     * @param in The `JsonReader` to read the JSON input from.
+     * @return The `Strategy` object deserialized from the JSON input.
+     * @throws IOException
+     */
     @Override
     public Strategy read(JsonReader in) throws IOException {
         Strategy strategy = null;

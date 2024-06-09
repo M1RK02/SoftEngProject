@@ -20,6 +20,12 @@ public class Room {
     private final ObserverManager notifier;
     private Player currentPlayer;
 
+    /**
+     * Constructs a new Room object
+     * @param roomId The ID of the room.
+     * @param players The list of players in the room.
+     * @param notifier The observer manager for managing observers related to this room.
+     */
     public Room(String roomId, List<Player> players, ObserverManager notifier) {
         this.roomId = roomId;
         this.players = players;
@@ -59,51 +65,100 @@ public class Room {
         commonObjectives.add(objectiveDeck.pick());
     }
 
+    /**
+     *
+     * @return the roomId
+     */
     public String getRoomId() {
         return roomId;
     }
 
+    /**
+     *
+     * @return the list of the players in the room
+     */
     public List<Player> getPlayers() {
         return players;
     }
 
+    /**
+     *
+     * @return the list of available colors to get picked
+     */
     public List<PlayerColor> getAvailableColors() {
         return availableColors;
     }
 
+    /**
+     *
+     * @return the current player
+     */
     public Player getCurrentPlayer() {
         return currentPlayer;
     }
 
+    /**
+     *
+     * @param currentPlayer player to be set as currentplayer
+     */
     public void setCurrentPlayer(Player currentPlayer) {
         this.currentPlayer = currentPlayer;
         notifier.updateCurrentPlayer(currentPlayer.getName());
     }
 
+    /**
+     *
+     * @return the starter Deck of the game
+     */
     public StarterDeck getStarterDeck() {
         return starterDeck;
     }
 
+    /**
+     *
+     * @return the resourceDeck of the game
+     */
     public ResourceDeck getResourceDeck() {
         return resourceDeck;
     }
 
+    /**
+     *
+     * @return the golden Deck of the game
+     */
     public GoldenDeck getGoldenDeck() {
         return goldenDeck;
     }
 
+    /**
+     *
+     * @return the objectiveDeck of the game
+     */
     public ObjectiveDeck getObjectiveDeck() {
         return objectiveDeck;
     }
 
+    /**
+     *
+     * @return the commonObjectives of the game
+     */
     public List<ObjectiveCard> getCommonObjectives() {
         return commonObjectives;
     }
 
+    /**
+     *
+     * @return The observer manager associated with the room.
+     */
     public ObserverManager getNotifier() {
         return notifier;
     }
 
+    /**
+     * Retrieves a player from the room by their name.
+     * @param playerName The name of the player to retrieve.
+     * @return The player with the specified name
+     */
     public Player getPlayerByName(String playerName) {
         for (Player player : players) {
             if (player.getName().equals(playerName)) {

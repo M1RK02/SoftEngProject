@@ -11,6 +11,9 @@ public class WaitingRoom {
     private final List<Player> players;
     private final ObserverManager notifier;
 
+    /**
+     * Constructor of the WaitingRoom
+     */
     public WaitingRoom() {
         roomId = generateRoomId();
         players = new ArrayList<Player>();
@@ -37,18 +40,35 @@ public class WaitingRoom {
         return sb.toString();
     }
 
+    /**
+     *
+     * @return the roomId
+     */
     public String getRoomId() {
         return roomId;
     }
 
+    /**
+     *
+     * @return the list of the players that joined the Waiting Room
+     */
     public List<Player> getPlayers() {
         return players;
     }
 
+    /**
+     *
+     * @returnn The observer manager associated with the room.
+     */
     public ObserverManager getNotifier() {
         return notifier;
     }
 
+    /**
+     * Retrieves a player from the room by their name.
+     * @param playerName The name of the player to retrieve.
+     * @return The player with the specified name
+     */
     public Player getPlayerByName(String playerName) {
         for (Player player : players) {
             if (player.getName().equals(playerName)) {
