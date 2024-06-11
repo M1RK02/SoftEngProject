@@ -4,6 +4,10 @@ module it.polimi.ingsw.gc01 {
     requires com.google.gson;
     requires java.rmi;
 
+    exports it.polimi.ingsw.gc01.view to javafx.graphics;
+
+    opens it.polimi.ingsw.gc01.view to javafx.fxml;
+    opens it.polimi.ingsw.gc01.view.GUIControllers to javafx.fxml;
     opens it.polimi.ingsw.gc01.model to com.google.gson;
     opens it.polimi.ingsw.gc01.model.cards to com.google.gson;
     opens it.polimi.ingsw.gc01.model.corners to com.google.gson;

@@ -23,9 +23,8 @@ public class MainClient {
                 new TUI();
             }
             case 2 -> {
-                System.out.println(DefaultValue.ANSI_YELLOW + "\nGUI is currently work in progress..." + DefaultValue.ANSI_RESET);
-                System.out.println("Defaulting to TUI...\n");
-                new TUI();
+                System.out.println("\nStarting GUI...\n");
+                new GUI();
             }
         }
     }

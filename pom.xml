@@ -45,6 +45,12 @@
     </dependencies>
 
     <build>
+        <!--Including the folder src/main/resources-->
+        <resources>
+            <resource>
+                <directory>src/main/resources</directory>
+            </resource>
+        </resources>
         <plugins>
             <!--Plugin to run tests-->
             <plugin>
