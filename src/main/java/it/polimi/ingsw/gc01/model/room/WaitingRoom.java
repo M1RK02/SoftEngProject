@@ -67,7 +67,7 @@ public class WaitingRoom {
     }
 
     /**
-     * @returnn The observer manager associated with the room.
+     * @return The observer manager associated with the room.
      */
     public ObserverManager getNotifier() {
         return notifier;
