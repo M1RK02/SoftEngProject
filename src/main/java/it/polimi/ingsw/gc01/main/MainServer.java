@@ -5,8 +5,15 @@ import it.polimi.ingsw.gc01.network.rmi.RmiServer;
 
 import java.util.*;
 
+/**
+ * Executable class for the server
+ */
 public class MainServer {
 
+    /**
+     * Main method, it will launch both RMI and Socket servers
+     * @param args (ignored)
+     */
     public static void main(String[] args) {
         String input;
 
@@ -24,6 +31,11 @@ public class MainServer {
     }
 
 
+    /**
+     * Check if the input is a valid IP address
+     * @param input string to check
+     * @return true if is a valid IP, otherwise false
+     */
     private static boolean isValidIP(String input) {
         List<String> parsed;
         parsed = Arrays.stream(input.split("\\.")).toList();
