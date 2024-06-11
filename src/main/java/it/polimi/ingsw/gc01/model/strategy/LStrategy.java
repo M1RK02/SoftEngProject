@@ -5,8 +5,17 @@ import it.polimi.ingsw.gc01.model.player.*;
 
 import java.util.*;
 
+/**
+ * Class for the LStrategy (Give three points for each successful pattern)
+ */
 public class LStrategy implements Strategy {
+    /**
+     * Color of the long part of the L
+     */
     private final CardColor bodyColor;
+    /**
+     * Color of the short part of the L
+     */
     private final CardColor leafColor;
 
     /**

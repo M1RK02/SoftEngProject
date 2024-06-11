@@ -3,6 +3,9 @@ package it.polimi.ingsw.gc01.model.strategy;
 import it.polimi.ingsw.gc01.model.Resource;
 import it.polimi.ingsw.gc01.model.player.Player;
 
+/**
+ * Class for the resource strategy (Give two points every three resources)
+ */
 public class ResourceStrategy implements Strategy {
     private final Resource resource;
 

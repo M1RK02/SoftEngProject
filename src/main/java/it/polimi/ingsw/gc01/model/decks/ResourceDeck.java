@@ -2,6 +2,9 @@ package it.polimi.ingsw.gc01.model.decks;
 
 import it.polimi.ingsw.gc01.model.cards.ResourceCard;
 
+/**
+ * Class to manage a deck of resource cards
+ */
 public class ResourceDeck extends Deck {
     /**
      * Construct an ResourceDeck by calling superclass constructor with type "Resource"

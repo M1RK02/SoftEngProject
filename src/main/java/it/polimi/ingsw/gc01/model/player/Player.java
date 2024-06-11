@@ -13,18 +13,53 @@ import static it.polimi.ingsw.gc01.model.Resource.*;
 import static it.polimi.ingsw.gc01.model.cards.CardColor.*;
 import static it.polimi.ingsw.gc01.model.corners.CornerPosition.*;
 
-
+/**
+ * Class to manage the player
+ */
 public class Player {
+    /**
+     * Name of the player
+     */
     private final String name;
+    /**
+     * Map of the resources possessed the player
+     */
     private final Map<PlayerResource, Integer> resources;
+    /**
+     * Hand of the player
+     */
     private final List<PlayableCard> hand;
+    /**
+     * Playing field of the player
+     */
     private final Field field;
+    /**
+     * List of possible objectives
+     */
     private final List<ObjectiveCard> possibleObjectives;
+    /**
+     * Notifier object to communicate updates
+     */
     private final ObserverManager notifier;
+    /**
+     * Color of the player
+     */
     private PlayerColor color;
+    /**
+     * Points obtained by the player
+     */
     private int points;
+    /**
+     * Objective points obtained by the player
+     */
     private int objectivePoints;
+    /**
+     * Secret objective of the player
+     */
     private ObjectiveCard secretObjective;
+    /**
+     * State of the player, true if ready
+     */
     private boolean ready;
 
     /**
@@ -369,7 +404,7 @@ public class Player {
     }
 
     /**
-     * checks the availability of the position passed as a parameter within the player's field
+     * Checks the availability of the position passed as a parameter within the player's field
      *
      * @param corners        map containing the corners of a card
      * @param cornerPosition The position of the corner being checked.

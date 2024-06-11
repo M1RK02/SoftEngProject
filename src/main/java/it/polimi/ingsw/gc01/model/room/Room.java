@@ -7,17 +7,53 @@ import it.polimi.ingsw.gc01.network.ObserverManager;
 
 import java.util.*;
 
+/**
+ * Class to manage the room
+ */
 public class Room {
+    /**
+     * Id of the room
+     */
     private final String roomId;
+    /**
+     * List of players in the room
+     */
     private final List<Player> players;
+    /**
+     * List of available colors in the room
+     */
     private final List<PlayerColor> availableColors;
+    /**
+     * Deck of golden cards
+     */
     private final GoldenDeck goldenDeck;
+    /**
+     * Deck of resource cards
+     */
     private final ResourceDeck resourceDeck;
+    /**
+     * Deck of objective cards
+     */
     private final ObjectiveDeck objectiveDeck;
+    /**
+     * Deck of starters cards
+     */
     private final StarterDeck starterDeck;
+    /**
+     * List of common objectives
+     */
     private final List<ObjectiveCard> commonObjectives;
+    /**
+     * Map of drawable cards
+     */
     private final Map<TablePosition, ResourceCard> drawableCards;
+    /**
+     * Notifier object to communicate updates
+     */
     private final ObserverManager notifier;
+    /**
+     * Current player of the room
+     */
     private Player currentPlayer;
 
     /**
@@ -45,7 +81,7 @@ public class Room {
     }
 
     /**
-     * initiate the common playing field (decks and drawable cards)
+     * Initiate the common playing field (decks and drawable cards)
      */
     private void initTable() {
         goldenDeck.shuffle();

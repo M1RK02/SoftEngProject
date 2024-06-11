@@ -10,12 +10,20 @@ import java.io.*;
 import java.lang.reflect.Type;
 import java.util.*;
 
+/**
+ * Abstract class to manage all types of decks
+ */
 public abstract class Deck {
+    /**
+     * List of cards
+     */
     private final List<Card> deck;
 
     /**
-     * @param type The type of the deck, used to determine the JSON file to read and
-     *             *          the type of cards to create.
+     * Construct a new Deck of the chosen type
+     *
+     * @param type of the deck, used to determine the JSON file to read and
+     *             the type of cards to create
      */
     public Deck(String type) {
         InputStream json = this.getClass().getResourceAsStream("/it/polimi/ingsw/gc01/model/decks/" + type + "Deck.json");
@@ -42,7 +50,7 @@ public abstract class Deck {
     }
 
     /**
-     * shuffles the cards' deck
+     * Shuffles the cards' deck
      */
     public void shuffle() {
         Collections.shuffle(deck);
@@ -66,9 +74,10 @@ public abstract class Deck {
 
     /**
      * ONLY FOR TESTING
+     * Picks a card by its id.
      *
      * @param id of the card to draw from the deck
-     * @return the card whose id is the same of id
+     * @return a `Card` object with the specified id, or `null` if no such card exists.
      */
     @Deprecated
     public Card pickById(int id) {

@@ -2,8 +2,10 @@ package it.polimi.ingsw.gc01.model.decks;
 
 import it.polimi.ingsw.gc01.model.cards.StarterCard;
 
+/**
+ * Class to manage a deck of starter cards
+ */
 public class StarterDeck extends Deck {
-
     /**
      * Construct an StarterDeck by calling superclass constructor with type "Resource"
      */

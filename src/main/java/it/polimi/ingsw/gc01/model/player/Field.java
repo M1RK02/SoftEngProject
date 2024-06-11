@@ -5,9 +5,21 @@ import it.polimi.ingsw.gc01.model.corners.CornerPosition;
 
 import java.util.*;
 
+/**
+ * Class to manage the playing field of a player
+ */
 public class Field {
+    /**
+     * Map of occupied positions
+     */
     private final Map<Position, PlayableCard> positions;
+    /**
+     * Set of available positions
+     */
     private final Set<Position> availablePositions;
+    /**
+     * Set of unavailable positions
+     */
     private final Set<Position> unavailablePositions;
 
     /**
@@ -43,6 +55,8 @@ public class Field {
     }
 
     /**
+     * Get adjacent cards for the selected position
+     *
      * @param position for which to return adjacent cards if they have already been placed on the field.
      * @return a Map containing the adjacent cards of the param 'position'
      */

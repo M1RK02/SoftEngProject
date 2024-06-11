@@ -6,9 +6,21 @@ import it.polimi.ingsw.gc01.utils.DefaultValue;
 
 import java.util.*;
 
+/**
+ * Class to manage the waiting room
+ */
 public class WaitingRoom {
+    /**
+     * Id of the room
+     */
     private final String roomId;
+    /**
+     * List of players
+     */
     private final List<Player> players;
+    /**
+     * Notifier object to communicate updates
+     */
     private final ObserverManager notifier;
 
     /**

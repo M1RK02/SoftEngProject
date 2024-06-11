@@ -2,6 +2,9 @@ package it.polimi.ingsw.gc01.model.decks;
 
 import it.polimi.ingsw.gc01.model.cards.GoldenCard;
 
+/**
+ * Class to manage a deck of golden cards
+ */
 public class GoldenDeck extends Deck {
     /**
      * Construct a GoldenDeck by calling superclass constructor with type "Golden"

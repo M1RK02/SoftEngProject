@@ -3,6 +3,9 @@ package it.polimi.ingsw.gc01.model.strategy;
 import it.polimi.ingsw.gc01.model.Item;
 import it.polimi.ingsw.gc01.model.player.Player;
 
+/**
+ * Class for the ThreeStrategy (Give three points every three different items)
+ */
 public class ThreeStrategy implements Strategy {
     /**
      * Constructor of the ThreeStrategy Object

@@ -5,7 +5,13 @@ import it.polimi.ingsw.gc01.model.player.*;
 
 import java.util.*;
 
+/**
+ * Class for the StairStrategy (Give three points for each successful pattern)
+ */
 public class StairStrategy implements Strategy {
+    /**
+     * Color of the stair pattern
+     */
     private final CardColor stairColor;
 
     /**

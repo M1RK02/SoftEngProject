@@ -3,7 +3,13 @@ package it.polimi.ingsw.gc01.model.strategy;
 import it.polimi.ingsw.gc01.model.Item;
 import it.polimi.ingsw.gc01.model.player.Player;
 
+/**
+ * Class for the item strategy (Give two points for each pair of item)
+ */
 public class ItemStrategy implements Strategy {
+    /**
+     * Item of the strategy
+     */
     private final Item item;
 
     /**
@@ -23,7 +29,7 @@ public class ItemStrategy implements Strategy {
     }
 
     /**
-     * checks if the player achieved the Itemstrategy
+     * Checks if the player achieved the Itemstrategy
      *
      * @param player the player of which to check if the field achieved the ItemStrategy
      * @return The number of times the player's field achieved the ItemStrategy

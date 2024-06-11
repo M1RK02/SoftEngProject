@@ -3,11 +3,22 @@ package it.polimi.ingsw.gc01.model.player;
 import java.io.Serializable;
 import java.util.Objects;
 
+/**
+ * Class to manage a field position
+ */
 public class Position implements Serializable {
+    /**
+     * X coordinate of the position
+     */
     private final int x;
+    /**
+     * Y coordinate of the position
+     */
     private final int y;
 
     /**
+     * Construct a new Position object given its coordinates
+     *
      * @param x The x-coordinate of the position.
      * @param y The y-coordinate of the position.
      */
