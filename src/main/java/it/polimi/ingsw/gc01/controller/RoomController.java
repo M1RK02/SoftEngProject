@@ -9,12 +9,30 @@ import it.polimi.ingsw.gc01.utils.DefaultValue;
 
 import java.util.*;
 
+/**
+ * Class that manages a room
+ */
 public class RoomController {
+    /**
+     * Reference to the MainController
+     */
     private final MainController mainController;
+    /**
+     * Waiting room for the WAITING state
+     */
     private final WaitingRoom waitingRoom;
+    /**
+     * Actual game room
+     */
     private Room room;
+    /**
+     * Current game state
+     */
     private GameState state;
 
+    /**
+     * Construct a new RoomController to manage a game
+     */
     public RoomController() {
         mainController = MainController.getInstance();
         waitingRoom = new WaitingRoom();
@@ -57,8 +75,12 @@ public class RoomController {
     }
 
     /**
+     * Tries to add player to the current game
+     *
      * @param playerName name of the players that needs to be added to the WaitingRoom
      * @param client     reference to the client
+     * @throws PlayerAlreadyInException if a player with the same name is already in
+     * @throws MaxPlayersInException    if the room is full
      */
     public void addPlayer(String playerName, VirtualView client) throws PlayerAlreadyInException, MaxPlayersInException {
         if (state != GameState.WAITING) {
@@ -76,7 +98,9 @@ public class RoomController {
     }
 
     /**
-     * @param playerName the player to set ready or unready
+     * Switches the readiness of a player
+     *
+     * @param playerName of the player to set ready or unready
      */
     public void switchReady(String playerName) {
         waitingRoom.getPlayerByName(playerName).switchReady();
@@ -85,12 +109,18 @@ public class RoomController {
         }
     }
 
+    /**
+     * Prepares the game creating the room and switching to 'STARTER_SELECTION' state
+     */
     private void prepareGame() {
         room = new Room(waitingRoom.getRoomId(), waitingRoom.getPlayers(), waitingRoom.getNotifier());
         state = GameState.STARTER_SELECTION;
         giveStarter();
     }
 
+    /**
+     * Gives the starter card to the current player
+     */
     private void giveStarter() {
         Player currentPlayer = room.getCurrentPlayer();
         currentPlayer.getHand().add(room.getStarterDeck().pick());
@@ -99,24 +129,36 @@ public class RoomController {
         notifier.showStarter(currentPlayer.getName(), (StarterCard) currentPlayer.getHand().getFirst());
     }
 
+    /**
+     * Shows the available colors to the current player
+     */
     private void showAvailableColors() {
         Player currentPlayer = room.getCurrentPlayer();
         ObserverManager notifier = room.getNotifier();
         notifier.showAvailableColor(currentPlayer.getName(), room.getAvailableColors());
     }
 
+    /**
+     * Shows the secret objective to the current player
+     */
     private void showObjective() {
         Player currentPlayer = room.getCurrentPlayer();
         ObserverManager notifier = room.getNotifier();
         notifier.showSecretObjectives(currentPlayer.getName(), currentPlayer.getPossibleObjectives());
     }
 
+    /**
+     * Shows the field of the current player
+     */
     private void showField() {
         Player currentPlayer = room.getCurrentPlayer();
         ObserverManager notifier = room.getNotifier();
         notifier.showField(currentPlayer.getName());
     }
 
+    /**
+     * Shows the points for each player
+     */
     private void showPoints() {
         ObserverManager notifier = room.getNotifier();
         Map<String, Integer> points = new HashMap<>();
@@ -126,6 +168,9 @@ public class RoomController {
         notifier.showPoints(points);
     }
 
+    /**
+     * Shows the hand to the current player
+     */
     private void showHand() {
         Player currentPlayer = room.getCurrentPlayer();
         ObserverManager notifier = room.getNotifier();
@@ -169,7 +214,7 @@ public class RoomController {
                 break;
             case RUNNING:
                 if (currentPlayer.equals(room.getPlayers().getFirst())) {
-                    if (hasOneReachedTwenty() || areDecksEmpty()) {
+                    if (hasOneReachedRequiredPoints() || areDecksEmpty()) {
                         state = GameState.LAST_CIRCLE;
                         notifier.showLastCircle();
                     }
@@ -191,8 +236,10 @@ public class RoomController {
     }
 
     /**
-     * @param playerName the player to set the color
-     * @param color      the color to set to the player who is choosing
+     * Set the selected color to the player
+     *
+     * @param playerName of the player to set the color
+     * @param color      to set to the player who is choosing
      */
     public void chooseColor(String playerName, PlayerColor color) {
         room.getPlayerByName(playerName).setColor(color);
@@ -201,7 +248,7 @@ public class RoomController {
     }
 
     /**
-     * for each player distribute 2 Resource Card, 1 Golden Card and 2 Objective Cards
+     * For each player distributes 2 Resource Card, 1 Golden Card and 2 Objective Cards
      */
     private void distributeCards() {
         room.getNotifier().showCommonObjectives(room.getCommonObjectives());
@@ -218,7 +265,7 @@ public class RoomController {
     }
 
     /**
-     * Calculate all the points done by the strategies (both Common and the Secret one) for every player
+     * Calculates all objective points (both Common and the Secret one) for every player
      */
     private void calculateStrategy() {
         List<Player> players = room.getPlayers();
@@ -231,9 +278,11 @@ public class RoomController {
     }
 
     /**
-     * @return true if a player has reached 20 points
+     * Checks if a player has reached the required points
+     *
+     * @return true if a player has, false otherwise
      */
-    private boolean hasOneReachedTwenty() {
+    private boolean hasOneReachedRequiredPoints() {
         for (Player p : room.getPlayers()) {
             if (p.getPoints() >= DefaultValue.PointsToFinish) {
                 return true;
@@ -243,14 +292,16 @@ public class RoomController {
     }
 
     /**
-     * @return true if both decks are empty
+     * Checks if decks are empty
+     *
+     * @return true if both decks are, false otherwise
      */
     private boolean areDecksEmpty() {
         return room.getResourceDeck().isEmpty() && room.getGoldenDeck().isEmpty();
     }
 
     /**
-     * Calculates all the points done by players, decrees a winner and set the game state to Ended
+     * Calculates all the points done by players, decrees a winner and set the game state to ENDED
      */
     public void endGame() {
         calculateStrategy();
@@ -263,7 +314,7 @@ public class RoomController {
     /**
      * Set the secret objective for a player
      *
-     * @param playerName the player that is choosing the objective card
+     * @param playerName of the player that is choosing the objective card
      * @param cardId     the objective chosen by the player
      */
     public void chooseSecretObjective(String playerName, int cardId) {
@@ -285,8 +336,8 @@ public class RoomController {
     /**
      * Flip a card
      *
-     * @param playerName the player that want to flip the card
-     * @param cardId     the card that needs to be flipped
+     * @param playerName of the player that want to flip the card
+     * @param cardId     of the card that needs to be flipped
      */
     public void flipCard(String playerName, int cardId) {
         Player player = room.getPlayerByName(playerName);
@@ -306,9 +357,9 @@ public class RoomController {
     /**
      * Play a card
      *
-     * @param playerName the player who wants to play the card
-     * @param cardId     the card that needs to be played
-     * @param position   the position of the player field in which the card needs to be played
+     * @param playerName of the player who wants to play the card
+     * @param cardId     of the card that needs to be played
+     * @param position   of the player field in which the card needs to be played
      */
     public void playCard(String playerName, int cardId, Position position) {
         Player player = room.getPlayerByName(playerName);
@@ -350,8 +401,8 @@ public class RoomController {
     /**
      * Draw a card from the drawable Cards in the table
      *
-     * @param playerName the player who is trying to draw a card
-     * @param position   the position where the player wants to draw
+     * @param playerName of the player who is trying to draw a card
+     * @param position   where the player wants to draw
      */
     public void drawCard(String playerName, TablePosition position) {
         Player player = room.getPlayerByName(playerName);
@@ -401,7 +452,7 @@ public class RoomController {
     /**
      * Leave a player from a game
      *
-     * @param playerName the player who wants to leave
+     * @param playerName of the player who wants to leave
      */
     public void leave(String playerName) {
         if (room == null) {

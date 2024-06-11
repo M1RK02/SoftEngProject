@@ -5,6 +5,9 @@ import it.polimi.ingsw.gc01.network.VirtualView;
 import java.rmi.RemoteException;
 import java.util.*;
 
+/**
+ * Class that manages all the rooms for multiple games functionality
+ */
 public class MainController {
     /**
      * Singleton Pattern, instance of the class
@@ -16,6 +19,9 @@ public class MainController {
      */
     private final Map<String, RoomController> rooms = new HashMap<>();
 
+    /**
+     * Construct a new object MainController
+     */
     private MainController() {
     }
 
@@ -95,6 +101,12 @@ public class MainController {
         }
     }
 
+    /**
+     * Handles the error sending to the client
+     *
+     * @param client to notify
+     * @param error  to show
+     */
     private void sendErrorToClient(VirtualView client, String error) {
         try {
             client.showError(error);
