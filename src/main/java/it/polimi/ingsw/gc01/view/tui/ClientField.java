@@ -59,8 +59,8 @@ public class ClientField {
     /**
      * Place the card in the field
      *
-     * @param id of the card to play
-     * @param front true to play the card front, false otherwise
+     * @param id       of the card to play
+     * @param front    true to play the card front, false otherwise
      * @param position to play the card in
      */
     public void playCard(int id, boolean front, Position position) {
@@ -91,6 +91,7 @@ public class ClientField {
 
     /**
      * Generate the field from the played card and the available positions
+     *
      * @return the field of the players as an array of lines
      */
     private String[] generateField() {

@@ -2,7 +2,13 @@ package it.polimi.ingsw.gc01.network.rmi.actions;
 
 import it.polimi.ingsw.gc01.controller.RoomController;
 
+/**
+ * Base for actions executed on the room controller
+ */
 public abstract class RoomAction extends Action {
+    /**
+     * Reference to the room controller
+     */
     private final RoomController room;
 
     /**

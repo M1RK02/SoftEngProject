@@ -3,9 +3,21 @@ package it.polimi.ingsw.gc01.network.rmi.actions;
 import it.polimi.ingsw.gc01.controller.RoomController;
 import it.polimi.ingsw.gc01.model.room.TablePosition;
 
+/**
+ * Action to draw a card
+ */
 public class DrawCardAction extends RoomAction {
+    /**
+     * Position where to draw the card
+     */
     private final TablePosition position;
 
+    /**
+     * Create a new DrawCardAction
+     * @param playerName of the player who is creating the action
+     * @param room where the action will be executed
+     * @param choice position chosen by the player
+     */
     public DrawCardAction(String playerName, RoomController room, int choice) {
         super(playerName, room);
         switch (choice) {
@@ -19,6 +31,9 @@ public class DrawCardAction extends RoomAction {
         }
     }
 
+    /**
+     * Execute the action
+     */
     @Override
     public void execute() {
         RoomController controller = getRoomController();

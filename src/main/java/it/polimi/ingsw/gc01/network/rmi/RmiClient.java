@@ -10,12 +10,34 @@ import java.rmi.registry.*;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.*;
 
+/**
+ * Implementation of an RMI Client
+ */
 public class RmiClient extends UnicastRemoteObject implements VirtualView, NetworkClient {
+    /**
+     * Name of the player
+     */
     private final String playerName;
+    /**
+     * User interface of the player
+     */
     private final UI ui;
+    /**
+     * Reference to the RMI server
+     */
     private VirtualServer server;
+    /**
+     * Id of the room
+     */
     private String roomId;
 
+    /**
+     * Construct a new RmiClient object and connect it to the server
+     *
+     * @param playerName of the player
+     * @param userInterface chosen by the player
+     * @throws RemoteException
+     */
     public RmiClient(String playerName, UI userInterface) throws RemoteException {
         this.playerName = playerName;
         this.ui = userInterface;
@@ -23,7 +45,7 @@ public class RmiClient extends UnicastRemoteObject implements VirtualView, Netwo
     }
 
     /**
-     * the method connects the client to the server creating his own stub
+     * Connect the client to the server creating his own stub
      */
     private void connect() {
         try {
@@ -35,12 +57,16 @@ public class RmiClient extends UnicastRemoteObject implements VirtualView, Netwo
         }
     }
 
+    /**
+     * @return the room id
+     */
+    @Override
     public String getRoomId() {
         return roomId;
     }
 
     /**
-     * asks stub to create game
+     * Asks stub to create game
      */
     @Override
     public void createGame() {
@@ -52,7 +78,7 @@ public class RmiClient extends UnicastRemoteObject implements VirtualView, Netwo
     }
 
     /**
-     * asks stub to join game
+     * Asks stub to join game
      */
     @Override
     public void joinGame(String roomId) {
@@ -64,7 +90,7 @@ public class RmiClient extends UnicastRemoteObject implements VirtualView, Netwo
     }
 
     /**
-     * asks stub to join the first available game
+     * Asks stub to join the first available game
      */
     @Override
     public void joinFirstGame() {
@@ -76,7 +102,7 @@ public class RmiClient extends UnicastRemoteObject implements VirtualView, Netwo
     }
 
     /**
-     * asks stub to choose the color of the player
+     * Asks stub to choose the color of the player
      *
      * @param color the color wich will be given to the player
      */
@@ -90,7 +116,7 @@ public class RmiClient extends UnicastRemoteObject implements VirtualView, Netwo
     }
 
     /**
-     * asks stub to set the player ready
+     * Asks stub to set the player ready
      */
     @Override
     public void switchReady() {
@@ -102,7 +128,7 @@ public class RmiClient extends UnicastRemoteObject implements VirtualView, Netwo
     }
 
     /**
-     * asks stub to choose the secret objective
+     * Asks stub to choose the secret objective
      *
      * @param cardId the id of the chosen objective card
      */
@@ -116,7 +142,7 @@ public class RmiClient extends UnicastRemoteObject implements VirtualView, Netwo
     }
 
     /**
-     * asks stub to flip the selected card
+     * Asks stub to flip the selected card
      *
      * @param cardId the id of the card to flip
      */
@@ -130,7 +156,7 @@ public class RmiClient extends UnicastRemoteObject implements VirtualView, Netwo
     }
 
     /**
-     * asks stub to play the card in the position with coordinates x ,y
+     * Asks stub to play the card in the position with coordinates x ,y
      *
      * @param cardId   the id of the card to play
      * @param position the position in the player field
@@ -145,7 +171,7 @@ public class RmiClient extends UnicastRemoteObject implements VirtualView, Netwo
     }
 
     /**
-     * asks stub to draw card from a certain Table position
+     * Asks stub to draw card from a certain Table position
      *
      * @param choice the position of the card to draw in the drawableCard positions
      */
@@ -159,7 +185,7 @@ public class RmiClient extends UnicastRemoteObject implements VirtualView, Netwo
     }
 
     /**
-     * asks stub to make the player leave the game
+     * Asks stub to make the player leave the game
      */
     @Override
     public void leave() {
@@ -170,13 +196,18 @@ public class RmiClient extends UnicastRemoteObject implements VirtualView, Netwo
         }
     }
 
+    /**
+     * Send ui back to menu
+     */
     @Override
     public void backToMenu() {
         ui.backToMenu();
     }
 
     /**
-     * @param roomId
+     * Show the roomId to the ui
+     *
+     * @param roomId of the room
      */
     @Override
     public void updateRoomId(String roomId) {
@@ -184,6 +215,15 @@ public class RmiClient extends UnicastRemoteObject implements VirtualView, Netwo
         ui.showRoom(roomId);
     }
 
+    /**
+     * Update the field for the indicated player
+     *
+     * @param playerName         of the player to update
+     * @param id                 of the newly played card
+     * @param front              true if the card is played front, false otherwise
+     * @param position           of the played card
+     * @param availablePositions list of available positions
+     */
     @Override
     public void updateField(String playerName, int id, boolean front, Position position, List<Position> availablePositions) {
         ui.updateField(playerName, id, front, position, availablePositions);
@@ -198,7 +238,9 @@ public class RmiClient extends UnicastRemoteObject implements VirtualView, Netwo
     }
 
     /**
-     * @param playerName
+     * Update the current player
+     *
+     * @param playerName of the new current player
      */
     @Override
     public void updateCurrentPlayer(String playerName) {
@@ -206,7 +248,9 @@ public class RmiClient extends UnicastRemoteObject implements VirtualView, Netwo
     }
 
     /**
-     * @param cardId
+     * Show the starter card to the player
+     *
+     * @param cardId of the starter card
      */
     @Override
     public void showStarter(int cardId) {
@@ -214,15 +258,19 @@ public class RmiClient extends UnicastRemoteObject implements VirtualView, Netwo
     }
 
     /**
-     * @param availableColors
+     * Show available colors to the player
+     *
+     * @param availableColors list of available colors
      */
     @Override
     public void showAvailableColors(List<PlayerColor> availableColors) {
         ui.showAvailableColors(availableColors);
     }
-
     /**
-     * @param ready
+     * Update readiness of a player
+     *
+     * @param playerName of the player to update
+     * @param ready      new status of the player, true if ready, false otherwise
      */
     @Override
     public void updateReady(String playerName, boolean ready) {
@@ -230,7 +278,9 @@ public class RmiClient extends UnicastRemoteObject implements VirtualView, Netwo
     }
 
     /**
-     * @param objectivesIds
+     * Show common objectives
+     *
+     * @param objectivesIds list of common objective ids
      */
     @Override
     public void showCommonObjectives(List<Integer> objectivesIds) {
@@ -238,7 +288,9 @@ public class RmiClient extends UnicastRemoteObject implements VirtualView, Netwo
     }
 
     /**
-     * @param drawableCardsIds
+     * Show the center table
+     *
+     * @param drawableCardsIds map of drawable card ids
      */
     @Override
     public void showTable(Map<Integer, Integer> drawableCardsIds) {
@@ -246,7 +298,9 @@ public class RmiClient extends UnicastRemoteObject implements VirtualView, Netwo
     }
 
     /**
-     * @param handIds
+     * Show the hand
+     *
+     * @param handIds list of card ids in the hand
      */
     @Override
     public void showHand(List<Integer> handIds) {
@@ -254,20 +308,29 @@ public class RmiClient extends UnicastRemoteObject implements VirtualView, Netwo
     }
 
     /**
-     * @param playerName
+     * Show the field of the indicated player
+     *
+     * @param playerName to show the field
      */
     @Override
     public void showField(String playerName) {
         ui.showField(playerName);
     }
 
+    /**
+     * Show the points for each player
+     *
+     * @param points map of playerName, points
+     */
     @Override
     public void showPoints(Map<String, Integer> points) {
         ui.showPoints(points);
     }
 
     /**
-     * @param possibleObjectivesIds
+     * Show the possible secret objectives
+     *
+     * @param possibleObjectivesIds list of possible objectives ids
      */
     @Override
     public void showSecretObjectives(List<Integer> possibleObjectivesIds) {
@@ -275,7 +338,9 @@ public class RmiClient extends UnicastRemoteObject implements VirtualView, Netwo
     }
 
     /**
-     * @param error
+     * Show the error message
+     *
+     * @param error to show
      */
     @Override
     public void showError(String error) {
@@ -283,23 +348,37 @@ public class RmiClient extends UnicastRemoteObject implements VirtualView, Netwo
     }
 
     /**
-     * @param message
+     * Show the service message
+     *
+     * @param message to show
      */
     @Override
     public void serviceMessage(String message) {
         ui.showServiceMessage(message);
     }
 
+
+    /**
+     * Show the last turn notification
+     */
     @Override
     public void showLastCircle() {
         ui.showLastCircle();
     }
 
+    /**
+     * Show the list of winners
+     *
+     * @param winners list of winners
+     */
     @Override
     public void showWinners(List<String> winners) {
         ui.showWinners(winners);
     }
 
+    /**
+     * Check if the client is alive
+     */
     @Override
     public void isAlive() {
     }

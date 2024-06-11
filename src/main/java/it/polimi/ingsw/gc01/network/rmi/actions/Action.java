@@ -1,6 +1,12 @@
 package it.polimi.ingsw.gc01.network.rmi.actions;
 
+/**
+ * General base of an action executed by the RMI Server
+ */
 public abstract class Action {
+    /**
+     * Name of the player
+     */
     private final String playerName;
 
     /**

@@ -94,7 +94,7 @@ public interface UI {
      * Update the readiness of a player
      *
      * @param playerName of the player to update
-     * @param ready new readiness status
+     * @param ready      new readiness status
      */
     void updateReady(String playerName, boolean ready);
 
@@ -106,10 +106,10 @@ public interface UI {
     /**
      * Update the field for the indicated player
      *
-     * @param playerName of the player to update
-     * @param id of the newly played card
-     * @param front true if the card is played front, false otherwise
-     * @param position of the played card
+     * @param playerName         of the player to update
+     * @param id                 of the newly played card
+     * @param front              true if the card is played front, false otherwise
+     * @param position           of the played card
      * @param availablePositions list of available positions
      */
     void updateField(String playerName, int id, boolean front, Position position, List<Position> availablePositions);

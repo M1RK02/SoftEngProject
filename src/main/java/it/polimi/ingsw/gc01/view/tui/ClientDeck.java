@@ -47,7 +47,7 @@ public class ClientDeck {
     /**
      * Generate the selected card by id
      *
-     * @param id of the card to generate, null for an empty space
+     * @param id    of the card to generate, null for an empty space
      * @param front true for the front of the card, false otherwise
      * @return the printable card as an array of lines
      */
@@ -86,7 +86,7 @@ public class ClientDeck {
     /**
      * Generate the selected resource card by id
      *
-     * @param id of the card to generate, null for an empty space
+     * @param id    of the card to generate, null for an empty space
      * @param front true for the front of the card, false otherwise
      * @return the printable card as an array of lines
      */
@@ -211,7 +211,7 @@ public class ClientDeck {
     /**
      * Generate the selected golden card by id
      *
-     * @param id of the card to generate, null for an empty space
+     * @param id    of the card to generate, null for an empty space
      * @param front true for the front of the card, false otherwise
      * @return the printable card as an array of lines
      */
@@ -279,7 +279,7 @@ public class ClientDeck {
     /**
      * Generate the selected starter card by id
      *
-     * @param id of the card to generate, null for an empty space
+     * @param id    of the card to generate, null for an empty space
      * @param front true for the front of the card, false otherwise
      * @return the printable card as an array of lines
      */
@@ -673,6 +673,7 @@ public class ClientDeck {
 
     /**
      * Get the correct symbol associated with the color
+     *
      * @param color of the card
      * @return the first letter of the corresponding symbol
      */

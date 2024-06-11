@@ -11,10 +11,22 @@ import java.rmi.registry.*;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.concurrent.*;
 
+/**
+ * Implementation of an RMI Server
+ */
 public class RmiServer implements VirtualServer {
+    /**
+     * Instance of the main controller
+     */
     private final MainController mainController;
+    /**
+     * Queue of actions to execute
+     */
     private final BlockingQueue<Action> actions;
 
+    /**
+     * Construct a RmiServer object, bind it and lunch the action executors
+     */
     public RmiServer() {
         this.mainController = MainController.getInstance();
         actions = new ArrayBlockingQueue<Action>(100);

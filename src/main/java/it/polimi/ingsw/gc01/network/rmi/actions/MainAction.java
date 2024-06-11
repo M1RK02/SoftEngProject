@@ -2,7 +2,13 @@ package it.polimi.ingsw.gc01.network.rmi.actions;
 
 import it.polimi.ingsw.gc01.network.VirtualView;
 
+/**
+ * Base for actions executed on the main controller
+ */
 public abstract class MainAction extends Action {
+    /**
+     * Client that want to execute the action
+     */
     private final VirtualView client;
 
     /**
