@@ -1,4 +1,4 @@
-package it.polimi.ingsw.gc01.model.decks;
+package it.polimi.ingsw.gc01.utils;
 
 import com.google.gson.TypeAdapter;
 import com.google.gson.stream.*;
@@ -11,7 +11,8 @@ import java.io.IOException;
 public class StrategyAdapter extends TypeAdapter<Strategy> {
     /**
      * Serializes a `Strategy` object into JSON format using the specified `JsonWriter`.
-     * @param out The `JsonWriter` to write the JSON output to.
+     *
+     * @param out   The `JsonWriter` to write the JSON output to.
      * @param value the Java object to write. May be null.
      * @throws IOException
      */

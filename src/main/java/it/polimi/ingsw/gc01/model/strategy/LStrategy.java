@@ -11,6 +11,7 @@ public class LStrategy implements Strategy {
 
     /**
      * Constructor of the LStrategy Object
+     *
      * @param bodyColor
      */
     public LStrategy(CardColor bodyColor) {
@@ -19,7 +20,6 @@ public class LStrategy implements Strategy {
     }
 
     /**
-     *
      * @param bodyColor the body color of the strategyCard
      * @return the leaf color corresponding to the body color
      */
@@ -37,7 +37,6 @@ public class LStrategy implements Strategy {
     }
 
     /**
-     *
      * @return the color of the cards being alligned to achieve the LStrategy
      */
     public CardColor getBodyColor() {
@@ -46,6 +45,7 @@ public class LStrategy implements Strategy {
 
     /**
      * Checks the number of cards forming a L structure on the player's field.
+     *
      * @param player The player whose field will be checked.
      * @return The number of times the player's field achieved the LStrategy
      */
@@ -90,10 +90,10 @@ public class LStrategy implements Strategy {
     /**
      * Retrieves the positions of the upper and lower body cards if they exist and have the specified body color.
      *
-     * @param field The field to search for body cards.
+     * @param field    The field to search for body cards.
      * @param position The position of the leaf card to check for body cards.
      * @return A list containing the positions of the upper and lower body cards if they exist and have the specified color,
-     *         or null if either of the body cards does not exist or has a different color.
+     * or null if either of the body cards does not exist or has a different color.
      */
     private List<Position> getBodyIfRight(Map<Position, PlayableCard> field, Position position) {
         Position upperBody = null, lowerBody = null;

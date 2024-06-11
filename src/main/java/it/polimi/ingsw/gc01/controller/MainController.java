@@ -32,7 +32,6 @@ public class MainController {
     }
 
     /**
-     *
      * @return the map of roomId and RoomController
      */
     public Map<String, RoomController> getRooms() {

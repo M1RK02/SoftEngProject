@@ -12,6 +12,7 @@ public class ThreeStrategy implements Strategy {
 
     /**
      * checks if the players has the correct item to get the points from the ThreeStrategy
+     *
      * @param player The player whose field will be checked.
      * @return the points gained by the player due to the ThreeStrategy
      */

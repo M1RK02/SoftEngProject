@@ -12,6 +12,7 @@ public class ObjectiveDeck extends Deck {
 
     /**
      * Picks a card from the objective Deck
+     *
      * @return an 'ObjectiveCard' from the Deck removing it
      */
     public ObjectiveCard pick() {
@@ -20,6 +21,7 @@ public class ObjectiveDeck extends Deck {
 
     /**
      * Gets the top card from the deck without removing it.
+     *
      * @return An `ObjectiveCard` object representing the top card in the deck.
      */
     public ObjectiveCard get() {
@@ -29,6 +31,7 @@ public class ObjectiveDeck extends Deck {
     /**
      * ONLY FOR TESTING
      * Picks a card from ObjectiveDeck by its id.
+     *
      * @param id of the card to draw from the deck by
      * @return a `ObjectiveCard` object with the specified ID, or `null` if no such card exists.
      */

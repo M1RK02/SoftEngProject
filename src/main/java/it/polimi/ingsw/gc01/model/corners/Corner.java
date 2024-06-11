@@ -9,7 +9,6 @@ public class Corner {
     }
 
     /**
-     *
      * @return the corner's resource
      */
     public CardResource getResource() {

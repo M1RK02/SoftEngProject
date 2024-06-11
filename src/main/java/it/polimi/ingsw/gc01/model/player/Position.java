@@ -8,7 +8,6 @@ public class Position implements Serializable {
     private final int y;
 
     /**
-     *
      * @param x The x-coordinate of the position.
      * @param y The y-coordinate of the position.
      */
@@ -18,7 +17,6 @@ public class Position implements Serializable {
     }
 
     /**
-     *
      * @return the x coordinate of the position
      */
     public int getX() {
@@ -26,7 +24,6 @@ public class Position implements Serializable {
     }
 
     /**
-     *
      * @return the y coordinate of the position
      */
     public int getY() {
@@ -47,7 +44,6 @@ public class Position implements Serializable {
     }
 
     /**
-     *
      * @return A hash code value for the position.
      */
     @Override

@@ -1,4 +1,4 @@
-package it.polimi.ingsw.gc01.network.actions;
+package it.polimi.ingsw.gc01.network.rmi.actions;
 
 import it.polimi.ingsw.gc01.network.VirtualView;
 

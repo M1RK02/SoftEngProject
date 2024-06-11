@@ -1,8 +1,8 @@
 package it.polimi.ingsw.gc01.network.rmi;
 
-import it.polimi.ingsw.gc01.model.DefaultValue;
 import it.polimi.ingsw.gc01.model.player.*;
 import it.polimi.ingsw.gc01.network.*;
+import it.polimi.ingsw.gc01.utils.DefaultValue;
 import it.polimi.ingsw.gc01.view.UI;
 
 import java.rmi.*;
@@ -171,7 +171,7 @@ public class RmiClient extends UnicastRemoteObject implements VirtualView, Netwo
     }
 
     @Override
-    public void backToMenu(){
+    public void backToMenu() {
         ui.backToMenu();
     }
 
@@ -301,5 +301,6 @@ public class RmiClient extends UnicastRemoteObject implements VirtualView, Netwo
     }
 
     @Override
-    public void isAlive() {}
+    public void isAlive() {
+    }
 }

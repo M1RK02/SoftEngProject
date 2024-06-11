@@ -6,7 +6,6 @@ public class StarterDeck extends Deck {
 
     /**
      * Construct an StarterDeck by calling superclass constructor with type "Resource"
-     *
      */
     public StarterDeck() {
         super("Starter");
@@ -14,6 +13,7 @@ public class StarterDeck extends Deck {
 
     /**
      * Picks a card from the Starter Deck
+     *
      * @return an 'StarterCard' from the Deck removing it
      */
     public StarterCard pick() {
@@ -22,6 +22,7 @@ public class StarterDeck extends Deck {
 
     /**
      * Gets the top card from the deck without removing it.
+     *
      * @return An `StarterCard` object representing the top card in the deck.
      */
     public StarterCard get() {
@@ -31,6 +32,7 @@ public class StarterDeck extends Deck {
     /**
      * ONLY FOR TESTING
      * Picks a card from StarterDeck by its id.
+     *
      * @param id of the card to draw from the deck by
      * @return a `StarterCard` object with the specified ID, or `null` if no such card exists.
      */

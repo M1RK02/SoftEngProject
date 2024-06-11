@@ -10,4 +10,5 @@ module it.polimi.ingsw.gc01 {
     opens it.polimi.ingsw.gc01.network to java.rmi;
     opens it.polimi.ingsw.gc01.network.rmi to java.rmi;
     opens it.polimi.ingsw.gc01.model.player to java.rmi;
+    opens it.polimi.ingsw.gc01.utils to com.google.gson;
 }

@@ -1,9 +1,9 @@
 package it.polimi.ingsw.gc01.model.room;
 
-import it.polimi.ingsw.gc01.network.ObserverManager;
 import it.polimi.ingsw.gc01.model.cards.*;
 import it.polimi.ingsw.gc01.model.decks.*;
 import it.polimi.ingsw.gc01.model.player.*;
+import it.polimi.ingsw.gc01.network.ObserverManager;
 
 import java.util.*;
 
@@ -22,8 +22,9 @@ public class Room {
 
     /**
      * Constructs a new Room object
-     * @param roomId The ID of the room.
-     * @param players The list of players in the room.
+     *
+     * @param roomId   The ID of the room.
+     * @param players  The list of players in the room.
      * @param notifier The observer manager for managing observers related to this room.
      */
     public Room(String roomId, List<Player> players, ObserverManager notifier) {
@@ -66,7 +67,6 @@ public class Room {
     }
 
     /**
-     *
      * @return the roomId
      */
     public String getRoomId() {
@@ -74,7 +74,6 @@ public class Room {
     }
 
     /**
-     *
      * @return the list of the players in the room
      */
     public List<Player> getPlayers() {
@@ -82,7 +81,6 @@ public class Room {
     }
 
     /**
-     *
      * @return the list of available colors to get picked
      */
     public List<PlayerColor> getAvailableColors() {
@@ -90,7 +88,6 @@ public class Room {
     }
 
     /**
-     *
      * @return the current player
      */
     public Player getCurrentPlayer() {
@@ -98,7 +95,6 @@ public class Room {
     }
 
     /**
-     *
      * @param currentPlayer player to be set as currentplayer
      */
     public void setCurrentPlayer(Player currentPlayer) {
@@ -107,7 +103,6 @@ public class Room {
     }
 
     /**
-     *
      * @return the starter Deck of the game
      */
     public StarterDeck getStarterDeck() {
@@ -115,7 +110,6 @@ public class Room {
     }
 
     /**
-     *
      * @return the resourceDeck of the game
      */
     public ResourceDeck getResourceDeck() {
@@ -123,7 +117,6 @@ public class Room {
     }
 
     /**
-     *
      * @return the golden Deck of the game
      */
     public GoldenDeck getGoldenDeck() {
@@ -131,7 +124,6 @@ public class Room {
     }
 
     /**
-     *
      * @return the objectiveDeck of the game
      */
     public ObjectiveDeck getObjectiveDeck() {
@@ -139,7 +131,6 @@ public class Room {
     }
 
     /**
-     *
      * @return the commonObjectives of the game
      */
     public List<ObjectiveCard> getCommonObjectives() {
@@ -147,7 +138,6 @@ public class Room {
     }
 
     /**
-     *
      * @return The observer manager associated with the room.
      */
     public ObserverManager getNotifier() {
@@ -156,6 +146,7 @@ public class Room {
 
     /**
      * Retrieves a player from the room by their name.
+     *
      * @param playerName The name of the player to retrieve.
      * @return The player with the specified name
      */

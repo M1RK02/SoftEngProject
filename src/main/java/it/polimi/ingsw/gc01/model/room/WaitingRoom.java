@@ -1,8 +1,8 @@
 package it.polimi.ingsw.gc01.model.room;
 
-import it.polimi.ingsw.gc01.model.*;
 import it.polimi.ingsw.gc01.model.player.Player;
 import it.polimi.ingsw.gc01.network.*;
+import it.polimi.ingsw.gc01.utils.DefaultValue;
 
 import java.util.*;
 
@@ -41,7 +41,6 @@ public class WaitingRoom {
     }
 
     /**
-     *
      * @return the roomId
      */
     public String getRoomId() {
@@ -49,7 +48,6 @@ public class WaitingRoom {
     }
 
     /**
-     *
      * @return the list of the players that joined the Waiting Room
      */
     public List<Player> getPlayers() {
@@ -57,7 +55,6 @@ public class WaitingRoom {
     }
 
     /**
-     *
      * @returnn The observer manager associated with the room.
      */
     public ObserverManager getNotifier() {
@@ -66,6 +63,7 @@ public class WaitingRoom {
 
     /**
      * Retrieves a player from the room by their name.
+     *
      * @param playerName The name of the player to retrieve.
      * @return The player with the specified name
      */

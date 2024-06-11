@@ -10,6 +10,7 @@ public class StairStrategy implements Strategy {
 
     /**
      * Constructor of the stair strategy Object
+     *
      * @param stairColor color of the cards making the stair shape in the field
      */
     public StairStrategy(CardColor stairColor) {
@@ -17,7 +18,6 @@ public class StairStrategy implements Strategy {
     }
 
     /**
-     *
      * @return the color of the cards making the stair shape in the field
      */
     public CardColor getStairColor() {
@@ -52,7 +52,7 @@ public class StairStrategy implements Strategy {
     /**
      * Retrieves the position of the lower card in a stair structure starting from the specified position.
      *
-     * @param field The field to search for the lower card.
+     * @param field    The field to search for the lower card.
      * @param position The position of the upper card in the stair structure.
      * @return The position of the lower card in the stair structure.
      */
@@ -108,7 +108,7 @@ public class StairStrategy implements Strategy {
     /**
      * Retrieves the positions forming a chain structure starting from the specified position.
      *
-     * @param field The field to search for the chain structure.
+     * @param field    The field to search for the chain structure.
      * @param position The position of the upper card in the stair structure.
      * @return A set containing the positions forming the chain structure.
      */

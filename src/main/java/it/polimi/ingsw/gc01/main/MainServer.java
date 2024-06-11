@@ -1,7 +1,7 @@
 package it.polimi.ingsw.gc01.main;
 
-import it.polimi.ingsw.gc01.model.DefaultValue;
 import it.polimi.ingsw.gc01.network.rmi.RmiServer;
+import it.polimi.ingsw.gc01.utils.DefaultValue;
 
 import java.util.*;
 
@@ -12,6 +12,7 @@ public class MainServer {
 
     /**
      * Main method, it will launch both RMI and Socket servers
+     *
      * @param args (ignored)
      */
     public static void main(String[] args) {
@@ -33,6 +34,7 @@ public class MainServer {
 
     /**
      * Check if the input is a valid IP address
+     *
      * @param input string to check
      * @return true if is a valid IP, otherwise false
      */

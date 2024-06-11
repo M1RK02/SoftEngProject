@@ -1,4 +1,4 @@
-package it.polimi.ingsw.gc01.model;
+package it.polimi.ingsw.gc01.utils;
 
 public class DefaultValue {
     public static final int MaxNumOfPlayer = 4;
@@ -15,7 +15,7 @@ public class DefaultValue {
     public static final String ANSI_PURPLE = "\u001B[35m";
     public static final String ANSI_CYAN = "\u001B[36m";
     public static final String ANSI_WHITE = "\u001B[37m";
+    public static final int PointsToFinish = 20;
     public static String ServerIp = "127.0.0.1";
     public static int RMIPort = 1234;
-    public static final int PointsToFinish = 20;
 }

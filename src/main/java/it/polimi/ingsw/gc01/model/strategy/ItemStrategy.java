@@ -8,6 +8,7 @@ public class ItemStrategy implements Strategy {
 
     /**
      * Constructor of the ItemStrategy Objcet
+     *
      * @param item The item associated with this strategy card
      */
     public ItemStrategy(Item item) {
@@ -15,7 +16,6 @@ public class ItemStrategy implements Strategy {
     }
 
     /**
-     *
      * @return the item associated with the strategy card
      */
     public Item getItem() {
@@ -24,8 +24,9 @@ public class ItemStrategy implements Strategy {
 
     /**
      * checks if the player achieved the Itemstrategy
+     *
      * @param player the player of which to check if the field achieved the ItemStrategy
-     * @return  The number of times the player's field achieved the ItemStrategy
+     * @return The number of times the player's field achieved the ItemStrategy
      */
     public int check(Player player) {
         if (player.getResources().get(item) % 2 == 0)

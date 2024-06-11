@@ -1,11 +1,11 @@
-package it.polimi.ingsw.gc01.view;
+package it.polimi.ingsw.gc01.view.tui;
 
 import com.google.gson.*;
 import it.polimi.ingsw.gc01.model.*;
 import it.polimi.ingsw.gc01.model.cards.*;
 import it.polimi.ingsw.gc01.model.corners.*;
-import it.polimi.ingsw.gc01.model.decks.*;
 import it.polimi.ingsw.gc01.model.strategy.Strategy;
+import it.polimi.ingsw.gc01.utils.*;
 
 import java.io.*;
 import java.lang.reflect.Type;

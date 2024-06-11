@@ -8,6 +8,7 @@ public class ResourceStrategy implements Strategy {
 
     /**
      * Constructor of the ResourceStrategy
+     *
      * @param resource the resource corresponding to the ResourceStrategyCard
      */
     public ResourceStrategy(Resource resource) {
@@ -15,7 +16,6 @@ public class ResourceStrategy implements Strategy {
     }
 
     /**
-     *
      * @return the resource of the ResourceStrategy card
      */
     public Resource getResource() {

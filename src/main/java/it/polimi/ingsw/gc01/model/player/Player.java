@@ -1,6 +1,6 @@
 package it.polimi.ingsw.gc01.model.player;
 
-import it.polimi.ingsw.gc01.model.*;
+import it.polimi.ingsw.gc01.model.CornerValue;
 import it.polimi.ingsw.gc01.model.cards.*;
 import it.polimi.ingsw.gc01.model.corners.*;
 import it.polimi.ingsw.gc01.network.ObserverManager;
@@ -29,6 +29,7 @@ public class Player {
 
     /**
      * Constructs a new `Player` object with the specified name and observer manager.
+     *
      * @param name
      * @param notifier
      */
@@ -60,7 +61,6 @@ public class Player {
     }
 
     /**
-     *
      * @return the Name of the player
      */
     public String getName() {
@@ -68,7 +68,6 @@ public class Player {
     }
 
     /**
-     *
      * @return the color of the player
      */
     public PlayerColor getColor() {
@@ -83,7 +82,6 @@ public class Player {
     }
 
     /**
-     *
      * @return the points of the player
      */
     public int getPoints() {
@@ -91,7 +89,6 @@ public class Player {
     }
 
     /**
-     *
      * @return the objectivePoints owned by the player
      */
     public int getObjectivePoints() {
@@ -99,7 +96,6 @@ public class Player {
     }
 
     /**
-     *
      * @return the sum of the points and the objectivePoints of the player (method used at the end of the game)
      */
     public int getTotalPoints() {
@@ -107,7 +103,6 @@ public class Player {
     }
 
     /**
-     *
      * @return the map of the resources in the player's field
      */
     public Map<PlayerResource, Integer> getResources() {
@@ -115,7 +110,6 @@ public class Player {
     }
 
     /**
-     *
      * @return the playable cards owned by the player
      */
     public List<PlayableCard> getHand() {
@@ -123,7 +117,6 @@ public class Player {
     }
 
     /**
-     *
      * @return the field of the player
      */
     public Field getField() {
@@ -131,7 +124,6 @@ public class Player {
     }
 
     /**
-     *
      * @return the secretObjective chose by the player at the beginning of the game
      */
     public ObjectiveCard getSecretObjective() {
@@ -139,7 +131,6 @@ public class Player {
     }
 
     /**
-     *
      * @param secretObjective The `ObjectiveCard` to be set as the player's secret objective.
      */
     public void setSecretObjective(ObjectiveCard secretObjective) {
@@ -147,7 +138,6 @@ public class Player {
     }
 
     /**
-     *
      * @return A list of `ObjectiveCard` objects representing the possible objectives for the player to choose
      */
     public List<ObjectiveCard> getPossibleObjectives() {
@@ -162,7 +152,6 @@ public class Player {
     }
 
     /**
-     *
      * @return The observer manager associated with the player to update view
      */
     public ObserverManager getNotifier() {
@@ -185,7 +174,6 @@ public class Player {
     }
 
     /**
-     *
      * @param objectivePoints the number of objectivePoints to add to the players's total objective points.
      */
     public void addObjectivePoints(int objectivePoints) {
@@ -255,7 +243,7 @@ public class Player {
         field.getPositions().put(position, card);
 
         //If card is a ResourceCard, add card points to the player
-        if(card.isFront()){
+        if (card.isFront()) {
             if (card instanceof ResourceCard) {
                 updatePoints((ResourceCard) card, position);
             }
@@ -382,9 +370,10 @@ public class Player {
 
     /**
      * checks the availability of the position passed as a parameter within the player's field
-     * @param corners map containing the corners of a card
+     *
+     * @param corners        map containing the corners of a card
      * @param cornerPosition The position of the corner being checked.
-     * @param position The position on the field corresponding to where the player wants to play the card
+     * @param position       The position on the field corresponding to where the player wants to play the card
      */
     private void checkPositionAvailability(Map<CornerPosition, Corner> corners, CornerPosition cornerPosition, Position position) {
         if (corners.get(cornerPosition).getResource().equals(FULL)) {
@@ -399,6 +388,7 @@ public class Player {
 
     /**
      * Two players are considered equal if they have the same name.
+     *
      * @param o The reference object with which to compare.
      * @return true if this player is the same as the object argument
      */
@@ -411,7 +401,6 @@ public class Player {
     }
 
     /**
-     *
      * @return A hash code value for the player.
      */
     @Override

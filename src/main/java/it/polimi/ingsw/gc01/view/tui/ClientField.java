@@ -1,4 +1,4 @@
-package it.polimi.ingsw.gc01.view;
+package it.polimi.ingsw.gc01.view.tui;
 
 import it.polimi.ingsw.gc01.model.player.Position;
 
@@ -6,14 +6,14 @@ import java.util.*;
 
 import static java.util.stream.Stream.concat;
 
-public class FieldUtil {
+public class ClientField {
     private final List<Integer> cards;
     private final Map<Integer, Boolean> side;
     private final Map<Integer, Position> field;
     private final ClientDeck clientDeck;
     private List<Position> availablePositions;
 
-    public FieldUtil() {
+    public ClientField() {
         cards = new ArrayList<>();
         side = new HashMap<>();
         field = new HashMap<>();

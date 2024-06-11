@@ -1,17 +1,18 @@
-package it.polimi.ingsw.gc01.view;
+package it.polimi.ingsw.gc01.view.tui;
 
-import it.polimi.ingsw.gc01.model.DefaultValue;
 import it.polimi.ingsw.gc01.model.player.*;
 import it.polimi.ingsw.gc01.network.NetworkClient;
 import it.polimi.ingsw.gc01.network.rmi.RmiClient;
+import it.polimi.ingsw.gc01.utils.DefaultValue;
+import it.polimi.ingsw.gc01.view.UI;
 
 import java.util.*;
 
 public class TUI implements UI {
     private final ClientDeck clientDeck;
     private final String playerName;
-    private FieldUtil field;
-    private Map<String, FieldUtil> otherFields;
+    private ClientField field;
+    private Map<String, ClientField> otherFields;
     private NetworkClient networkClient;
     private List<Integer> handIds;
 
@@ -40,7 +41,7 @@ public class TUI implements UI {
     public void start() {
         askServerIP();
         askPlayerIP();
-        switch (askConnection()){
+        switch (askConnection()) {
             case 1 -> createRMIClient(playerName);
             case 2 -> createSocketClient(playerName);
         }
@@ -86,7 +87,7 @@ public class TUI implements UI {
             System.setProperty("java.rmi.server.hostname", input);
     }
 
-    private int askConnection(){
+    private int askConnection() {
         System.out.println("Select connection type:\n(1) RMI\n(2) SOCKET");
         do {
             Scanner scanner = new Scanner(System.in);
@@ -111,7 +112,7 @@ public class TUI implements UI {
         }
     }
 
-    private void createSocketClient(String playerName){
+    private void createSocketClient(String playerName) {
         try {
             //networkClient = new SocketClient(playerName, this);
             System.out.println(DefaultValue.ANSI_RED + "Why are you gay?" + DefaultValue.ANSI_RESET);
@@ -195,7 +196,7 @@ public class TUI implements UI {
 
     @Override
     public void startGame() {
-        field = new FieldUtil();
+        field = new ClientField();
         otherFields = new HashMap<>();
         System.out.println(DefaultValue.ANSI_PURPLE + "Game is starting!" + DefaultValue.ANSI_RESET);
     }
@@ -352,12 +353,12 @@ public class TUI implements UI {
 
     @Override
     public void updateField(String playerName, int id, boolean front, Position position, List<Position> availablePositions) {
-        if(playerName.equals(this.playerName)) {
+        if (playerName.equals(this.playerName)) {
             field.playCard(id, front, position);
             field.setAvailablePositions(availablePositions);
         } else {
             if (!otherFields.containsKey(playerName)) {
-                otherFields.put(playerName, new FieldUtil());
+                otherFields.put(playerName, new ClientField());
             }
             otherFields.get(playerName).playCard(id, front, position);
         }
@@ -543,7 +544,7 @@ public class TUI implements UI {
     }
 
     @Override
-    public void backToMenu(){
+    public void backToMenu() {
         networkClient.leave();
         System.out.println(DefaultValue.ANSI_GREEN + "\n\n-> Going back to menu\n" + DefaultValue.ANSI_RESET);
         new Thread(this::askModalityToEnterGame).start();
