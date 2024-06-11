@@ -38,8 +38,7 @@ We have implemented the following features:
 1. Go to [/deliverables/Jars/](deliverables/Jars) and download both jar files
 2. Open `Terminal` and navigate where you downloaded the jars
 3. From here, just type:  
-   -> `java -jar Server.jar` (to run the server)
-<br>
+   -> `java -jar Server.jar` (to run the server)<br>
    -> `java -jar Client.jar` (to run the clients)
 
 ## Credits
