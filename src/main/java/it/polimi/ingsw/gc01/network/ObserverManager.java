@@ -1,6 +1,5 @@
 package it.polimi.ingsw.gc01.network;
 
-import it.polimi.ingsw.gc01.controller.MainController;
 import it.polimi.ingsw.gc01.model.cards.*;
 import it.polimi.ingsw.gc01.model.player.*;
 import it.polimi.ingsw.gc01.model.room.TablePosition;
@@ -243,23 +242,25 @@ public class ObserverManager {
     }
 
     private void heartBeat() {
-        try {
-            Thread.sleep(30*1000);
-        } catch (InterruptedException ignored) {}
-        String dead = "";
-        synchronized (observers) {
-            for (String playerName : observers.keySet()) {
-                try {
-                    observers.get(playerName).isAlive();
-                } catch (RemoteException e) {
-                    observers.remove(playerName);
-                    dead = playerName;
-                    break;
+        while (true) {
+            try {
+                Thread.sleep(10 * 1000);
+            } catch (InterruptedException ignored) {}
+            String dead = "";
+            synchronized (observers) {
+                for (String playerName : observers.keySet()) {
+                    try {
+                        observers.get(playerName).isAlive();
+                    } catch (RemoteException e) {
+                        observers.remove(playerName);
+                        dead = playerName;
+                        break;
+                    }
                 }
             }
-        }
-        if (!dead.isEmpty()) {
-            showGameError("GAME " + dead + " has left the game");
+            if (!dead.isEmpty()) {
+                showGameError("GAME " + dead + " has left the game");
+            }
         }
     }
 }
