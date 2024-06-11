@@ -8,20 +8,50 @@ import it.polimi.ingsw.gc01.view.UI;
 
 import java.util.*;
 
+/**
+ * Class to manage the TUI of the game
+ */
 public class TUI implements UI {
+    /**
+     * Deck of cards
+     */
     private final ClientDeck clientDeck;
+    /**
+     * Name of the player
+     */
     private final String playerName;
+    /**
+     * Field of the player
+     */
     private ClientField field;
+    /**
+     * Map of other players fields
+     */
     private Map<String, ClientField> otherFields;
+    /**
+     * Chosen network interface
+     */
     private NetworkClient networkClient;
+    /**
+     * Ids of the cards in the hand
+     */
     private List<Integer> handIds;
 
+    /**
+     * Construct a new TUI object and starts it
+     */
     public TUI() {
         clientDeck = new ClientDeck();
         playerName = askPlayerName();
         start();
     }
 
+    /**
+     * Check if the input is a valid IP address
+     *
+     * @param input string to check
+     * @return true if is a valid IP, otherwise false
+     */
     private static boolean isValidIP(String input) {
         List<String> parsed;
         parsed = Arrays.stream(input.split("\\.")).toList();
@@ -38,6 +68,9 @@ public class TUI implements UI {
         return true;
     }
 
+    /**
+     * Starts the tui asking server and player IPs
+     */
     public void start() {
         askServerIP();
         askPlayerIP();
@@ -48,6 +81,11 @@ public class TUI implements UI {
         new Thread(this::askModalityToEnterGame).start();
     }
 
+    /**
+     * Ask the player name
+     *
+     * @return the player name
+     */
     private String askPlayerName() {
         Scanner scanner = new Scanner(System.in);
         String input = "";
@@ -61,6 +99,9 @@ public class TUI implements UI {
         return input;
     }
 
+    /**
+     * Ask the server ip
+     */
     private void askServerIP() {
         String input;
         do {
@@ -74,6 +115,9 @@ public class TUI implements UI {
             DefaultValue.ServerIp = input;
     }
 
+    /**
+     * Ask the player ip
+     */
     private void askPlayerIP() {
         String input;
         do {
@@ -87,6 +131,10 @@ public class TUI implements UI {
             System.setProperty("java.rmi.server.hostname", input);
     }
 
+    /**
+     * Ask the type of connection
+     * @return 1 for RMI, 2 for Socket
+     */
     private int askConnection() {
         System.out.println("Select connection type:\n(1) RMI\n(2) SOCKET");
         do {
@@ -104,6 +152,10 @@ public class TUI implements UI {
         } while (true);
     }
 
+    /**
+     * Create the RMI network client
+     * @param playerName
+     */
     private void createRMIClient(String playerName) {
         try {
             networkClient = new RmiClient(playerName, this);
@@ -112,16 +164,19 @@ public class TUI implements UI {
         }
     }
 
+    /**
+     * Create the Socket network client
+     * @param playerName
+     */
     private void createSocketClient(String playerName) {
-        try {
-            //networkClient = new SocketClient(playerName, this);
-            System.out.println(DefaultValue.ANSI_RED + "Why are you gay?" + DefaultValue.ANSI_RESET);
-            System.exit(-1);
-        } catch (Exception e) {
-            System.out.println(DefaultValue.ANSI_RED + "Cannot instance RmiClient" + DefaultValue.ANSI_RESET);
-        }
+        System.out.println(DefaultValue.ANSI_YELLOW + "Socket is currently work in progress..." + DefaultValue.ANSI_RESET);
+        System.out.println("Defaulting to RMI...\n");
+        createRMIClient(playerName);
     }
 
+    /**
+     * Ask the modality to enter a game
+     */
     private void askModalityToEnterGame() {
         System.out.println("""
                 Would you rather:
@@ -162,6 +217,9 @@ public class TUI implements UI {
         }
     }
 
+    /**
+     * Ask if the player is ready
+     */
     private void askReady() {
         String input = "";
         System.out.println(DefaultValue.ANSI_YELLOW + """
@@ -184,16 +242,30 @@ public class TUI implements UI {
         }
     }
 
+    /**
+     * Check if the room id is valid
+     *
+     * @param roomId to check
+     * @return true if is valid, false otherwise
+     */
     private boolean checkRoomId(String roomId) {
         return roomId.length() == 5;
     }
 
+    /**
+     * Print the joined room
+     *
+     * @param roomId of the room
+     */
     @Override
     public void showRoom(String roomId) {
         System.out.println(DefaultValue.ANSI_BLUE + "\n\n[Joined room with id: " + roomId + "]" + DefaultValue.ANSI_RESET);
         new Thread(this::askReady).start();
     }
 
+    /**
+     * Print the notification for the game start
+     */
     @Override
     public void startGame() {
         field = new ClientField();
@@ -201,6 +273,11 @@ public class TUI implements UI {
         System.out.println(DefaultValue.ANSI_PURPLE + "Game is starting!" + DefaultValue.ANSI_RESET);
     }
 
+    /**
+     * Print the current player
+     *
+     * @param playerName of the current player
+     */
     @Override
     public void showCurrentPlayer(String playerName) {
         if (playerName.equals(this.playerName)) {
@@ -210,6 +287,11 @@ public class TUI implements UI {
         }
     }
 
+    /**
+     * Print the field for the indicated player
+     *
+     * @param playerName of the player
+     */
     @Override
     public void showField(String playerName) {
         if (playerName.equals(this.playerName)) {
@@ -221,6 +303,11 @@ public class TUI implements UI {
         }
     }
 
+    /**
+     * Print the points for every player
+     *
+     * @param points map of playerName, points
+     */
     @Override
     public void showPoints(Map<String, Integer> points) {
         System.out.println(DefaultValue.ANSI_BLUE + "-> Points:" + DefaultValue.ANSI_RESET);
@@ -229,6 +316,11 @@ public class TUI implements UI {
         }
     }
 
+    /**
+     * Print and manage the received error
+     *
+     * @param error to show
+     */
     @Override
     public void showError(String error) {
         String type = error.substring(0, error.indexOf(" "));
@@ -253,16 +345,29 @@ public class TUI implements UI {
         }
     }
 
+    /**
+     * Print the service message
+     *
+     * @param message to show
+     */
     @Override
     public void showServiceMessage(String message) {
         System.out.println(message);
     }
 
+    /**
+     * Print the notification for the last turn
+     */
     @Override
     public void showLastCircle() {
         System.out.println(DefaultValue.ANSI_PURPLE + "-> Last circle!");
     }
 
+    /**
+     * Print the back and the front of the starter card
+     *
+     * @param cardId of the starter card
+     */
     @Override
     public void showStarter(int cardId) {
         String[] cardFront = clientDeck.generateCardById(cardId, true);
@@ -275,6 +380,11 @@ public class TUI implements UI {
         new Thread(() -> chooseStarter(cardId)).start();
     }
 
+    /**
+     * Propose the choice to play the front or the back of the starter card
+     *
+     * @param cardId of the extracted starter card
+     */
     private void chooseStarter(int cardId) {
         String input = "";
         Scanner scanner = new Scanner(System.in);
@@ -294,7 +404,8 @@ public class TUI implements UI {
     }
 
     /**
-     * @param availableColors The list of colors that are still available
+     * Print the list of available colors
+     * @param availableColors in the room
      */
     @Override
     public void showAvailableColors(List<PlayerColor> availableColors) {
@@ -310,6 +421,10 @@ public class TUI implements UI {
         new Thread(() -> chooseColor(availableColors)).start();
     }
 
+    /**
+     * Propose to choose from one of the available color
+     * @param availableColors list of currently available colors
+     */
     private void chooseColor(List<PlayerColor> availableColors) {
         String input = "";
         int choice = 0;
@@ -351,6 +466,15 @@ public class TUI implements UI {
         }
     }
 
+    /**
+     * Update the field for the indicated player
+     *
+     * @param playerName of the player to update
+     * @param id of the newly played card
+     * @param front true if the card is played front, false otherwise
+     * @param position of the played card
+     * @param availablePositions list of available positions
+     */
     @Override
     public void updateField(String playerName, int id, boolean front, Position position, List<Position> availablePositions) {
         if (playerName.equals(this.playerName)) {
@@ -364,6 +488,12 @@ public class TUI implements UI {
         }
     }
 
+    /**
+     * Print the readiness of a player
+     *
+     * @param playerName of the player to update
+     * @param ready new readiness status
+     */
     @Override
     public void updateReady(String playerName, boolean ready) {
         if (ready) {
@@ -373,6 +503,11 @@ public class TUI implements UI {
         }
     }
 
+    /**
+     * Print the common objectives
+     *
+     * @param objectiveIds list of objective card ids
+     */
     @Override
     public void showCommonObjectives(List<Integer> objectiveIds) {
         System.out.println("Showing common objectives!");
@@ -384,6 +519,11 @@ public class TUI implements UI {
         }
     }
 
+    /**
+     * Print the possible secret objectives
+     *
+     * @param possibleObjectiveIds list of objective card ids
+     */
     @Override
     public void showPossibleObjectives(List<Integer> possibleObjectiveIds) {
         System.out.println("Choose (1) for the left objective card or (2) for the right objective card:");
@@ -396,6 +536,12 @@ public class TUI implements UI {
         new Thread(() -> chooseSecret(possibleObjectiveIds.get(0), possibleObjectiveIds.get(1))).start();
     }
 
+    /**
+     * Propose the choice of the secret objective
+     *
+     * @param obj1 id of the first objective
+     * @param obj2 id og the second objective
+     */
     private void chooseSecret(int obj1, int obj2) {
         Scanner scanner = new Scanner(System.in);
         String input = scanner.nextLine();
@@ -411,6 +557,11 @@ public class TUI implements UI {
         }
     }
 
+    /**
+     * Print the player hand
+     *
+     * @param handIds list of card ids in the hand
+     */
     @Override
     public void showHand(List<Integer> handIds) {
         this.handIds = handIds;
@@ -442,6 +593,9 @@ public class TUI implements UI {
         new Thread(this::chooseCardToPlay).start();
     }
 
+    /**
+     * Propose the choice of the card to play
+     */
     private void chooseCardToPlay() {
         System.out.println(DefaultValue.ANSI_YELLOW + "Choose which card you want to play: " + DefaultValue.ANSI_RESET);
         Scanner scanner = new Scanner(System.in);
@@ -485,6 +639,11 @@ public class TUI implements UI {
         networkClient.playCard(handIds.get(cardSelected), field.getAvailablePositions().get(index));
     }
 
+    /**
+     * Print the center table
+     *
+     * @param drawableCardsIds map of drawable cards
+     */
     @Override
     public void showTable(Map<Integer, Integer> drawableCardsIds) {
         String[] resourceDeck = clientDeck.generateCardById(drawableCardsIds.get(1), false);
@@ -517,6 +676,9 @@ public class TUI implements UI {
         new Thread(this::chooseCardToDraw).start();
     }
 
+    /**
+     * Propose the choice of the card to draw
+     */
     private void chooseCardToDraw() {
         System.out.println(DefaultValue.ANSI_YELLOW + "Choose which card you want to draw: " + DefaultValue.ANSI_RESET);
         Scanner scanner = new Scanner(System.in);
@@ -530,6 +692,10 @@ public class TUI implements UI {
         networkClient.drawCard(cardSelected);
     }
 
+    /**
+     * Prints the game winners
+     * @param winners list of winner names
+     */
     @Override
     public void showWinners(List<String> winners) {
         if (winners.size() == 1) {
@@ -543,11 +709,13 @@ public class TUI implements UI {
         }
     }
 
+    /**
+     * Go back to menu and ask modality to enter game
+     */
     @Override
     public void backToMenu() {
         networkClient.leave();
         System.out.println(DefaultValue.ANSI_GREEN + "\n\n-> Going back to menu\n" + DefaultValue.ANSI_RESET);
         new Thread(this::askModalityToEnterGame).start();
     }
-
 }

@@ -11,9 +11,18 @@ import java.io.*;
 import java.lang.reflect.Type;
 import java.util.*;
 
+/**
+ * Class to manage the generation of cards client side
+ */
 public class ClientDeck {
+    /**
+     * Map of every possible card
+     */
     private final Map<Integer, Card> deck;
 
+    /**
+     * Construct a new ClientDeck object reading the json files
+     */
     public ClientDeck() {
         deck = new HashMap<>();
         Gson gson = new GsonBuilder()
@@ -35,6 +44,13 @@ public class ClientDeck {
         }
     }
 
+    /**
+     * Generate the selected card by id
+     *
+     * @param id of the card to generate, null for an empty space
+     * @param front true for the front of the card, false otherwise
+     * @return the printable card as an array of lines
+     */
     public String[] generateCardById(Integer id, boolean front) {
         if (id == null) {
             return generateEmptySpace();
@@ -48,6 +64,12 @@ public class ClientDeck {
         };
     }
 
+    /**
+     * Get the corresponding card type for the id
+     *
+     * @param id of the card to generate
+     * @return the type of the card to generate
+     */
     private String getTypeById(int id) {
         if (id >= 1 && id <= 40) {
             return "Resource";
@@ -61,6 +83,13 @@ public class ClientDeck {
         return "Objective";
     }
 
+    /**
+     * Generate the selected resource card by id
+     *
+     * @param id of the card to generate, null for an empty space
+     * @param front true for the front of the card, false otherwise
+     * @return the printable card as an array of lines
+     */
     private String[] generateResourceCardById(int id, boolean front) {
         if (front) {
             return generateResourceCardFrontById(id);
@@ -69,6 +98,12 @@ public class ClientDeck {
         }
     }
 
+    /**
+     * Generate the selected resource card front by id
+     *
+     * @param id of the card to generate, null for an empty space
+     * @return the printable card as an array of lines
+     */
     private String[] generateResourceCardFrontById(int id) {
         ResourceCard resourceCard = (ResourceCard) deck.get(id);
 
@@ -151,6 +186,12 @@ public class ClientDeck {
         return card;
     }
 
+    /**
+     * Generate the selected resource card back by id
+     *
+     * @param id of the card to generate, null for an empty space
+     * @return the printable card as an array of lines
+     */
     private String[] generateResourceCardBackById(int id) {
         ResourceCard resourceCard = (ResourceCard) deck.get(id);
 
@@ -167,6 +208,13 @@ public class ClientDeck {
         return card;
     }
 
+    /**
+     * Generate the selected golden card by id
+     *
+     * @param id of the card to generate, null for an empty space
+     * @param front true for the front of the card, false otherwise
+     * @return the printable card as an array of lines
+     */
     private String[] generateGoldenCardById(int id, boolean front) {
         if (front) {
             return generateGoldenCardFrontById(id);
@@ -175,6 +223,12 @@ public class ClientDeck {
         }
     }
 
+    /**
+     * Generate the selected golden card front by id
+     *
+     * @param id of the card to generate, null for an empty space
+     * @return the printable card as an array of lines
+     */
     private String[] generateGoldenCardFrontById(int id) {
         GoldenCard goldenCard = (GoldenCard) deck.get(id);
 
@@ -212,10 +266,23 @@ public class ClientDeck {
         return card;
     }
 
+    /**
+     * Generate the selected golden card back by id
+     *
+     * @param id of the card to generate, null for an empty space
+     * @return the printable card as an array of lines
+     */
     private String[] generateGoldenCardBackById(int id) {
         return generateResourceCardBackById(id);
     }
 
+    /**
+     * Generate the selected starter card by id
+     *
+     * @param id of the card to generate, null for an empty space
+     * @param front true for the front of the card, false otherwise
+     * @return the printable card as an array of lines
+     */
     private String[] generateStarterCardById(int id, boolean front) {
         if (front) {
             return generateStarterCardFrontById(id);
@@ -224,6 +291,12 @@ public class ClientDeck {
         }
     }
 
+    /**
+     * Generate the selected starter card front by id
+     *
+     * @param id of the card to generate, null for an empty space
+     * @return the printable card as an array of lines
+     */
     private String[] generateStarterCardFrontById(int id) {
         StarterCard starterCard = (StarterCard) deck.get(id);
 
@@ -312,6 +385,12 @@ public class ClientDeck {
         return card;
     }
 
+    /**
+     * Generate the selected starter card back by id
+     *
+     * @param id of the card to generate, null for an empty space
+     * @return the printable card as an array of lines
+     */
     private String[] generateStarterCardBackById(int id) {
         StarterCard starterCard = (StarterCard) deck.get(id);
 
@@ -352,6 +431,12 @@ public class ClientDeck {
         return card;
     }
 
+    /**
+     * Generate the selected objective card by id
+     *
+     * @param id of the card to generate, null for an empty space
+     * @return the printable card as an array of lines
+     */
     private String[] generateObjectiveCardById(int id) {
         String[] objectiveCard = new String[8];
 
@@ -534,6 +619,12 @@ public class ClientDeck {
         return objectiveCard;
     }
 
+    /**
+     * Generate an available position for the field
+     *
+     * @param index of the position
+     * @return the printable position as an array of lines
+     */
     public String[] generateAvailablePosition(int index) {
         String[] position = new String[7];
         position[0] = "┌─ ── ── ── ─ ── ── ── ─┐";
@@ -546,6 +637,11 @@ public class ClientDeck {
         return position;
     }
 
+    /**
+     * Generate an empty space shaped like a card
+     *
+     * @return the printable space as an array of lines
+     */
     private String[] generateEmptySpace() {
         String[] space = new String[7];
         space[0] = "┌───────────────────────┐";
@@ -558,6 +654,11 @@ public class ClientDeck {
         return space;
     }
 
+    /**
+     * Generate an empty card (base for the resource and golden cards)
+     *
+     * @return the printable card as an array of lines
+     */
     private String[] generateEmptyCard() {
         String[] card = new String[7];
         card[0] = "╔═══╦═══════════════╦═══╗";
@@ -570,6 +671,11 @@ public class ClientDeck {
         return card;
     }
 
+    /**
+     * Get the correct symbol associated with the color
+     * @param color of the card
+     * @return the first letter of the corresponding symbol
+     */
     private char getSymbolByColor(CardColor color) {
         return switch (color) {
             case RED -> 'F';
