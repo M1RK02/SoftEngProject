@@ -1,5 +1,8 @@
 package it.polimi.ingsw.gc01.utils;
 
+/**
+ * Class to store common default values
+ */
 public class DefaultValue {
     public static final int MaxNumOfPlayer = 4;
     public static final int MinNumOfPlayer = 2;

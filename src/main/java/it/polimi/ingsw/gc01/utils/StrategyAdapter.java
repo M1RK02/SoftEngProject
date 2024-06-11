@@ -8,6 +8,9 @@ import it.polimi.ingsw.gc01.model.strategy.*;
 
 import java.io.IOException;
 
+/**
+ * Class used by Gson to be able to use the `Strategy` interface
+ */
 public class StrategyAdapter extends TypeAdapter<Strategy> {
     /**
      * Serializes a `Strategy` object into JSON format using the specified `JsonWriter`.
