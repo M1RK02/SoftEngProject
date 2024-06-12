@@ -1,4 +1,4 @@
-package it.polimi.ingsw.gc01.view.GUIControllers;
+package it.polimi.ingsw.gc01.view.gui.GUIControllers;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
