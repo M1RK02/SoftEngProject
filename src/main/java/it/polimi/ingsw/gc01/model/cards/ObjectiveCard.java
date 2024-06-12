@@ -15,10 +15,9 @@ public class ObjectiveCard extends Card {
     /**
      * Constructor of the objective card (adds strategy)
      *
-     * @param id
-     * @param info
-     * @param strategy
-     * @see Card
+     * @param id       of the card
+     * @param info     for the card
+     * @param strategy for the objective
      */
     public ObjectiveCard(int id, String info, Strategy strategy) {
         super(id, info);

@@ -20,12 +20,11 @@ public class ResourceCard extends PlayableCard {
     /**
      * Constructor of the resource card (adds color and score)
      *
-     * @param id
-     * @param info
-     * @param corners
-     * @param color
-     * @param score
-     * @see PlayableCard
+     * @param id      of the card
+     * @param info    for the card
+     * @param corners map of corners
+     * @param color   of the card
+     * @param score   of the card
      */
     public ResourceCard(int id, String info, Map<CornerPosition, Corner> corners, CardColor color, int score) {
         super(id, info, corners);

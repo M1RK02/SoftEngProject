@@ -1,0 +1,1 @@
+moduleSearchIndex = [{"l":"it.polimi.ingsw.gc01"}];updateSearchResults();

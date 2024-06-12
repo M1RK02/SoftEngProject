@@ -1,12 +1,13 @@
 package it.polimi.ingsw.gc01.controller;
 
-import it.polimi.ingsw.gc01.model.DefaultValue;
 import it.polimi.ingsw.gc01.network.VirtualView;
 
 import java.rmi.RemoteException;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
+/**
+ * Class that manages all the rooms for multiple games functionality
+ */
 public class MainController {
     /**
      * Singleton Pattern, instance of the class
@@ -16,10 +17,12 @@ public class MainController {
     /**
      * List of existing rooms
      */
-    private Map<String, RoomController> rooms;
+    private final Map<String, RoomController> rooms = new HashMap<>();
 
-    private MainController(){
-        rooms = new HashMap<>();
+    /**
+     * Construct a new object MainController
+     */
+    private MainController() {
     }
 
     /**
@@ -34,6 +37,9 @@ public class MainController {
         return instance;
     }
 
+    /**
+     * @return the map of roomId and RoomController
+     */
     public Map<String, RoomController> getRooms() {
         return rooms;
     }
@@ -42,7 +48,7 @@ public class MainController {
      * Create a new room
      *
      * @param playerName name of the player who wants to create the Room
-     * @param client reference to the client
+     * @param client     reference to the client
      */
     public void createGame(String playerName, VirtualView client) {
         RoomController roomController = new RoomController();
@@ -54,18 +60,22 @@ public class MainController {
      * Join the room with the given id
      *
      * @param playerName the name of the player who wants to join the room
-     * @param client reference to the client
-     * @param roomId the id of the room you want to join
+     * @param client     reference to the client
+     * @param roomId     the id of the room you want to join
      */
-    public void joinGame(String playerName, VirtualView client, String roomId){
-        if (rooms.get(roomId) != null){
-            rooms.get(roomId).addPlayer(playerName, client);
-        } else {
+    public void joinGame(String playerName, VirtualView client, String roomId) {
+        String error = "";
+        if (rooms.get(roomId) != null) {
             try {
-                client.showError("No room with this id exists");
-            } catch (RemoteException e) {
-                throw new RuntimeException(e);
+                rooms.get(roomId).addPlayer(playerName, client);
+            } catch (Exception e) {
+                error = e.getMessage();
             }
+        } else {
+            error = "MAIN No room with this id exists";
+        }
+        if (!error.isEmpty()) {
+            sendErrorToClient(client, error);
         }
     }
 
@@ -73,19 +83,35 @@ public class MainController {
      * Join the first available room
      *
      * @param playerName the name of the player who wants to join the room
-     * @param client reference to the client
+     * @param client     reference to the client
      */
-    public void joinFirstGame(String playerName, VirtualView client){
-        for (String roomId : rooms.keySet()){
-            if (rooms.get(roomId).getNumOfWaitingPlayers() < DefaultValue.MaxNumOfPlayer) {
-                rooms.get(roomId).addPlayer(playerName, client);
-            } else {
-                try {
-                    client.showError("No room available");
-                } catch (RemoteException e) {
-                    throw new RuntimeException(e);
-                }
+    public void joinFirstGame(String playerName, VirtualView client) {
+        boolean joined = false;
+        Iterator<RoomController> iterator = rooms.values().iterator();
+        while (!joined && iterator.hasNext()) {
+            RoomController room = iterator.next();
+            try {
+                room.addPlayer(playerName, client);
+                joined = true;
+            } catch (Exception ignored) {
             }
+        }
+        if (!joined) {
+            sendErrorToClient(client, "MAIN No rooms available");
+        }
+    }
+
+    /**
+     * Handles the error sending to the client
+     *
+     * @param client to notify
+     * @param error  to show
+     */
+    private void sendErrorToClient(VirtualView client, String error) {
+        try {
+            client.showError(error);
+        } catch (RemoteException e) {
+            throw new RuntimeException(e);
         }
     }
 
@@ -95,8 +121,6 @@ public class MainController {
      * @param roomId the id of the room to delete
      */
     public void deleteRoom(String roomId) {
-        if (rooms.get(roomId) != null){
-            rooms.remove(roomId);
-        }
+        rooms.remove(roomId);
     }
 }

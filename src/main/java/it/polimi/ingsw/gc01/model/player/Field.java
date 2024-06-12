@@ -1,18 +1,31 @@
 package it.polimi.ingsw.gc01.model.player;
 
+import it.polimi.ingsw.gc01.model.cards.PlayableCard;
+import it.polimi.ingsw.gc01.model.corners.CornerPosition;
+
 import java.util.*;
 
-import it.polimi.ingsw.gc01.model.CornerValue;
-import it.polimi.ingsw.gc01.model.cards.*;
-import it.polimi.ingsw.gc01.model.corners.*;
-
-import static it.polimi.ingsw.gc01.model.CornerValue.EMPTY;
-
+/**
+ * Class to manage the playing field of a player
+ */
 public class Field {
-    private Map<Position, PlayableCard> positions;
-    private Set<Position> availablePositions;
-    private Set<Position> unavailablePositions;
+    /**
+     * Map of occupied positions
+     */
+    private final Map<Position, PlayableCard> positions;
+    /**
+     * Set of available positions
+     */
+    private final Set<Position> availablePositions;
+    /**
+     * Set of unavailable positions
+     */
+    private final Set<Position> unavailablePositions;
 
+    /**
+     * Constructs a new `Field` object, initializing the positions, available positions,
+     * and unavailable positions.
+     */
     public Field() {
         this.positions = new HashMap<Position, PlayableCard>();
         this.availablePositions = new HashSet<Position>();
@@ -42,6 +55,8 @@ public class Field {
     }
 
     /**
+     * Get adjacent cards for the selected position
+     *
      * @param position for which to return adjacent cards if they have already been placed on the field.
      * @return a Map containing the adjacent cards of the param 'position'
      */

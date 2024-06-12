@@ -2,23 +2,18 @@ package it.polimi.ingsw.gc01.model.player;
 
 import it.polimi.ingsw.gc01.model.*;
 import it.polimi.ingsw.gc01.model.cards.*;
-import it.polimi.ingsw.gc01.model.corners.Corner;
-import it.polimi.ingsw.gc01.model.corners.CornerPosition;
-import it.polimi.ingsw.gc01.model.decks.GoldenDeck;
-import it.polimi.ingsw.gc01.model.decks.ResourceDeck;
-import it.polimi.ingsw.gc01.model.decks.StarterDeck;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import it.polimi.ingsw.gc01.model.corners.*;
+import it.polimi.ingsw.gc01.model.decks.*;
+import it.polimi.ingsw.gc01.model.VirtualViewStub;
+import it.polimi.ingsw.gc01.network.ObserverManager;
+import org.junit.jupiter.api.*;
 
 import java.util.*;
 
 import static it.polimi.ingsw.gc01.model.CornerValue.FULL;
 import static it.polimi.ingsw.gc01.model.Resource.*;
-import static it.polimi.ingsw.gc01.model.Resource.INSECT;
-import static it.polimi.ingsw.gc01.model.corners.CornerPosition.*;
-import static it.polimi.ingsw.gc01.model.corners.CornerPosition.TOP_LEFT;
-import static org.junit.jupiter.api.Assertions.*;
 import static it.polimi.ingsw.gc01.model.cards.CardColor.*;
+import static it.polimi.ingsw.gc01.model.corners.CornerPosition.*;
 
 class PlayerTest {
     static private Player player;
@@ -31,7 +26,9 @@ class PlayerTest {
         goldenDeck = new GoldenDeck();
         starterDeck = new StarterDeck();
         resourceDeck = new ResourceDeck();
-        player = new Player("testPlayer", new ObserverManager());
+        ObserverManager notifier = new ObserverManager();
+        notifier.addObserver("testPlayer", new VirtualViewStub());
+        player = new Player("testPlayer", notifier);
         player.getHand().add(starterDeck.pick());
     }
 
@@ -45,7 +42,7 @@ class PlayerTest {
         if (y == 1) {
             (player.getHand().get(0)).setFront(true);
         }
-        player.playCard(player.getHand().get(0), new Position(0,0));
+        player.playCard(player.getHand().get(0), new Position(0, 0));
 
         //Draw the first three card
         player.getHand().add(resourceDeck.pick());
@@ -77,9 +74,9 @@ class PlayerTest {
             Map<CornerPosition, PlayableCard> adjacentCards = getAdjacentCards(position);
             for (CornerPosition cornerPosition : adjacentCards.keySet()) {
                 Map<CornerPosition, Corner> corners;
-                if (adjacentCards.get(cornerPosition) instanceof StarterCard && !((StarterCard) adjacentCards.get(cornerPosition)).isFront()) {
-                    corners = ((StarterCard)adjacentCards.get(cornerPosition)).getBackCorners();
-                }else{
+                if (adjacentCards.get(cornerPosition) instanceof StarterCard && !adjacentCards.get(cornerPosition).isFront()) {
+                    corners = ((StarterCard) adjacentCards.get(cornerPosition)).getBackCorners();
+                } else {
                     corners = adjacentCards.get(cornerPosition).getCorners();
                 }
 
@@ -102,15 +99,13 @@ class PlayerTest {
 
             //Check resources
             if (!card.isFront()) {
-                if(card.getColor().equals(RED)) {
+                if (card.getColor().equals(RED)) {
                     assert (player.getResources().get(FUNGI).equals(oldResources.get(FUNGI) + 1));
-                }else if(card.getColor().equals(BLUE)) {
+                } else if (card.getColor().equals(BLUE)) {
                     assert (player.getResources().get(ANIMAL).equals(oldResources.get(ANIMAL) + 1));
-                }else if(card.getColor().equals(GREEN)) {
+                } else if (card.getColor().equals(GREEN)) {
                     assert (player.getResources().get(PLANT).equals(oldResources.get(PLANT) + 1));
-                }else if (card.getColor().equals(PURPLE)) {
-                    assert (player.getResources().get(INSECT).equals(oldResources.get(INSECT) + 1));
-                }
+                } else assert !card.getColor().equals(PURPLE) || (player.getResources().get(INSECT).equals(oldResources.get(INSECT) + 1));
             } else {
                 Map<PlayerResource, Integer> cardResources = cornerResources(card.getCorners());
                 for (PlayerResource resource : player.getResources().keySet()) {
@@ -122,7 +117,7 @@ class PlayerTest {
             assert (!player.getHand().contains(card));
 
             //Check AvailablePositions
-            assert (!player.getField().getAvailablePositions().contains(new Position(0,0)));
+            assert (!player.getField().getAvailablePositions().contains(new Position(0, 0)));
             for (CornerPosition cornerPosition : card.getCorners().keySet()) {
                 if (!getAdjacentCards(position).containsKey(cornerPosition)) {
                     Position p;
@@ -131,7 +126,8 @@ class PlayerTest {
                             p = new Position(position.getX() - 1, position.getY() + 1);
                             if (card.getCorners().get(cornerPosition).getResource().equals(FULL)) {
                                 assert (player.getField().getUnavailablePositions().contains(p));
-                            }else {
+                                assert (!player.getField().getAvailablePositions().contains(p));
+                            } else {
                                 assert player.getField().getUnavailablePositions().contains(p) || (player.getField().getAvailablePositions().contains(p));
                             }
                             break;
@@ -139,7 +135,8 @@ class PlayerTest {
                             p = new Position(position.getX() + 1, position.getY() + 1);
                             if (card.getCorners().get(cornerPosition).getResource().equals(FULL)) {
                                 assert (player.getField().getUnavailablePositions().contains(p));
-                            }else {
+                                assert (!player.getField().getAvailablePositions().contains(p));
+                            } else {
                                 assert player.getField().getUnavailablePositions().contains(p) || (player.getField().getAvailablePositions().contains(p));
                             }
                             break;
@@ -147,7 +144,8 @@ class PlayerTest {
                             p = new Position(position.getX() - 1, position.getY() - 1);
                             if (card.getCorners().get(cornerPosition).getResource().equals(FULL)) {
                                 assert (player.getField().getUnavailablePositions().contains(p));
-                            }else {
+                                assert (!player.getField().getAvailablePositions().contains(p));
+                            } else {
                                 assert player.getField().getUnavailablePositions().contains(p) || (player.getField().getAvailablePositions().contains(p));
                             }
                             break;
@@ -155,7 +153,8 @@ class PlayerTest {
                             p = new Position(position.getX() + 1, position.getY() - 1);
                             if (card.getCorners().get(cornerPosition).getResource().equals(FULL)) {
                                 assert (player.getField().getUnavailablePositions().contains(p));
-                            }else {
+                                assert (!player.getField().getAvailablePositions().contains(p));
+                            } else {
                                 assert player.getField().getUnavailablePositions().contains(p) || (player.getField().getAvailablePositions().contains(p));
                             }
                             break;
@@ -169,35 +168,36 @@ class PlayerTest {
             assert (player.getField().getPositions().get(position).equals(card));
 
             //Check score
-            if (card instanceof GoldenCard) {
-                assert (player.getPoints() == oldScore + ((GoldenCard)card).calculatePoints(player, position));
-            } else {
-                assert (player.getPoints() == oldScore + card.getScore());
+            if(card.isFront()){
+                if (card instanceof GoldenCard) {
+                    assert (player.getPoints() == oldScore + ((GoldenCard) card).calculatePoints(player, position));
+                } else {
+                    assert (player.getPoints() == oldScore + card.getScore());
+                }
             }
 
             n = generatore.nextInt(2);
             if ((n == 1 || goldenDeck.isEmpty()) && !resourceDeck.isEmpty()) {
                 player.getHand().add(resourceDeck.pick());
             }
-            if ((n == 0 || resourceDeck.isEmpty()) && !goldenDeck.isEmpty()){
+            if ((n == 0 || resourceDeck.isEmpty()) && !goldenDeck.isEmpty()) {
                 player.getHand().add(goldenDeck.pick());
             }
         }
-        return;
     }
 
     @Test
     void testPlayStarterCardFront() {
         StarterCard card = (StarterCard) player.getHand().get(0);
         card.setFront(true);
-        player.playCard(card, new Position(0,0));
+        player.playCard(card, new Position(0, 0));
 
         //Check resources
         Map<PlayerResource, Integer> cardResources = cornerResources(card.getCorners());
         for (Resource resource : card.getCenterResources()) {
             if (cardResources.containsKey(resource)) {
                 cardResources.put(resource, cardResources.get(resource) + 1);
-            }else {
+            } else {
                 cardResources.put(resource, 1);
             }
         }
@@ -209,39 +209,39 @@ class PlayerTest {
         assert (!player.getHand().contains(card));
 
         //Check AvailablePositions
-        assert (!player.getField().getAvailablePositions().contains(new Position(0,0)));
+        assert (!player.getField().getAvailablePositions().contains(new Position(0, 0)));
         for (CornerPosition cornerPosition : card.getCorners().keySet()) {
             Position p;
             switch (cornerPosition) {
                 case TOP_LEFT:
-                    p = new Position(- 1, + 1);
+                    p = new Position(-1, +1);
                     if (card.getCorners().get(cornerPosition).getResource().equals(FULL)) {
                         assert (player.getField().getUnavailablePositions().contains(p));
-                    }else {
+                    } else {
                         assert player.getField().getUnavailablePositions().contains(p) || (player.getField().getAvailablePositions().contains(p));
                     }
                     break;
                 case TOP_RIGHT:
-                    p = new Position(+ 1, + 1);
+                    p = new Position(+1, +1);
                     if (card.getCorners().get(cornerPosition).getResource().equals(FULL)) {
                         assert (player.getField().getUnavailablePositions().contains(p));
-                    }else {
+                    } else {
                         assert player.getField().getUnavailablePositions().contains(p) || (player.getField().getAvailablePositions().contains(p));
                     }
                     break;
                 case BOTTOM_LEFT:
-                    p = new Position(- 1, - 1);
+                    p = new Position(-1, -1);
                     if (card.getCorners().get(cornerPosition).getResource().equals(FULL)) {
                         assert (player.getField().getUnavailablePositions().contains(p));
-                    }else {
+                    } else {
                         assert player.getField().getUnavailablePositions().contains(p) || (player.getField().getAvailablePositions().contains(p));
                     }
                     break;
                 case BOTTOM_RIGHT:
-                    p = new Position(+ 1, - 1);
+                    p = new Position(+1, -1);
                     if (card.getCorners().get(cornerPosition).getResource().equals(FULL)) {
                         assert (player.getField().getUnavailablePositions().contains(p));
-                    }else {
+                    } else {
                         assert player.getField().getUnavailablePositions().contains(p) || (player.getField().getAvailablePositions().contains(p));
                     }
                     break;
@@ -250,15 +250,15 @@ class PlayerTest {
         }
 
         //Check Positions
-        assert (player.getField().getPositions().containsKey(new Position(0,0)));
-        assert (player.getField().getPositions().get(new Position(0,0)).equals(card));
+        assert (player.getField().getPositions().containsKey(new Position(0, 0)));
+        assert (player.getField().getPositions().get(new Position(0, 0)).equals(card));
     }
 
     @Test
     void testPlayStarterCardBack() {
         StarterCard card = (StarterCard) player.getHand().get(0);
         card.setFront(false);
-        player.playCard(card, new Position(0,0));
+        player.playCard(card, new Position(0, 0));
 
         //Check resources
         Map<PlayerResource, Integer> cardResources = cornerResources(card.getBackCorners());
@@ -270,39 +270,39 @@ class PlayerTest {
         assert (!player.getHand().contains(card));
 
         //Check AvailablePositions
-        assert (!player.getField().getAvailablePositions().contains(new Position(0,0)));
+        assert (!player.getField().getAvailablePositions().contains(new Position(0, 0)));
         for (CornerPosition cornerPosition : card.getBackCorners().keySet()) {
             Position p;
             switch (cornerPosition) {
                 case TOP_LEFT:
-                    p = new Position(- 1, + 1);
+                    p = new Position(-1, +1);
                     if (card.getBackCorners().get(cornerPosition).getResource().equals(FULL)) {
                         assert (player.getField().getUnavailablePositions().contains(p));
-                    }else {
+                    } else {
                         assert player.getField().getUnavailablePositions().contains(p) || (player.getField().getAvailablePositions().contains(p));
                     }
                     break;
                 case TOP_RIGHT:
-                    p = new Position(+ 1, + 1);
+                    p = new Position(+1, +1);
                     if (card.getBackCorners().get(cornerPosition).getResource().equals(FULL)) {
                         assert (player.getField().getUnavailablePositions().contains(p));
-                    }else {
+                    } else {
                         assert player.getField().getUnavailablePositions().contains(p) || (player.getField().getAvailablePositions().contains(p));
                     }
                     break;
                 case BOTTOM_LEFT:
-                    p = new Position(- 1, - 1);
+                    p = new Position(-1, -1);
                     if (card.getBackCorners().get(cornerPosition).getResource().equals(FULL)) {
                         assert (player.getField().getUnavailablePositions().contains(p));
-                    }else {
+                    } else {
                         assert player.getField().getUnavailablePositions().contains(p) || (player.getField().getAvailablePositions().contains(p));
                     }
                     break;
                 case BOTTOM_RIGHT:
-                    p = new Position(+ 1, - 1);
+                    p = new Position(+1, -1);
                     if (card.getBackCorners().get(cornerPosition).getResource().equals(FULL)) {
                         assert (player.getField().getUnavailablePositions().contains(p));
-                    }else {
+                    } else {
                         assert player.getField().getUnavailablePositions().contains(p) || (player.getField().getAvailablePositions().contains(p));
                     }
                     break;
@@ -311,8 +311,8 @@ class PlayerTest {
         }
 
         //Check Positions
-        assert (player.getField().getPositions().containsKey(new Position(0,0)));
-        assert (player.getField().getPositions().get(new Position(0,0)).equals(card));
+        assert (player.getField().getPositions().containsKey(new Position(0, 0)));
+        assert (player.getField().getPositions().get(new Position(0, 0)).equals(card));
     }
 
     private Map<PlayerResource, Integer> cornerResources(Map<CornerPosition, Corner> corners) {
@@ -357,9 +357,9 @@ class PlayerTest {
         }
         for (CornerPosition cornerPosition : adjacentCard.keySet()) {
             Map<CornerPosition, Corner> corners;
-            if (adjacentCard.get(cornerPosition) instanceof StarterCard && !((StarterCard) adjacentCard.get(cornerPosition)).isFront()) {
-                corners = ((StarterCard)adjacentCard.get(cornerPosition)).getBackCorners();
-            }else{
+            if (adjacentCard.get(cornerPosition) instanceof StarterCard && !adjacentCard.get(cornerPosition).isFront()) {
+                corners = ((StarterCard) adjacentCard.get(cornerPosition)).getBackCorners();
+            } else {
                 corners = adjacentCard.get(cornerPosition).getCorners();
             }
 

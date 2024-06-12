@@ -16,8 +16,8 @@ public abstract class Card {
     /**
      * Constructor of the card
      *
-     * @param id
-     * @param info
+     * @param id   of the card
+     * @param info for the card
      */
     public Card(int id, String info) {
         this.id = id;

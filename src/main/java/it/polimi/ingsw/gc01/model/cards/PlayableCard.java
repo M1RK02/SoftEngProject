@@ -20,10 +20,9 @@ public abstract class PlayableCard extends Card {
     /**
      * Constructor of a playable card (adds cordners and front)
      *
-     * @param id
-     * @param info
-     * @param corners
-     * @see Card
+     * @param id      of the card
+     * @param info    for the card
+     * @param corners map of corners
      */
     public PlayableCard(int id, String info, Map<CornerPosition, Corner> corners) {
         super(id, info);

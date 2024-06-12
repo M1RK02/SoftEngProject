@@ -1,28 +1,76 @@
 package it.polimi.ingsw.gc01.network;
 
-import it.polimi.ingsw.gc01.model.player.PlayerColor;
-import it.polimi.ingsw.gc01.model.room.TablePosition;
+import it.polimi.ingsw.gc01.model.player.*;
 
-import java.rmi.RemoteException;
-
+/**
+ * Common interface between Socket and RMI clients
+ */
 public interface NetworkClient {
-    void createGame() throws RemoteException;
+    /**
+     * @return the room id
+     */
+    String getRoomId();
 
-    void joinGame() throws RemoteException;
+    /**
+     * Create a new game
+     */
+    void createGame();
 
-    void joinFirstGame() throws RemoteException;
+    /**
+     * Join the indicated game
+     *
+     * @param roomId of the game to join
+     */
+    void joinGame(String roomId);
 
-    void chooseColor(PlayerColor color) throws RemoteException;
+    /**
+     * Join the first available game
+     */
+    void joinFirstGame();
 
-    void switchReady() throws RemoteException;
+    /**
+     * Chose the selected color for the player
+     *
+     * @param color chosen color
+     */
+    void chooseColor(PlayerColor color);
 
-    void chooseSecretObjective(int cardId) throws RemoteException;
+    /**
+     * Switch the readiness of the player
+     */
+    void switchReady();
 
-    void flipCard(int cardId) throws RemoteException;
+    /**
+     * Choose the secret objective
+     *
+     * @param cardId of the secret objective
+     */
+    void chooseSecretObjective(int cardId);
 
-    void playCard(int cardId, int x, int y) throws RemoteException;
+    /**
+     * Flip the indicated card
+     *
+     * @param cardId of the card to flip
+     */
+    void flipCard(int cardId);
 
-    void drawCard(TablePosition card) throws RemoteException;
+    /**
+     * Play the card in the selected position
+     *
+     * @param cardId   of the card to play
+     * @param position where to play the card
+     */
+    void playCard(int cardId, Position position);
 
-    void leave() throws RemoteException;
+    /**
+     * Draw the chosen card
+     *
+     * @param choice index of the chosen card
+     */
+    void drawCard(int choice);
+
+    /**
+     * Leave the current room
+     */
+    void leave();
 }

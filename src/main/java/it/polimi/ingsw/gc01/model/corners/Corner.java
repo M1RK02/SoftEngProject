@@ -1,28 +1,45 @@
 package it.polimi.ingsw.gc01.model.corners;
 
+/**
+ * Class to manage the corner of a card
+ */
 public class Corner {
-    private CardResource resource;
+    /**
+     * Value of the corner
+     */
+    private final CardResource resource;
+    /**
+     * Covered status of the corner, true if it is
+     */
     private boolean covered;
 
-    public Corner (CardResource resource){
+    /**
+     * Construct a new corner object
+     *
+     * @param resource value of the corner
+     */
+    public Corner(CardResource resource) {
         this.resource = resource;
     }
 
-    public CardResource getResource(){
+    /**
+     * @return the corner's resource
+     */
+    public CardResource getResource() {
         return resource;
     }
 
     /**
      * @return true if the corner is covered in the playing field.
      */
-    public boolean isCovered(){
+    public boolean isCovered() {
         return covered;
     }
 
     /**
-     * set the covered attribute true
+     * Set the covered attribute true
      */
-    public void cover(){
+    public void cover() {
         covered = true;
     }
 }

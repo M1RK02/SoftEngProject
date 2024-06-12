@@ -1,9 +1,8 @@
 package it.polimi.ingsw.gc01.model.room;
 
+import it.polimi.ingsw.gc01.model.VirtualViewStub;
 import it.polimi.ingsw.gc01.model.player.Player;
-import it.polimi.ingsw.gc01.network.VirtualView;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -12,7 +11,7 @@ class WaitingRoomTest {
     private Player p1, p2, p3, p4;
 
     @BeforeEach
-    void setup(){
+    void setup() {
         waitingRoom = new WaitingRoom();
         p1 = new Player("Player1", waitingRoom.getNotifier());
         p2 = new Player("Player2", waitingRoom.getNotifier());
@@ -52,13 +51,13 @@ class WaitingRoomTest {
         waitingRoom.addPlayer(p3.getName(), new VirtualViewStub());
         waitingRoom.addPlayer(p4.getName(), new VirtualViewStub());
         assertEquals(4, waitingRoom.getPlayers().size());
-        waitingRoom.removePlayer(p1);
+        waitingRoom.removePlayer(p1.getName());
         assertEquals(3, waitingRoom.getPlayers().size());
-        waitingRoom.removePlayer(p2);
+        waitingRoom.removePlayer(p2.getName());
         assertEquals(2, waitingRoom.getPlayers().size());
-        waitingRoom.removePlayer(p3);
+        waitingRoom.removePlayer(p3.getName());
         assertEquals(1, waitingRoom.getPlayers().size());
-        waitingRoom.removePlayer(p4);
+        waitingRoom.removePlayer(p4.getName());
         assertEquals(0, waitingRoom.getPlayers().size());
     }
 

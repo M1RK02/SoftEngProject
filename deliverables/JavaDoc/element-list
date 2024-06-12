@@ -1,0 +1,17 @@
+module:it.polimi.ingsw.gc01
+it.polimi.ingsw.gc01.controller
+it.polimi.ingsw.gc01.controller.exceptions
+it.polimi.ingsw.gc01.main
+it.polimi.ingsw.gc01.model
+it.polimi.ingsw.gc01.model.cards
+it.polimi.ingsw.gc01.model.corners
+it.polimi.ingsw.gc01.model.decks
+it.polimi.ingsw.gc01.model.player
+it.polimi.ingsw.gc01.model.room
+it.polimi.ingsw.gc01.model.strategy
+it.polimi.ingsw.gc01.network
+it.polimi.ingsw.gc01.network.rmi
+it.polimi.ingsw.gc01.network.rmi.actions
+it.polimi.ingsw.gc01.utils
+it.polimi.ingsw.gc01.view
+it.polimi.ingsw.gc01.view.tui

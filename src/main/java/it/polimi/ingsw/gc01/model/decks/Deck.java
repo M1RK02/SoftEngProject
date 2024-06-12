@@ -1,18 +1,32 @@
 package it.polimi.ingsw.gc01.model.decks;
 
+import com.google.gson.*;
+import it.polimi.ingsw.gc01.model.cards.*;
+import it.polimi.ingsw.gc01.model.corners.CardResource;
+import it.polimi.ingsw.gc01.model.strategy.Strategy;
+import it.polimi.ingsw.gc01.utils.*;
+
 import java.io.*;
 import java.lang.reflect.Type;
 import java.util.*;
-import com.google.gson.*;
-import it.polimi.ingsw.gc01.model.cards.*;
-import it.polimi.ingsw.gc01.model.corners.*;
-import it.polimi.ingsw.gc01.model.strategy.*;
 
+/**
+ * Abstract class to manage all types of decks
+ */
 public abstract class Deck {
-    private List<Card> deck;
+    /**
+     * List of cards
+     */
+    private final List<Card> deck;
 
+    /**
+     * Construct a new Deck of the chosen type
+     *
+     * @param type of the deck, used to determine the JSON file to read and
+     *             the type of cards to create
+     */
     public Deck(String type) {
-        String json = "src/main/resources/it/polimi/ingsw/gc01/model/decks/"+type+"Deck.json";
+        InputStream json = this.getClass().getResourceAsStream("/it/polimi/ingsw/gc01/model/decks/" + type + "Deck.json");
         deck = new ArrayList<>();
         Gson gson = new GsonBuilder()
                 .registerTypeAdapter(CardResource.class, new CardResourcesDeserializer())
@@ -20,11 +34,12 @@ public abstract class Deck {
                 .registerTypeHierarchyAdapter(Strategy.class, new StrategyAdapter())
                 .create();
         try {
-            List<Object> cardList = gson.fromJson(new FileReader(json), List.class);
+            List<Object> cardList = gson.fromJson(new InputStreamReader(json), List.class);
             for (Object card : cardList) {
-                deck.add(gson.fromJson(card.toString(), (Type) Class.forName("it.polimi.ingsw.gc01.model.cards."+type+"Card")));
+                deck.add(gson.fromJson(card.toString(), (Type) Class.forName("it.polimi.ingsw.gc01.model.cards." + type + "Card")));
             }
-        } catch (Exception ignored) {}
+        } catch (Exception ignored) {
+        }
     }
 
     /**
@@ -35,7 +50,7 @@ public abstract class Deck {
     }
 
     /**
-     * shuffles the cards' deck
+     * Shuffles the cards' deck
      */
     public void shuffle() {
         Collections.shuffle(deck);
@@ -59,14 +74,16 @@ public abstract class Deck {
 
     /**
      * ONLY FOR TESTING
+     * Picks a card by its id.
+     *
      * @param id of the card to draw from the deck
-     * @return the card whose id is the same of id
+     * @return a `Card` object with the specified id, or `null` if no such card exists.
      */
     @Deprecated
     public Card pickById(int id) {
         Card card;
-        for (Card c : deck){
-            if (c.getId() == id){
+        for (Card c : deck) {
+            if (c.getId() == id) {
                 card = c;
                 return card;
             }

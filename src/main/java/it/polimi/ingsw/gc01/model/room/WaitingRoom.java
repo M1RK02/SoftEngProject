@@ -1,27 +1,40 @@
 package it.polimi.ingsw.gc01.model.room;
 
+import it.polimi.ingsw.gc01.model.player.Player;
+import it.polimi.ingsw.gc01.network.*;
+import it.polimi.ingsw.gc01.utils.DefaultValue;
+
 import java.util.*;
 
-import it.polimi.ingsw.gc01.model.DefaultValue;
-import it.polimi.ingsw.gc01.model.ObserverManager;
-import it.polimi.ingsw.gc01.model.player.*;
-import it.polimi.ingsw.gc01.network.VirtualView;
-
+/**
+ * Class to manage the waiting room
+ */
 public class WaitingRoom {
+    /**
+     * Id of the room
+     */
     private final String roomId;
-    private List<Player> players;
-    private List<PlayerColor> availableColors;
+    /**
+     * List of players
+     */
+    private final List<Player> players;
+    /**
+     * Notifier object to communicate updates
+     */
     private final ObserverManager notifier;
 
+    /**
+     * Constructor of the WaitingRoom
+     */
     public WaitingRoom() {
         roomId = generateRoomId();
         players = new ArrayList<Player>();
-        availableColors = new ArrayList<>(Arrays.asList(PlayerColor.values()));
         notifier = new ObserverManager();
     }
 
     /**
      * Randomly generates a room id
+     *
      * @return a 5 character string
      */
     private String generateRoomId() {
@@ -31,7 +44,7 @@ public class WaitingRoom {
         StringBuilder sb = new StringBuilder();
         Random random = new Random();
         int length = 5;
-        for(int i = 0; i < length; i++) {
+        for (int i = 0; i < length; i++) {
             int index = random.nextInt(alphaNumeric.length());
             char randomChar = alphaNumeric.charAt(index);
             sb.append(randomChar);
@@ -39,70 +52,78 @@ public class WaitingRoom {
         return sb.toString();
     }
 
-    public String getRoomId(){
+    /**
+     * @return the roomId
+     */
+    public String getRoomId() {
         return roomId;
     }
 
+    /**
+     * @return the list of the players that joined the Waiting Room
+     */
     public List<Player> getPlayers() {
         return players;
     }
 
-    public List<PlayerColor> getAvailableColors() {
-        return availableColors;
-    }
-
+    /**
+     * @return The observer manager associated with the room.
+     */
     public ObserverManager getNotifier() {
         return notifier;
     }
 
-    public Player getPlayerByName(String playerName){
-        for (Player player : players){
-            if (player.getName().equals(playerName)){
+    /**
+     * Retrieves a player from the room by their name.
+     *
+     * @param playerName The name of the player to retrieve.
+     * @return The player with the specified name
+     */
+    public Player getPlayerByName(String playerName) {
+        for (Player player : players) {
+            if (player.getName().equals(playerName)) {
                 return player;
             }
         }
         return null;
     }
 
-
     /**
      * Add the player to the waiting room (the check for max size will be done by the controller)
-     * @param playerName chosen player name
      *
+     * @param playerName chosen player name
      */
-    public void addPlayer(String playerName, VirtualView client){
+    public void addPlayer(String playerName, VirtualView client) {
         players.add(new Player(playerName, notifier));
         notifier.addObserver(playerName, client);
         notifier.updateRoomId(playerName, roomId);
-        notifier.showAvailableColor(playerName, availableColors);
+        StringBuilder message = new StringBuilder(DefaultValue.ANSI_BLUE + "[Current players in the room: ");
+        for (Player p : players) {
+            message.append("- ").append(p.getName()).append(" ");
+        }
+        message.append("]\n" + DefaultValue.ANSI_RESET);
+        notifier.addressedServiceMessage(playerName, String.valueOf(message));
+        notifier.serviceMessage(DefaultValue.ANSI_GREEN + "-> " + playerName + " joined!" + DefaultValue.ANSI_RESET);
     }
 
     /**
      * Remove a player from the waiting room
      *
-     * @param player the player to remove
+     * @param playerName the name of the player to remove
      */
-    public void removePlayer(Player player){
-        players.remove(player);
-        notifier.removeObserver(player.getName());
-        notifier.serviceMessage(player.getName() + " left the room");
+    public void removePlayer(String playerName) {
+        players.remove(getPlayerByName(playerName));
+        notifier.removeObserver(playerName);
+        notifier.serviceMessage(DefaultValue.ANSI_RED + "-> " + playerName + " left the room!" + DefaultValue.ANSI_RESET);
     }
 
     /**
-     *
-     * @return the num of players waiting in the Waiting room
-     */
-    public int getNumOfPlayers(){
-        return this.getPlayers().size();
-    }
-
-    /**
-     *
      * @return true if there are at least 2 players and they are all ready to start, else false
      */
-    public boolean readyToStart(){
+    public boolean readyToStart() {
         //If every player is ready, the game starts
-        return players.stream().filter(Player::getReady)
+        return players.stream()
+                .filter(Player::isReady)
                 .count() == players.size() && players.size() >= DefaultValue.MinNumOfPlayer;
     }
 }

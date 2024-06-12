@@ -1,14 +1,10 @@
 package it.polimi.ingsw.gc01.model.room;
 
-import java.util.*;
+import it.polimi.ingsw.gc01.network.ObserverManager;
+import it.polimi.ingsw.gc01.model.player.Player;
+import org.junit.jupiter.api.*;
 
-import it.polimi.ingsw.gc01.model.ObserverManager;
-import it.polimi.ingsw.gc01.model.cards.GoldenCard;
-import it.polimi.ingsw.gc01.model.cards.PlayableCard;
-import it.polimi.ingsw.gc01.model.cards.ResourceCard;
-import it.polimi.ingsw.gc01.model.player.*;
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.Test;
+import java.util.*;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -17,7 +13,7 @@ class RoomTest {
     private static List<Player> testPlayers;
 
     @BeforeAll
-     static void beforeAll() {
+    static void setup() {
         testPlayers = new ArrayList<>();
         for (int i = 0; i < 4; i++) {
             testPlayers.add(new Player("Player" + i, null));
@@ -45,7 +41,7 @@ class RoomTest {
     }
 
     @Test
-    void getWinnerByTotalPoints(){
+    void getWinnerByTotalPoints() {
         testPlayers.get(0).addPoints(1);
         testPlayers.get(0).addObjectivePoints(1);
         assertEquals(testPlayers.get(0), testRoom.getWinners().get(0));
@@ -54,7 +50,7 @@ class RoomTest {
     }
 
     @Test
-    void getWinnerByObjectivePoints(){
+    void getWinnerByObjectivePoints() {
         testPlayers.get(0).addPoints(2);
         testPlayers.get(0).addObjectivePoints(1);
         testPlayers.get(1).addPoints(1);
@@ -66,16 +62,16 @@ class RoomTest {
         testPlayers.get(1).addObjectivePoints(-2);
     }
 
-  @Test
-    void getWinnersIfMultiple(){
+    @Test
+    void getWinnersIfMultiple() {
         testPlayers.get(0).addPoints(1);
         testPlayers.get(0).addObjectivePoints(1);
         testPlayers.get(1).addPoints(1);
         testPlayers.get(1).addObjectivePoints(1);
         assertEquals(List.of(testPlayers.get(0), testPlayers.get(1)), testRoom.getWinners());
-      testPlayers.get(0).addPoints(-1);
-      testPlayers.get(0).addObjectivePoints(-1);
-      testPlayers.get(1).addPoints(-1);
-      testPlayers.get(1).addObjectivePoints(-1);
+        testPlayers.get(0).addPoints(-1);
+        testPlayers.get(0).addObjectivePoints(-1);
+        testPlayers.get(1).addPoints(-1);
+        testPlayers.get(1).addObjectivePoints(-1);
     }
 }
