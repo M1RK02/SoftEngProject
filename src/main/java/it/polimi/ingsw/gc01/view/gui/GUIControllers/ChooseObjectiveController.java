@@ -34,9 +34,9 @@ public class ChooseObjectiveController extends GenericController {
     }
 
     @Override
-    public void setAttribute(Object o) {
-        this.possibleObjectiveIds = (List<Integer>) o;
-        objectiveLeft.setImage(new Image(getClass().getResourceAsStream("images/card/Front" + possibleObjectiveIds.get(0) + ".png")));
-        objectiveRight.setImage(new Image(getClass().getResourceAsStream("images/card/Front" + possibleObjectiveIds.get(1) + ".png")));
+    public void setAttributes(Object... o) {
+        this.possibleObjectiveIds = (List<Integer>) o[0];
+        objectiveLeft.setImage(new Image(getClass().getResourceAsStream("/images/cards/Front" + possibleObjectiveIds.get(0) + ".png")));
+        objectiveRight.setImage(new Image(getClass().getResourceAsStream("/images/cards/Front" + possibleObjectiveIds.get(1) + ".png")));
     }
 }

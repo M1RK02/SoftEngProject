@@ -3,7 +3,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.AnchorPane?>
 <AnchorPane xmlns:fx="http://javafx.com/fxml/1" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/21"
-            fx:controller="it.polimi.ingsw.gc01.view.gui.GUIControllers.Intro">
+            fx:controller="it.polimi.ingsw.gc01.view.gui.GUIControllers.IntroController">
     <children>
         <Button fx:id="button" layoutX="233.0" layoutY="187.0" mnemonicParsing="false" onAction="#handlePlayButton"
                 text="PLAY CodexNaturalis"/>

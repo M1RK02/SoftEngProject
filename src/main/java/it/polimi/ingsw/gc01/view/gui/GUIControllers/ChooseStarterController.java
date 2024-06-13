@@ -25,8 +25,8 @@ public class ChooseStarterController extends GenericController {
     }
 
     @Override
-    public void setAttribute(Object object) {
-        this.id = (Integer) object;
+    public void setAttributes(Object... object) {
+        this.id = (Integer) object[0];
         Image front = new Image(getClass().getResourceAsStream("/images/cards/Front" + id + ".png"));
         Image back = new Image(getClass().getResourceAsStream("/images/cards/Back" + id + ".png"));
         starterCardFront.setImage(front);

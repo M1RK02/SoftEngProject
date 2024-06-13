@@ -7,8 +7,9 @@ public class WaitingRoomController extends GenericController {
     @FXML
     private Text roomId;
 
-    public void setRoomId(String roomId) {
-        this.roomId.setText(roomId);
+    @Override
+    public void setAttributes(Object... o) {
+        roomId.setText((String) o[0]);
     }
 
     @FXML

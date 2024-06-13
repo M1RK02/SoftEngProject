@@ -28,7 +28,7 @@ public class GUI extends Application implements UI {
         try {
             loader = new FXMLLoader(getClass().getResource(SceneEnum.INTRO.path()));
             Parent root = loader.load();
-            Intro controller = loader.getController();
+            IntroController controller = loader.getController();
             controller.setGUI(this);
 
             Image icon = new Image(getClass().getResource("/images/CodexNaturalis.png").toExternalForm());
@@ -37,7 +37,8 @@ public class GUI extends Application implements UI {
 
             stage.setScene(new Scene(root));
             stage.show();
-        } catch (IOException ignored) {}
+        } catch (IOException ignored) {
+        }
     }
 
     private void switchToScene(SceneEnum sceneName, Object... attribute) {
@@ -45,8 +46,10 @@ public class GUI extends Application implements UI {
             loader = new FXMLLoader(getClass().getResource(sceneName.path()));
             Parent root = loader.load();
             GenericController controller = loader.getController();
-            controller.setGUI(this);
-            controller.setAttribute(attribute);
+            if (controller != null) {
+                controller.setGUI(this);
+                controller.setAttributes(attribute);
+            }
             Scene scene = new Scene(root);
             stage.setScene(scene);
             stage.show();
@@ -89,6 +92,7 @@ public class GUI extends Application implements UI {
 
     public void chooseSecretObjective(int id) {
         networkClient.chooseSecretObjective(id);
+        switchToScene(SceneEnum.WAITING_OTHERS);
     }
 
 
@@ -106,6 +110,7 @@ public class GUI extends Application implements UI {
 
     public void setReady() {
         networkClient.switchReady();
+        switchToScene(SceneEnum.WAITING_OTHERS);
     }
 
 
@@ -116,10 +121,12 @@ public class GUI extends Application implements UI {
             networkClient.flipCard(cardId);
             networkClient.playCard(cardId, new Position(0, 0));
         }
+        switchToScene(SceneEnum.WAITING_OTHERS);
     }
 
     public void chooseColor(String color) {
-
+        networkClient.chooseColor(PlayerColor.valueOf(color));
+        switchToScene(SceneEnum.WAITING_OTHERS);
     }
 
     /**
@@ -129,7 +136,7 @@ public class GUI extends Application implements UI {
      */
     @Override
     public void showRoom(String roomId) {
-        Platform.runLater(() -> switchToScene(SceneEnum.WAITING_ROOM));
+        Platform.runLater(() -> switchToScene(SceneEnum.WAITING_ROOM, roomId));
     }
 
     /**
@@ -206,7 +213,7 @@ public class GUI extends Application implements UI {
      */
     @Override
     public void showAvailableColors(List<PlayerColor> availableColors) {
-
+        Platform.runLater(() -> switchToScene(SceneEnum.CHOOSE_COLOR, availableColors));
     }
 
     /**

@@ -10,15 +10,16 @@ public class ChooseColorController extends GenericController {
     @FXML
     private ChoiceBox<String> availableColors;
 
-    public void setAvailableColors(List<PlayerColor> availableColors) {
-        for (PlayerColor playerColor : availableColors) {
-            this.availableColors.getItems().add(playerColor.toString());
-        }
-    }
-
     @FXML
     private void handleNextButton() {
         gui.chooseColor(availableColors.getValue());
     }
 
+    @Override
+    public void setAttributes(Object... o) {
+        List<PlayerColor> availableColors = (List<PlayerColor>) o[0];
+        for (PlayerColor playerColor : availableColors) {
+            this.availableColors.getItems().add(playerColor.toString());
+        }
+    }
 }

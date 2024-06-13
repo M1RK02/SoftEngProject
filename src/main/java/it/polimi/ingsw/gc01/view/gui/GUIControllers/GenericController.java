@@ -9,5 +9,6 @@ public abstract class GenericController {
         this.gui = gui;
     }
 
-    public void setAttribute(Object o){}
+    public void setAttributes(Object... o) {
+    }
 }
