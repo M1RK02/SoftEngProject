@@ -28,7 +28,7 @@ public class GUI extends Application implements UI {
 
         stage = primaryStage;
         //Creo una root, uno stage e una scena
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/FXML/Intro.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource(SceneEnum.INTRO.value()));
         Parent root = loader.load();
         Intro controller = loader.getController();
         controller.setGUI(this);
@@ -62,7 +62,7 @@ public class GUI extends Application implements UI {
     }
 
     public void play() {
-        switchToScene("/FXML/SetUp.fxml");
+        switchToScene(SceneEnum.SETUP.value());
     }
 
     public void connect(String nickName, String remoteIP, String personalIP, String connectionType) {
@@ -79,11 +79,11 @@ public class GUI extends Application implements UI {
             //TODO
         }
 
-        switchToScene("/FXML/Menu.fxml");
+        switchToScene(SceneEnum.MENU.value());
     }
 
     public void leave() {
-        switchToScene("/FXML/Intro.fxml");
+        switchToScene(SceneEnum.INTRO.value());
     }
 
     public void createGame() {
@@ -228,7 +228,16 @@ public class GUI extends Application implements UI {
      */
     @Override
     public void showPossibleObjectives(List<Integer> possibleObjectiveIds) {
-
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource(SceneEnum.CHOOSE_OBJECTIVE_CARD.value()));
+            Parent root = loader.load();
+            ChooseObjectiveController controller = loader.getController();
+            controller.setGUI(this);
+            Scene scene = new Scene(root);
+            stage.setScene(scene);
+            stage.show();
+        } catch (IOException ignored) {
+        }
     }
 
     /**
