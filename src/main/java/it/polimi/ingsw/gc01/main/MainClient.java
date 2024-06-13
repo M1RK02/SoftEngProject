@@ -3,6 +3,7 @@ package it.polimi.ingsw.gc01.main;
 import it.polimi.ingsw.gc01.utils.DefaultValue;
 import it.polimi.ingsw.gc01.view.tui.TUI;
 import it.polimi.ingsw.gc01.view.gui.GUI;
+import javafx.application.Application;
 
 import java.util.Scanner;
 
@@ -25,7 +26,7 @@ public class MainClient {
             }
             case 2 -> {
                 System.out.println("\nStarting GUI...\n");
-                new GUI();
+                Application.launch(GUI.class);
             }
         }
     }

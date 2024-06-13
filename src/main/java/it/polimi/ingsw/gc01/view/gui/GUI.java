@@ -10,8 +10,6 @@ import javafx.stage.Stage;
 import java.io.IOException;
 
 public class GUI extends Application {
-
-
     @Override
     public void start(Stage primaryStage) throws IOException {
         //Creo una root, uno stage e una scena
@@ -30,9 +28,5 @@ public class GUI extends Application {
         primaryStage.setScene(new Scene(root));
 
         primaryStage.show();
-    }
-
-    public static void main(String[] args) {
-        launch(args);
     }
 }
