@@ -26,7 +26,7 @@ public abstract class Deck {
      *             the type of cards to create
      */
     public Deck(String type) {
-        InputStream json = this.getClass().getResourceAsStream("/it/polimi/ingsw/gc01/model/decks/" + type + "Deck.json");
+        InputStream json = this.getClass().getResourceAsStream("/decks/" + type + "Deck.json");
         deck = new ArrayList<>();
         Gson gson = new GsonBuilder()
                 .registerTypeAdapter(CardResource.class, new CardResourcesDeserializer())

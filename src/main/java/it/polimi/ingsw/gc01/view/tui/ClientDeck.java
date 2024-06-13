@@ -32,7 +32,7 @@ public class ClientDeck {
                 .create();
         String[] types = {"Resource", "Golden", "Starter", "Objective"};
         for (String type : types) {
-            InputStream json = this.getClass().getResourceAsStream("/it/polimi/ingsw/gc01/model/decks/" + type + "Deck.json");
+            InputStream json = this.getClass().getResourceAsStream("/decks/" + type + "Deck.json");
             try {
                 List<Object> cardList = gson.fromJson(new InputStreamReader(json), List.class);
                 for (Object card : cardList) {
