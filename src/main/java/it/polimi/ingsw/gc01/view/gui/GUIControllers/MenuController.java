@@ -15,7 +15,7 @@ public class MenuController extends GenericController {
 
     @FXML
     private void actionJoinGame(){
-        gui.joinGame();
+        gui.askRoomId();
     }
 
     @FXML

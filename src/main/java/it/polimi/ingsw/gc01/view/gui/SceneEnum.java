@@ -4,6 +4,7 @@ public enum SceneEnum {
     INTRO("/FXML/Intro.fxml"),
     SETUP("/FXML/Setup.fxml"),
     MENU("/FXML/Menu.fxml"),
+    JOIN_BY_ID("/FXML/JoinById.fxml"),
     WAITING_ROOM("/FXML/WaitingRoom.fxml"),
     CHOOSE_OBJECTIVE_CARD("/FXML/ChooseObjectiveCard.fxml");
 

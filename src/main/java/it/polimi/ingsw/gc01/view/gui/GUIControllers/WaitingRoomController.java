@@ -19,6 +19,6 @@ public class WaitingRoomController extends GenericController {
 
     @FXML
     private void handleLeaveButton() {
-        gui.leaveGame();
+        gui.leave();
     }
 }

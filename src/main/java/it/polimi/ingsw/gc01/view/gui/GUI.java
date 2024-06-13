@@ -7,6 +7,7 @@ import it.polimi.ingsw.gc01.utils.DefaultValue;
 import it.polimi.ingsw.gc01.view.UI;
 import it.polimi.ingsw.gc01.view.gui.GUIControllers.*;
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.*;
 import javafx.scene.image.Image;
@@ -94,22 +95,16 @@ public class GUI extends Application implements UI {
         networkClient.joinFirstGame();
     }
 
-    public void joinGame() {
-        //Go to joinById scene
-        /*
-        try {
-            // Carica il nuovo layout dal file FXML
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/FXML/JoinById.fxml"));
-            Parent root = loader.load();
-            JoinByIdController joinByIdController = loader.getController();
-            JoinByIdController.setGUI(this);
-            Scene scene = new Scene(root);
-            stage.setScene(scene);
-            stage.show();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-         */
+    public void askRoomId() {
+        switchToScene(SceneEnum.JOIN_BY_ID.value());
+    }
+
+    public void joinGame(String roomId) {
+        networkClient.joinGame(roomId);
+    }
+
+    public void setReady(){
+
     }
 
 
@@ -120,7 +115,7 @@ public class GUI extends Application implements UI {
      */
     @Override
     public void showRoom(String roomId) {
-
+        Platform.runLater(() -> switchToScene(SceneEnum.WAITING_ROOM.value()));
     }
 
     /**
