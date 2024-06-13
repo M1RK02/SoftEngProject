@@ -87,6 +87,10 @@ public class GUI extends Application implements UI {
         switchToScene(SceneEnum.INTRO.value());
     }
 
+    public void goBackFromJoinById(){
+        switchToScene(SceneEnum.MENU.value());
+    }
+
     public void createGame() {
         networkClient.createGame();
     }
@@ -125,6 +129,26 @@ public class GUI extends Application implements UI {
      */
     @Override
     public void showError(String error) {
+        String type = error.substring(0, error.indexOf(" "));
+        String message = error.substring(error.indexOf(" ") + 1);
+        switch (type) {
+            case "MAIN":
+                System.out.println(DefaultValue.ANSI_RED + message + DefaultValue.ANSI_RESET);
+                Platform.runLater(() -> switchToScene(SceneEnum.MENU.value()));
+                break;
+            case "PLAY":
+                System.out.println(DefaultValue.ANSI_RED + message + DefaultValue.ANSI_RESET);
+                //TODO
+                break;
+            case "DRAW":
+                System.out.println(DefaultValue.ANSI_RED + message + DefaultValue.ANSI_RESET);
+                //TODO
+                break;
+            case "GAME":
+                System.out.println(DefaultValue.ANSI_RED + message + DefaultValue.ANSI_RESET);
+                networkClient.leave();
+                System.exit(0);
+        }
 
     }
 

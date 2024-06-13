@@ -6,8 +6,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.polimi.ingsw.gc01.view.gui.GUIControllers.JoinByIdController">
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.polimi.ingsw.gc01.view.gui.GUIControllers.JoinByIdController">
    <children>
       <Label layoutX="27.0" layoutY="75.0" text="Type in the Room ID you want to join">
          <font>
@@ -15,6 +14,7 @@
          </font>
       </Label>
       <TextField fx:id="roomID" layoutX="221.0" layoutY="207.0" />
-      <Button layoutX="279.0" layoutY="302.0" onAction="#handleNextButtonAction" mnemonicParsing="false" text="Next" />
+      <Button fx:id="nextButton" layoutX="279.0" layoutY="302.0" mnemonicParsing="false" onAction="#handleNextButtonAction" text="Next" />
+      <Button fx:id="goBack" layoutX="18.0" layoutY="23.0" mnemonicParsing="false" onAction="#handleGoBackButton" text="GoBack" />
    </children>
 </AnchorPane>
