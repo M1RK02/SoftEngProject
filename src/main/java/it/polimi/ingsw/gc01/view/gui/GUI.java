@@ -104,7 +104,7 @@ public class GUI extends Application implements UI {
     }
 
     public void setReady(){
-
+        networkClient.switchReady();
     }
 
 
@@ -163,7 +163,28 @@ public class GUI extends Application implements UI {
      */
     @Override
     public void showStarter(int cardId) {
+        Platform.runLater(() -> {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/FXML/ChooseStarter.fxml"));
+            Parent root = loader.load();
+            ChooseStarterController controller = loader.getController();
+            controller.setGUI(this);
+            controller.setId(cardId);
+            Scene scene = new Scene(root);
+            stage.setScene(scene);
+            stage.show();
+        } catch (IOException ignored) {
+        }
+                });
+    }
 
+    public void chooseStarter(int choice, int cardId){
+        if (choice == 1) {
+            networkClient.playCard(cardId, new Position(0, 0));
+        } else {
+            networkClient.flipCard(cardId);
+            networkClient.playCard(cardId, new Position(0, 0));
+        }
     }
 
     /**
