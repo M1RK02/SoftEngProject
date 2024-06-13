@@ -1,9 +1,9 @@
-package it.polimi.ingsw.gc01.network.message;
+package it.polimi.ingsw.gc01.network.socket.messages;
 
 import java.util.List;
 
-public class CommonObjectiveMessage implements Message{
-    private List<Integer> cards;
+public class CommonObjectiveMessage implements Message {
+    private final List<Integer> cards;
 
     public CommonObjectiveMessage(List<Integer> cards) {
         this.cards = cards;

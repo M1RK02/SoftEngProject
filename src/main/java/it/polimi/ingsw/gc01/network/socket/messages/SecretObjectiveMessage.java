@@ -1,9 +1,9 @@
-package it.polimi.ingsw.gc01.network.message;
+package it.polimi.ingsw.gc01.network.socket.messages;
 
 import java.util.List;
 
-public class SecretObjectiveMessage implements Message{
-    private List<Integer> possibleObjectives;
+public class SecretObjectiveMessage implements Message {
+    private final List<Integer> possibleObjectives;
 
     public SecretObjectiveMessage(List<Integer> possibleObjectives) {
         this.possibleObjectives = possibleObjectives;

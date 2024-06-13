@@ -1,7 +1,7 @@
-package it.polimi.ingsw.gc01.network.message;
+package it.polimi.ingsw.gc01.network.socket.messages;
 
-public class FlipCardMessage extends ClientToServerMessage{
-    private int cardId;
+public class FlipCardMessage extends ClientToServerMessage {
+    private final int cardId;
 
     public FlipCardMessage(String playerName, int cardId) {
         super(playerName);

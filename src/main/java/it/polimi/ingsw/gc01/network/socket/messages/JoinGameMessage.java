@@ -1,7 +1,7 @@
-package it.polimi.ingsw.gc01.network.message;
+package it.polimi.ingsw.gc01.network.socket.messages;
 
-public class JoinGameMessage extends ClientToServerMessage{
-    private String roomId;
+public class JoinGameMessage extends ClientToServerMessage {
+    private final String roomId;
 
     public JoinGameMessage(String playerName, String roomId) {
         super(playerName);

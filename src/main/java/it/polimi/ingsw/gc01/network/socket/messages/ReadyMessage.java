@@ -1,7 +1,7 @@
-package it.polimi.ingsw.gc01.network.message;
+package it.polimi.ingsw.gc01.network.socket.messages;
 
-public class ReadyMessage implements Message{
-    private boolean ready;
+public class ReadyMessage implements Message {
+    private final boolean ready;
 
     public ReadyMessage(boolean ready) {
         this.ready = ready;

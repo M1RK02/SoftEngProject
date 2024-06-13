@@ -1,7 +1,7 @@
-package it.polimi.ingsw.gc01.network.message;
+package it.polimi.ingsw.gc01.network.socket.messages;
 
 public class UpdateRoomIdMessage implements Message {
-    private String roomId;
+    private final String roomId;
 
     public UpdateRoomIdMessage(String roomId) {
         this.roomId = roomId;

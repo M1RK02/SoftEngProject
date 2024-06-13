@@ -1,7 +1,7 @@
-package it.polimi.ingsw.gc01.network.message;
+package it.polimi.ingsw.gc01.network.socket.messages;
 
 public class ServiceMessage implements Message {
-    private String message;
+    private final String message;
 
     public ServiceMessage(String message) {
         this.message = message;

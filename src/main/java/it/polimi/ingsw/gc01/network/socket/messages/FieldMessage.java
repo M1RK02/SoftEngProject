@@ -1,10 +1,10 @@
-package it.polimi.ingsw.gc01.network.message;
+package it.polimi.ingsw.gc01.network.socket.messages;
 
-public class FieldMessage implements Message{
-    private String playerName;
-    private int card;
-    private int x;
-    private int y;
+public class FieldMessage implements Message {
+    private final String playerName;
+    private final int card;
+    private final int x;
+    private final int y;
 
     public FieldMessage(String playerName, int card, int x, int y) {
         this.playerName = playerName;

@@ -1,9 +1,9 @@
-package it.polimi.ingsw.gc01.network.message;
+package it.polimi.ingsw.gc01.network.socket.messages;
 
-public class PlayCardMessage extends ClientToServerMessage{
-    private int cardId;
-    private int x;
-    private int y;
+public class PlayCardMessage extends ClientToServerMessage {
+    private final int cardId;
+    private final int x;
+    private final int y;
 
     public PlayCardMessage(String playerName, int cardId, int x, int y) {
         super(playerName);

@@ -1,109 +1,28 @@
 package it.polimi.ingsw.gc01.network.socket;
 
-import it.polimi.ingsw.gc01.controller.MainController;
-import it.polimi.ingsw.gc01.model.player.PlayerColor;
-import it.polimi.ingsw.gc01.model.room.TablePosition;
-import it.polimi.ingsw.gc01.network.VirtualView;
-import it.polimi.ingsw.gc01.network.message.Message;
+import it.polimi.ingsw.gc01.controller.*;
 
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
-import java.util.*;
+import java.io.*;
+import java.net.Socket;
 
-public class ClientHandler implements VirtualView {
-    //GTODO
+public class ClientHandler /* implements VirtualView */ {
+    private final MainController mainController;
     private ObjectInputStream input;
     private ObjectOutputStream output;
-    private MainController mainController;
+    private RoomController room;
 
-    public ClientHandler(){
-        super(); //Da rimuovere
+    public ClientHandler(Socket clientSocket) {
+        try {
+            input = new ObjectInputStream(clientSocket.getInputStream());
+            output = new ObjectOutputStream(clientSocket.getOutputStream());
+        } catch (IOException ignored) {
+        }
+        mainController = MainController.getInstance();
     }
 
-    public void executeMessage(){
-
+    public void executeMessages() {
+        //TODO LEGGE INPUT ED ESEGUE IL MESSAGGIO SUL CONTROLLER
     }
 
-    /**
-     * @param roomId
-     */
-    @Override
-    public void updateRoomId(String roomId) {
-
-    }
-
-    /**
-     * @param availableColors
-     */
-    @Override
-    public void showAvailableColors(List<PlayerColor> availableColors) {
-
-    }
-
-    /**
-     * @param ready
-     */
-    @Override
-    public void updateReady(boolean ready) {
-
-    }
-
-    /**
-     * @param objectivesIds
-     */
-    @Override
-    public void showCommonObjectives(List<Integer> objectivesIds) {
-
-    }
-
-    /**
-     * @param drawableCardsIds
-     */
-    @Override
-    public void showTable(Map<TablePosition, Integer> drawableCardsIds) {
-
-    }
-
-    /**
-     * @param cardIds
-     */
-    @Override
-    public void showHand(List<Integer> cardIds) {
-
-    }
-
-    /**
-     * @param playerName
-     * @param cardId
-     * @param x
-     * @param y
-     */
-    @Override
-    public void showField(String playerName, int cardId, int x, int y) {
-
-    }
-
-    /**
-     * @param possibleObjectivesIds
-     */
-    @Override
-    public void showSecretObjectives(List<Integer> possibleObjectivesIds) {
-
-    }
-
-    /**
-     * @param error
-     */
-    @Override
-    public void showError(String error) {
-
-    }
-
-    /**
-     * @param message
-     */
-    @Override
-    public void serviceMessage(String message) {
-
-    }
+    //TODO METODI DELLA VIRTUALVIEW CHE MANDANO IL MESSAGGIO AL CLIENT
 }

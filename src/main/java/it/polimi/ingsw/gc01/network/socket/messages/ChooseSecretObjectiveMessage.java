@@ -1,7 +1,7 @@
-package it.polimi.ingsw.gc01.network.message;
+package it.polimi.ingsw.gc01.network.socket.messages;
 
 public class ChooseSecretObjectiveMessage extends ClientToServerMessage {
-    private int cardId;
+    private final int cardId;
 
     public ChooseSecretObjectiveMessage(String playerName, int cardId) {
         super(playerName);
