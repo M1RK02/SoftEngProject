@@ -12,16 +12,30 @@ public class ChooseObjectiveController extends GenericController {
     private ImageView objectiveLeft;
     @FXML
     private ImageView objectiveRight;
+    int selection = -1;
 
-    @FXML
-    private void setPossibleObjectiveIds(List<Integer> possibleObjectiveIds) {
+    public void setPossibleObjectiveIds(List<Integer> possibleObjectiveIds) {
         this.possibleObjectiveIds = possibleObjectiveIds;
         objectiveLeft.setImage(new Image(getClass().getResourceAsStream("/cardfront/"+possibleObjectiveIds.get(0)+".png")));
         objectiveRight.setImage(new Image(getClass().getResourceAsStream("/cardfront/"+possibleObjectiveIds.get(1)+".png")));
     }
 
     @FXML
-    private void actionChooseObjective(int objectiveId) {
+    private void chooseLeft() {
+        selection = 0;
+    }
+    @FXML
+    private void chooseRight() {
+        selection = 1;
+    }
 
+    @FXML
+    private void confirm() {
+        do {
+            if (selection == -1) {
+                gui.showError("Please select an objective card");
+            }
+        } while (selection == -1);
+        gui.chooseSecretObjective(possibleObjectiveIds.get(selection));
     }
 }

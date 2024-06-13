@@ -95,6 +95,11 @@ public class GUI extends Application implements UI {
         networkClient.createGame();
     }
 
+    public void chooseSecretObjective(int id) {
+        networkClient.chooseSecretObjective(id);
+    }
+
+
     public void joinFirstGame() {
         networkClient.joinFirstGame();
     }
@@ -218,7 +223,6 @@ public class GUI extends Application implements UI {
      */
     @Override
     public void showAvailableColors(List<PlayerColor> availableColors) {
-
     }
 
     /**
@@ -273,9 +277,12 @@ public class GUI extends Application implements UI {
             Parent root = loader.load();
             ChooseObjectiveController controller = loader.getController();
             controller.setGUI(this);
-            Scene scene = new Scene(root);
-            stage.setScene(scene);
-            stage.show();
+            controller.setPossibleObjectiveIds(possibleObjectiveIds);
+            Platform.runLater(() -> {
+                Scene scene = new Scene(root);
+                stage.setScene(scene);
+                stage.show();
+            });
         } catch (IOException ignored) {
         }
     }
