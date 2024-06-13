@@ -1,9 +1,7 @@
 package it.polimi.ingsw.gc01.view.gui.GUIControllers;
 
 import javafx.fxml.FXML;
-import javafx.scene.control.TextField;
-import javafx.scene.control.ToggleButton;
-import javafx.scene.control.ToggleGroup;
+import javafx.scene.control.*;
 
 public class SetUpController extends GenericController {
 
@@ -26,7 +24,7 @@ public class SetUpController extends GenericController {
     private ToggleGroup connectionGroup;
 
     /**
-     *Mette i due toggle button nello stesso gruppo per rende cliccabile solo uno dei due
+     * Mette i due toggle button nello stesso gruppo per rende cliccabile solo uno dei due
      */
     @FXML
     public void initialize() {
@@ -45,6 +43,6 @@ public class SetUpController extends GenericController {
         ToggleButton selectedButton = (ToggleButton) connectionGroup.getSelectedToggle();
         String connectionType = selectedButton != null ? selectedButton.getText() : "None";
 
-        gui.connect(nickname,remoteIP, personalIP,connectionType);
+        gui.connect(nickname, remoteIP, personalIP, connectionType);
     }
 }

@@ -6,17 +6,24 @@ public enum SceneEnum {
     MENU("/FXML/Menu.fxml"),
     JOIN_BY_ID("/FXML/JoinById.fxml"),
     WAITING_ROOM("/FXML/WaitingRoom.fxml"),
-    CHOOSE_OBJECTIVE_CARD("/FXML/ChooseObjectiveCard.fxml");
+    CHOOSE_STARTER("/FXML/ChooseStarter.fxml"),
+    CHOOSE_COLOR("/FXML/ChooseColor.fxml"),
+    CHOOSE_OBJECTIVE("/FXML/ChooseObjective.fxml"),
+    WAITING_OTHERS("/FXML/WaitingOthers.fxml"),
+    PLAY("/FXML/Play.fxml"),
+    DRAW("/FXML/Draw.fxml"),
+    OBJECTIVES("/FXML/Objectives.fxml"),
+    OTHERS_FIELD("/FXML/OthersField.fxml"),
+    SCOREBOARD("/FXML/Scoreboard.fxml"),
+    WIN("/FXML/Win.fxml");
 
+    private final String path;
 
-    private final String value;
-
-
-    SceneEnum(final String value) {
-        this.value = value;
+    SceneEnum(String path) {
+        this.path = path;
     }
 
-    public String value() {
-        return value;
+    public String path() {
+        return path;
     }
 }

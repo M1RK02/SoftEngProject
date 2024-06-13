@@ -4,17 +4,17 @@ import javafx.fxml.FXML;
 
 public class MenuController extends GenericController {
     @FXML
-    private void actionCreateNewGame(){
+    private void actionCreateNewGame() {
         gui.createGame();
     }
 
     @FXML
-    private void actionJoinRandomGame(){
+    private void actionJoinRandomGame() {
         gui.joinFirstGame();
     }
 
     @FXML
-    private void actionJoinGame(){
+    private void actionJoinGame() {
         gui.askRoomId();
     }
 

@@ -1,29 +1,23 @@
 package it.polimi.ingsw.gc01.view.gui.GUIControllers;
 
 import javafx.fxml.FXML;
-import javafx.scene.image.ImageView;
-import javafx.scene.image.Image;
+import javafx.scene.image.*;
 
 import java.util.List;
 
 public class ChooseObjectiveController extends GenericController {
+    int selection = -1;
     private List<Integer> possibleObjectiveIds;
     @FXML
     private ImageView objectiveLeft;
     @FXML
     private ImageView objectiveRight;
-    int selection = -1;
-
-    public void setPossibleObjectiveIds(List<Integer> possibleObjectiveIds) {
-        this.possibleObjectiveIds = possibleObjectiveIds;
-        objectiveLeft.setImage(new Image(getClass().getResourceAsStream("/cardfront/"+possibleObjectiveIds.get(0)+".png")));
-        objectiveRight.setImage(new Image(getClass().getResourceAsStream("/cardfront/"+possibleObjectiveIds.get(1)+".png")));
-    }
 
     @FXML
     private void chooseLeft() {
         selection = 0;
     }
+
     @FXML
     private void chooseRight() {
         selection = 1;
@@ -37,5 +31,12 @@ public class ChooseObjectiveController extends GenericController {
             }
         } while (selection == -1);
         gui.chooseSecretObjective(possibleObjectiveIds.get(selection));
+    }
+
+    @Override
+    public void setAttribute(Object o) {
+        this.possibleObjectiveIds = (List<Integer>) o;
+        objectiveLeft.setImage(new Image(getClass().getResourceAsStream("images/card/Front" + possibleObjectiveIds.get(0) + ".png")));
+        objectiveRight.setImage(new Image(getClass().getResourceAsStream("images/card/Front" + possibleObjectiveIds.get(1) + ".png")));
     }
 }

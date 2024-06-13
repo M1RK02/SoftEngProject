@@ -6,8 +6,7 @@ import it.polimi.ingsw.gc01.network.rmi.RmiClient;
 import it.polimi.ingsw.gc01.utils.DefaultValue;
 import it.polimi.ingsw.gc01.view.UI;
 import it.polimi.ingsw.gc01.view.gui.GUIControllers.*;
-import javafx.application.Application;
-import javafx.application.Platform;
+import javafx.application.*;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.*;
 import javafx.scene.image.Image;
@@ -21,40 +20,33 @@ public class GUI extends Application implements UI {
     private String playerName;
     private NetworkClient networkClient;
     private Stage stage;
-    private Scene scene;
-
+    private FXMLLoader loader;
 
     @Override
-    public void start(Stage primaryStage) throws IOException {
-
+    public void start(Stage primaryStage) {
         stage = primaryStage;
-        //Creo una root, uno stage e una scena
-        FXMLLoader loader = new FXMLLoader(getClass().getResource(SceneEnum.INTRO.value()));
-        Parent root = loader.load();
-        Intro controller = loader.getController();
-        controller.setGUI(this);
+        try {
+            loader = new FXMLLoader(getClass().getResource(SceneEnum.INTRO.path()));
+            Parent root = loader.load();
+            Intro controller = loader.getController();
+            controller.setGUI(this);
 
-        stage.setTitle("CodexNaturalis");
+            Image icon = new Image(getClass().getResource("/images/CodexNaturalis.png").toExternalForm());
+            stage.getIcons().add(icon);
+            stage.setTitle("CodexNaturalis");
 
-        //immagine d'icona
-        Image icon = new Image(getClass().getResource("/images/CodexNaturalis.png").toExternalForm());
-        stage.getIcons().add(icon);
-
-        //testo d'icona
-        stage.setTitle("CodexNaturalis");
-
-        //passo allo stage la nuova scena che prende come radice dell'albero degli oggetti intr.fxml
-        stage.setScene(new Scene(root));
-
-        stage.show();
+            stage.setScene(new Scene(root));
+            stage.show();
+        } catch (IOException ignored) {}
     }
 
-    private void switchToScene(String sceneName) {
+    private void switchToScene(SceneEnum sceneName, Object... attribute) {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource(sceneName));
+            loader = new FXMLLoader(getClass().getResource(sceneName.path()));
             Parent root = loader.load();
             GenericController controller = loader.getController();
             controller.setGUI(this);
+            controller.setAttribute(attribute);
             Scene scene = new Scene(root);
             stage.setScene(scene);
             stage.show();
@@ -63,7 +55,7 @@ public class GUI extends Application implements UI {
     }
 
     public void play() {
-        switchToScene(SceneEnum.SETUP.value());
+        switchToScene(SceneEnum.SETUP);
     }
 
     public void connect(String nickName, String remoteIP, String personalIP, String connectionType) {
@@ -80,15 +72,15 @@ public class GUI extends Application implements UI {
             //TODO
         }
 
-        switchToScene(SceneEnum.MENU.value());
+        switchToScene(SceneEnum.MENU);
     }
 
     public void leave() {
-        switchToScene(SceneEnum.INTRO.value());
+        switchToScene(SceneEnum.INTRO);
     }
 
-    public void goBackFromJoinById(){
-        switchToScene(SceneEnum.MENU.value());
+    public void goBackFromJoinById() {
+        switchToScene(SceneEnum.MENU);
     }
 
     public void createGame() {
@@ -105,17 +97,30 @@ public class GUI extends Application implements UI {
     }
 
     public void askRoomId() {
-        switchToScene(SceneEnum.JOIN_BY_ID.value());
+        switchToScene(SceneEnum.JOIN_BY_ID);
     }
 
     public void joinGame(String roomId) {
         networkClient.joinGame(roomId);
     }
 
-    public void setReady(){
+    public void setReady() {
         networkClient.switchReady();
     }
 
+
+    public void chooseStarter(int choice, int cardId) {
+        if (choice == 1) {
+            networkClient.playCard(cardId, new Position(0, 0));
+        } else {
+            networkClient.flipCard(cardId);
+            networkClient.playCard(cardId, new Position(0, 0));
+        }
+    }
+
+    public void chooseColor(String color) {
+
+    }
 
     /**
      * Shows the entered room
@@ -124,7 +129,7 @@ public class GUI extends Application implements UI {
      */
     @Override
     public void showRoom(String roomId) {
-        Platform.runLater(() -> switchToScene(SceneEnum.WAITING_ROOM.value()));
+        Platform.runLater(() -> switchToScene(SceneEnum.WAITING_ROOM));
     }
 
     /**
@@ -139,7 +144,7 @@ public class GUI extends Application implements UI {
         switch (type) {
             case "MAIN":
                 System.out.println(DefaultValue.ANSI_RED + message + DefaultValue.ANSI_RESET);
-                Platform.runLater(() -> switchToScene(SceneEnum.MENU.value()));
+                Platform.runLater(() -> switchToScene(SceneEnum.MENU));
                 break;
             case "PLAY":
                 System.out.println(DefaultValue.ANSI_RED + message + DefaultValue.ANSI_RESET);
@@ -154,7 +159,6 @@ public class GUI extends Application implements UI {
                 networkClient.leave();
                 System.exit(0);
         }
-
     }
 
     /**
@@ -192,28 +196,7 @@ public class GUI extends Application implements UI {
      */
     @Override
     public void showStarter(int cardId) {
-        Platform.runLater(() -> {
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/FXML/ChooseStarter.fxml"));
-            Parent root = loader.load();
-            ChooseStarterController controller = loader.getController();
-            controller.setGUI(this);
-            controller.setId(cardId);
-            Scene scene = new Scene(root);
-            stage.setScene(scene);
-            stage.show();
-        } catch (IOException ignored) {
-        }
-                });
-    }
-
-    public void chooseStarter(int choice, int cardId){
-        if (choice == 1) {
-            networkClient.playCard(cardId, new Position(0, 0));
-        } else {
-            networkClient.flipCard(cardId);
-            networkClient.playCard(cardId, new Position(0, 0));
-        }
+        Platform.runLater(() -> switchToScene(SceneEnum.CHOOSE_STARTER, cardId));
     }
 
     /**
@@ -223,6 +206,7 @@ public class GUI extends Application implements UI {
      */
     @Override
     public void showAvailableColors(List<PlayerColor> availableColors) {
+
     }
 
     /**
@@ -272,19 +256,7 @@ public class GUI extends Application implements UI {
      */
     @Override
     public void showPossibleObjectives(List<Integer> possibleObjectiveIds) {
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource(SceneEnum.CHOOSE_OBJECTIVE_CARD.value()));
-            Parent root = loader.load();
-            ChooseObjectiveController controller = loader.getController();
-            controller.setGUI(this);
-            controller.setPossibleObjectiveIds(possibleObjectiveIds);
-            Platform.runLater(() -> {
-                Scene scene = new Scene(root);
-                stage.setScene(scene);
-                stage.show();
-            });
-        } catch (IOException ignored) {
-        }
+        Platform.runLater(() -> switchToScene(SceneEnum.CHOOSE_OBJECTIVE, possibleObjectiveIds));
     }
 
     /**

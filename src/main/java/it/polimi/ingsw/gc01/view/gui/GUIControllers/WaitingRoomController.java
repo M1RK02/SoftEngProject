@@ -1,6 +1,5 @@
 package it.polimi.ingsw.gc01.view.gui.GUIControllers;
 
-import it.polimi.ingsw.gc01.view.gui.GUI;
 import javafx.fxml.FXML;
 import javafx.scene.text.Text;
 
