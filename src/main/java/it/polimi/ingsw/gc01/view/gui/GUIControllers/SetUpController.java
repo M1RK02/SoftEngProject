@@ -1,20 +1,11 @@
 package it.polimi.ingsw.gc01.view.gui.GUIControllers;
 
-import it.polimi.ingsw.gc01.view.gui.GUI;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
-import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.control.ToggleGroup;
-import javafx.stage.Stage;
 
-import java.util.Map;
-
-public class SetUpController {
+public class SetUpController extends GenericController {
 
     @FXML
     private TextField nicknameField;
@@ -32,16 +23,7 @@ public class SetUpController {
     private ToggleButton socketToggleButton;
 
     @FXML
-    private Button nextButton;
-
-    @FXML
     private ToggleGroup connectionGroup;
-
-    private Stage stage;
-    private Scene scene;
-    private Parent root;
-
-    private GUI gui;
 
     /**
      *Mette i due toggle button nello stesso gruppo per rende cliccabile solo uno dei due
@@ -53,7 +35,7 @@ public class SetUpController {
     }
 
     @FXML
-    private void handleNextButtonAction(ActionEvent event) {
+    private void handleNextButtonAction() {
         // Ottieni i valori dai campi di testo
         String nickname = nicknameField.getText();
         String remoteIP = remoteIPField.getText();
@@ -63,10 +45,6 @@ public class SetUpController {
         ToggleButton selectedButton = (ToggleButton) connectionGroup.getSelectedToggle();
         String connectionType = selectedButton != null ? selectedButton.getText() : "None";
 
-        gui.switchToMenu(nickname,remoteIP, personalIP,connectionType );
-
-    }
-    public void setGUI(GUI gui){
-        this.gui=gui;
+        gui.connect(nickname,remoteIP, personalIP,connectionType);
     }
 }

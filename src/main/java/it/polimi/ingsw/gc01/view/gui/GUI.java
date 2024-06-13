@@ -1,7 +1,6 @@
 package it.polimi.ingsw.gc01.view.gui;
 
-import it.polimi.ingsw.gc01.model.player.PlayerColor;
-import it.polimi.ingsw.gc01.model.player.Position;
+import it.polimi.ingsw.gc01.model.player.*;
 import it.polimi.ingsw.gc01.network.NetworkClient;
 import it.polimi.ingsw.gc01.network.rmi.RmiClient;
 import it.polimi.ingsw.gc01.utils.DefaultValue;
@@ -15,15 +14,13 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.rmi.RemoteException;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class GUI extends Application implements UI {
     private String playerName;
     private NetworkClient networkClient;
     private Stage stage;
     private Scene scene;
-
 
 
     @Override
@@ -51,51 +48,43 @@ public class GUI extends Application implements UI {
         stage.show();
     }
 
-public void switchToSetUp(){
-    try {
-        // Carica il nuovo layout dal file FXML
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/FXML/SetUp.fxml"));
-        Parent root = loader.load();
-        SetUpController setUpController=loader.getController();
-        setUpController.setGUI(this);
-        Scene scene = new Scene(root);
-        stage.setScene(scene);
-        stage.show();
-
-
-    } catch (IOException e) {
-        e.printStackTrace();
-    }
-}
-
-public void switchToMenu(String nickName, String remoteIP, String personalIP, String connectionType){
-    this.playerName = nickName;
-    DefaultValue.ServerIp = remoteIP;
-    if(connectionType.equals("RMI")) {
-        System.setProperty("java.rmi.server.hostname", personalIP);
+    private void switchToScene(String sceneName) {
         try {
-            this.networkClient = new RmiClient(playerName, this);
-        } catch (RemoteException e) {
-            throw new RuntimeException(e);
+            FXMLLoader loader = new FXMLLoader(getClass().getResource(sceneName));
+            Parent root = loader.load();
+            GenericController controller = loader.getController();
+            controller.setGUI(this);
+            Scene scene = new Scene(root);
+            stage.setScene(scene);
+            stage.show();
+        } catch (IOException ignored) {
         }
-    } else if(connectionType.equals("SOCKET")){
-        //TODO
     }
 
-    try {
-        // Carica il nuovo layout dal file FXML
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/FXML/Menu.fxml"));
-        Parent root = loader.load();
-        MenuController menuController = loader.getController();
-        menuController.setGUI(this);
-        Scene scene = new Scene(root);
-        stage.setScene(scene);
-        stage.show();
-    } catch (IOException e) {
-        e.printStackTrace();
+    public void play() {
+        switchToScene("/FXML/SetUp.fxml");
     }
-}
 
+    public void connect(String nickName, String remoteIP, String personalIP, String connectionType) {
+        this.playerName = nickName;
+        DefaultValue.ServerIp = remoteIP;
+        if (connectionType.equals("RMI")) {
+            System.setProperty("java.rmi.server.hostname", personalIP);
+            try {
+                this.networkClient = new RmiClient(playerName, this);
+            } catch (RemoteException e) {
+                throw new RuntimeException(e);
+            }
+        } else if (connectionType.equals("SOCKET")) {
+            //TODO
+        }
+
+        switchToScene("/FXML/Menu.fxml");
+    }
+
+    public void leave() {
+        switchToScene("/FXML/Intro.fxml");
+    }
 
     public void createGame() {
         networkClient.createGame();
@@ -123,20 +112,6 @@ public void switchToMenu(String nickName, String remoteIP, String personalIP, St
          */
     }
 
-    public void goToFirstScene(){
-        try {
-            // Carica il nuovo layout dal file FXML
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/FXML/Intro.fxml"));
-            Parent root = loader.load();
-            Intro controller = loader.getController();
-            controller.setGUI(this);
-            Scene scene = new Scene(root);
-            stage.setScene(scene);
-            stage.show();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
 
     /**
      * Shows the entered room
