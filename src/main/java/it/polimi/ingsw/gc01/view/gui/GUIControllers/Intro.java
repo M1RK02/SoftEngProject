@@ -2,8 +2,7 @@ package it.polimi.ingsw.gc01.view.gui.GUIControllers;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
+import javafx.scene.control.*;
 
 public class Intro {
     @FXML

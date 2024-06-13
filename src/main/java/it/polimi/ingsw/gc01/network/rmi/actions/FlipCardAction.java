@@ -13,9 +13,10 @@ public class FlipCardAction extends RoomAction {
 
     /**
      * Create a new FlipCardAction
+     *
      * @param playerName of the player who is creating the action
-     * @param room where the action will be executed
-     * @param cardId of card to flip
+     * @param room       where the action will be executed
+     * @param cardId     of card to flip
      */
     public FlipCardAction(String playerName, RoomController room, int cardId) {
         super(playerName, room);

@@ -14,9 +14,10 @@ public class JoinGameAction extends MainAction {
 
     /**
      * Create a new JoinGameAction
+     *
      * @param playerName of the player who is creating the action
-     * @param client reference to the client
-     * @param roomId of the room to join
+     * @param client     reference to the client
+     * @param roomId     of the room to join
      */
     public JoinGameAction(String playerName, VirtualView client, String roomId) {
         super(playerName, client);

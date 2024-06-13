@@ -34,7 +34,7 @@ public class RmiClient extends UnicastRemoteObject implements VirtualView, Netwo
     /**
      * Construct a new RmiClient object and connect it to the server
      *
-     * @param playerName of the player
+     * @param playerName    of the player
      * @param userInterface chosen by the player
      * @throws RemoteException
      */
@@ -266,6 +266,7 @@ public class RmiClient extends UnicastRemoteObject implements VirtualView, Netwo
     public void showAvailableColors(List<PlayerColor> availableColors) {
         ui.showAvailableColors(availableColors);
     }
+
     /**
      * Update readiness of a player
      *

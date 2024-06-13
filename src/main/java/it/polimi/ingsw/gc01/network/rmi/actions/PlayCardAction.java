@@ -18,10 +18,11 @@ public class PlayCardAction extends RoomAction {
 
     /**
      * Create a new PlayCardAction
+     *
      * @param playerName of the player who is creating the action
-     * @param room where the action will be executed
-     * @param cardId of the card to play
-     * @param position where to play the card
+     * @param room       where the action will be executed
+     * @param cardId     of the card to play
+     * @param position   where to play the card
      */
     public PlayCardAction(String playerName, RoomController room, int cardId, Position position) {
         super(playerName, room);

@@ -1,15 +1,12 @@
 package it.polimi.ingsw.gc01.controller;
 
 import it.polimi.ingsw.gc01.model.VirtualViewStub;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 
-import java.util.HashMap;
-
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class MainControllerTest {
-    private static MainController mainController = MainController.getInstance();
+    private static final MainController mainController = MainController.getInstance();
 
     @Test
     void CreateGameTest() {

@@ -13,9 +13,10 @@ public class ChooseSecretObjectiveAction extends RoomAction {
 
     /**
      * Create a new ChooseSecretObjectiveAction
+     *
      * @param playerName of the player who is creating the action
-     * @param room where the action will be executed
-     * @param cardId chosen by the player
+     * @param room       where the action will be executed
+     * @param cardId     chosen by the player
      */
     public ChooseSecretObjectiveAction(String playerName, RoomController room, int cardId) {
         super(playerName, room);

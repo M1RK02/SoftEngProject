@@ -4,7 +4,6 @@ import it.polimi.ingsw.gc01.model.*;
 import it.polimi.ingsw.gc01.model.cards.*;
 import it.polimi.ingsw.gc01.model.corners.*;
 import it.polimi.ingsw.gc01.model.decks.*;
-import it.polimi.ingsw.gc01.model.VirtualViewStub;
 import it.polimi.ingsw.gc01.network.ObserverManager;
 import org.junit.jupiter.api.*;
 
@@ -105,7 +104,8 @@ class PlayerTest {
                     assert (player.getResources().get(ANIMAL).equals(oldResources.get(ANIMAL) + 1));
                 } else if (card.getColor().equals(GREEN)) {
                     assert (player.getResources().get(PLANT).equals(oldResources.get(PLANT) + 1));
-                } else assert !card.getColor().equals(PURPLE) || (player.getResources().get(INSECT).equals(oldResources.get(INSECT) + 1));
+                } else
+                    assert !card.getColor().equals(PURPLE) || (player.getResources().get(INSECT).equals(oldResources.get(INSECT) + 1));
             } else {
                 Map<PlayerResource, Integer> cardResources = cornerResources(card.getCorners());
                 for (PlayerResource resource : player.getResources().keySet()) {
@@ -168,7 +168,7 @@ class PlayerTest {
             assert (player.getField().getPositions().get(position).equals(card));
 
             //Check score
-            if(card.isFront()){
+            if (card.isFront()) {
                 if (card instanceof GoldenCard) {
                     assert (player.getPoints() == oldScore + ((GoldenCard) card).calculatePoints(player, position));
                 } else {

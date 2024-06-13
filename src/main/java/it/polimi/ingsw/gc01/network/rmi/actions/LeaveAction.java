@@ -8,8 +8,9 @@ import it.polimi.ingsw.gc01.controller.RoomController;
 public class LeaveAction extends RoomAction {
     /**
      * Create a new LeaveAction
+     *
      * @param playerName of the player who is creating the action
-     * @param room where the action will be executed
+     * @param room       where the action will be executed
      */
     public LeaveAction(String playerName, RoomController room) {
         super(playerName, room);

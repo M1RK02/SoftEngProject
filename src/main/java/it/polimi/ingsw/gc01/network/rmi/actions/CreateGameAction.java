@@ -9,8 +9,9 @@ import it.polimi.ingsw.gc01.network.VirtualView;
 public class CreateGameAction extends MainAction {
     /**
      * Create a new CreateGameAction
+     *
      * @param playerName of the player who is creating the action
-     * @param client reference to the client
+     * @param client     reference to the client
      */
     public CreateGameAction(String playerName, VirtualView client) {
         super(playerName, client);

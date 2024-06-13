@@ -14,9 +14,10 @@ public class DrawCardAction extends RoomAction {
 
     /**
      * Create a new DrawCardAction
+     *
      * @param playerName of the player who is creating the action
-     * @param room where the action will be executed
-     * @param choice position chosen by the player
+     * @param room       where the action will be executed
+     * @param choice     position chosen by the player
      */
     public DrawCardAction(String playerName, RoomController room, int choice) {
         super(playerName, room);

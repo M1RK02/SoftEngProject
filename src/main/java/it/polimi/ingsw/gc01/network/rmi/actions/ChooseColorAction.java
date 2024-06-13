@@ -14,9 +14,10 @@ public class ChooseColorAction extends RoomAction {
 
     /**
      * Create a new ChooseColorAction
+     *
      * @param playerName of the player who is creating the action
-     * @param room where the action will be executed
-     * @param color chosen by the player
+     * @param room       where the action will be executed
+     * @param color      chosen by the player
      */
     public ChooseColorAction(String playerName, RoomController room, PlayerColor color) {
         super(playerName, room);
