@@ -3,10 +3,22 @@
     "color": "RED",
     "score": 0,
     "corners": {
-      "TOP_LEFT"    : {"resource": "FUNGI", "covered": false},
-      "BOTTOM_LEFT" : {"resource": "FUNGI", "covered": false},
-      "BOTTOM_RIGHT": {"resource": "FULL" , "covered": false},
-      "TOP_RIGHT"   : {"resource": "EMPTY", "covered": false}
+      "TOP_LEFT": {
+        "resource": "FUNGI",
+        "covered": false
+      },
+      "BOTTOM_LEFT": {
+        "resource": "FUNGI",
+        "covered": false
+      },
+      "BOTTOM_RIGHT": {
+        "resource": "FULL",
+        "covered": false
+      },
+      "TOP_RIGHT": {
+        "resource": "EMPTY",
+        "covered": false
+      }
     },
     "id": 1,
     "info": "None"
@@ -15,10 +27,22 @@
     "color": "RED",
     "score": 0,
     "corners": {
-      "TOP_LEFT"    : {"resource": "FUNGI", "covered": false},
-      "BOTTOM_LEFT" : {"resource": "FULL" , "covered": false},
-      "BOTTOM_RIGHT": {"resource": "EMPTY", "covered": false},
-      "TOP_RIGHT"   : {"resource": "FUNGI", "covered": false}
+      "TOP_LEFT": {
+        "resource": "FUNGI",
+        "covered": false
+      },
+      "BOTTOM_LEFT": {
+        "resource": "FULL",
+        "covered": false
+      },
+      "BOTTOM_RIGHT": {
+        "resource": "EMPTY",
+        "covered": false
+      },
+      "TOP_RIGHT": {
+        "resource": "FUNGI",
+        "covered": false
+      }
     },
     "id": 2,
     "info": "None"
@@ -27,10 +51,22 @@
     "color": "RED",
     "score": 0,
     "corners": {
-      "TOP_LEFT"    : {"resource": "EMPTY", "covered": false},
-      "BOTTOM_LEFT" : {"resource": "FUNGI", "covered": false},
-      "BOTTOM_RIGHT": {"resource": "FUNGI", "covered": false},
-      "TOP_RIGHT"   : {"resource": "FULL" , "covered": false}
+      "TOP_LEFT": {
+        "resource": "EMPTY",
+        "covered": false
+      },
+      "BOTTOM_LEFT": {
+        "resource": "FUNGI",
+        "covered": false
+      },
+      "BOTTOM_RIGHT": {
+        "resource": "FUNGI",
+        "covered": false
+      },
+      "TOP_RIGHT": {
+        "resource": "FULL",
+        "covered": false
+      }
     },
     "id": 3,
     "info": "None"
@@ -39,10 +75,22 @@
     "color": "RED",
     "score": 0,
     "corners": {
-      "TOP_LEFT"    : {"resource": "FULL" , "covered": false},
-      "BOTTOM_LEFT" : {"resource": "EMPTY", "covered": false},
-      "BOTTOM_RIGHT": {"resource": "FUNGI", "covered": false},
-      "TOP_RIGHT"   : {"resource": "FUNGI", "covered": false}
+      "TOP_LEFT": {
+        "resource": "FULL",
+        "covered": false
+      },
+      "BOTTOM_LEFT": {
+        "resource": "EMPTY",
+        "covered": false
+      },
+      "BOTTOM_RIGHT": {
+        "resource": "FUNGI",
+        "covered": false
+      },
+      "TOP_RIGHT": {
+        "resource": "FUNGI",
+        "covered": false
+      }
     },
     "id": 4,
     "info": "None"
@@ -51,10 +99,22 @@
     "color": "RED",
     "score": 0,
     "corners": {
-      "TOP_LEFT"    : {"resource": "FULL" , "covered": false},
-      "BOTTOM_LEFT" : {"resource": "PLANT", "covered": false},
-      "BOTTOM_RIGHT": {"resource": "FUNGI", "covered": false},
-      "TOP_RIGHT"   : {"resource": "QUILL", "covered": false}
+      "TOP_LEFT": {
+        "resource": "FULL",
+        "covered": false
+      },
+      "BOTTOM_LEFT": {
+        "resource": "PLANT",
+        "covered": false
+      },
+      "BOTTOM_RIGHT": {
+        "resource": "FUNGI",
+        "covered": false
+      },
+      "TOP_RIGHT": {
+        "resource": "QUILL",
+        "covered": false
+      }
     },
     "id": 5,
     "info": "None"
@@ -63,10 +123,22 @@
     "color": "RED",
     "score": 0,
     "corners": {
-      "TOP_LEFT"    : {"resource": "INKWELL", "covered": false},
-      "BOTTOM_LEFT" : {"resource": "FULL"   , "covered": false},
-      "BOTTOM_RIGHT": {"resource": "ANIMAL" , "covered": false},
-      "TOP_RIGHT"   : {"resource": "FUNGI"  , "covered": false}
+      "TOP_LEFT": {
+        "resource": "INKWELL",
+        "covered": false
+      },
+      "BOTTOM_LEFT": {
+        "resource": "FULL",
+        "covered": false
+      },
+      "BOTTOM_RIGHT": {
+        "resource": "ANIMAL",
+        "covered": false
+      },
+      "TOP_RIGHT": {
+        "resource": "FUNGI",
+        "covered": false
+      }
     },
     "id": 6,
     "info": "None"
@@ -75,10 +147,22 @@
     "color": "RED",
     "score": 0,
     "corners": {
-      "TOP_LEFT"    : {"resource": "FUNGI"     , "covered": false},
-      "BOTTOM_LEFT" : {"resource": "MANUSCRIPT", "covered": false},
-      "BOTTOM_RIGHT": {"resource": "EMPTY"     , "covered": false},
-      "TOP_RIGHT"   : {"resource": "INSECT"    , "covered": false}
+      "TOP_LEFT": {
+        "resource": "FUNGI",
+        "covered": false
+      },
+      "BOTTOM_LEFT": {
+        "resource": "MANUSCRIPT",
+        "covered": false
+      },
+      "BOTTOM_RIGHT": {
+        "resource": "EMPTY",
+        "covered": false
+      },
+      "TOP_RIGHT": {
+        "resource": "INSECT",
+        "covered": false
+      }
     },
     "id": 7,
     "info": "None"
@@ -87,10 +171,22 @@
     "color": "RED",
     "score": 1,
     "corners": {
-      "TOP_LEFT"    : {"resource": "EMPTY", "covered": false},
-      "BOTTOM_LEFT" : {"resource": "EMPTY", "covered": false},
-      "BOTTOM_RIGHT": {"resource": "FULL" , "covered": false},
-      "TOP_RIGHT"   : {"resource": "FUNGI", "covered": false}
+      "TOP_LEFT": {
+        "resource": "EMPTY",
+        "covered": false
+      },
+      "BOTTOM_LEFT": {
+        "resource": "EMPTY",
+        "covered": false
+      },
+      "BOTTOM_RIGHT": {
+        "resource": "FULL",
+        "covered": false
+      },
+      "TOP_RIGHT": {
+        "resource": "FUNGI",
+        "covered": false
+      }
     },
     "id": 8,
     "info": "None"
@@ -99,10 +195,22 @@
     "color": "RED",
     "score": 1,
     "corners": {
-      "TOP_LEFT"    : {"resource": "FUNGI", "covered": false},
-      "BOTTOM_LEFT" : {"resource": "EMPTY", "covered": false},
-      "BOTTOM_RIGHT": {"resource": "EMPTY", "covered": false},
-      "TOP_RIGHT"   : {"resource": "FULL" , "covered": false}
+      "TOP_LEFT": {
+        "resource": "FUNGI",
+        "covered": false
+      },
+      "BOTTOM_LEFT": {
+        "resource": "EMPTY",
+        "covered": false
+      },
+      "BOTTOM_RIGHT": {
+        "resource": "EMPTY",
+        "covered": false
+      },
+      "TOP_RIGHT": {
+        "resource": "FULL",
+        "covered": false
+      }
     },
     "id": 9,
     "info": "None"
@@ -111,10 +219,22 @@
     "color": "RED",
     "score": 1,
     "corners": {
-      "TOP_LEFT"    : {"resource": "FULL" , "covered": false},
-      "BOTTOM_LEFT" : {"resource": "FUNGI", "covered": false},
-      "BOTTOM_RIGHT": {"resource": "EMPTY", "covered": false},
-      "TOP_RIGHT"   : {"resource": "EMPTY", "covered": false}
+      "TOP_LEFT": {
+        "resource": "FULL",
+        "covered": false
+      },
+      "BOTTOM_LEFT": {
+        "resource": "FUNGI",
+        "covered": false
+      },
+      "BOTTOM_RIGHT": {
+        "resource": "EMPTY",
+        "covered": false
+      },
+      "TOP_RIGHT": {
+        "resource": "EMPTY",
+        "covered": false
+      }
     },
     "id": 10,
     "info": "None"
@@ -123,10 +243,22 @@
     "color": "GREEN",
     "score": 0,
     "corners": {
-      "TOP_LEFT"    : {"resource": "PLANT", "covered": false},
-      "BOTTOM_LEFT" : {"resource": "PLANT", "covered": false},
-      "BOTTOM_RIGHT": {"resource": "FULL" , "covered": false},
-      "TOP_RIGHT"   : {"resource": "EMPTY", "covered": false}
+      "TOP_LEFT": {
+        "resource": "PLANT",
+        "covered": false
+      },
+      "BOTTOM_LEFT": {
+        "resource": "PLANT",
+        "covered": false
+      },
+      "BOTTOM_RIGHT": {
+        "resource": "FULL",
+        "covered": false
+      },
+      "TOP_RIGHT": {
+        "resource": "EMPTY",
+        "covered": false
+      }
     },
     "id": 11,
     "info": "None"
@@ -135,10 +267,22 @@
     "color": "GREEN",
     "score": 0,
     "corners": {
-      "TOP_LEFT"    : {"resource": "PLANT", "covered": false},
-      "BOTTOM_LEFT" : {"resource": "FULL" , "covered": false},
-      "BOTTOM_RIGHT": {"resource": "EMPTY", "covered": false},
-      "TOP_RIGHT"   : {"resource": "PLANT", "covered": false}
+      "TOP_LEFT": {
+        "resource": "PLANT",
+        "covered": false
+      },
+      "BOTTOM_LEFT": {
+        "resource": "FULL",
+        "covered": false
+      },
+      "BOTTOM_RIGHT": {
+        "resource": "EMPTY",
+        "covered": false
+      },
+      "TOP_RIGHT": {
+        "resource": "PLANT",
+        "covered": false
+      }
     },
     "id": 12,
     "info": "None"
@@ -147,10 +291,22 @@
     "color": "GREEN",
     "score": 0,
     "corners": {
-      "TOP_LEFT"    : {"resource": "EMPTY", "covered": false},
-      "BOTTOM_LEFT" : {"resource": "PLANT", "covered": false},
-      "BOTTOM_RIGHT": {"resource": "PLANT", "covered": false},
-      "TOP_RIGHT"   : {"resource": "FULL" , "covered": false}
+      "TOP_LEFT": {
+        "resource": "EMPTY",
+        "covered": false
+      },
+      "BOTTOM_LEFT": {
+        "resource": "PLANT",
+        "covered": false
+      },
+      "BOTTOM_RIGHT": {
+        "resource": "PLANT",
+        "covered": false
+      },
+      "TOP_RIGHT": {
+        "resource": "FULL",
+        "covered": false
+      }
     },
     "id": 13,
     "info": "None"
@@ -159,10 +315,22 @@
     "color": "GREEN",
     "score": 0,
     "corners": {
-      "TOP_LEFT"    : {"resource": "FULL" , "covered": false},
-      "BOTTOM_LEFT" : {"resource": "EMPTY", "covered": false},
-      "BOTTOM_RIGHT": {"resource": "PLANT", "covered": false},
-      "TOP_RIGHT"   : {"resource": "PLANT", "covered": false}
+      "TOP_LEFT": {
+        "resource": "FULL",
+        "covered": false
+      },
+      "BOTTOM_LEFT": {
+        "resource": "EMPTY",
+        "covered": false
+      },
+      "BOTTOM_RIGHT": {
+        "resource": "PLANT",
+        "covered": false
+      },
+      "TOP_RIGHT": {
+        "resource": "PLANT",
+        "covered": false
+      }
     },
     "id": 14,
     "info": "None"
@@ -171,10 +339,22 @@
     "color": "GREEN",
     "score": 0,
     "corners": {
-      "TOP_LEFT"    : {"resource": "FULL"  , "covered": false},
-      "BOTTOM_LEFT" : {"resource": "QUILL" , "covered": false},
-      "BOTTOM_RIGHT": {"resource": "PLANT" , "covered": false},
-      "TOP_RIGHT"   : {"resource": "INSECT", "covered": false}
+      "TOP_LEFT": {
+        "resource": "FULL",
+        "covered": false
+      },
+      "BOTTOM_LEFT": {
+        "resource": "QUILL",
+        "covered": false
+      },
+      "BOTTOM_RIGHT": {
+        "resource": "PLANT",
+        "covered": false
+      },
+      "TOP_RIGHT": {
+        "resource": "INSECT",
+        "covered": false
+      }
     },
     "id": 15,
     "info": "None"
@@ -183,10 +363,22 @@
     "color": "GREEN",
     "score": 0,
     "corners": {
-      "TOP_LEFT"    : {"resource": "FUNGI"  , "covered": false},
-      "BOTTOM_LEFT" : {"resource": "FULL"   , "covered": false},
-      "BOTTOM_RIGHT": {"resource": "INKWELL", "covered": false},
-      "TOP_RIGHT"   : {"resource": "PLANT"  , "covered": false}
+      "TOP_LEFT": {
+        "resource": "FUNGI",
+        "covered": false
+      },
+      "BOTTOM_LEFT": {
+        "resource": "FULL",
+        "covered": false
+      },
+      "BOTTOM_RIGHT": {
+        "resource": "INKWELL",
+        "covered": false
+      },
+      "TOP_RIGHT": {
+        "resource": "PLANT",
+        "covered": false
+      }
     },
     "id": 16,
     "info": "None"
@@ -195,10 +387,22 @@
     "color": "GREEN",
     "score": 0,
     "corners": {
-      "TOP_LEFT"    : {"resource": "MANUSCRIPT", "covered": false},
-      "BOTTOM_LEFT" : {"resource": "PLANT"     , "covered": false},
-      "BOTTOM_RIGHT": {"resource": "ANIMAL"    , "covered": false},
-      "TOP_RIGHT"   : {"resource": "FULL"      , "covered": false}
+      "TOP_LEFT": {
+        "resource": "MANUSCRIPT",
+        "covered": false
+      },
+      "BOTTOM_LEFT": {
+        "resource": "PLANT",
+        "covered": false
+      },
+      "BOTTOM_RIGHT": {
+        "resource": "ANIMAL",
+        "covered": false
+      },
+      "TOP_RIGHT": {
+        "resource": "FULL",
+        "covered": false
+      }
     },
     "id": 17,
     "info": "None"
@@ -207,10 +411,22 @@
     "color": "GREEN",
     "score": 1,
     "corners": {
-      "TOP_LEFT"    : {"resource": "EMPTY", "covered": false},
-      "BOTTOM_LEFT" : {"resource": "PLANT", "covered": false},
-      "BOTTOM_RIGHT": {"resource": "FULL" , "covered": false},
-      "TOP_RIGHT"   : {"resource": "EMPTY", "covered": false}
+      "TOP_LEFT": {
+        "resource": "EMPTY",
+        "covered": false
+      },
+      "BOTTOM_LEFT": {
+        "resource": "PLANT",
+        "covered": false
+      },
+      "BOTTOM_RIGHT": {
+        "resource": "FULL",
+        "covered": false
+      },
+      "TOP_RIGHT": {
+        "resource": "EMPTY",
+        "covered": false
+      }
     },
     "id": 18,
     "info": "None"
@@ -219,10 +435,22 @@
     "color": "GREEN",
     "score": 1,
     "corners": {
-      "TOP_LEFT"    : {"resource": "EMPTY", "covered": false},
-      "BOTTOM_LEFT" : {"resource": "FULL" , "covered": false},
-      "BOTTOM_RIGHT": {"resource": "PLANT", "covered": false},
-      "TOP_RIGHT"   : {"resource": "EMPTY", "covered": false}
+      "TOP_LEFT": {
+        "resource": "EMPTY",
+        "covered": false
+      },
+      "BOTTOM_LEFT": {
+        "resource": "FULL",
+        "covered": false
+      },
+      "BOTTOM_RIGHT": {
+        "resource": "PLANT",
+        "covered": false
+      },
+      "TOP_RIGHT": {
+        "resource": "EMPTY",
+        "covered": false
+      }
     },
     "id": 19,
     "info": "None"
@@ -231,10 +459,22 @@
     "color": "GREEN",
     "score": 1,
     "corners": {
-      "TOP_LEFT"    : {"resource": "FULL" , "covered": false},
-      "BOTTOM_LEFT" : {"resource": "EMPTY", "covered": false},
-      "BOTTOM_RIGHT": {"resource": "EMPTY", "covered": false},
-      "TOP_RIGHT"   : {"resource": "PLANT", "covered": false}
+      "TOP_LEFT": {
+        "resource": "FULL",
+        "covered": false
+      },
+      "BOTTOM_LEFT": {
+        "resource": "EMPTY",
+        "covered": false
+      },
+      "BOTTOM_RIGHT": {
+        "resource": "EMPTY",
+        "covered": false
+      },
+      "TOP_RIGHT": {
+        "resource": "PLANT",
+        "covered": false
+      }
     },
     "id": 20,
     "info": "None"
@@ -243,10 +483,22 @@
     "color": "BLUE",
     "score": 0,
     "corners": {
-      "TOP_LEFT"    : {"resource": "ANIMAL", "covered": false},
-      "BOTTOM_LEFT" : {"resource": "EMPTY" , "covered": false},
-      "BOTTOM_RIGHT": {"resource": "FULL"  , "covered": false},
-      "TOP_RIGHT"   : {"resource": "ANIMAL", "covered": false}
+      "TOP_LEFT": {
+        "resource": "ANIMAL",
+        "covered": false
+      },
+      "BOTTOM_LEFT": {
+        "resource": "EMPTY",
+        "covered": false
+      },
+      "BOTTOM_RIGHT": {
+        "resource": "FULL",
+        "covered": false
+      },
+      "TOP_RIGHT": {
+        "resource": "ANIMAL",
+        "covered": false
+      }
     },
     "id": 21,
     "info": "None"
@@ -255,10 +507,22 @@
     "color": "BLUE",
     "score": 0,
     "corners": {
-      "TOP_LEFT"    : {"resource": "FULL"  , "covered": false},
-      "BOTTOM_LEFT" : {"resource": "ANIMAL", "covered": false},
-      "BOTTOM_RIGHT": {"resource": "ANIMAL", "covered": false},
-      "TOP_RIGHT"   : {"resource": "EMPTY" , "covered": false}
+      "TOP_LEFT": {
+        "resource": "FULL",
+        "covered": false
+      },
+      "BOTTOM_LEFT": {
+        "resource": "ANIMAL",
+        "covered": false
+      },
+      "BOTTOM_RIGHT": {
+        "resource": "ANIMAL",
+        "covered": false
+      },
+      "TOP_RIGHT": {
+        "resource": "EMPTY",
+        "covered": false
+      }
     },
     "id": 22,
     "info": "None"
@@ -267,10 +531,22 @@
     "color": "BLUE",
     "score": 0,
     "corners": {
-      "TOP_LEFT"    : {"resource": "ANIMAL", "covered": false},
-      "BOTTOM_LEFT" : {"resource": "ANIMAL", "covered": false},
-      "BOTTOM_RIGHT": {"resource": "EMPTY" , "covered": false},
-      "TOP_RIGHT"   : {"resource": "FULL"  , "covered": false}
+      "TOP_LEFT": {
+        "resource": "ANIMAL",
+        "covered": false
+      },
+      "BOTTOM_LEFT": {
+        "resource": "ANIMAL",
+        "covered": false
+      },
+      "BOTTOM_RIGHT": {
+        "resource": "EMPTY",
+        "covered": false
+      },
+      "TOP_RIGHT": {
+        "resource": "FULL",
+        "covered": false
+      }
     },
     "id": 23,
     "info": "None"
@@ -279,10 +555,22 @@
     "color": "BLUE",
     "score": 0,
     "corners": {
-      "TOP_LEFT"    : {"resource": "EMPTY" , "covered": false},
-      "BOTTOM_LEFT" : {"resource": "FULL"  , "covered": false},
-      "BOTTOM_RIGHT": {"resource": "ANIMAL", "covered": false},
-      "TOP_RIGHT"   : {"resource": "ANIMAL", "covered": false}
+      "TOP_LEFT": {
+        "resource": "EMPTY",
+        "covered": false
+      },
+      "BOTTOM_LEFT": {
+        "resource": "FULL",
+        "covered": false
+      },
+      "BOTTOM_RIGHT": {
+        "resource": "ANIMAL",
+        "covered": false
+      },
+      "TOP_RIGHT": {
+        "resource": "ANIMAL",
+        "covered": false
+      }
     },
     "id": 24,
     "info": "None"
@@ -291,10 +579,22 @@
     "color": "BLUE",
     "score": 0,
     "corners": {
-      "TOP_LEFT"    : {"resource": "FULL"   , "covered": false},
-      "BOTTOM_LEFT" : {"resource": "INKWELL", "covered": false},
-      "BOTTOM_RIGHT": {"resource": "ANIMAL" , "covered": false},
-      "TOP_RIGHT"   : {"resource": "INSECT" , "covered": false}
+      "TOP_LEFT": {
+        "resource": "FULL",
+        "covered": false
+      },
+      "BOTTOM_LEFT": {
+        "resource": "INKWELL",
+        "covered": false
+      },
+      "BOTTOM_RIGHT": {
+        "resource": "ANIMAL",
+        "covered": false
+      },
+      "TOP_RIGHT": {
+        "resource": "INSECT",
+        "covered": false
+      }
     },
     "id": 25,
     "info": "None"
@@ -303,10 +603,22 @@
     "color": "BLUE",
     "score": 0,
     "corners": {
-      "TOP_LEFT"    : {"resource": "PLANT"     , "covered": false},
-      "BOTTOM_LEFT" : {"resource": "FULL"      , "covered": false},
-      "BOTTOM_RIGHT": {"resource": "MANUSCRIPT", "covered": false},
-      "TOP_RIGHT"   : {"resource": "ANIMAL"    , "covered": false}
+      "TOP_LEFT": {
+        "resource": "PLANT",
+        "covered": false
+      },
+      "BOTTOM_LEFT": {
+        "resource": "FULL",
+        "covered": false
+      },
+      "BOTTOM_RIGHT": {
+        "resource": "MANUSCRIPT",
+        "covered": false
+      },
+      "TOP_RIGHT": {
+        "resource": "ANIMAL",
+        "covered": false
+      }
     },
     "id": 26,
     "info": "None"
@@ -315,10 +627,22 @@
     "color": "BLUE",
     "score": 0,
     "corners": {
-      "TOP_LEFT"    : {"resource": "QUILL" , "covered": false},
-      "BOTTOM_LEFT" : {"resource": "ANIMAL", "covered": false},
-      "BOTTOM_RIGHT": {"resource": "FUNGI" , "covered": false},
-      "TOP_RIGHT"   : {"resource": "FULL"  , "covered": false}
+      "TOP_LEFT": {
+        "resource": "QUILL",
+        "covered": false
+      },
+      "BOTTOM_LEFT": {
+        "resource": "ANIMAL",
+        "covered": false
+      },
+      "BOTTOM_RIGHT": {
+        "resource": "FUNGI",
+        "covered": false
+      },
+      "TOP_RIGHT": {
+        "resource": "FULL",
+        "covered": false
+      }
     },
     "id": 27,
     "info": "None"
@@ -327,10 +651,22 @@
     "color": "BLUE",
     "score": 1,
     "corners": {
-      "TOP_LEFT"    : {"resource": "FULL"  , "covered": false},
-      "BOTTOM_LEFT" : {"resource": "ANIMAL", "covered": false},
-      "BOTTOM_RIGHT": {"resource": "EMPTY" , "covered": false},
-      "TOP_RIGHT"   : {"resource": "EMPTY" , "covered": false}
+      "TOP_LEFT": {
+        "resource": "FULL",
+        "covered": false
+      },
+      "BOTTOM_LEFT": {
+        "resource": "ANIMAL",
+        "covered": false
+      },
+      "BOTTOM_RIGHT": {
+        "resource": "EMPTY",
+        "covered": false
+      },
+      "TOP_RIGHT": {
+        "resource": "EMPTY",
+        "covered": false
+      }
     },
     "id": 28,
     "info": "None"
@@ -339,10 +675,22 @@
     "color": "BLUE",
     "score": 1,
     "corners": {
-      "TOP_LEFT"    : {"resource": "EMPTY" , "covered": false},
-      "BOTTOM_LEFT" : {"resource": "EMPTY" , "covered": false},
-      "BOTTOM_RIGHT": {"resource": "ANIMAL", "covered": false},
-      "TOP_RIGHT"   : {"resource": "FULL"  , "covered": false}
+      "TOP_LEFT": {
+        "resource": "EMPTY",
+        "covered": false
+      },
+      "BOTTOM_LEFT": {
+        "resource": "EMPTY",
+        "covered": false
+      },
+      "BOTTOM_RIGHT": {
+        "resource": "ANIMAL",
+        "covered": false
+      },
+      "TOP_RIGHT": {
+        "resource": "FULL",
+        "covered": false
+      }
     },
     "id": 29,
     "info": "None"
@@ -351,10 +699,22 @@
     "color": "BLUE",
     "score": 1,
     "corners": {
-      "TOP_LEFT"    : {"resource": "EMPTY" , "covered": false},
-      "BOTTOM_LEFT" : {"resource": "EMPTY" , "covered": false},
-      "BOTTOM_RIGHT": {"resource": "FULL"  , "covered": false},
-      "TOP_RIGHT"   : {"resource": "ANIMAL", "covered": false}
+      "TOP_LEFT": {
+        "resource": "EMPTY",
+        "covered": false
+      },
+      "BOTTOM_LEFT": {
+        "resource": "EMPTY",
+        "covered": false
+      },
+      "BOTTOM_RIGHT": {
+        "resource": "FULL",
+        "covered": false
+      },
+      "TOP_RIGHT": {
+        "resource": "ANIMAL",
+        "covered": false
+      }
     },
     "id": 30,
     "info": "None"
@@ -363,10 +723,22 @@
     "color": "PURPLE",
     "score": 0,
     "corners": {
-      "TOP_LEFT"    : {"resource": "INSECT", "covered": false},
-      "BOTTOM_LEFT" : {"resource": "EMPTY" , "covered": false},
-      "BOTTOM_RIGHT": {"resource": "FULL"  , "covered": false},
-      "TOP_RIGHT"   : {"resource": "INSECT", "covered": false}
+      "TOP_LEFT": {
+        "resource": "INSECT",
+        "covered": false
+      },
+      "BOTTOM_LEFT": {
+        "resource": "EMPTY",
+        "covered": false
+      },
+      "BOTTOM_RIGHT": {
+        "resource": "FULL",
+        "covered": false
+      },
+      "TOP_RIGHT": {
+        "resource": "INSECT",
+        "covered": false
+      }
     },
     "id": 31,
     "info": "None"
@@ -375,10 +747,22 @@
     "color": "PURPLE",
     "score": 0,
     "corners": {
-      "TOP_LEFT"    : {"resource": "FULL"  , "covered": false},
-      "BOTTOM_LEFT" : {"resource": "INSECT", "covered": false},
-      "BOTTOM_RIGHT": {"resource": "INSECT", "covered": false},
-      "TOP_RIGHT"   : {"resource": "EMPTY" , "covered": false}
+      "TOP_LEFT": {
+        "resource": "FULL",
+        "covered": false
+      },
+      "BOTTOM_LEFT": {
+        "resource": "INSECT",
+        "covered": false
+      },
+      "BOTTOM_RIGHT": {
+        "resource": "INSECT",
+        "covered": false
+      },
+      "TOP_RIGHT": {
+        "resource": "EMPTY",
+        "covered": false
+      }
     },
     "id": 32,
     "info": "None"
@@ -387,10 +771,22 @@
     "color": "PURPLE",
     "score": 0,
     "corners": {
-      "TOP_LEFT"    : {"resource": "INSECT", "covered": false},
-      "BOTTOM_LEFT" : {"resource": "INSECT", "covered": false},
-      "BOTTOM_RIGHT": {"resource": "EMPTY" , "covered": false},
-      "TOP_RIGHT"   : {"resource": "FULL"  , "covered": false}
+      "TOP_LEFT": {
+        "resource": "INSECT",
+        "covered": false
+      },
+      "BOTTOM_LEFT": {
+        "resource": "INSECT",
+        "covered": false
+      },
+      "BOTTOM_RIGHT": {
+        "resource": "EMPTY",
+        "covered": false
+      },
+      "TOP_RIGHT": {
+        "resource": "FULL",
+        "covered": false
+      }
     },
     "id": 33,
     "info": "None"
@@ -399,10 +795,22 @@
     "color": "PURPLE",
     "score": 0,
     "corners": {
-      "TOP_LEFT"    : {"resource": "EMPTY" , "covered": false},
-      "BOTTOM_LEFT" : {"resource": "FULL"  , "covered": false},
-      "BOTTOM_RIGHT": {"resource": "INSECT", "covered": false},
-      "TOP_RIGHT"   : {"resource": "INSECT", "covered": false}
+      "TOP_LEFT": {
+        "resource": "EMPTY",
+        "covered": false
+      },
+      "BOTTOM_LEFT": {
+        "resource": "FULL",
+        "covered": false
+      },
+      "BOTTOM_RIGHT": {
+        "resource": "INSECT",
+        "covered": false
+      },
+      "TOP_RIGHT": {
+        "resource": "INSECT",
+        "covered": false
+      }
     },
     "id": 34,
     "info": "None"
@@ -411,10 +819,22 @@
     "color": "PURPLE",
     "score": 0,
     "corners": {
-      "TOP_LEFT"    : {"resource": "FULL"  , "covered": false},
-      "BOTTOM_LEFT" : {"resource": "ANIMAL", "covered": false},
-      "BOTTOM_RIGHT": {"resource": "INSECT", "covered": false},
-      "TOP_RIGHT"   : {"resource": "QUILL" , "covered": false}
+      "TOP_LEFT": {
+        "resource": "FULL",
+        "covered": false
+      },
+      "BOTTOM_LEFT": {
+        "resource": "ANIMAL",
+        "covered": false
+      },
+      "BOTTOM_RIGHT": {
+        "resource": "INSECT",
+        "covered": false
+      },
+      "TOP_RIGHT": {
+        "resource": "QUILL",
+        "covered": false
+      }
     },
     "id": 35,
     "info": "None"
@@ -423,10 +843,22 @@
     "color": "PURPLE",
     "score": 0,
     "corners": {
-      "TOP_LEFT"    : {"resource": "MANUSCRIPT", "covered": false},
-      "BOTTOM_LEFT" : {"resource": "FULL"      , "covered": false},
-      "BOTTOM_RIGHT": {"resource": "FUNGI"     , "covered": false},
-      "TOP_RIGHT"   : {"resource": "INSECT"    , "covered": false}
+      "TOP_LEFT": {
+        "resource": "MANUSCRIPT",
+        "covered": false
+      },
+      "BOTTOM_LEFT": {
+        "resource": "FULL",
+        "covered": false
+      },
+      "BOTTOM_RIGHT": {
+        "resource": "FUNGI",
+        "covered": false
+      },
+      "TOP_RIGHT": {
+        "resource": "INSECT",
+        "covered": false
+      }
     },
     "id": 36,
     "info": "None"
@@ -435,10 +867,22 @@
     "color": "PURPLE",
     "score": 0,
     "corners": {
-      "TOP_LEFT"    : {"resource": "INSECT" , "covered": false},
-      "BOTTOM_LEFT" : {"resource": "INKWELL", "covered": false},
-      "BOTTOM_RIGHT": {"resource": "FULL"   , "covered": false},
-      "TOP_RIGHT"   : {"resource": "PLANT"  , "covered": false}
+      "TOP_LEFT": {
+        "resource": "INSECT",
+        "covered": false
+      },
+      "BOTTOM_LEFT": {
+        "resource": "INKWELL",
+        "covered": false
+      },
+      "BOTTOM_RIGHT": {
+        "resource": "FULL",
+        "covered": false
+      },
+      "TOP_RIGHT": {
+        "resource": "PLANT",
+        "covered": false
+      }
     },
     "id": 37,
     "info": "None"
@@ -447,10 +891,22 @@
     "color": "PURPLE",
     "score": 1,
     "corners": {
-      "TOP_LEFT"    : {"resource": "INSECT", "covered": false},
-      "BOTTOM_LEFT" : {"resource": "EMPTY" , "covered": false},
-      "BOTTOM_RIGHT": {"resource": "EMPTY" , "covered": false},
-      "TOP_RIGHT"   : {"resource": "FULL"  , "covered": false}
+      "TOP_LEFT": {
+        "resource": "INSECT",
+        "covered": false
+      },
+      "BOTTOM_LEFT": {
+        "resource": "EMPTY",
+        "covered": false
+      },
+      "BOTTOM_RIGHT": {
+        "resource": "EMPTY",
+        "covered": false
+      },
+      "TOP_RIGHT": {
+        "resource": "FULL",
+        "covered": false
+      }
     },
     "id": 38,
     "info": "None"
@@ -459,10 +915,22 @@
     "color": "PURPLE",
     "score": 1,
     "corners": {
-      "TOP_LEFT"    : {"resource": "EMPTY" , "covered": false},
-      "BOTTOM_LEFT" : {"resource": "FULL"  , "covered": false},
-      "BOTTOM_RIGHT": {"resource": "INSECT", "covered": false},
-      "TOP_RIGHT"   : {"resource": "EMPTY" , "covered": false}
+      "TOP_LEFT": {
+        "resource": "EMPTY",
+        "covered": false
+      },
+      "BOTTOM_LEFT": {
+        "resource": "FULL",
+        "covered": false
+      },
+      "BOTTOM_RIGHT": {
+        "resource": "INSECT",
+        "covered": false
+      },
+      "TOP_RIGHT": {
+        "resource": "EMPTY",
+        "covered": false
+      }
     },
     "id": 39,
     "info": "None"
@@ -471,10 +939,22 @@
     "color": "PURPLE",
     "score": 1,
     "corners": {
-      "TOP_LEFT"    : {"resource": "FULL"  , "covered": false},
-      "BOTTOM_LEFT" : {"resource": "EMPTY" , "covered": false},
-      "BOTTOM_RIGHT": {"resource": "EMPTY" , "covered": false},
-      "TOP_RIGHT"   : {"resource": "INSECT", "covered": false}
+      "TOP_LEFT": {
+        "resource": "FULL",
+        "covered": false
+      },
+      "BOTTOM_LEFT": {
+        "resource": "EMPTY",
+        "covered": false
+      },
+      "BOTTOM_RIGHT": {
+        "resource": "EMPTY",
+        "covered": false
+      },
+      "TOP_RIGHT": {
+        "resource": "INSECT",
+        "covered": false
+      }
     },
     "id": 40,
     "info": "None"
