@@ -82,19 +82,61 @@ public void switchToMenu(String nickName, String remoteIP, String personalIP, St
         //TODO
     }
 
-    /*try {
+    try {
         // Carica il nuovo layout dal file FXML
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/FXML/Menu.fxml"));
         Parent root = loader.load();
         MenuController menuController = loader.getController();
-        MenuController.setGUI(this);
+        menuController.setGUI(this);
         Scene scene = new Scene(root);
         stage.setScene(scene);
         stage.show();
     } catch (IOException e) {
         e.printStackTrace();
-    }*/
+    }
 }
+
+
+    public void createGame() {
+        networkClient.createGame();
+    }
+
+    public void joinFirstGame() {
+        networkClient.joinFirstGame();
+    }
+
+    public void joinGame() {
+        //Go to joinById scene
+        /*
+        try {
+            // Carica il nuovo layout dal file FXML
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/FXML/JoinById.fxml"));
+            Parent root = loader.load();
+            JoinByIdController joinByIdController = loader.getController();
+            JoinByIdController.setGUI(this);
+            Scene scene = new Scene(root);
+            stage.setScene(scene);
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+         */
+    }
+
+    public void goToFirstScene(){
+        try {
+            // Carica il nuovo layout dal file FXML
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/FXML/Intro.fxml"));
+            Parent root = loader.load();
+            Intro controller = loader.getController();
+            controller.setGUI(this);
+            Scene scene = new Scene(root);
+            stage.setScene(scene);
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 
     /**
      * Shows the entered room
