@@ -1,8 +1,17 @@
 package it.polimi.ingsw.gc01.view.gui.GUIControllers;
 
+import it.polimi.ingsw.gc01.view.gui.GUI;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.*;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.stage.Stage;
+
+import java.io.IOException;
 
 public class Intro {
     @FXML
@@ -11,9 +20,14 @@ public class Intro {
     @FXML
     private Label messageLabel;
 
+
+    private GUI gui;
     @FXML
-    private void handleButtonClick(ActionEvent event) {
-        System.out.println("Hai cliccato il bottone!");
-        messageLabel.setText("Hai cliccato il bottone!");
+    private void SwitchToSetUp(ActionEvent event) {
+        gui.switchToSetUp();
+    }
+
+    public void setGUI(GUI gui){
+        this.gui=gui;
     }
 }
