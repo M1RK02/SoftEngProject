@@ -237,7 +237,8 @@ public class GUI extends Application implements UI {
      */
     @Override
     public void showField(String playerName) {
-        Platform.runLater(() -> switchToScene(SceneEnum.PLAY, clientModel));    }
+        Platform.runLater(() -> switchToScene(SceneEnum.PLAY, clientModel, field.generateField()));
+    }
 
     /**
      * Show the points for each player in the room
@@ -298,16 +299,15 @@ public class GUI extends Application implements UI {
      */
     @Override
     public void updateField(String playerName, int id, boolean front, Position position, List<Position> availablePositions) {
-    if(playerName.equals(this.playerName)){
-        field.playCard(id, front, position);
-        field.setAvailablePositions(availablePositions);
-    } else {
-        if(!otherFields.containsKey(playerName)){
-            otherFields.put(playerName, new ClientFieldGUI());
+        if(playerName.equals(this.playerName)){
+            field.playCard(id, front, position);
+            field.setAvailablePositions(availablePositions);
+        } else {
+            if(!otherFields.containsKey(playerName)){
+                otherFields.put(playerName, new ClientFieldGUI());
+            }
+            otherFields.get(playerName).playCard(id, front, position);
         }
-        otherFields.get(playerName).playCard(id, front, position);
-
-    }
     }
 
     /**
