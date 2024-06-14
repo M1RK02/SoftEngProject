@@ -46,10 +46,8 @@ public class GUI extends Application implements UI {
             loader = new FXMLLoader(getClass().getResource(sceneName.path()));
             Parent root = loader.load();
             GenericController controller = loader.getController();
-            if (controller != null) {
-                controller.setGUI(this);
-                controller.setAttributes(attribute);
-            }
+            controller.setGUI(this);
+            controller.setAttributes(attribute);
             Scene scene = new Scene(root);
             stage.setScene(scene);
             stage.show();
@@ -92,7 +90,7 @@ public class GUI extends Application implements UI {
 
     public void chooseSecretObjective(int id) {
         networkClient.chooseSecretObjective(id);
-        switchToScene(SceneEnum.WAITING_OTHERS);
+        switchToScene(SceneEnum.WAITING_OTHERS, "Waiting for others to choose their secret objective");
     }
 
 
@@ -110,9 +108,8 @@ public class GUI extends Application implements UI {
 
     public void setReady() {
         networkClient.switchReady();
-        switchToScene(SceneEnum.WAITING_OTHERS);
+        switchToScene(SceneEnum.WAITING_OTHERS, "Waiting for others to be ready");
     }
-
 
     public void chooseStarter(int choice, int cardId) {
         if (choice == 1) {
@@ -121,12 +118,12 @@ public class GUI extends Application implements UI {
             networkClient.flipCard(cardId);
             networkClient.playCard(cardId, new Position(0, 0));
         }
-        switchToScene(SceneEnum.WAITING_OTHERS);
+        switchToScene(SceneEnum.WAITING_OTHERS, "Waiting for others to choose their starter");
     }
 
     public void chooseColor(String color) {
         networkClient.chooseColor(PlayerColor.valueOf(color));
-        switchToScene(SceneEnum.WAITING_OTHERS);
+        switchToScene(SceneEnum.WAITING_OTHERS, "Waiting for others to choose their color");
     }
 
     /**
@@ -223,7 +220,6 @@ public class GUI extends Application implements UI {
      */
     @Override
     public void showCurrentPlayer(String playerName) {
-
     }
 
     /**
@@ -233,7 +229,7 @@ public class GUI extends Application implements UI {
      */
     @Override
     public void showField(String playerName) {
-
+        Platform.runLater(() -> switchToScene(SceneEnum.WAITING_OTHERS, "GAME STARTATO"));
     }
 
     /**
@@ -282,7 +278,6 @@ public class GUI extends Application implements UI {
      */
     @Override
     public void startGame() {
-
     }
 
     /**
