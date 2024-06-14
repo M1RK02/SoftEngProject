@@ -21,9 +21,15 @@ public class GUI extends Application implements UI {
     private NetworkClient networkClient;
     private Stage stage;
     private FXMLLoader loader;
+    private ClientModel clientModel;
+    private ClientFieldGUI field;
+    private Map<String, ClientFieldGUI> otherFields;
 
     @Override
     public void start(Stage primaryStage) {
+        this.clientModel = new ClientModel();
+        this.field = new ClientFieldGUI();
+        this.otherFields = new HashMap<>();
         stage = primaryStage;
         try {
             loader = new FXMLLoader(getClass().getResource(SceneEnum.INTRO.path()));
@@ -126,6 +132,7 @@ public class GUI extends Application implements UI {
         switchToScene(SceneEnum.WAITING_OTHERS, "Waiting for others to choose their color");
     }
 
+
     /**
      * Shows the entered room
      *
@@ -220,6 +227,7 @@ public class GUI extends Application implements UI {
      */
     @Override
     public void showCurrentPlayer(String playerName) {
+        clientModel.setCurrentPlayer(playerName);
     }
 
     /**
@@ -229,8 +237,7 @@ public class GUI extends Application implements UI {
      */
     @Override
     public void showField(String playerName) {
-        Platform.runLater(() -> switchToScene(SceneEnum.WAITING_OTHERS, "GAME STARTATO"));
-    }
+        Platform.runLater(() -> switchToScene(SceneEnum.PLAY, clientModel));    }
 
     /**
      * Show the points for each player in the room
@@ -239,7 +246,7 @@ public class GUI extends Application implements UI {
      */
     @Override
     public void showPoints(Map<String, Integer> points) {
-
+        clientModel.setPoints(points);
     }
 
     /**
@@ -291,7 +298,16 @@ public class GUI extends Application implements UI {
      */
     @Override
     public void updateField(String playerName, int id, boolean front, Position position, List<Position> availablePositions) {
+    if(playerName.equals(this.playerName)){
+        field.playCard(id, front, position);
+        field.setAvailablePositions(availablePositions);
+    } else {
+        if(!otherFields.containsKey(playerName)){
+            otherFields.put(playerName, new ClientFieldGUI());
+        }
+        otherFields.get(playerName).playCard(id, front, position);
 
+    }
     }
 
     /**

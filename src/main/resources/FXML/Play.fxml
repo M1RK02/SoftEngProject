@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.polimi.ingsw.gc01.view.gui.GUIControllers.PlayController">
+   <children>
+      <AnchorPane fx:id="turnContainer" layoutX="5.0" layoutY="4.0" prefHeight="65.0" prefWidth="99.0">
+         <children>
+            <Label fx:id="points" layoutX="11.0" layoutY="36.0" text="Points:" AnchorPane.leftAnchor="10.0" AnchorPane.topAnchor="30.0" />
+            <Label fx:id="turn" layoutX="15.0" layoutY="12.0" text="Turn:" AnchorPane.leftAnchor="10.0" AnchorPane.topAnchor="10.0" />
+         </children>
+      </AnchorPane>
+   </children>
+</AnchorPane>
