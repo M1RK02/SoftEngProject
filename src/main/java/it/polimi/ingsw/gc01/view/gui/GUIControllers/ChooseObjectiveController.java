@@ -25,12 +25,11 @@ public class ChooseObjectiveController extends GenericController {
 
     @FXML
     private void confirm() {
-        do {
-            if (selection == -1) {
-                gui.showError("Please select an objective card");
-            }
-        } while (selection == -1);
-        gui.chooseSecretObjective(possibleObjectiveIds.get(selection));
+        if (selection == -1) {
+            gui.showError("MAIN Please select an objective card");
+        } else{
+            gui.chooseSecretObjective(possibleObjectiveIds.get(selection));
+        }
     }
 
     @Override
