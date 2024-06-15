@@ -40,12 +40,12 @@
                   <Font name="Arial Black" size="30.0" />
                </font>
             </Label>
-              <Button layoutX="352.0" layoutY="598.0" mnemonicParsing="false" onAction="#handleNextButtonAction" styleClass="iphone-toolbar" stylesheets="@../style.css" text="NEXT">
+              <Button layoutX="348.0" layoutY="598.0" mnemonicParsing="false" onAction="#handleNextButtonAction" styleClass="bevel-grey" stylesheets="@../style.css" text="NEXT">
                <cursor>
                   <Cursor fx:constant="HAND" />
                </cursor>
             </Button>
-              <ToggleButton fx:id="rmiToggleButton" layoutX="250.0" layoutY="515.0" mnemonicParsing="false" prefHeight="51.0" prefWidth="116.0" styleClass="ipad-dark-grey" stylesheets="@../style.css" text="RMI">
+              <ToggleButton fx:id="rmiToggleButton" layoutX="246.0" layoutY="515.0" mnemonicParsing="false" prefHeight="51.0" prefWidth="116.0" styleClass="ipad-dark-grey" stylesheets="@../style.css" text="RMI">
                   <toggleGroup>
                       <ToggleGroup fx:id="connectionGroup" />
                   </toggleGroup>
@@ -53,7 +53,7 @@
                   <Cursor fx:constant="HAND" />
                </cursor>
               </ToggleButton>
-              <ToggleButton fx:id="socketToggleButton" layoutX="386.0" layoutY="515.0" mnemonicParsing="false" prefHeight="51.0" prefWidth="135.0" styleClass="ipad-dark-grey" stylesheets="@../style.css" text="SOCKET" toggleGroup="$connectionGroup">
+              <ToggleButton fx:id="socketToggleButton" layoutX="382.0" layoutY="517.0" mnemonicParsing="false" prefHeight="51.0" prefWidth="150.0" styleClass="ipad-dark-grey" stylesheets="@../style.css" text="SOCKET" toggleGroup="$connectionGroup">
                <cursor>
                   <Cursor fx:constant="HAND" />
                </cursor>

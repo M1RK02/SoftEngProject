@@ -10,6 +10,8 @@ import javafx.application.*;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.*;
 import javafx.scene.image.Image;
+import javafx.scene.layout.Pane;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -83,7 +85,8 @@ public class GUI extends Application implements UI {
     }
 
     public void leave() {
-        switchToScene(SceneEnum.INTRO);
+        networkClient.leave();
+        switchToScene(SceneEnum.MENU);
     }
 
     public void goBackFromJoinById() {
@@ -114,7 +117,6 @@ public class GUI extends Application implements UI {
 
     public void setReady() {
         networkClient.switchReady();
-        switchToScene(SceneEnum.WAITING_OTHERS, "Waiting for others to be ready");
     }
 
     public void chooseStarter(int choice, int cardId) {
@@ -132,6 +134,68 @@ public class GUI extends Application implements UI {
         switchToScene(SceneEnum.WAITING_OTHERS, "Waiting for others to choose their color");
     }
 
+    /**
+     * This method is used to hide the panes in the lobby.
+     */
+    private void hidePanesInLobby() {
+        for (int i = 0; i < 4; i++) {
+            Pane panePlayerLobby = (Pane) this.stage.getScene().getRoot().lookup("#pane" + i);
+            panePlayerLobby.setVisible(false);
+
+            Pane paneReady = (Pane) this.stage.getScene().getRoot().lookup("#ready" + i);
+            paneReady.setVisible(false);
+        }
+    }
+
+    private void addLobbyPlayerPanes(List<String> playerNames){
+        for (int i = 0; i < playerNames.size(); i++) {
+            Pane panePlayerLobby = (Pane) this.stage.getScene().getRoot().lookup("#pane" + i);
+            panePlayerLobby.setVisible(true);
+
+            Text nickname = (Text) this.stage.getScene().getRoot().lookup("#nickName" + i);
+            nickname.setText(playerNames.get(i));
+            clientModel.setNumOfPlayers(clientModel.getNumOfPlayers() + 1);
+        }
+    }
+
+    private void showLastJoined(String playerName) {
+        if (!playerName.equals(this.playerName)) {
+            for (int i = 0; i < 4; i++) {
+                Pane newPane = (Pane) this.stage.getScene().getRoot().lookup("#pane" + i);
+
+                if (!newPane.isVisible()){
+                    Text nickname = (Text) this.stage.getScene().getRoot().lookup("#nickName" + i);
+                    nickname.setText(playerName);
+                    newPane.setVisible(true);
+                    clientModel.setNumOfPlayers(clientModel.getNumOfPlayers() + 1);
+                    return;
+                }
+
+            }
+        }
+    }
+
+    private void removePlayerCard(String playerName) {
+        for (int i = 0; i < 4; i++) {
+            Pane panePlayerLobby = (Pane) this.stage.getScene().getRoot().lookup("#pane" + i);
+            Text nickname = (Text) this.stage.getScene().getRoot().lookup("#nickName" + i);
+            if (nickname != null && nickname.getText().equals(playerName)) {
+                panePlayerLobby.setVisible(false);
+                clientModel.setNumOfPlayers(clientModel.getNumOfPlayers() - 1);
+            }
+
+        }
+    }
+
+    private void changeReady(String playerName, boolean ready) {
+        for (int i = 0; i < 4; i++) {
+            Text nickname = (Text) this.stage.getScene().getRoot().lookup("#nickName" + i);
+            if (nickname != null && nickname.getText().equals(playerName)) {
+                Pane paneReady = (Pane) this.stage.getScene().getRoot().lookup("#ready" + i);
+                paneReady.setVisible(ready);
+            }
+        }
+    }
 
     /**
      * Shows the entered room
@@ -141,6 +205,7 @@ public class GUI extends Application implements UI {
     @Override
     public void showRoom(String roomId) {
         Platform.runLater(() -> switchToScene(SceneEnum.WAITING_ROOM, roomId));
+        Platform.runLater(this::hidePanesInLobby);
     }
 
     /**
@@ -150,7 +215,7 @@ public class GUI extends Application implements UI {
      */
     @Override
     public void showPlayers(List<String> playerNames) {
-
+        Platform.runLater(() -> addLobbyPlayerPanes(playerNames));
     }
 
     /**
@@ -160,7 +225,7 @@ public class GUI extends Application implements UI {
      */
     @Override
     public void showPlayerJoined(String playerName) {
-
+        Platform.runLater(() -> showLastJoined(playerName));
     }
 
     /**
@@ -170,7 +235,7 @@ public class GUI extends Application implements UI {
      */
     @Override
     public void showPlayerLeft(String playerName) {
-
+        Platform.runLater(() -> removePlayerCard(playerName));
     }
 
     /**
@@ -308,7 +373,7 @@ public class GUI extends Application implements UI {
      */
     @Override
     public void updateReady(String playerName, boolean ready) {
-
+        Platform.runLater(() -> changeReady(playerName, ready));
     }
 
     /**

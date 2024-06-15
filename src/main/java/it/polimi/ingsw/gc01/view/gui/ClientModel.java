@@ -10,6 +10,7 @@ public class ClientModel {
     private List<Integer> handIDs;
 
     private Map<String, ClientFieldGUI> fields;
+    private int numOfPlayers = 0;
 
 
     public String getCurrentPlayer() {
@@ -22,6 +23,14 @@ public class ClientModel {
 
     public void setPoints(Map<String, Integer> points) {
         this.points = points;
+    }
+
+    public int getNumOfPlayers() {
+        return numOfPlayers;
+    }
+
+    public void setNumOfPlayers(int numOfPlayers) {
+        this.numOfPlayers = numOfPlayers;
     }
 
     public List<Integer> getHandIDs() {
