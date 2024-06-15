@@ -267,6 +267,41 @@ public class TUI implements UI {
     }
 
     /**
+     * Print the players in the room
+     *
+     * @param playerNames the list of the names of the players in the room
+     */
+    @Override
+    public void showPlayers(List<String> playerNames) {
+        StringBuilder message = new StringBuilder(DefaultValue.ANSI_BLUE + "[Current players in the room: ");
+        for (String names : playerNames) {
+            message.append("- ").append(names).append(" ");
+        }
+        message.append("]\n" + DefaultValue.ANSI_RESET);
+        System.out.println(message);
+    }
+
+    /**
+     * Shows the players that has just joined
+     *
+     * @param playerName the names of the players that has just joined
+     */
+    @Override
+    public void showPlayerJoined(String playerName) {
+        System.out.println(DefaultValue.ANSI_GREEN + "-> " + playerName + " joined!" + DefaultValue.ANSI_RESET);
+    }
+
+    /**
+     * Shows the players that has just left
+     *
+     * @param playerName the names of the players that has just left
+     */
+    @Override
+    public void showPlayerLeft(String playerName) {
+        System.out.println(DefaultValue.ANSI_RED + "-> " + playerName + " left the room!" + DefaultValue.ANSI_RESET);
+    }
+
+    /**
      * Print the notification for the game start
      */
     @Override

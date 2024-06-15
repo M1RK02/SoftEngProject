@@ -216,6 +216,36 @@ public class RmiClient extends UnicastRemoteObject implements VirtualView, Netwo
     }
 
     /**
+     * Show the players in the room
+     *
+     * @param playerNames the names of the players in the room
+     */
+    @Override
+    public void showPlayers(List<String> playerNames) {
+        ui.showPlayers(playerNames);
+    }
+
+    /**
+     * Show the player that has just joined
+     *
+     * @param playerName the names of the player that has just joined
+     */
+    @Override
+    public void showPlayerJoined(String playerName) {
+        ui.showPlayerJoined(playerName);
+    }
+
+    /**
+     * Show the player that has just left
+     *
+     * @param playerName the names of the player that has just left
+     */
+    @Override
+    public void showPlayerLeft(String playerName) {
+        ui.showPlayerLeft(playerName);
+    }
+
+    /**
      * Update the field for the indicated player
      *
      * @param playerName         of the player to update

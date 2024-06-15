@@ -144,6 +144,36 @@ public class GUI extends Application implements UI {
     }
 
     /**
+     * Shows the players in the room
+     *
+     * @param playerNames the names of the players in the room
+     */
+    @Override
+    public void showPlayers(List<String> playerNames) {
+
+    }
+
+    /**
+     * Shows the players that has just joined
+     *
+     * @param playerName the names of the players that has just joined
+     */
+    @Override
+    public void showPlayerJoined(String playerName) {
+
+    }
+
+    /**
+     * Shows the players that has just left
+     *
+     * @param playerName the names of the players that has just left
+     */
+    @Override
+    public void showPlayerLeft(String playerName) {
+
+    }
+
+    /**
      * Shows an error
      *
      * @param error to show

@@ -64,6 +64,38 @@ public class ObserverManager {
         }
     }
 
+    public void showPlayers(String playerName, List<String> playerNames) {
+        synchronized (observers) {
+            VirtualView client = observers.get(playerName);
+            try {
+                client.showPlayers(playerNames);
+            } catch (RemoteException ignored) {
+            }
+        }
+    }
+
+    public void showPlayerJoined(String playerName) {
+        synchronized (observers) {
+            for (VirtualView client : observers.values()) {
+                try {
+                    client.showPlayerJoined(playerName);
+                } catch (RemoteException ignored) {
+                }
+            }
+        }
+    }
+
+    public void showPlayerLeft(String playerName) {
+        synchronized (observers) {
+            for (VirtualView client : observers.values()) {
+                try {
+                    client.showPlayerLeft(playerName);
+                } catch (RemoteException ignored) {
+                }
+            }
+        }
+    }
+
     /**
      * Start the game to every client
      */
