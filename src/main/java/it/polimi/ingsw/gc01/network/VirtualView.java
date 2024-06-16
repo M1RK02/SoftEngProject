@@ -41,6 +41,13 @@ public interface VirtualView extends Remote {
      */
     void showPlayerLeft(String playerName) throws RemoteException;
 
+    /**
+     * Show the waiting scene for every client except the one choosing
+     *
+     * @throws RemoteException
+     */
+    void showWaitingFor(String playerName, String scene) throws RemoteException;
+
 
     /**
      * Start the game

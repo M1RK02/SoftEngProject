@@ -37,6 +37,13 @@ public interface UI {
     void showPlayerLeft(String playerName);
 
     /**
+     * Shows the waiting scene for every client except the one choosing
+     * @param playerName of the player choosing
+     * @param scene the name of the scene waiting for
+     */
+    void showWaitingFor(String playerName, String scene);
+
+    /**
      * Shows an error
      *
      * @param error to show

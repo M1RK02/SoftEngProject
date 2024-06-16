@@ -26,6 +26,7 @@ public class GUI extends Application implements UI {
     private ClientModel clientModel;
     private ClientFieldGUI field;
     private Map<String, ClientFieldGUI> otherFields;
+    private boolean isStarted = false;
 
     @Override
     public void start(Stage primaryStage) {
@@ -188,7 +189,7 @@ public class GUI extends Application implements UI {
     }
 
     private void changeReady(String playerName, boolean ready) {
-        for (int i = 0; i < 4; i++) {
+        for (int i = 0; i < clientModel.getNumOfPlayers(); i++) {
             Text nickname = (Text) this.stage.getScene().getRoot().lookup("#nickName" + i);
             if (nickname != null && nickname.getText().equals(playerName)) {
                 Pane paneReady = (Pane) this.stage.getScene().getRoot().lookup("#ready" + i);
@@ -236,6 +237,29 @@ public class GUI extends Application implements UI {
     @Override
     public void showPlayerLeft(String playerName) {
         Platform.runLater(() -> removePlayerCard(playerName));
+    }
+
+    /**
+     * Shows the waiting scene for every client except the one choosing
+     *
+     * @param playerName of the player choosing
+     * @param scene      the name of the scene waiting for
+     */
+    @Override
+    public void showWaitingFor(String playerName, String scene) {
+        switch (scene) {
+            case "STARTER_SELECTION":
+                Platform.runLater(() -> switchToScene(SceneEnum.WAITING_OTHERS, "Waiting for [" + playerName + "] to choose his starter!"));
+                break;
+            case "COLOR_SELECTION":
+                Platform.runLater(() -> switchToScene(SceneEnum.WAITING_OTHERS, "Waiting for [" + playerName + "] to choose his color!"));
+                break;
+            case "OBJECTIVE_SELECTION":
+                Platform.runLater(() -> switchToScene(SceneEnum.WAITING_OTHERS, "Waiting for [" + playerName + "] to choose his objective!"));
+                break;
+            default:
+                break;
+        }
     }
 
     /**
@@ -381,6 +405,7 @@ public class GUI extends Application implements UI {
      */
     @Override
     public void startGame() {
+        isStarted = true;
     }
 
     /**

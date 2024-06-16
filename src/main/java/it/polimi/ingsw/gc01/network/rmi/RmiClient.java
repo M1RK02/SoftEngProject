@@ -246,6 +246,16 @@ public class RmiClient extends UnicastRemoteObject implements VirtualView, Netwo
     }
 
     /**
+     * Show the waiting scene for every client except the one choosing
+     *
+     * @throws RemoteException
+     */
+    @Override
+    public void showWaitingFor(String playerName, String scene) throws RemoteException {
+        if (!playerName.equals(this.playerName)) ui.showWaitingFor(playerName, scene);
+    }
+
+    /**
      * Update the field for the indicated player
      *
      * @param playerName         of the player to update

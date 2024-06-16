@@ -302,6 +302,17 @@ public class TUI implements UI {
     }
 
     /**
+     * Shows the waiting scene for every client except the one choosing
+     *
+     * @param playerName of the player choosing
+     * @param scene      the name of the scene waiting for
+     */
+    @Override
+    public void showWaitingFor(String playerName, String scene) {
+
+    }
+
+    /**
      * Print the notification for the game start
      */
     @Override

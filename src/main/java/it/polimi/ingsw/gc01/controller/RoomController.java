@@ -126,6 +126,7 @@ public class RoomController {
         currentPlayer.getHand().add(room.getStarterDeck().pick());
         currentPlayer.getHand().get(0).setFront(true);
         ObserverManager notifier = room.getNotifier();
+        notifier.showWaitingFor(currentPlayer.getName(), "STARTER_SELECTION");
         notifier.showStarter(currentPlayer.getName(), (StarterCard) currentPlayer.getHand().getFirst());
     }
 
@@ -135,6 +136,7 @@ public class RoomController {
     private void showAvailableColors() {
         Player currentPlayer = room.getCurrentPlayer();
         ObserverManager notifier = room.getNotifier();
+        notifier.showWaitingFor(currentPlayer.getName(), "COLOR_SELECTION");
         notifier.showAvailableColor(currentPlayer.getName(), room.getAvailableColors());
     }
 
@@ -144,6 +146,7 @@ public class RoomController {
     private void showObjective() {
         Player currentPlayer = room.getCurrentPlayer();
         ObserverManager notifier = room.getNotifier();
+        notifier.showWaitingFor(currentPlayer.getName(), "OBJECTIVE_SELECTION");
         notifier.showSecretObjectives(currentPlayer.getName(), currentPlayer.getPossibleObjectives());
     }
 

@@ -2,12 +2,14 @@ package it.polimi.ingsw.gc01.view.gui.GUIControllers;
 
 
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
 import javafx.scene.image.*;
 
 
 public class ChooseStarterController extends GenericController {
 
     private int id;
+    int choice = -1;
 
     @FXML
     private ImageView starterCardFront;
@@ -16,12 +18,24 @@ public class ChooseStarterController extends GenericController {
 
     @FXML
     private void setFront() {
-        gui.chooseStarter(1, id);
+        choice = 1;
     }
 
     @FXML
     private void setBack() {
-        gui.chooseStarter(0, id);
+        choice = 0;
+    }
+
+    @FXML
+    private void next() {
+        if (choice == -1) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error");
+            alert.setHeaderText("Please select a starter card");
+            alert.showAndWait();
+            return;
+        }
+        gui.chooseStarter(choice, id);
     }
 
     @Override

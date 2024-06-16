@@ -1,6 +1,7 @@
 package it.polimi.ingsw.gc01.view.gui.GUIControllers;
 
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
 import javafx.scene.image.*;
 
 import java.util.List;
@@ -26,10 +27,13 @@ public class ChooseObjectiveController extends GenericController {
     @FXML
     private void confirm() {
         if (selection == -1) {
-            gui.showError("MAIN Please select an objective card");
-        } else{
-            gui.chooseSecretObjective(possibleObjectiveIds.get(selection));
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error");
+            alert.setHeaderText("Please select an objective card");
+            alert.showAndWait();
+            return;
         }
+            gui.chooseSecretObjective(possibleObjectiveIds.get(selection));
     }
 
     @Override

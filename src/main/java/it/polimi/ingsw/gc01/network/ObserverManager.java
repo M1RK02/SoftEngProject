@@ -143,6 +143,22 @@ public class ObserverManager {
     }
 
     /**
+     * Show to every client except the playing one to wait
+     *
+     * @param playerName of the player
+     */
+    public void showWaitingFor(String playerName, String scene) {
+        synchronized (observers) {
+            for (VirtualView client : observers.values()) {
+                try {
+                    client.showWaitingFor(playerName, scene);
+                } catch (RemoteException ignored) {
+                }
+            }
+        }
+    }
+
+    /**
      * Show the list of available colors to the indicated client
      *
      * @param playerName of the player
