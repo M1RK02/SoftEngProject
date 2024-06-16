@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+
+<AnchorPane prefHeight="720.0" prefWidth="1280.0" styleClass="woodenBackground" stylesheets="@../style.css" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.polimi.ingsw.gc01.view.gui.GUIControllers.TablePointController">
+   <children>
+      <Pane layoutX="248.0" layoutY="108.0" prefHeight="720.0" prefWidth="1280.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <ImageView fitHeight="600.0" fitWidth="300.0" layoutX="490.0" layoutY="60.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../images/Scoreboard.png" />
+               </image>
+            </ImageView>
+            <ImageView fx:id="bluePawn" fitHeight="61.0" fitWidth="51.0" pickOnBounds="true" preserveRatio="true" />
+            <ImageView fx:id="greenPawn" fitHeight="61.0" fitWidth="51.0" pickOnBounds="true" preserveRatio="true" />
+            <ImageView fx:id="redPawn" fitHeight="61.0" fitWidth="51.0" pickOnBounds="true" preserveRatio="true" />
+            <ImageView fx:id="yellowPawn" fitHeight="61.0" fitWidth="51.0" pickOnBounds="true" preserveRatio="true" />
+            <Button layoutX="66.0" layoutY="49.0" mnemonicParsing="false" onAction="#goBack" styleClass="record-sales5" stylesheets="@../style.css" text="Back" />
+            <Button layoutX="1018.0" layoutY="172.0" mnemonicParsing="false" onMouseClicked="#addPoints" prefHeight="91.0" prefWidth="140.0" text="Button" />
+         </children>
+      </Pane>
+   </children>
+</AnchorPane>

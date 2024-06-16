@@ -364,8 +364,8 @@ public class RmiClient extends UnicastRemoteObject implements VirtualView, Netwo
      * @param points map of playerName, points
      */
     @Override
-    public void showPoints(Map<String, Integer> points) {
-        ui.showPoints(points);
+    public void showPoints(Map<String, Integer> points, Map<PlayerColor, Integer> tablePoints) {
+        ui.showPoints(points, tablePoints);
     }
 
     /**

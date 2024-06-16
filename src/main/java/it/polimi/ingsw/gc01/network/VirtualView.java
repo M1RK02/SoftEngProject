@@ -127,7 +127,7 @@ public interface VirtualView extends Remote {
      * @param points map of playerName, points
      * @throws RemoteException
      */
-    void showPoints(Map<String, Integer> points) throws RemoteException;
+    void showPoints(Map<String, Integer> points, Map<PlayerColor, Integer> tablePoints) throws RemoteException;
 
     /**
      * Show the possible secret objectives

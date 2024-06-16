@@ -14,4 +14,5 @@ module it.polimi.ingsw.gc01 {
     exports it.polimi.ingsw.gc01.view.gui to javafx.graphics;
     opens it.polimi.ingsw.gc01.view.gui.GUIControllers to javafx.fxml;
     opens it.polimi.ingsw.gc01.view.gui to javafx.fxml;
+    exports it.polimi.ingsw.gc01.model.player;
 }

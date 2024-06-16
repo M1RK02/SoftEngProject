@@ -1,5 +1,7 @@
 package it.polimi.ingsw.gc01.view.gui;
 
+import it.polimi.ingsw.gc01.model.player.PlayerColor;
+
 import java.util.List;
 import java.util.Map;
 
@@ -7,6 +9,7 @@ public class ClientModel {
 
     private String currentPlayer;
     private Map<String, Integer> points;
+    private Map<PlayerColor, Integer> pawnPoints;
     private List<Integer> handIDs;
 
     private Map<String, ClientFieldGUI> fields;
@@ -20,9 +23,15 @@ public class ClientModel {
     public Map<String, Integer> getPoints() {
         return points;
     }
+    public Map<PlayerColor, Integer> getPawnPoints() {
+        return pawnPoints;
+    }
 
     public void setPoints(Map<String, Integer> points) {
         this.points = points;
+    }
+    public void setPawnPoints(Map<PlayerColor, Integer> pawnPoints) {
+        this.pawnPoints = pawnPoints;
     }
 
     public int getNumOfPlayers() {

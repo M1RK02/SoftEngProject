@@ -1,6 +1,7 @@
 package it.polimi.ingsw.gc01.view.tui;
 
-import it.polimi.ingsw.gc01.model.player.*;
+import it.polimi.ingsw.gc01.model.player.PlayerColor;
+import it.polimi.ingsw.gc01.model.player.Position;
 import it.polimi.ingsw.gc01.network.NetworkClient;
 import it.polimi.ingsw.gc01.network.rmi.RmiClient;
 import it.polimi.ingsw.gc01.utils.DefaultValue;
@@ -358,7 +359,7 @@ public class TUI implements UI {
      * @param points map of playerName, points
      */
     @Override
-    public void showPoints(Map<String, Integer> points) {
+    public void showPoints(Map<String, Integer> points, Map<PlayerColor, Integer> tablePoints) {
         System.out.println(DefaultValue.ANSI_BLUE + "-> Points:" + DefaultValue.ANSI_RESET);
         for (String playerName : points.keySet()) {
             System.out.println(DefaultValue.ANSI_BLUE + playerName + ": " + points.get(playerName) + " points" + DefaultValue.ANSI_RESET);

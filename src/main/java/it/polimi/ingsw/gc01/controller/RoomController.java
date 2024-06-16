@@ -165,10 +165,12 @@ public class RoomController {
     private void showPoints() {
         ObserverManager notifier = room.getNotifier();
         Map<String, Integer> points = new HashMap<>();
+        Map<PlayerColor, Integer> tablePoints = new HashMap<>();
         for (Player player : room.getPlayers()) {
             points.put(player.getName(), player.getPoints());
+            tablePoints.put(player.getColor(), player.getPoints());
         }
-        notifier.showPoints(points);
+        notifier.showPoints(points, tablePoints);
     }
 
     /**

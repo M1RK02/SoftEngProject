@@ -14,7 +14,7 @@ public enum SceneEnum {
     DRAW("/FXML/Draw.fxml"),
     OBJECTIVES("/FXML/Objectives.fxml"),
     OTHERS_FIELD("/FXML/OthersField.fxml"),
-    SCOREBOARD("/FXML/Scoreboard.fxml"),
+    TABLE_POINT("/FXML/TablePoint.fxml"),
     WIN("/FXML/Win.fxml");
 
     private final String path;

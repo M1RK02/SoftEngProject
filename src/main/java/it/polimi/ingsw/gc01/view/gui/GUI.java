@@ -100,7 +100,7 @@ public class GUI extends Application implements UI {
 
     public void chooseSecretObjective(int id) {
         networkClient.chooseSecretObjective(id);
-        switchToScene(SceneEnum.WAITING_OTHERS, "Waiting for others to choose their secret objective");
+        //switchToScene(SceneEnum.WAITING_OTHERS, "Waiting for others to choose their secret objective");
     }
 
 
@@ -127,12 +127,12 @@ public class GUI extends Application implements UI {
             networkClient.flipCard(cardId);
             networkClient.playCard(cardId, new Position(0, 0));
         }
-        switchToScene(SceneEnum.WAITING_OTHERS, "Waiting for others to choose their starter");
+        //switchToScene(SceneEnum.WAITING_OTHERS, "Waiting for others to choose their starter");
     }
 
     public void chooseColor(String color) {
         networkClient.chooseColor(PlayerColor.valueOf(color));
-        switchToScene(SceneEnum.WAITING_OTHERS, "Waiting for others to choose their color");
+        //switchToScene(SceneEnum.WAITING_OTHERS, "Waiting for others to choose their color");
     }
 
     /**
@@ -198,6 +198,16 @@ public class GUI extends Application implements UI {
         }
     }
 
+    public void showTablePoints(){
+        //Platform.runLater(() -> switchToScene(SceneEnum.TABLE_POINT, clientModel.getPawnPoints()));
+        switchToScene(SceneEnum.TABLE_POINT, clientModel.getPawnPoints());
+    }
+
+    public void backToPlay(){
+        //Platform.runLater(() -> switchToScene(SceneEnum.PLAY, clientModel, field.generateField()));
+        switchToScene(SceneEnum.PLAY, clientModel, field.generateField());
+    }
+
     /**
      * Shows the entered room
      *
@@ -261,6 +271,7 @@ public class GUI extends Application implements UI {
                 break;
         }
     }
+
 
     /**
      * Shows an error
@@ -365,8 +376,10 @@ public class GUI extends Application implements UI {
      * @param points map of playerName, points
      */
     @Override
-    public void showPoints(Map<String, Integer> points) {
+    public void showPoints(Map<String, Integer> points, Map<PlayerColor, Integer> tablePoints) {
         clientModel.setPoints(points);
+        clientModel.setPawnPoints(tablePoints);
+        //this.switchToScene(SceneEnum.TABLE_POINT, clientModel.getPawnPoints());
     }
 
     /**

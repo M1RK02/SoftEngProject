@@ -25,4 +25,9 @@ public class PlayController extends GenericController{
         points.setText("Points: " + clientModel.getPoints().get(currentPlayer));
         scrollPane.setContent(gridPane);
     }
+
+    @FXML
+    private void showTablePoints(){
+        gui.showTablePoints();
+    }
 }

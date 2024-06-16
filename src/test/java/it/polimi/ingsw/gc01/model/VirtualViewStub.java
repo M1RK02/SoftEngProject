@@ -16,6 +16,51 @@ public class VirtualViewStub implements VirtualView {
         this.roomId = roomId;
     }
 
+    /**
+     * Show the players in the room
+     *
+     * @param playerNames the names of the players in the room
+     * @throws RemoteException
+     */
+    @Override
+    public void showPlayers(List<String> playerNames) throws RemoteException {
+
+    }
+
+    /**
+     * Show the player that has just joined
+     *
+     * @param playerName the names of the player that has just joined
+     * @throws RemoteException
+     */
+    @Override
+    public void showPlayerJoined(String playerName) throws RemoteException {
+
+    }
+
+    /**
+     * Show the player that has just left
+     *
+     * @param playerName the names of the player that has just left
+     * @throws RemoteException
+     */
+    @Override
+    public void showPlayerLeft(String playerName) throws RemoteException {
+
+    }
+
+    /**
+     * Show the waiting scene for every client except the one choosing
+     *
+     * @param playerName
+     * @param scene
+     * @throws RemoteException
+     */
+    @Override
+    public void showWaitingFor(String playerName, String scene) throws RemoteException {
+
+    }
+
     @Override
     public void updateCurrentPlayer(String playerName) throws RemoteException {
 
@@ -57,7 +102,7 @@ public class VirtualViewStub implements VirtualView {
     }
 
     @Override
-    public void showPoints(Map<String, Integer> points) throws RemoteException {
+    public void showPoints(Map<String, Integer> points, Map<PlayerColor, Integer> tablePoints) throws RemoteException {
 
     }
 

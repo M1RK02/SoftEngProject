@@ -293,11 +293,11 @@ public class ObserverManager {
      *
      * @param points map of playerName, points
      */
-    public void showPoints(Map<String, Integer> points) {
+    public void showPoints(Map<String, Integer> points, Map<PlayerColor, Integer> tablePoints) {
         synchronized (observers) {
             for (VirtualView client : observers.values()) {
                 try {
-                    client.showPoints(points);
+                    client.showPoints(points, tablePoints);
                 } catch (RemoteException ignored) {
                 }
             }
