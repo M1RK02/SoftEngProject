@@ -211,6 +211,10 @@ public class GUI extends Application implements UI {
         switchToScene(SceneEnum.PLAY, clientModel, field.generateField());
     }
 
+    public void chooseCardToDraw(int cardId){
+        networkClient.drawCard(cardId);
+    }
+
     /**
      * Shows the entered room
      *
@@ -453,7 +457,7 @@ public class GUI extends Application implements UI {
      */
     @Override
     public void showTable(Map<Integer, Integer> drawableCardsIds) {
-
+        Platform.runLater(() -> switchToScene(SceneEnum.DRAW_CARD, drawableCardsIds));
     }
 
     /**

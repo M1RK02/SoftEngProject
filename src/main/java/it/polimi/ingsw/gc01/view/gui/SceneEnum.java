@@ -11,7 +11,7 @@ public enum SceneEnum {
     CHOOSE_OBJECTIVE("/FXML/ChooseObjective.fxml"),
     WAITING_OTHERS("/FXML/WaitingOthers.fxml"),
     PLAY("/FXML/Play.fxml"),
-    DRAW("/FXML/Draw.fxml"),
+    DRAW_CARD("/FXML/DrawCard.fxml"),
     OTHERS_FIELD("/FXML/OthersField.fxml"),
     TABLE_POINT("/FXML/TablePoint.fxml"),
     OBJECTIVES("/FXML/ShowObjectives.fxml"),
