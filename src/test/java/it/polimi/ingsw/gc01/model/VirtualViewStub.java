@@ -92,6 +92,11 @@ public class VirtualViewStub implements VirtualView {
     }
 
     @Override
+    public void updateTable(Map<Integer, Integer> drawableCardsIds) throws RemoteException {
+
+    }
+
+    @Override
     public void showHand(List<Integer> cardIds) throws RemoteException {
 
     }

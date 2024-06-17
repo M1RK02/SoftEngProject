@@ -31,15 +31,15 @@
          </cursor></ScrollPane>
       <Button alignment="CENTER_RIGHT" layoutX="-40.0" layoutY="90.0" mnemonicParsing="false" onMouseClicked="#showTablePoints" prefHeight="50.0" prefWidth="180.0" styleClass="record-sales5" stylesheets="@../style.css" text="ScoreBoard" />
       <Button alignment="CENTER_RIGHT" layoutX="-40.0" layoutY="160.0" mnemonicParsing="false" onMouseClicked="#showObjectives" prefHeight="50.0" prefWidth="180.0" styleClass="record-sales6" stylesheets="@../style.css" text="Objectives" />
-      <ImageView fx:id="handRight" fitHeight="150.0" fitWidth="225.0" layoutX="981.0" layoutY="541.0" onDragDetected="#dragDetected" onDragDone="#dragDone" onMouseClicked="#flipCard" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="handRight" fitHeight="150.0" fitWidth="225.0" layoutX="981.0" layoutY="541.0" onDragDetected="#dragDetected" onMouseClicked="#flipCard" pickOnBounds="true" preserveRatio="true">
          <cursor>
             <Cursor fx:constant="HAND" />
          </cursor></ImageView>
-      <ImageView fx:id="handCenter" fitHeight="150.0" fitWidth="225.0" layoutX="721.0" layoutY="541.0" onDragDetected="#dragDetected" onDragDone="#dragDone" onMouseClicked="#flipCard" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="handCenter" fitHeight="150.0" fitWidth="225.0" layoutX="721.0" layoutY="541.0" onDragDetected="#dragDetected" onMouseClicked="#flipCard" pickOnBounds="true" preserveRatio="true">
          <cursor>
             <Cursor fx:constant="HAND" />
          </cursor></ImageView>
-      <ImageView fx:id="handLeft" fitHeight="150.0" fitWidth="225.0" layoutX="461.0" layoutY="541.0" onDragDetected="#dragDetected" onDragDone="#dragDone" onMouseClicked="#flipCard" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="handLeft" fitHeight="150.0" fitWidth="225.0" layoutX="461.0" layoutY="541.0" onDragDetected="#dragDetected" onMouseClicked="#flipCard" pickOnBounds="true" preserveRatio="true">
          <cursor>
             <Cursor fx:constant="HAND" />
          </cursor></ImageView>

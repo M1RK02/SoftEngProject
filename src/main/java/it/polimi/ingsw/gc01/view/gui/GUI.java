@@ -342,7 +342,7 @@ public class GUI extends Application implements UI {
      */
     @Override
     public void showServiceMessage(String message) {
-
+        //TODO A che cazzo serve sulla gui sto lazzaro? Manca qualcosa?
     }
 
     /**
@@ -350,7 +350,7 @@ public class GUI extends Application implements UI {
      */
     @Override
     public void showLastCircle() {
-
+        //TODO A che cazzo serve sulla gui sto lazzaro? Manca qualcosa?
     }
 
     /**
@@ -413,8 +413,7 @@ public class GUI extends Application implements UI {
     @Override
     public void showPoints(Map<String, Integer> points, Map<PlayerColor, Integer> tablePoints) {
         clientModel.setPoints(points);
-        clientModel.setPawnPoints(tablePoints);
-        //this.switchToScene(SceneEnum.TABLE_POINT, clientModel.getPawnPoints());
+        clientModel.setPawnPoints(tablePoints);;
     }
 
     /**
@@ -514,6 +513,6 @@ public class GUI extends Application implements UI {
      */
     @Override
     public void backToMenu() {
-
+        //TODO A che cazzo serve sulla gui sto lazzaro? Manca qualcosa?
     }
 }

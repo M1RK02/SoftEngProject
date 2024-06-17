@@ -1,7 +1,6 @@
 package it.polimi.ingsw.gc01.view.gui;
 
 import it.polimi.ingsw.gc01.model.player.Position;
-import javafx.geometry.*;
 import javafx.scene.image.*;
 import javafx.scene.input.Dragboard;
 import javafx.scene.input.TransferMode;
@@ -22,10 +21,12 @@ public class ClientFieldGUI {
    private final Map<Integer, Position> field;
    private List<Position> availablePositions;
 
-   private double cardWidth = 993.0/5;
-   private double cardHeight = 662.0/5;
-   private double horizontalGap = 225.0/5;
-   private double verticalGap = 270.0/5;
+   private int maxY, minX;
+   private final int scaleFactor = 5;
+   private final double cardWidth = 993.0/scaleFactor;
+   private final double cardHeight = 662.0/scaleFactor;
+   private final double horizontalGap = 225.0/scaleFactor;
+   private final double verticalGap = 270.0/scaleFactor;
 
    public ClientFieldGUI(GUI gui){
        this.cards= new ArrayList<>();
@@ -50,13 +51,10 @@ public class ClientFieldGUI {
       this.availablePositions=availablePositions;
    }
 
-   public GridPane generateField() {
-      GridPane grid = new GridPane();
-      grid.setHgap(horizontalGap);
-      grid.setVgap(verticalGap);
-      grid.setPadding(new Insets(verticalGap, horizontalGap, verticalGap, horizontalGap));
-      int maxY = concat(field.values().stream(), availablePositions.stream()).mapToInt(Position::getY).max().orElse(40);
-      int minX = concat(field.values().stream(), availablePositions.stream()).mapToInt(Position::getX).min().orElse(-40);
+   public Pane generateField() {
+      Pane fieldPane = new Pane();
+      maxY = concat(field.values().stream(), availablePositions.stream()).mapToInt(Position::getY).max().orElse(40);
+      minX = concat(field.values().stream(), availablePositions.stream()).mapToInt(Position::getX).min().orElse(-40);
 
       for (Position position : availablePositions) {
          ImageView available = new ImageView(new Image(getClass().getResourceAsStream("/images/cards/available.png")));
@@ -74,7 +72,7 @@ public class ClientFieldGUI {
             if (db.hasImage() && db.hasString()) {
                String id = db.getString();
                boolean side = true;
-               int cardId=-1;
+               int cardId;
                if(id.contains("Back")){
                   side = false;
                   cardId = Integer.parseInt(id.substring(4));
@@ -87,14 +85,11 @@ public class ClientFieldGUI {
             event.setDropCompleted(success);
             event.consume();
          });
-
-
          available.setFitWidth(cardWidth);
          available.setFitHeight(cardHeight);
-         GridPane.setMargin(available, new Insets(-verticalGap+10, -horizontalGap+10, -verticalGap+10, -horizontalGap+10));
-         GridPane.setHalignment(available, HPos.CENTER);
-         GridPane.setValignment(available, VPos.CENTER);
-         grid.add(available, position.getX()-minX, maxY-position.getY());
+         available.setLayoutX(realX(position.getX()));
+         available.setLayoutY(realY(position.getY()));
+         fieldPane.getChildren().add(available);
       }
 
       for (Integer card : cards) {
@@ -105,15 +100,21 @@ public class ClientFieldGUI {
             imagePath = "/images/cards/Back" + card + ".png";
          }
          ImageView cardPlace = new ImageView(new Image(getClass().getResourceAsStream(imagePath)));
-         cardPlace.setId(String.valueOf(card));
          cardPlace.setFitWidth(cardWidth);
          cardPlace.setFitHeight(cardHeight);
-         GridPane.setMargin(cardPlace, new Insets(-verticalGap, -horizontalGap, -verticalGap, -horizontalGap));
-         GridPane.setHalignment(cardPlace, HPos.CENTER);
-         GridPane.setValignment(cardPlace, VPos.CENTER);
-         grid.add(cardPlace, field.get(card).getX()-minX, maxY-field.get(card).getY());
+         cardPlace.setLayoutX(realX(field.get(card).getX()));
+         cardPlace.setLayoutY(realY(field.get(card).getY()));
+         fieldPane.getChildren().add(cardPlace);
       }
 
-      return grid;
+      return fieldPane;
+   }
+
+   private double realX(int x) {
+      return (x-minX) * (cardWidth-horizontalGap);
+   }
+
+   private double realY(int y) {
+      return (maxY-y) * (cardHeight-verticalGap);
    }
 }

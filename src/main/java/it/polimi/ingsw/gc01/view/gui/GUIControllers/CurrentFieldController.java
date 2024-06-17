@@ -4,7 +4,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
-import javafx.scene.layout.GridPane;
+import javafx.scene.layout.*;
 
 public class CurrentFieldController extends GenericController{
     private String playerName;
@@ -17,14 +17,14 @@ public class CurrentFieldController extends GenericController{
 
     @Override
     public void setAttributes(Object... o) {
-        GridPane gridPane = (GridPane) o[0];
+        Pane pane = (Pane) o[0];
         this.playerName = (String) o[1];
         boolean canGoBack = (boolean) o[2];
         if(!canGoBack){
             goBack.setDisable(true);
             goBack.setVisible(false);
         }
-        scrollPane.setContent(gridPane);
+        scrollPane.setContent(pane);
         turn.setText("Turn: " + playerName);
     }
 

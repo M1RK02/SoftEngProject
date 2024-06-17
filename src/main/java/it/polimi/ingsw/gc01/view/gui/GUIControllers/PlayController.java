@@ -10,7 +10,7 @@ import javafx.scene.input.ClipboardContent;
 import javafx.scene.input.DragEvent;
 import javafx.scene.input.Dragboard;
 import javafx.scene.input.TransferMode;
-import javafx.scene.layout.GridPane;
+import javafx.scene.layout.*;
 
 
 public class PlayController extends GenericController{
@@ -34,11 +34,11 @@ public class PlayController extends GenericController{
     public void setAttributes(Object... o) {
 
         ClientModel clientModel = (ClientModel) o[0];
-        GridPane gridPane = (GridPane) o[1];
+        Pane pane = (Pane) o[1];
         String currentPlayer = clientModel.getCurrentPlayer();
         turn.setText("Turn: " + currentPlayer);
         points.setText("Points: " + clientModel.getPoints().get(currentPlayer));
-        scrollPane.setContent(gridPane);
+        scrollPane.setContent(pane);
 
         Image left = new Image(getClass().getResourceAsStream("/images/cards/Front" + clientModel.getHandIDs().get(0) + ".png"));
         Image center = new Image(getClass().getResourceAsStream("/images/cards/Front" + clientModel.getHandIDs().get(1) + ".png"));
@@ -65,15 +65,6 @@ public class PlayController extends GenericController{
         // Set the drag view to show the image under the mouse cursor
         db.setDragView(imageView.getImage());
 
-        event.consume();
-    }
-
-    @FXML
-    private void dragDone(DragEvent event){
-        ImageView imageView = (ImageView) event.getSource();
-        if (event.getTransferMode() == TransferMode.MOVE) {
-            imageView.setImage(null);
-        }
         event.consume();
     }
 
