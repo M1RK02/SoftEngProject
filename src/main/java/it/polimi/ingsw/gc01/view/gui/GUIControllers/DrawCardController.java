@@ -4,8 +4,10 @@ import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.text.Text;
 
 import java.util.Map;
 
@@ -23,6 +25,8 @@ public class DrawCardController extends GenericController{
     private ImageView goldenLeft;
     @FXML
     private ImageView goldenRight;
+    @FXML
+    private Text title;
     @FXML
     private Button goBack;
 
@@ -51,9 +55,11 @@ public class DrawCardController extends GenericController{
             goldenDeck.setDisable(true);
             goldenLeft.setDisable(true);
             goldenRight.setDisable(true);
+            title.setVisible(false);
         }else {
             goBack.setDisable(true);
             goBack.setVisible(false);
+            title.setVisible(true);
         }
 
         if (drawableCardsIds.get(1) != null) {

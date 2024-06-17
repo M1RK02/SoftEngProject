@@ -19,9 +19,9 @@
             <ImageView fx:id="greenPawn" fitHeight="61.0" fitWidth="51.0" pickOnBounds="true" preserveRatio="true" />
             <ImageView fx:id="redPawn" fitHeight="61.0" fitWidth="51.0" pickOnBounds="true" preserveRatio="true" />
             <ImageView fx:id="yellowPawn" fitHeight="61.0" fitWidth="51.0" pickOnBounds="true" preserveRatio="true" />
-            <Button layoutX="66.0" layoutY="49.0" mnemonicParsing="false" onAction="#goBack" styleClass="record-sales5" stylesheets="@../style.css" text="Back" />
             <Button layoutX="1018.0" layoutY="172.0" mnemonicParsing="false" onMouseClicked="#addPoints" prefHeight="91.0" prefWidth="140.0" text="Button" />
          </children>
       </Pane>
+      <Button fx:id="goBack" alignment="CENTER_RIGHT" layoutX="-30.0" layoutY="100.0" mnemonicParsing="false" onMouseClicked="#goBack" prefHeight="50.0" prefWidth="170.0" styleClass="record-sales5" stylesheets="@../style.css" text="Back" textAlignment="RIGHT" />
    </children>
 </AnchorPane>
