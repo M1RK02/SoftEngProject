@@ -100,7 +100,7 @@ public class GUI extends Application implements UI {
 
     public void chooseSecretObjective(int id) {
         networkClient.chooseSecretObjective(id);
-        //switchToScene(SceneEnum.WAITING_OTHERS, "Waiting for others to choose their secret objective");
+        clientModel.setSecretObjective(id);
     }
 
 
@@ -199,8 +199,11 @@ public class GUI extends Application implements UI {
     }
 
     public void showTablePoints(){
-        //Platform.runLater(() -> switchToScene(SceneEnum.TABLE_POINT, clientModel.getPawnPoints()));
         switchToScene(SceneEnum.TABLE_POINT, clientModel.getPawnPoints());
+    }
+
+    public void showObjectives(){
+        switchToScene(SceneEnum.OBJECTIVES, clientModel.getCommonObjective1(), clientModel.getCommonObjective2(), clientModel.getSecretObjective());
     }
 
     public void backToPlay(){
@@ -460,7 +463,7 @@ public class GUI extends Application implements UI {
      */
     @Override
     public void showCommonObjectives(List<Integer> objectiveIds) {
-
+        clientModel.setCommonObjectives(objectiveIds.get(0), objectiveIds.get(1));
     }
 
     /**

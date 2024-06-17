@@ -12,9 +12,9 @@ public enum SceneEnum {
     WAITING_OTHERS("/FXML/WaitingOthers.fxml"),
     PLAY("/FXML/Play.fxml"),
     DRAW("/FXML/Draw.fxml"),
-    OBJECTIVES("/FXML/Objectives.fxml"),
     OTHERS_FIELD("/FXML/OthersField.fxml"),
     TABLE_POINT("/FXML/TablePoint.fxml"),
+    OBJECTIVES("/FXML/ShowObjectives.fxml"),
     WIN("/FXML/Win.fxml");
 
     private final String path;

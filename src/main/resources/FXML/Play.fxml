@@ -8,7 +8,7 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="720.0" prefWidth="1280.0" styleClass="woodenBackground" stylesheets="@../style.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.polimi.ingsw.gc01.view.gui.GUIControllers.PlayController">
+<AnchorPane prefHeight="720.0" prefWidth="1280.0" styleClass="woodenBackground" stylesheets="@../style.css" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.polimi.ingsw.gc01.view.gui.GUIControllers.PlayController">
    <children>
       <Pane fx:id="turnContainer" layoutX="5.0" layoutY="4.0" prefHeight="69.0" prefWidth="118.0">
          <children>
@@ -28,6 +28,7 @@
          <cursor>
             <Cursor fx:constant="HAND" />
          </cursor></ScrollPane>
-      <Button alignment="CENTER_RIGHT" layoutX="-41.0" layoutY="89.0" mnemonicParsing="false" onMouseClicked="#showTablePoints" prefHeight="51.0" prefWidth="173.0" styleClass="record-sales5" stylesheets="@../style.css" text="TablePoint" />
+      <Button alignment="CENTER_RIGHT" layoutX="-40.0" layoutY="90.0" mnemonicParsing="false" onMouseClicked="#showTablePoints" prefHeight="51.0" prefWidth="173.0" styleClass="record-sales5" stylesheets="@../style.css" text="TablePoint" />
+      <Button alignment="CENTER_RIGHT" layoutX="-40.0" layoutY="160.0" mnemonicParsing="false" onMouseClicked="#showObjectives" prefHeight="51.0" prefWidth="173.0" styleClass="record-sales6" stylesheets="@../style.css" text="Objectives" />
    </children>
 </AnchorPane>

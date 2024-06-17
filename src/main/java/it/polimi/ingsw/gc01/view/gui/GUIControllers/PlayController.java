@@ -30,4 +30,9 @@ public class PlayController extends GenericController{
     private void showTablePoints(){
         gui.showTablePoints();
     }
+
+    @FXML
+    private void showObjectives(){
+        gui.showObjectives();
+    }
 }
