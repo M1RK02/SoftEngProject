@@ -3,6 +3,7 @@ package it.polimi.ingsw.gc01.view.gui.GUIControllers;
 import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
@@ -22,6 +23,8 @@ public class DrawCardController extends GenericController{
     private ImageView goldenLeft;
     @FXML
     private ImageView goldenRight;
+    @FXML
+    private Button goBack;
 
     @FXML
     private void drawCard(Event event) {
@@ -29,11 +32,29 @@ public class DrawCardController extends GenericController{
         gui.chooseCardToDraw(Integer.parseInt(img.getId()));
     }
 
+    @FXML
+    private void goBack(){
+        gui.backToPlay();
+    }
+
 
 
     @Override
     public void setAttributes(Object... o) {
         Map<Integer, Integer> drawableCardsIds = (Map<Integer, Integer>) o[0];
+        boolean canDraw = (boolean) o[1];
+
+        if (!canDraw){
+            resourceDeck.setDisable(true);
+            resourceLeft.setDisable(true);
+            resourceRight.setDisable(true);
+            goldenDeck.setDisable(true);
+            goldenLeft.setDisable(true);
+            goldenRight.setDisable(true);
+        }else {
+            goBack.setDisable(true);
+            goBack.setVisible(false);
+        }
 
         if (drawableCardsIds.get(1) != null) {
             Image resourceDeckImage = new Image(getClass().getResourceAsStream("/images/cards/Back" + drawableCardsIds.get(1) + ".png"));

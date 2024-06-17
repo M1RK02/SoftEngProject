@@ -28,6 +28,7 @@ public class PlayController extends GenericController{
 
     @Override
     public void setAttributes(Object... o) {
+
         ClientModel clientModel = (ClientModel) o[0];
         GridPane gridPane = (GridPane) o[1];
         String currentPlayer = clientModel.getCurrentPlayer();
@@ -56,6 +57,16 @@ public class PlayController extends GenericController{
     @FXML
     private void showObjectives(){
         gui.showObjectives();
+    }
+
+    @FXML
+    private void showDrawables(){
+        gui.showDrawables();
+    }
+
+    @FXML
+    private void showOtherFields(){
+        gui.showOtherFields();
     }
 
     @FXML

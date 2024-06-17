@@ -729,6 +729,15 @@ public class TUI implements UI {
     }
 
     /**
+     * Update the drawable cards on the table
+     *
+     * @param drawableCardsIds the map of the ids with the positions in the table
+     */
+    @Override
+    public void updateTable(Map<Integer, Integer> drawableCardsIds) {
+    }
+
+    /**
      * Propose the choice of the card to draw
      */
     private void chooseCardToDraw() {

@@ -339,6 +339,17 @@ public class RmiClient extends UnicastRemoteObject implements VirtualView, Netwo
     }
 
     /**
+     * Update the drawable cards on the table
+     *
+     * @param drawableCardsIds the map of the ids with the positions in the table
+     * @throws RemoteException
+     */
+    @Override
+    public void updateTable(Map<Integer, Integer> drawableCardsIds) throws RemoteException {
+        ui.updateTable(drawableCardsIds);
+    }
+
+    /**
      * Show the hand
      *
      * @param handIds list of card ids in the hand

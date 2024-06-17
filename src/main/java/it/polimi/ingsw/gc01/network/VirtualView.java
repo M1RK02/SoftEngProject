@@ -106,6 +106,14 @@ public interface VirtualView extends Remote {
     void showTable(Map<Integer, Integer> drawableCardsIds) throws RemoteException;
 
     /**
+     * Update the drawable cards on the table
+     *
+     * @param drawableCardsIds the map of the ids with the positions in the table
+     * @throws RemoteException
+     */
+    void updateTable(Map<Integer, Integer> drawableCardsIds) throws RemoteException;
+
+    /**
      * Show the hand
      *
      * @param cardIds list of card ids in the hand

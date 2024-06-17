@@ -272,6 +272,66 @@
     -fx-effect: dropshadow( gaussian , #a30000 , 0,0,0,2 );
 }
 
+.record-sales7 {
+    -fx-padding: 8 15 15 15;
+    -fx-background-insets: 0,0 0 5 0, 0 0 6 0, 0 0 7 0;
+    -fx-background-radius: 8;
+    -fx-background-color:
+            linear-gradient(from 0% 93% to 0% 100%, #fab22c 0%, #f5d11f 100%),
+            #e79f56,
+            #804c00,
+            radial-gradient(center 50% 50%, radius 100%, #dcb655, #ffd919);
+    -fx-effect: dropshadow( gaussian , rgba(0,0,0,0.75) , 4,0,0,1 );
+    -fx-font-weight: bold;
+    -fx-font-size:22;
+}
+.record-sales7:hover {
+    -fx-background-color:
+            linear-gradient(from 0% 93% to 0% 100%, #3fb020 0%, #86a65e 100%),
+            #76b020,
+            #8ca65e,
+            radial-gradient(center 50% 50%, radius 100%, #3ab020, #009a03);
+    -fx-font-size:22px !important;
+}
+.record-sales7:pressed {
+    -fx-padding: 10 15 13 15;
+    -fx-background-insets: 2 0 0 0,2 0 3 0, 2 0 4 0, 2 0 5 0;
+}
+.record-sales7 Text {
+    -fx-fill: white;
+    -fx-effect: dropshadow( gaussian , #a30000 , 0,0,0,2 );
+}
+
+.record-sales8 {
+    -fx-padding: 8 15 15 15;
+    -fx-background-insets: 0,0 0 5 0, 0 0 6 0, 0 0 7 0;
+    -fx-background-radius: 8;
+    -fx-background-color:
+            linear-gradient(from 0% 93% to 0% 100%, #d42cfa 0%, #ee1ff5 100%),
+            #b756e7,
+            #5b0f8c,
+            radial-gradient(center 50% 50%, radius 100%, #9f55dc, #e019ff);
+    -fx-effect: dropshadow( gaussian , rgba(0,0,0,0.75) , 4,0,0,1 );
+    -fx-font-weight: bold;
+    -fx-font-size:22;
+}
+.record-sales8:hover {
+    -fx-background-color:
+            linear-gradient(from 0% 93% to 0% 100%, #205ab0 0%, #5e5fa6 100%),
+            #2074b0,
+            #5e75a6,
+            radial-gradient(center 50% 50%, radius 100%, #205ab0, #004d9a);
+    -fx-font-size:22px !important;
+}
+.record-sales8:pressed {
+    -fx-padding: 10 15 13 15;
+    -fx-background-insets: 2 0 0 0,2 0 3 0, 2 0 4 0, 2 0 5 0;
+}
+.record-sales8 Text {
+    -fx-fill: white;
+    -fx-effect: dropshadow( gaussian , #a30000 , 0,0,0,2 );
+}
+
 
 .rich-blue {
     -fx-background-color:
@@ -450,5 +510,8 @@
 }
 
 .scroll-pane > .viewport {
+    -fx-background-color: transparent;
+}
+.scroll-pane {
     -fx-background-color: transparent;
 }

@@ -13,10 +13,19 @@ public class ClientModel {
     private List<Integer> handIDs;
     private Map<String, ClientFieldGUI> fields;
     private int numOfPlayers = 0;
-
     private int commonObjective1;
     private int commonObjective2;
     private int secretObjective;
+
+    private Map<Integer, Integer> drawableCardsIds;
+
+    public Map<Integer, Integer> getDrawableCardsIds() {
+        return drawableCardsIds;
+    }
+
+    public void setDrawableCardsIds(Map<Integer, Integer> drawableCardsIds) {
+        this.drawableCardsIds = drawableCardsIds;
+    }
 
     public String getCurrentPlayer() {
         return currentPlayer;

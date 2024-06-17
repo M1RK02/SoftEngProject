@@ -104,6 +104,7 @@ public class GUI extends Application implements UI {
     }
 
 
+
     public void joinFirstGame() {
         networkClient.joinFirstGame();
     }
@@ -211,7 +212,6 @@ public class GUI extends Application implements UI {
     }
 
     public void backToPlay(){
-        //Platform.runLater(() -> switchToScene(SceneEnum.PLAY, clientModel, field.generateField()));
         switchToScene(SceneEnum.PLAY, clientModel, field.generateField());
     }
 
@@ -224,6 +224,18 @@ public class GUI extends Application implements UI {
         networkClient.flipCard(card);
         networkClient.playCard(card, field.getAvailablePositions().get(0));
         field.playCard(card, false, field.getAvailablePositions().get(0));
+    }
+
+    public void showDrawables(){
+        switchToScene(SceneEnum.DRAW_CARD, clientModel.getDrawableCardsIds(), false);
+    }
+
+    public void showOtherFields(){
+        switchToScene(SceneEnum.CHOOSE_OTHER_FIELDS, otherFields);
+    }
+
+    public void showOtherFields(String playerName){
+        switchToScene(SceneEnum.CURRENT_FIELD, otherFields.get(playerName).generateField(), playerName, true);
     }
 
     /**
@@ -385,6 +397,9 @@ public class GUI extends Application implements UI {
      */
     @Override
     public void showField(String playerName) {
+        if (!playerName.equals(this.playerName)) {
+            Platform.runLater(() -> switchToScene(SceneEnum.CURRENT_FIELD, otherFields.get(playerName).generateField(), playerName, false));
+        }
     }
 
     /**
@@ -468,7 +483,17 @@ public class GUI extends Application implements UI {
      */
     @Override
     public void showTable(Map<Integer, Integer> drawableCardsIds) {
-        Platform.runLater(() -> switchToScene(SceneEnum.DRAW_CARD, drawableCardsIds));
+        Platform.runLater(() -> switchToScene(SceneEnum.DRAW_CARD, drawableCardsIds, true));
+    }
+
+    /**
+     * Update the drawable cards on the table
+     *
+     * @param drawableCardsIds the map of the ids with the positions in the table
+     */
+    @Override
+    public void updateTable(Map<Integer, Integer> drawableCardsIds) {
+        clientModel.setDrawableCardsIds(drawableCardsIds);
     }
 
     /**

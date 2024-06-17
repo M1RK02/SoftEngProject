@@ -150,6 +150,12 @@ public interface UI {
     void showTable(Map<Integer, Integer> drawableCardsIds);
 
     /**
+     * Update the drawable cards on the table
+     * @param drawableCardsIds the map of the ids with the positions in the table
+     */
+    void updateTable(Map<Integer, Integer> drawableCardsIds);
+
+    /**
      * Show the common objectives
      *
      * @param objectiveIds list of objective card ids

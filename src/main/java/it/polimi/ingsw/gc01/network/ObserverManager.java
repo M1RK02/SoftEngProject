@@ -238,6 +238,28 @@ public class ObserverManager {
         }
     }
 
+    public void updateTable(Map<TablePosition, ResourceCard> drawableCards) {
+        Map<Integer, Integer> drawableIds = new HashMap<>();
+        for (TablePosition position : drawableCards.keySet()) {
+            switch (position) {
+                case RESOURCEDECK -> drawableIds.put(1, drawableCards.get(TablePosition.RESOURCEDECK).getId());
+                case RESOURCELEFT -> drawableIds.put(2, drawableCards.get(TablePosition.RESOURCELEFT).getId());
+                case RESOURCERIGHT -> drawableIds.put(3, drawableCards.get(TablePosition.RESOURCERIGHT).getId());
+                case GOLDENDECK -> drawableIds.put(4, drawableCards.get(TablePosition.GOLDENDECK).getId());
+                case GOLDENLEFT -> drawableIds.put(5, drawableCards.get(TablePosition.GOLDENLEFT).getId());
+                case GOLDENRIGHT -> drawableIds.put(6, drawableCards.get(TablePosition.GOLDENRIGHT).getId());
+            }
+        }
+        synchronized (observers) {
+            for (VirtualView client : observers.values()) {
+                try {
+                    client.updateTable(drawableIds);
+                } catch (RemoteException ignored) {
+                }
+            }
+        }
+    }
+
     /**
      * Show the common objectives to every client
      *

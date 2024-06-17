@@ -78,6 +78,7 @@ public class Room {
         this.notifier = notifier;
         notifier.startGame();
         notifier.updateCurrentPlayer(currentPlayer.getName());
+        notifier.updateTable(drawableCards);
     }
 
     /**
