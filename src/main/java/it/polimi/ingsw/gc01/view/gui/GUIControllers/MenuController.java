@@ -20,6 +20,6 @@ public class MenuController extends GenericController {
 
     @FXML
     private void actionExit() {
-        gui.leave();
+        gui.switchToIntro();
     }
 }

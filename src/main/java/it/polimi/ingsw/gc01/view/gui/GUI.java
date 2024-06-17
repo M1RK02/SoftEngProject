@@ -135,6 +135,10 @@ public class GUI extends Application implements UI {
         //switchToScene(SceneEnum.WAITING_OTHERS, "Waiting for others to choose their color");
     }
 
+    public void switchToIntro(){
+        switchToScene(SceneEnum.INTRO);
+    }
+
     /**
      * This method is used to hide the panes in the lobby.
      */
