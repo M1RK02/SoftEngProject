@@ -6,6 +6,10 @@ import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.ClipboardContent;
+import javafx.scene.input.DragEvent;
+import javafx.scene.input.Dragboard;
+import javafx.scene.input.TransferMode;
 import javafx.scene.layout.GridPane;
 
 
@@ -50,6 +54,30 @@ public class PlayController extends GenericController{
     }
 
     @FXML
+    private void dragDetected(Event event){
+        ImageView imageView = (ImageView) event.getSource();
+        Dragboard db = imageView.startDragAndDrop(TransferMode.MOVE);
+        ClipboardContent content = new ClipboardContent();
+        content.putImage(imageView.getImage());
+        content.putString(imageView.getId());// Carry the ID
+        db.setContent(content);
+
+        // Set the drag view to show the image under the mouse cursor
+        db.setDragView(imageView.getImage());
+
+        event.consume();
+    }
+
+    @FXML
+    private void dragDone(DragEvent event){
+        ImageView imageView = (ImageView) event.getSource();
+        if (event.getTransferMode() == TransferMode.MOVE) {
+            imageView.setImage(null);
+        }
+        event.consume();
+    }
+
+    @FXML
     private void showTablePoints(){
         gui.showTablePoints();
     }
@@ -69,10 +97,7 @@ public class PlayController extends GenericController{
         gui.showOtherFields();
     }
 
-    @FXML
-    private void playRandom(){
-        gui.chooseCardToPlay();
-    }
+
 
     @FXML
     private void flipCard(Event e){

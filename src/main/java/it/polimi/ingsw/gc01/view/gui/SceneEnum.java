@@ -16,7 +16,7 @@ public enum SceneEnum {
     CHOOSE_OTHER_FIELDS("/FXML/ChooseOtherFields.fxml"),
     TABLE_POINT("/FXML/TablePoint.fxml"),
     OBJECTIVES("/FXML/ShowObjectives.fxml"),
-    WIN("/FXML/Win.fxml");
+    WINNER("/FXML/Winner.fxml");
 
     private final String path;
 

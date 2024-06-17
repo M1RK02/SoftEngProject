@@ -1,14 +1,28 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
-            fx:controller="FXML.Winner"
-            prefHeight="400.0" prefWidth="600.0">
-
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" styleClass="woodenBackground" stylesheets="@../style.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.polimi.ingsw.gc01.view.gui.GUIControllers.WinnerController">
+    <children>
+        <Pane prefHeight="720.0" prefWidth="1280.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <Label layoutX="83.0" layoutY="64.0" text="WINNERS:" textFill="#bc9713">
+               <font>
+                  <Font name="PingFang SC Regular" size="91.0" />
+               </font>
+            </Label>
+            <Button alignment="BASELINE_CENTER" layoutX="365.0" layoutY="573.0" mnemonicParsing="false" onAction="#playNewGame" prefHeight="50.0" prefWidth="550.0" text="Play a New Game!!!">
+               <font>
+                  <Font size="36.0" />
+               </font>
+            </Button>
+            <VBox fx:id="winnersList" layoutX="390.0" layoutY="220.0" prefHeight="300.0" prefWidth="500.0" />
+         </children>
+        </Pane>
+    </children>
 </AnchorPane>

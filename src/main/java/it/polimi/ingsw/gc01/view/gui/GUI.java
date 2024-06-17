@@ -31,7 +31,7 @@ public class GUI extends Application implements UI {
     @Override
     public void start(Stage primaryStage) {
         this.clientModel = new ClientModel();
-        this.field = new ClientFieldGUI();
+        this.field = new ClientFieldGUI(this);
         this.otherFields = new HashMap<>();
         stage = primaryStage;
         try {
@@ -139,6 +139,9 @@ public class GUI extends Application implements UI {
     public void switchToIntro(){
         switchToScene(SceneEnum.INTRO);
     }
+    public void switchToMenu(){
+        switchToScene(SceneEnum.MENU);
+    }
 
     /**
      * This method is used to hide the panes in the lobby.
@@ -219,11 +222,11 @@ public class GUI extends Application implements UI {
         networkClient.drawCard(cardId);
     }
 
-    public void chooseCardToPlay(){
-        int card = clientModel.getHandIDs().getFirst();
-        networkClient.flipCard(card);
-        networkClient.playCard(card, field.getAvailablePositions().get(0));
-        field.playCard(card, false, field.getAvailablePositions().get(0));
+    public void chooseCardToPlay(int cardId, boolean front, Position position){
+        if(!front) {
+            networkClient.flipCard(cardId);
+        }
+        networkClient.playCard(cardId, position);
     }
 
     public void showDrawables(){
@@ -357,7 +360,7 @@ public class GUI extends Application implements UI {
      */
     @Override
     public void showWinners(List<String> winners) {
-
+        Platform.runLater(()-> switchToScene(SceneEnum.WINNER, winners));
     }
 
     /**
@@ -470,7 +473,7 @@ public class GUI extends Application implements UI {
             field.setAvailablePositions(availablePositions);
         } else {
             if(!otherFields.containsKey(playerName)){
-                otherFields.put(playerName, new ClientFieldGUI());
+                otherFields.put(playerName, new ClientFieldGUI(this));
             }
             otherFields.get(playerName).playCard(id, front, position);
         }
