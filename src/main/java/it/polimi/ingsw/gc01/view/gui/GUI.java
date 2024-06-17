@@ -215,6 +215,13 @@ public class GUI extends Application implements UI {
         networkClient.drawCard(cardId);
     }
 
+    public void chooseCardToPlay(){
+        int card = clientModel.getHandIDs().getFirst();
+        networkClient.flipCard(card);
+        networkClient.playCard(card, field.getAvailablePositions().get(0));
+        field.playCard(card, false, field.getAvailablePositions().get(0));
+    }
+
     /**
      * Shows the entered room
      *
@@ -374,7 +381,6 @@ public class GUI extends Application implements UI {
      */
     @Override
     public void showField(String playerName) {
-        Platform.runLater(() -> switchToScene(SceneEnum.PLAY, clientModel, field.generateField()));
     }
 
     /**
@@ -396,7 +402,8 @@ public class GUI extends Application implements UI {
      */
     @Override
     public void showHand(List<Integer> handIds) {
-
+        clientModel.setHandIDs(handIds);
+        Platform.runLater(() -> switchToScene(SceneEnum.PLAY, clientModel, field.generateField()));
     }
 
     /**

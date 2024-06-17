@@ -448,3 +448,7 @@
     -fx-padding: 16 31 14 29;
     -fx-effect: dropshadow( three-pass-box , rgba(255,255,255,0.2) , 1, 0.0 , 0 , 1);
 }
+
+.scroll-pane > .viewport {
+    -fx-background-color: transparent;
+}

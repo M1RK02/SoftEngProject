@@ -1,6 +1,7 @@
 package it.polimi.ingsw.gc01.view.gui.GUIControllers;
 
 import javafx.event.ActionEvent;
+import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -23,7 +24,7 @@ public class DrawCardController extends GenericController{
     private ImageView goldenRight;
 
     @FXML
-    private void drawCard(ActionEvent event) {
+    private void drawCard(Event event) {
         ImageView img = (ImageView) event.getSource();
         gui.chooseCardToDraw(Integer.parseInt(img.getId()));
     }

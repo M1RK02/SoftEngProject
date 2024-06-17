@@ -32,6 +32,10 @@ public class ClientFieldGUI {
 
    }
 
+   public List<Position> getAvailablePositions() {
+      return availablePositions;
+   }
+
    public void playCard( int id, boolean front, Position position){
       cards.add(id);
       side.put(id, front);

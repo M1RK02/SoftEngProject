@@ -4,6 +4,7 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
@@ -24,11 +25,15 @@
             </Label>
          </children>
       </Pane>
-      <ScrollPane fx:id="scrollPane" layoutX="331.0" layoutY="81.0" prefHeight="450.0" prefWidth="675.0">
+      <ScrollPane fx:id="scrollPane" hbarPolicy="NEVER" layoutX="349.0" layoutY="29.0" prefHeight="491.0" prefWidth="909.0" style="-fx-background-color: transparent;" stylesheets="@../style.css" vbarPolicy="NEVER">
          <cursor>
             <Cursor fx:constant="HAND" />
          </cursor></ScrollPane>
       <Button alignment="CENTER_RIGHT" layoutX="-40.0" layoutY="90.0" mnemonicParsing="false" onMouseClicked="#showTablePoints" prefHeight="51.0" prefWidth="173.0" styleClass="record-sales5" stylesheets="@../style.css" text="TablePoint" />
       <Button alignment="CENTER_RIGHT" layoutX="-40.0" layoutY="160.0" mnemonicParsing="false" onMouseClicked="#showObjectives" prefHeight="51.0" prefWidth="173.0" styleClass="record-sales6" stylesheets="@../style.css" text="Objectives" />
+      <Button layoutX="58.0" layoutY="521.0" mnemonicParsing="false" onMouseClicked="#playRandom" prefHeight="106.0" prefWidth="180.0" text="Button" />
+      <ImageView fx:id="handRight" fitHeight="150.0" fitWidth="225.0" layoutX="981.0" layoutY="541.0" onMouseClicked="#flipCard" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="handCenter" fitHeight="150.0" fitWidth="225.0" layoutX="721.0" layoutY="541.0" onMouseClicked="#flipCard" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="handLeft" fitHeight="150.0" fitWidth="225.0" layoutX="461.0" layoutY="541.0" onMouseClicked="#flipCard" pickOnBounds="true" preserveRatio="true" />
    </children>
 </AnchorPane>
