@@ -7,7 +7,7 @@ public class DefaultValue {
     public static final int MaxNumOfPlayer = 4;
     public static final int MinNumOfPlayer = 2;
     public static final String RMIServerName = "ServerLazzaro";
-    public static final int Default_port_Socket = 1235;
+    public static final int Default_port_Socket = 64000;
     public static final String Remote_ip = "127.0.0.1";
     public static final String ANSI_RESET = "\u001B[0m";
     public static final String ANSI_BLACK = "\u001B[30m";

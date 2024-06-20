@@ -1,15 +1,24 @@
 package it.polimi.ingsw.gc01.network.socket;
 
+import it.polimi.ingsw.gc01.controller.MainController;
+import it.polimi.ingsw.gc01.network.rmi.VirtualServer;
+import it.polimi.ingsw.gc01.network.rmi.actions.Action;
+import it.polimi.ingsw.gc01.network.socket.messages.ClientToServerMessage;
 import it.polimi.ingsw.gc01.utils.DefaultValue;
 
-import java.io.IOException;
+import java.io.*;
 import java.net.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.concurrent.BlockingQueue;
 
-//TODO Maybe it's working
 public class SocketServer {
     private ServerSocket listenSocket;
+    private MainController mainController;
+    private BlockingQueue<Action> actions;
 
-    public SocketServer() {
+    public SocketServer(BlockingQueue<Action> actions) {
+        this.actions = actions;
         bind();
         acceptConnections();
     }
@@ -23,16 +32,15 @@ public class SocketServer {
         }
     }
 
-
     public void acceptConnections() {
         Socket clientSocket;
         try {
             while ((clientSocket = listenSocket.accept()) != null) {
-                ClientHandler handler = new ClientHandler(clientSocket);
+                ClientHandler handler = new ClientHandler(actions, clientSocket);
                 new Thread(handler::executeMessages).start();
             }
         } catch (IOException e) {
-            throw new RuntimeException(e);
+            System.out.println("Server Socket not working!");
         }
     }
 }

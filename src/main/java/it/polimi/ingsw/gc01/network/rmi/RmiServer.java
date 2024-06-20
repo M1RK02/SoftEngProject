@@ -27,11 +27,10 @@ public class RmiServer implements VirtualServer {
     /**
      * Construct a RmiServer object, bind it and lunch the action executors
      */
-    public RmiServer() {
+    public RmiServer(BlockingQueue<Action> actions) {
         this.mainController = MainController.getInstance();
-        actions = new ArrayBlockingQueue<Action>(100);
+        this.actions = actions;
         bind();
-        executeActions();
     }
 
     /**
@@ -46,24 +45,6 @@ public class RmiServer implements VirtualServer {
         } catch (RemoteException | AlreadyBoundException e) {
             System.out.println("Server RMI not working!");
         }
-    }
-
-    /**
-     * A thread is created to take actions from the Queue and call their execute method that
-     * is going to modify the model of the game
-     */
-    private void executeActions() {
-        new Thread(() -> {
-            try {
-                while (true) {
-                    //Spila le action e le esegue
-                    Action action = actions.take();
-                    action.execute();
-                }
-            } catch (InterruptedException e) {
-                System.err.println("Il thread che esegue le Action è stato interrotto");
-            }
-        }).start();
     }
 
     /**

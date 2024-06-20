@@ -3,6 +3,7 @@ module it.polimi.ingsw.gc01 {
     requires javafx.fxml;
     requires com.google.gson;
     requires java.rmi;
+    requires jdk.compiler;
 
     opens it.polimi.ingsw.gc01.model to com.google.gson;
     opens it.polimi.ingsw.gc01.model.cards to com.google.gson;

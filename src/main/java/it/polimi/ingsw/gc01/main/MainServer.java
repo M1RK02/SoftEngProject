@@ -1,15 +1,22 @@
 package it.polimi.ingsw.gc01.main;
 
+import com.sun.source.tree.PackageTree;
 import it.polimi.ingsw.gc01.network.rmi.RmiServer;
+import it.polimi.ingsw.gc01.network.rmi.actions.Action;
+import it.polimi.ingsw.gc01.network.socket.SocketServer;
 import it.polimi.ingsw.gc01.utils.DefaultValue;
 
 import java.util.*;
+import java.util.concurrent.ArrayBlockingQueue;
+import java.util.concurrent.BlockingQueue;
+import java.util.concurrent.LinkedBlockingQueue;
 
 /**
  * Executable class for the server
  */
 public class MainServer {
 
+    private static BlockingQueue<Action> actions;
     /**
      * Main method, it will launch both RMI and Socket servers
      *
@@ -28,7 +35,12 @@ public class MainServer {
         }
 
         System.setProperty("java.rmi.server.hostname", DefaultValue.ServerIp);
-        new RmiServer();
+        System.setProperty("java.socket.server.hostname", DefaultValue.ServerIp);
+
+        actions = new ArrayBlockingQueue<Action>(100);
+        new RmiServer(actions);
+        new SocketServer(actions);
+        executeActions();
     }
 
 
@@ -52,5 +64,23 @@ public class MainServer {
             }
         }
         return true;
+    }
+
+    /**
+     * A thread is created to take actions from the Queue and call their execute method that
+     * is going to modify the model of the game
+     */
+    private static void executeActions() {
+        new Thread(() -> {
+            try {
+                while (true) {
+                    //Spila le action e le esegue
+                    Action action = actions.take();
+                    action.execute();
+                }
+            } catch (InterruptedException e) {
+                System.err.println("Il thread che esegue le Action è stato interrotto");
+            }
+        }).start();
     }
 }

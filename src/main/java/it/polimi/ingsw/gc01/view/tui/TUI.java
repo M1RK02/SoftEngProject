@@ -4,6 +4,7 @@ import it.polimi.ingsw.gc01.model.player.PlayerColor;
 import it.polimi.ingsw.gc01.model.player.Position;
 import it.polimi.ingsw.gc01.network.NetworkClient;
 import it.polimi.ingsw.gc01.network.rmi.RmiClient;
+import it.polimi.ingsw.gc01.network.socket.SocketClient;
 import it.polimi.ingsw.gc01.utils.DefaultValue;
 import it.polimi.ingsw.gc01.view.UI;
 
@@ -173,9 +174,11 @@ public class TUI implements UI {
      * @param playerName
      */
     private void createSocketClient(String playerName) {
-        System.out.println(DefaultValue.ANSI_YELLOW + "Socket is currently work in progress..." + DefaultValue.ANSI_RESET);
-        System.out.println("Defaulting to RMI...\n");
-        createRMIClient(playerName);
+        try {
+            networkClient = new SocketClient(playerName, this);
+        } catch (Exception e) {
+            System.out.println(DefaultValue.ANSI_RED + "Cannot instance SocketClient" + DefaultValue.ANSI_RESET);
+        }
     }
 
     /**
