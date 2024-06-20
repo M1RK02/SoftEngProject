@@ -1,5 +1,6 @@
 package it.polimi.ingsw.gc01.model.room;
 
+import it.polimi.ingsw.gc01.model.ChatMessage;
 import it.polimi.ingsw.gc01.model.cards.*;
 import it.polimi.ingsw.gc01.model.decks.*;
 import it.polimi.ingsw.gc01.model.player.*;
@@ -55,6 +56,11 @@ public class Room {
      * Current player of the room
      */
     private Player currentPlayer;
+
+    /**
+     * Chat of the Room
+     */
+    private  List<ChatMessage> chat;
 
     /**
      * Constructs a new Room object

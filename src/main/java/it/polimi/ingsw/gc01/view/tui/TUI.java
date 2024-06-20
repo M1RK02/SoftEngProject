@@ -795,4 +795,6 @@ public class TUI implements UI {
         System.out.println(DefaultValue.ANSI_GREEN + "\n\n-> Going back to menu\n" + DefaultValue.ANSI_RESET);
         new Thread(this::askModalityToEnterGame).start();
     }
+
+
 }
