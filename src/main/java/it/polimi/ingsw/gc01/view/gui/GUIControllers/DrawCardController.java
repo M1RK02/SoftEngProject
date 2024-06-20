@@ -1,5 +1,6 @@
 package it.polimi.ingsw.gc01.view.gui.GUIControllers;
 
+import it.polimi.ingsw.gc01.view.gui.ClientModel;
 import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.fxml.FXML;
@@ -38,7 +39,12 @@ public class DrawCardController extends GenericController{
 
     @FXML
     private void goBack(){
-        gui.backToPlay();
+        ClientModel clientModel = gui.getClientModel();
+        if (gui.getPlayerName().equals(clientModel.getCurrentPlayer())){
+            gui.backToPlay();
+        } else {
+            gui.backToOtherFields();
+        }
     }
 
 
@@ -69,6 +75,7 @@ public class DrawCardController extends GenericController{
         else {
             resourceDeck.setImage(null);
             resourceDeck.setOpacity(0);
+            resourceDeck.setDisable(true);
         }
 
         if (drawableCardsIds.get(2) != null) {
@@ -78,6 +85,7 @@ public class DrawCardController extends GenericController{
         else {
             resourceLeft.setImage(null);
             resourceLeft.setOpacity(0);
+            resourceLeft.setDisable(true);
         }
 
         if (drawableCardsIds.get(3) != null) {
@@ -87,6 +95,7 @@ public class DrawCardController extends GenericController{
         else {
             resourceRight.setImage(null);
             resourceRight.setOpacity(0);
+            resourceRight.setDisable(true);
         }
 
         if (drawableCardsIds.get(4) != null) {
@@ -96,6 +105,7 @@ public class DrawCardController extends GenericController{
         else {
             goldenDeck.setImage(null);
             goldenDeck.setOpacity(0);
+            goldenDeck.setDisable(true);
         }
 
         if (drawableCardsIds.get(5) != null) {
@@ -105,6 +115,7 @@ public class DrawCardController extends GenericController{
         else {
             goldenLeft.setImage(null);
             goldenLeft.setOpacity(0);
+            goldenLeft.setDisable(true);
         }
 
         if (drawableCardsIds.get(6) != null) {
@@ -114,6 +125,7 @@ public class DrawCardController extends GenericController{
         else {
             goldenRight.setImage(null);
             goldenRight.setOpacity(0);
+            goldenRight.setDisable(true);
         }
     }
 }

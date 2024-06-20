@@ -377,15 +377,16 @@ public class RoomController {
             }
         }
 
-        if (card != null) {
-            if (card.isFront()) {
-                if (card instanceof GoldenCard) {
-                    if (!((GoldenCard) card).checkRequirements(room.getCurrentPlayer())) {
-                        notifier.showError(playerName, "PLAY You don't have the required items");
-                        return;
-                    } else {
-                        player.playCard(card, position);
-                    }
+        if(card == null) {
+            notifier.showError(playerName, "No card found");
+            return;
+        }
+
+        if (card.isFront()) {
+            if (card instanceof GoldenCard) {
+                if (!((GoldenCard) card).checkRequirements(room.getCurrentPlayer())) {
+                    notifier.showError(playerName, "PLAY You don't have the required items");
+                    return;
                 } else {
                     player.playCard(card, position);
                 }
@@ -393,7 +394,7 @@ public class RoomController {
                 player.playCard(card, position);
             }
         } else {
-            notifier.showError(playerName, "No card found");
+            player.playCard(card, position);
         }
 
         if (card instanceof StarterCard || state.equals(GameState.LAST_CIRCLE)) {
@@ -450,6 +451,10 @@ public class RoomController {
                 room.getDrawableCards().get(position).setFront(true);
             }
         }
+
+        notifier.updateHand(player.getName(), player.getHand());
+        notifier.updateTable(room.getDrawableCards());
+
 
         nextPlayer();
     }

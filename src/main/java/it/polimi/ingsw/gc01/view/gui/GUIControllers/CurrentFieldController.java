@@ -1,5 +1,6 @@
 package it.polimi.ingsw.gc01.view.gui.GUIControllers;
 
+import it.polimi.ingsw.gc01.view.gui.ClientModel;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -30,6 +31,31 @@ public class CurrentFieldController extends GenericController{
 
     @FXML
     private void goBack(){
-        gui.backToPlay();
+        ClientModel clientModel = gui.getClientModel();
+        if (gui.getPlayerName().equals(clientModel.getCurrentPlayer())){
+            gui.backToPlay();
+        } else {
+            gui.backToOtherFields();
+        }
+    }
+
+    @FXML
+    private void showTablePoints(){
+        gui.showTablePoints();
+    }
+
+    @FXML
+    private void showObjectives(){
+        gui.showObjectives();
+    }
+
+    @FXML
+    private void showDrawables(){
+        gui.showDrawables();
+    }
+
+    @FXML
+    private void showOtherFields(){
+        gui.showOtherFields();
     }
 }

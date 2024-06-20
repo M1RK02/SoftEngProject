@@ -30,9 +30,6 @@ public class GUI extends Application implements UI {
 
     @Override
     public void start(Stage primaryStage) {
-        this.clientModel = new ClientModel();
-        this.field = new ClientFieldGUI(this);
-        this.otherFields = new HashMap<>();
         stage = primaryStage;
         try {
             loader = new FXMLLoader(getClass().getResource(SceneEnum.INTRO.path()));
@@ -62,6 +59,14 @@ public class GUI extends Application implements UI {
             stage.show();
         } catch (IOException ignored) {
         }
+    }
+
+    public String getPlayerName() {
+        return playerName;
+    }
+
+    public ClientModel getClientModel() {
+        return clientModel;
     }
 
     public void play() {
@@ -218,6 +223,11 @@ public class GUI extends Application implements UI {
         switchToScene(SceneEnum.PLAY, clientModel, field.generateField());
     }
 
+    public void backToOtherFields(){
+        String currentPlayer = clientModel.getCurrentPlayer();
+        switchToScene(SceneEnum.CURRENT_FIELD, otherFields.get(currentPlayer).generateField(), currentPlayer, false);
+    }
+
     public void chooseCardToDraw(int cardId){
         networkClient.drawCard(cardId);
     }
@@ -234,11 +244,15 @@ public class GUI extends Application implements UI {
     }
 
     public void showOtherFields(){
-        switchToScene(SceneEnum.CHOOSE_OTHER_FIELDS, otherFields);
+        switchToScene(SceneEnum.CHOOSE_OTHER_FIELDS, otherFields, field);
     }
 
     public void showOtherFields(String playerName){
-        switchToScene(SceneEnum.CURRENT_FIELD, otherFields.get(playerName).generateField(), playerName, true);
+        if (this.playerName.equals(playerName)){
+            switchToScene(SceneEnum.CURRENT_FIELD, field.generateField(), this.playerName, true);
+        } else {
+            switchToScene(SceneEnum.CURRENT_FIELD, otherFields.get(playerName).generateField(), playerName, true);
+        }
     }
 
     /**
@@ -248,6 +262,9 @@ public class GUI extends Application implements UI {
      */
     @Override
     public void showRoom(String roomId) {
+        this.clientModel = new ClientModel();
+        this.field = new ClientFieldGUI(this);
+        this.otherFields = new HashMap<>();
         Platform.runLater(() -> switchToScene(SceneEnum.WAITING_ROOM, roomId));
         Platform.runLater(this::hidePanesInLobby);
     }
@@ -428,6 +445,16 @@ public class GUI extends Application implements UI {
     }
 
     /**
+     * Update the hand of the player
+     *
+     * @param handIds list of card ids in the hand
+     */
+    @Override
+    public void updateHand(List<Integer> handIds) {
+        clientModel.setHandIDs(handIds);
+    }
+
+    /**
      * Show possible secret objective
      *
      * @param possibleObjectiveIds list of objective card ids
@@ -453,6 +480,9 @@ public class GUI extends Application implements UI {
      */
     @Override
     public void startGame() {
+        this.clientModel = new ClientModel();
+        this.field = new ClientFieldGUI(this);
+        this.otherFields = new HashMap<>();
         isStarted = true;
     }
 
@@ -514,5 +544,6 @@ public class GUI extends Application implements UI {
     @Override
     public void backToMenu() {
         //TODO A che cazzo serve sulla gui sto lazzaro? Manca qualcosa?
+        networkClient.leave();
     }
 }

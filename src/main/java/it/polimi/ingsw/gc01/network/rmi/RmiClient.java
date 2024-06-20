@@ -360,6 +360,17 @@ public class RmiClient extends UnicastRemoteObject implements VirtualView, Netwo
     }
 
     /**
+     * Update the hand
+     *
+     * @param cardIds list of card ids in the hand
+     * @throws RemoteException
+     */
+    @Override
+    public void updateHand(List<Integer> cardIds) throws RemoteException {
+        ui.updateHand(cardIds);
+    }
+
+    /**
      * Show the field of the indicated player
      *
      * @param playerName to show the field

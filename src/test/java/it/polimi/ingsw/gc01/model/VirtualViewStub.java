@@ -101,6 +101,17 @@ public class VirtualViewStub implements VirtualView {
 
     }
 
+    /**
+     * Update the hand
+     *
+     * @param cardIds list of card ids in the hand
+     * @throws RemoteException
+     */
+    @Override
+    public void updateHand(List<Integer> cardIds) throws RemoteException {
+
+    }
+
     @Override
     public void showField(String playerName) throws RemoteException {
 

@@ -1,6 +1,7 @@
 package it.polimi.ingsw.gc01.view.gui.GUIControllers;
 
 import it.polimi.ingsw.gc01.view.gui.ClientFieldGUI;
+import it.polimi.ingsw.gc01.view.gui.ClientModel;
 import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -29,14 +30,15 @@ public class ChooseOtherFieldsController extends GenericController{
     @Override
     public void setAttributes(Object... o) {
         Map<String, ClientFieldGUI> fields = (Map<String, ClientFieldGUI>) o[0];
+        ClientFieldGUI myField = (ClientFieldGUI) o[1];
+        player4.setText(gui.getPlayerName());
+
         player1.setVisible(false);
         player1.setDisable(true);
         player2.setVisible(false);
         player2.setDisable(true);
         player3.setVisible(false);
         player3.setDisable(true);
-        player4.setVisible(false);
-        player4.setDisable(true);
         for (String playerName : fields.keySet()){
             if (!player1.isVisible()){
                 player1.setVisible(true);
@@ -54,18 +56,18 @@ public class ChooseOtherFieldsController extends GenericController{
                 player3.setVisible(true);
                 player3.setDisable(false);
                 player3.setText(playerName);
-                continue;
-            }
-            if (!player4.isVisible()){
-                player4.setVisible(true);
-                player4.setDisable(false);
-                player4.setText(playerName);
             }
         }
+
     }
 
     @FXML
     private void goBack(){
-        gui.backToPlay();
+        ClientModel clientModel = gui.getClientModel();
+        if (gui.getPlayerName().equals(clientModel.getCurrentPlayer())){
+            gui.backToPlay();
+        } else {
+            gui.backToOtherFields();
+        }
     }
 }

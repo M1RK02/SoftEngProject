@@ -112,6 +112,13 @@ public interface UI {
     void showHand(List<Integer> handIds);
 
     /**
+     * Update the hand of the player
+     *
+     * @param handIds list of card ids in the hand
+     */
+    void updateHand(List<Integer> handIds);
+
+    /**
      * Show possible secret objective
      *
      * @param possibleObjectiveIds list of objective card ids

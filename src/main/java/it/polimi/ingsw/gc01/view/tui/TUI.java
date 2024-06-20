@@ -646,6 +646,15 @@ public class TUI implements UI {
     }
 
     /**
+     * Update the hand of the player
+     *
+     * @param handIds list of card ids in the hand
+     */
+    @Override
+    public void updateHand(List<Integer> handIds) {
+    }
+
+    /**
      * Propose the choice of the card to play
      */
     private void chooseCardToPlay() {

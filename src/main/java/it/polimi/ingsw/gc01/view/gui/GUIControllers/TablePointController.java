@@ -1,6 +1,7 @@
 package it.polimi.ingsw.gc01.view.gui.GUIControllers;
 
 import it.polimi.ingsw.gc01.model.player.PlayerColor;
+import it.polimi.ingsw.gc01.view.gui.ClientModel;
 import javafx.fxml.FXML;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -25,7 +26,12 @@ public class TablePointController extends GenericController{
 
     @FXML
     private void goBack(){
-        gui.backToPlay();
+        ClientModel clientModel = gui.getClientModel();
+        if (gui.getPlayerName().equals(clientModel.getCurrentPlayer())){
+            gui.backToPlay();
+        } else {
+            gui.backToOtherFields();
+        }
     }
 
     @Override

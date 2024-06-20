@@ -1,5 +1,6 @@
 package it.polimi.ingsw.gc01.view.gui.GUIControllers;
 
+import it.polimi.ingsw.gc01.view.gui.ClientModel;
 import javafx.fxml.FXML;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -28,6 +29,11 @@ public class ShowObjectivesController extends GenericController{
 
     @FXML
     private void goBack(){
-        gui.backToPlay();
+        ClientModel clientModel = gui.getClientModel();
+        if (gui.getPlayerName().equals(clientModel.getCurrentPlayer())){
+            gui.backToPlay();
+        } else {
+            gui.backToOtherFields();
+        }
     }
 }

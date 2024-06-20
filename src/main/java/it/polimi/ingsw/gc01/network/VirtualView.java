@@ -122,6 +122,14 @@ public interface VirtualView extends Remote {
     void showHand(List<Integer> cardIds) throws RemoteException;
 
     /**
+     * Update the hand
+     *
+     * @param cardIds list of card ids in the hand
+     * @throws RemoteException
+     */
+    void updateHand(List<Integer> cardIds) throws RemoteException;
+
+    /**
      * Show the field of the indicated player
      *
      * @param playerName to show the field

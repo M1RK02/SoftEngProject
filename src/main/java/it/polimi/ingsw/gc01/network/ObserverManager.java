@@ -295,6 +295,23 @@ public class ObserverManager {
     }
 
     /**
+     * Update the hand to the indicated client
+     *
+     * @param playerName of the client
+     * @param hand       list of cards in the hand
+     */
+    public void updateHand(String playerName, List<PlayableCard> hand) {
+        List<Integer> handIds = hand.stream().map(PlayableCard::getId).collect(Collectors.toList());
+        synchronized (observers) {
+            VirtualView client = observers.get(playerName);
+            try {
+                client.updateHand(handIds);
+            } catch (RemoteException ignored) {
+            }
+        }
+    }
+
+    /**
      * Show the field of the indicated player to every client
      *
      * @param playerName to show the field of
