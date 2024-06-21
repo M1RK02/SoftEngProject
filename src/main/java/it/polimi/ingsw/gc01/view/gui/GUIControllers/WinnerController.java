@@ -11,23 +11,45 @@ import java.util.List;
 public class WinnerController extends GenericController{
 
     @FXML
-    private VBox winnersList;
-
+    private Label titleLabel;
+    @FXML
+    private Label winner1;
+    @FXML
+    private Label winner2;
+    @FXML
+    private Label winner3;
+    @FXML
+    private Label winner4;
 
     @FXML
-    public void playNewGame(){
+    public void backToMenu(){
         gui.switchToMenu();
     }
 
     @Override
     public void setAttributes(Object... o) {
         List<String> winners = (List<String>) o[0];
-        winnersList.getChildren().clear(); // Pulisce la lista corrente
-
-        for (String winner : winners) {
-            Label label = new Label(winner);
-            label.setFont(new Font("PingFang SC Regular", 36));
-            winnersList.getChildren().add(label);
+        if (winners.size() == 1) {
+            titleLabel.setText("The winner is: ");
+            winner1.setText(winners.get(0));
+            winner2.setVisible(false);
+            winner3.setVisible(false);
+            winner4.setVisible(false);
+        } else {
+            titleLabel.setText("The winners are:");
+            for (String winner : winners) {
+                if (winner1.getText().isEmpty()) {
+                    winner1.setText(winner);
+                } else if (winner2.getText().isEmpty()) {
+                    winner2.setText(winner);
+                } else if (winner3.getText().isEmpty()) {
+                    winner3.setText(winner);
+                } else {
+                    winner4.setText(winner);
+                }
+            }
         }
+
+
     }
 }

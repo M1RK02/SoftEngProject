@@ -71,13 +71,6 @@ public class TablePointController extends GenericController{
         }
     }
 
-
-    @FXML
-    private void addPoints(){
-        bluePoints++;
-        translate(bluePawn, bluePoints);
-    }
-
     private void translate(ImageView img, int points){
         int constX = 0, constY = 0;
         if (img.equals(bluePawn)) {
