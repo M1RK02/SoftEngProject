@@ -1,6 +1,5 @@
 package it.polimi.ingsw.gc01.network.socket;
 
-import it.polimi.ingsw.gc01.controller.*;
 import it.polimi.ingsw.gc01.model.player.PlayerColor;
 import it.polimi.ingsw.gc01.model.player.Position;
 import it.polimi.ingsw.gc01.network.VirtualView;
@@ -8,12 +7,13 @@ import it.polimi.ingsw.gc01.network.rmi.actions.Action;
 import it.polimi.ingsw.gc01.network.rmi.actions.CreateGameAction;
 
 import java.io.*;
-import java.net.ServerSocket;
 import java.net.Socket;
 import java.rmi.RemoteException;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.BlockingQueue;
+
+import static it.polimi.ingsw.gc01.network.socket.SocketMessage.*;
 
 public class ClientHandler implements VirtualView {
     private ObjectInputStream input;
@@ -27,19 +27,14 @@ public class ClientHandler implements VirtualView {
        this.output = new ObjectOutputStream(clientSocket.getOutputStream());
     }
 
-    public void executeMessages() {
-        SocketMessage message = null;
-        while (true) {
-            try {
-                if (((message = (SocketMessage) input.readObject()) != null)) {
-                    switch (message) {
-                        case CREATEGAME:
-                            Action createGame = new CreateGameAction("piana", this);
-                            actions.put(createGame);
-                    }
-                };
-            } catch (IOException | ClassNotFoundException | InterruptedException e) {
-                throw new RuntimeException(e);
+    public void executeClientMessages() throws IOException, ClassNotFoundException, InterruptedException {
+        SocketMessage message;
+        while ((message = (SocketMessage) input.readObject()) != null) {
+            switch (message) {
+                case CREATEGAME:
+                    Action createGame = new CreateGameAction((String) input.readObject(), this);
+                    actions.put(createGame);
+                    break;
             }
 
         }
@@ -53,7 +48,14 @@ public class ClientHandler implements VirtualView {
      */
     @Override
     public void updateRoomId(String roomId) throws RemoteException {
-
+        this.roomId = roomId;
+        try {
+            output.writeObject(UPDATEROOMIDMESSAGE);
+            output.writeObject(roomId);
+            output.flush();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     /**

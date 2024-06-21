@@ -7,7 +7,7 @@ public class DefaultValue {
     public static final int MaxNumOfPlayer = 4;
     public static final int MinNumOfPlayer = 2;
     public static final String RMIServerName = "ServerLazzaro";
-    public static final int Default_port_Socket = 64000;
+    public static final int Default_Socket_port = 4320;
     public static final String Remote_ip = "127.0.0.1";
     public static final String ANSI_RESET = "\u001B[0m";
     public static final String ANSI_BLACK = "\u001B[30m";
@@ -20,5 +20,5 @@ public class DefaultValue {
     public static final String ANSI_WHITE = "\u001B[37m";
     public static final int PointsToFinish = 20;
     public static String ServerIp = "127.0.0.1";
-    public static int RMIPort = 1234;
+    public static int Default_RMI_port = 4321;
 }

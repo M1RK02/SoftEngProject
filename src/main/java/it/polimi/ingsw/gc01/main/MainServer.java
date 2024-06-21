@@ -39,7 +39,9 @@ public class MainServer {
 
         actions = new ArrayBlockingQueue<Action>(100);
         new RmiServer(actions);
-        new SocketServer(actions);
+        new Thread(() -> {
+            new SocketServer(actions);
+        }).start();
         executeActions();
     }
 

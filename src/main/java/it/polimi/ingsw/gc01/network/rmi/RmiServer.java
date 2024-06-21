@@ -38,8 +38,8 @@ public class RmiServer implements VirtualServer {
      */
     private void bind() {
         try {
-            VirtualServer stub = (VirtualServer) UnicastRemoteObject.exportObject(this, DefaultValue.RMIPort);
-            Registry registry = LocateRegistry.createRegistry(DefaultValue.RMIPort);
+            VirtualServer stub = (VirtualServer) UnicastRemoteObject.exportObject(this, DefaultValue.Default_RMI_port);
+            Registry registry = LocateRegistry.createRegistry(DefaultValue.Default_RMI_port);
             registry.bind(DefaultValue.RMIServerName, stub);
             System.out.println("Server RMI ready");
         } catch (RemoteException | AlreadyBoundException e) {

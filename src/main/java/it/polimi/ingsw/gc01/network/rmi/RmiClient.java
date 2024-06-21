@@ -49,7 +49,7 @@ public class RmiClient extends UnicastRemoteObject implements VirtualView, Netwo
      */
     private void connect() {
         try {
-            Registry registry = LocateRegistry.getRegistry(DefaultValue.ServerIp, DefaultValue.RMIPort);
+            Registry registry = LocateRegistry.getRegistry(DefaultValue.ServerIp, DefaultValue.Default_RMI_port);
             this.server = (VirtualServer) registry.lookup(DefaultValue.RMIServerName);
             System.out.println("Client RMI ready");
         } catch (RemoteException | NotBoundException e) {
