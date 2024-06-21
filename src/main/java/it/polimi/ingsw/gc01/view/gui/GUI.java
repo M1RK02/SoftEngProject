@@ -9,6 +9,7 @@ import it.polimi.ingsw.gc01.view.gui.GUIControllers.*;
 import javafx.application.*;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.*;
+import javafx.scene.control.Alert;
 import javafx.scene.image.Image;
 import javafx.scene.layout.Pane;
 import javafx.scene.text.Text;
@@ -367,7 +368,15 @@ public class GUI extends Application implements UI {
      */
     @Override
     public void showLastCircle() {
-        //TODO A che cazzo serve sulla gui sto lazzaro? Manca qualcosa?
+        Platform.runLater(() -> showAlert("Last Turn", "Last Turn", "This is the last turn of the game!"));
+    }
+
+    private void showAlert(String title, String header, String content){
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle(title);
+        alert.setHeaderText(header);
+        alert.setContentText(content);
+        alert.showAndWait();
     }
 
     /**
@@ -543,7 +552,6 @@ public class GUI extends Application implements UI {
      */
     @Override
     public void backToMenu() {
-        //TODO A che cazzo serve sulla gui sto lazzaro? Manca qualcosa?
         networkClient.leave();
     }
 }
