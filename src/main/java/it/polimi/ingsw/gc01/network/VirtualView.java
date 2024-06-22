@@ -21,10 +21,10 @@ public interface VirtualView extends Remote {
     /**
      * Show the players in the room
      *
-     * @param playerNames the names of the players in the room
+     * @param playersAlreadyIn map with key the player name and value the ready status
      * @throws IOException
      */
-    void showPlayers(List<String> playerNames) throws IOException;
+    void showPlayers(Map<String, Boolean> playersAlreadyIn) throws IOException;
 
     /**
      * Show the player that has just joined

@@ -98,7 +98,11 @@ public class WaitingRoom {
         notifier.addObserver(playerName, client);
         notifier.updateRoomId(playerName, roomId);
         List<String> playerNames = players.stream().map(Player::getName).toList();
-        notifier.showPlayers(playerName, playerNames);
+        Map<String, Boolean> playersAlreadyIn = new HashMap<>();
+        for (String name : playerNames) {
+            playersAlreadyIn.put(name, getPlayerByName(name).isReady());
+        }
+        notifier.showPlayers(playerName, playersAlreadyIn);
         notifier.showPlayerJoined(playerName);
     }
 

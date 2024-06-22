@@ -165,7 +165,8 @@ public class GUI extends Application implements UI {
         }
     }
 
-    private void addLobbyPlayerPanes(List<String> playerNames) {
+    private void addLobbyPlayerPanes(Map<String, Boolean> playersAlreadyIn) {
+        List<String> playerNames = playersAlreadyIn.keySet().stream().toList();;
         for (int i = 0; i < playerNames.size(); i++) {
             Pane panePlayerLobby = (Pane) this.stage.getScene().getRoot().lookup("#pane" + i);
             panePlayerLobby.setVisible(true);
@@ -173,6 +174,11 @@ public class GUI extends Application implements UI {
             Text nickname = (Text) this.stage.getScene().getRoot().lookup("#nickName" + i);
             nickname.setText(playerNames.get(i));
             clientModel.setNumOfPlayers(clientModel.getNumOfPlayers() + 1);
+
+            if (playersAlreadyIn.get(playerNames.get(i))) {
+                Pane paneReady = (Pane) this.stage.getScene().getRoot().lookup("#ready" + i);
+                paneReady.setVisible(true);
+            }
         }
     }
 
@@ -196,8 +202,10 @@ public class GUI extends Application implements UI {
     private void removePlayerCard(String playerName) {
         for (int i = 0; i < 4; i++) {
             Pane panePlayerLobby = (Pane) this.stage.getScene().getRoot().lookup("#pane" + i);
+            Pane readyPane = (Pane) this.stage.getScene().getRoot().lookup("#ready" + i);
             Text nickname = (Text) this.stage.getScene().getRoot().lookup("#nickName" + i);
             if (nickname != null && nickname.getText().equals(playerName)) {
+                readyPane.setVisible(false);
                 panePlayerLobby.setVisible(false);
                 clientModel.setNumOfPlayers(clientModel.getNumOfPlayers() - 1);
             }
@@ -276,11 +284,11 @@ public class GUI extends Application implements UI {
     /**
      * Shows the players in the room
      *
-     * @param playerNames the names of the players in the room
+     * @param playersAlreadyIn map with key the player name and value the ready status
      */
     @Override
-    public void showPlayers(List<String> playerNames) {
-        Platform.runLater(() -> addLobbyPlayerPanes(playerNames));
+    public void showPlayers(Map<String, Boolean> playersAlreadyIn) {
+        Platform.runLater(() -> addLobbyPlayerPanes(playersAlreadyIn));
     }
 
     /**

@@ -18,9 +18,9 @@ public interface UI {
     /**
      * Shows the players in the room
      *
-     * @param playerNames the names of the players in the room
+     * @param playersAlreadyIn map with key the player name and value the ready status
      */
-    void showPlayers(List<String> playerNames);
+    void showPlayers(Map<String, Boolean> playersAlreadyIn);
 
     /**
      * Shows the players that has just joined

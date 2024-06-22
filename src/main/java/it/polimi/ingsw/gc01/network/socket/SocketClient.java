@@ -59,7 +59,7 @@ public class SocketClient implements NetworkClient {
                     updateRoomId((String) input.readObject());
                     break;
                 case SHOW_PLAYERS:
-                    showPlayers((List<String>) input.readObject());
+                    showPlayers((Map<String, Boolean>) input.readObject());
                     break;
                 case SHOW_PLAYER_JOINED:
                     showPlayerJoined((String) input.readObject());
@@ -308,10 +308,10 @@ public class SocketClient implements NetworkClient {
     /**
      * Show the players in the room
      *
-     * @param playerNames the names of the players in the room
+     * @param playersAlreadyIn map with key the player name and value the ready status
      */
-    public void showPlayers(List<String> playerNames) {
-        ui.showPlayers(playerNames);
+    public void showPlayers(Map<String, Boolean> playersAlreadyIn) {
+        ui.showPlayers(playersAlreadyIn);
     }
 
     /**

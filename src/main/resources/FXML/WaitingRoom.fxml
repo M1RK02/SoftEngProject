@@ -9,7 +9,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" styleClass="woodenBackground" stylesheets="@../style.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.polimi.ingsw.gc01.view.gui.GUIControllers.WaitingRoomController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" styleClass="woodenBackground" stylesheets="@../style.css" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.polimi.ingsw.gc01.view.gui.GUIControllers.WaitingRoomController">
     <children>
       <Pane layoutX="326.0" layoutY="128.0" prefHeight="720.0" prefWidth="1280.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
@@ -93,9 +93,9 @@
                      <image>
                         <Image url="@../images/wildcards/InsectWildcard.jpg" />
                      </image></ImageView>
-                  <Pane fx:id="nickName3" layoutY="21.0" opacity="0.8" prefHeight="47.0" prefWidth="211.0" style="-fx-background-color: black;">
+                  <Pane layoutY="21.0" opacity="0.8" prefHeight="47.0" prefWidth="211.0" style="-fx-background-color: black;">
                      <children>
-                        <Text fill="WHITE" layoutX="9.0" layoutY="33.0" strokeType="OUTSIDE" strokeWidth="0.0" text="name" textAlignment="CENTER" wrappingWidth="190.28251939390032">
+                        <Text fx:id="nickName3" fill="WHITE" layoutX="9.0" layoutY="33.0" strokeType="OUTSIDE" strokeWidth="0.0" text="name" textAlignment="CENTER" wrappingWidth="190.28251939390032">
                            <font>
                               <Font name="Arial Black" size="25.0" />
                            </font>

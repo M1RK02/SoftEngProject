@@ -269,16 +269,22 @@ public class TUI implements UI {
     /**
      * Print the players in the room
      *
-     * @param playerNames the list of the names of the players in the room
+     * @param playersAlreadyIn map with key the player name and value the ready status
      */
     @Override
-    public void showPlayers(List<String> playerNames) {
+    public void showPlayers(Map<String, Boolean> playersAlreadyIn) {
         StringBuilder message = new StringBuilder(DefaultValue.ANSI_BLUE + "[Current players in the room: ");
-        for (String names : playerNames) {
+        StringBuilder ready = new StringBuilder(DefaultValue.ANSI_YELLOW + "[Ready players: ");
+        for (String names : playersAlreadyIn.keySet()) {
             message.append("- ").append(names).append(" ");
+            if (playersAlreadyIn.get(names)) {
+                ready.append("- ").append(names).append(" ");
+            }
         }
         message.append("]\n" + DefaultValue.ANSI_RESET);
+        ready.append("]\n" + DefaultValue.ANSI_RESET);
         System.out.println(message);
+        System.out.println(ready);
     }
 
     /**

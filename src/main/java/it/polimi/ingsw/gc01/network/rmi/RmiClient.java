@@ -210,11 +210,11 @@ public class RmiClient extends UnicastRemoteObject implements VirtualView, Netwo
     /**
      * Show the players in the room
      *
-     * @param playerNames the names of the players in the room
+     * @param playersAlreadyIn map with key the player name and value the ready status
      */
     @Override
-    public void showPlayers(List<String> playerNames) {
-        ui.showPlayers(playerNames);
+    public void showPlayers(Map<String, Boolean> playersAlreadyIn) {
+        ui.showPlayers(playersAlreadyIn);
     }
 
     /**

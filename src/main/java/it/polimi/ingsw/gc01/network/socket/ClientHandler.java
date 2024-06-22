@@ -143,12 +143,12 @@ public class ClientHandler implements VirtualView {
     /**
      * Show the players in the room
      *
-     * @param playerNames the names of the players in the room
+     * @param playersAlreadyIn map with key the player name and value the ready status
      */
     @Override
-    public void showPlayers(List<String> playerNames) throws IOException {
+    public void showPlayers(Map<String, Boolean> playersAlreadyIn) throws IOException {
         output.writeObject(SHOW_PLAYERS);
-        output.writeObject(playerNames);
+        output.writeObject(playersAlreadyIn);
         output.flush();
     }
 

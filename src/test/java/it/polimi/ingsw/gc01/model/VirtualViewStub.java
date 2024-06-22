@@ -16,7 +16,7 @@ public class VirtualViewStub implements VirtualView {
     }
 
     @Override
-    public void showPlayers(List<String> playerNames) {
+    public void showPlayers(Map<String, Boolean> playersAlreadyIn) {
 
     }
 

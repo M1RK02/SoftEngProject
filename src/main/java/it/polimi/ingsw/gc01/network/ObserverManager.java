@@ -64,11 +64,11 @@ public class ObserverManager {
         }
     }
 
-    public void showPlayers(String playerName, List<String> playerNames) {
+    public void showPlayers(String playerName, Map<String, Boolean> playersAlreadyIn) {
         synchronized (observers) {
             VirtualView client = observers.get(playerName);
             try {
-                client.showPlayers(playerNames);
+                client.showPlayers(playersAlreadyIn);
             } catch (IOException ignored) {
             }
         }
