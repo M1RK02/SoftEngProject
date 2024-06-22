@@ -217,7 +217,12 @@ public class RmiServer implements VirtualServer {
         }
     }
     @Override
-    public void newChatMessage(String playerName, String roomId,ChatMessage newMessage){
-    NewChatMessageAction newChatMessage = new NewChatMessageAction(playerName, mainController.getRooms().get(roomId), newMessage);
+    public void newChatMessage(String playerName, String roomId, ChatMessage newMessage){
+        NewChatMessageAction newChatMessage = new NewChatMessageAction(playerName, mainController.getRooms().get(roomId), newMessage);
+        try {
+            actions.put(newChatMessage);
+        } catch (InterruptedException e) {
+            System.err.println("L'inserimento dell'azione new chat message nella coda è stato interrotto.");
+        }
     }
 }
