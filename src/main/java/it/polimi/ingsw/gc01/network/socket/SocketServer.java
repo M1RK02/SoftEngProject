@@ -15,6 +15,7 @@ public class SocketServer {
 
     public SocketServer(BlockingQueue<Action> actions) {
         this.actions = actions;
+        this.mainController = MainController.getInstance();
         bind();
         acceptConnections();
     }
@@ -32,11 +33,11 @@ public class SocketServer {
         Socket clientSocket;
         try {
             while ((clientSocket = listenSocket.accept()) != null) {
-                ClientHandler handler = new ClientHandler(actions, clientSocket);
+                ClientHandler handler = new ClientHandler(mainController, actions, clientSocket);
                 new Thread(() -> {
                     try {
                         handler.executeClientMessages();
-                    } catch (IOException | ClassNotFoundException | InterruptedException e) {
+                    } catch (IOException | ClassNotFoundException e) {
                         throw new RuntimeException(e);
                     }
                 }).start();

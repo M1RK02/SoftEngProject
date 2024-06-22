@@ -3,20 +3,19 @@ package it.polimi.ingsw.gc01.network.socket;
 import it.polimi.ingsw.gc01.model.player.PlayerColor;
 import it.polimi.ingsw.gc01.model.player.Position;
 import it.polimi.ingsw.gc01.network.NetworkClient;
-import it.polimi.ingsw.gc01.network.VirtualView;
 import it.polimi.ingsw.gc01.utils.DefaultValue;
 import it.polimi.ingsw.gc01.view.UI;
 
 import java.io.*;
 import java.net.Socket;
-import java.rmi.RemoteException;
 import java.util.List;
 import java.util.Map;
 
-import static it.polimi.ingsw.gc01.network.socket.SocketMessage.*;
+import static it.polimi.ingsw.gc01.network.socket.SocketClientMessage.*;
+import static it.polimi.ingsw.gc01.network.socket.SocketServerMessage.*;
 
 
-public class SocketClient implements NetworkClient, VirtualView {
+public class SocketClient implements NetworkClient {
     private ObjectInputStream input;
 
     private ObjectOutputStream output;
@@ -61,11 +60,83 @@ public class SocketClient implements NetworkClient, VirtualView {
     }
 
     public void executeServerMessage() throws IOException, ClassNotFoundException {
-        SocketMessage message = null;
-        while ((message = (SocketMessage) input.readObject()) != null) {
+        SocketServerMessage message = null;
+        while ((message = (SocketServerMessage) input.readObject()) != null) {
             switch (message) {
-                case UPDATEROOMIDMESSAGE:
+                case UPDATE_ROOM_ID:
                     updateRoomId((String) input.readObject());
+                    break;
+                case SHOW_PLAYERS:
+                    showPlayers((List<String>) input.readObject());
+                    break;
+                case SHOW_PLAYER_JOINED:
+                    showPlayerJoined((String) input.readObject());
+                    break;
+                case SHOW_PLAYER_LEFT:
+                    showPlayerLeft((String) input.readObject());
+                    break;
+                case SHOW_WAITING_FOR:
+                    showWaitingFor((String) input.readObject(), (String) input.readObject());
+                    break;
+                case START_GAME:
+                    startGame();
+                    break;
+                case UPDATE_CURRENT_PLAYER:
+                    updateCurrentPlayer((String) input.readObject());
+                    break;
+                case SHOW_STARTER:
+                    showStarter((int) input.readObject());
+                    break;
+                case SHOW_AVAILABLE_COLORS:
+                    showAvailableColors((List<PlayerColor>) input.readObject());
+                    break;
+                case UPDATE_READY:
+                    updateReady((String) input.readObject(), (boolean) input.readObject());
+                    break;
+                case SHOW_COMMON_OBJECTIVES:
+                    showCommonObjectives((List<Integer>) input.readObject());
+                    break;
+                case SHOW_TABLE:
+                    showTable((Map<Integer, Integer>) input.readObject());
+                    break;
+                case UPDATE_TABLE:
+                    updateTable((Map<Integer, Integer>) input.readObject());
+                    break;
+                case SHOW_HAND:
+                    showHand((List<Integer>) input.readObject());
+                    break;
+                case UPDATE_HAND:
+                    updateHand((List<Integer>) input.readObject());
+                    break;
+                case SHOW_FIELD:
+                    showField((String) input.readObject());
+                    break;
+                case SHOW_PONTS:
+                    showPoints((Map<String, Integer>) input.readObject(), (Map<PlayerColor, Integer>) input.readObject());
+                    break;
+                case SHOW_SECRET_OBJECTIVES:
+                    showSecretObjectives((List<Integer>) input.readObject());
+                    break;
+                case SHOW_ERROR:
+                    showError((String) input.readObject());
+                    break;
+                case SERVICE_MESSAGE:
+                    serviceMessage((String) input.readObject());
+                    break;
+                case SHOW_LAST_CIRCLE:
+                    showLastCircle();
+                    break;
+                case SHOW_WINNERS:
+                    showWinners((List<String>) input.readObject());
+                    break;
+                case UPDATE_FIELD:
+                    updateField((String) input.readObject(), (int) input.readObject(), (boolean) input.readObject(), (Position) input.readObject(),(List<Position>) input.readObject());
+                    break;
+                case IS_ALIVE:
+                    isAlive();
+                    break;
+                case BACK_TO_MENU:
+                    backToMenu();
                     break;
             }
         }
@@ -85,11 +156,11 @@ public class SocketClient implements NetworkClient, VirtualView {
     @Override
     public void createGame() {
         try {
-            output.writeObject(CREATEGAME);
+            output.writeObject(CREATE_GAME);
             output.writeObject(playerName);
             output.flush();
         } catch (IOException e) {
-            throw new RuntimeException(e);
+            System.err.println("Server socket not working!");
         }
     }
 
@@ -100,7 +171,14 @@ public class SocketClient implements NetworkClient, VirtualView {
      */
     @Override
     public void joinGame(String roomId) {
-
+        try {
+            output.writeObject(JOIN_GAME);
+            output.writeObject(playerName);
+            output.writeObject(roomId);
+            output.flush();
+        } catch (IOException e) {
+            System.err.println("Server socket not working!");
+        }
     }
 
     /**
@@ -108,7 +186,13 @@ public class SocketClient implements NetworkClient, VirtualView {
      */
     @Override
     public void joinFirstGame() {
-
+        try {
+            output.writeObject(JOIN_FIRST_GAME);
+            output.writeObject(playerName);
+            output.flush();
+        } catch (IOException e) {
+            System.err.println("Server socket not working!");
+        }
     }
 
     /**
@@ -118,7 +202,13 @@ public class SocketClient implements NetworkClient, VirtualView {
      */
     @Override
     public void chooseColor(PlayerColor color) {
-
+        try {
+            output.writeObject(CHOOSE_COLOR);
+            output.writeObject(color);
+            output.flush();
+        } catch (IOException e) {
+            System.err.println("Server socket not working!");
+        }
     }
 
     /**
@@ -126,7 +216,12 @@ public class SocketClient implements NetworkClient, VirtualView {
      */
     @Override
     public void switchReady() {
-
+        try {
+            output.writeObject(SWITCH_READY);
+            output.flush();
+        } catch (IOException e) {
+            System.err.println("Server socket not working!");
+        }
     }
 
     /**
@@ -136,7 +231,13 @@ public class SocketClient implements NetworkClient, VirtualView {
      */
     @Override
     public void chooseSecretObjective(int cardId) {
-
+        try {
+            output.writeObject(CHOOSE_SECRET_OBJECTIVE);
+            output.writeObject(cardId);
+            output.flush();
+        } catch (IOException e) {
+            System.err.println("Server socket not working!");
+        }
     }
 
     /**
@@ -146,7 +247,13 @@ public class SocketClient implements NetworkClient, VirtualView {
      */
     @Override
     public void flipCard(int cardId) {
-
+        try {
+            output.writeObject(FLIP_CARD);
+            output.writeObject(cardId);
+            output.flush();
+        } catch (IOException e) {
+            System.err.println("Server socket not working!");
+        }
     }
 
     /**
@@ -157,7 +264,14 @@ public class SocketClient implements NetworkClient, VirtualView {
      */
     @Override
     public void playCard(int cardId, Position position) {
-
+        try {
+            output.writeObject(PLAY_CARD);
+            output.writeObject(cardId);
+            output.writeObject(position);
+            output.flush();
+        } catch (IOException e) {
+            System.err.println("Server socket not working!");
+        }
     }
 
     /**
@@ -167,7 +281,13 @@ public class SocketClient implements NetworkClient, VirtualView {
      */
     @Override
     public void drawCard(int choice) {
-
+        try {
+            output.writeObject(DRAW_CARD);
+            output.writeObject(choice);
+            output.flush();
+        } catch (IOException e) {
+            System.err.println("Server socket not working!");
+        }
     }
 
     /**
@@ -175,17 +295,20 @@ public class SocketClient implements NetworkClient, VirtualView {
      */
     @Override
     public void leave() {
-
+        try {
+            output.writeObject(LEAVE);
+            output.flush();
+        } catch (IOException e) {
+            System.err.println("Server socket not working!");
+        }
     }
 
     /**
      * Update the room id
      *
      * @param roomId of the room
-     * @throws RemoteException
      */
-    @Override
-    public void updateRoomId(String roomId) throws RemoteException {
+    public void updateRoomId(String roomId) {
         this.roomId = roomId;
         ui.showRoom(roomId);
     }
@@ -194,33 +317,27 @@ public class SocketClient implements NetworkClient, VirtualView {
      * Show the players in the room
      *
      * @param playerNames the names of the players in the room
-     * @throws RemoteException
      */
-    @Override
-    public void showPlayers(List<String> playerNames) throws RemoteException {
-
+    public void showPlayers(List<String> playerNames) {
+        ui.showPlayers(playerNames);
     }
 
     /**
      * Show the player that has just joined
      *
      * @param playerName the names of the player that has just joined
-     * @throws RemoteException
      */
-    @Override
-    public void showPlayerJoined(String playerName) throws RemoteException {
-
+    public void showPlayerJoined(String playerName) {
+        ui.showPlayerJoined(playerName);
     }
 
     /**
      * Show the player that has just left
      *
      * @param playerName the names of the player that has just left
-     * @throws RemoteException
      */
-    @Override
-    public void showPlayerLeft(String playerName) throws RemoteException {
-
+    public void showPlayerLeft(String playerName) {
+        ui.showPlayerLeft(playerName);
     }
 
     /**
@@ -228,54 +345,46 @@ public class SocketClient implements NetworkClient, VirtualView {
      *
      * @param playerName
      * @param scene
-     * @throws RemoteException
      */
-    @Override
-    public void showWaitingFor(String playerName, String scene) throws RemoteException {
-
+    public void showWaitingFor(String playerName, String scene) {
+        if (!playerName.equals(this.playerName)) {
+            ui.showWaitingFor(playerName, scene);
+        }
     }
 
     /**
      * Start the game
      *
-     * @throws RemoteException
      */
-    @Override
-    public void startGame() throws RemoteException {
-
+    public void startGame() {
+        ui.startGame();
     }
 
     /**
      * Update the current player
      *
      * @param playerName of the new current player
-     * @throws RemoteException
      */
-    @Override
-    public void updateCurrentPlayer(String playerName) throws RemoteException {
-
+    public void updateCurrentPlayer(String playerName) {
+        ui.showCurrentPlayer(playerName);
     }
 
     /**
      * Show the starter card to the player
      *
      * @param cardId of the starter card
-     * @throws RemoteException
      */
-    @Override
-    public void showStarter(int cardId) throws RemoteException {
-
+    public void showStarter(int cardId) {
+        ui.showStarter(cardId);
     }
 
     /**
      * Show available colors to the player
      *
      * @param availableColors list of available colors
-     * @throws RemoteException
      */
-    @Override
-    public void showAvailableColors(List<PlayerColor> availableColors) throws RemoteException {
-
+    public void showAvailableColors(List<PlayerColor> availableColors) {
+        ui.showAvailableColors(availableColors);
     }
 
     /**
@@ -283,66 +392,63 @@ public class SocketClient implements NetworkClient, VirtualView {
      *
      * @param playerName of the player to update
      * @param ready      new status of the player, true if ready, false otherwise
-     * @throws RemoteException
      */
-    @Override
-    public void updateReady(String playerName, boolean ready) throws RemoteException {
-
+    public void updateReady(String playerName, boolean ready) {
+        ui.updateReady(playerName, ready);
     }
 
     /**
      * Show common objectives
      *
      * @param objectivesIds list of common objective ids
-     * @throws RemoteException
      */
-    @Override
-    public void showCommonObjectives(List<Integer> objectivesIds) throws RemoteException {
-
+    public void showCommonObjectives(List<Integer> objectivesIds) {
+        ui.showCommonObjectives(objectivesIds);
     }
 
     /**
      * Show the center table
      *
      * @param drawableCardsIds map of drawable card ids
-     * @throws RemoteException
      */
-    @Override
-    public void showTable(Map<Integer, Integer> drawableCardsIds) throws RemoteException {
-
+    public void showTable(Map<Integer, Integer> drawableCardsIds) {
+        ui.showTable(drawableCardsIds);
     }
 
     /**
      * Update the drawable cards on the table
      *
      * @param drawableCardsIds the map of the ids with the positions in the table
-     * @throws RemoteException
      */
-    @Override
-    public void updateTable(Map<Integer, Integer> drawableCardsIds) throws RemoteException {
-
+    public void updateTable(Map<Integer, Integer> drawableCardsIds) {
+        ui.updateTable(drawableCardsIds);
     }
 
     /**
      * Show the hand
      *
-     * @param cardIds list of card ids in the hand
-     * @throws RemoteException
+     * @param handIds list of card ids in the hand
      */
-    @Override
-    public void showHand(List<Integer> cardIds) throws RemoteException {
+    public void showHand(List<Integer> handIds) {
+        ui.showHand(handIds);
+    }
 
+    /**
+     * Update the hand
+     *
+     * @param cardIds list of card ids in the hand
+     */
+    public void updateHand(List<Integer> cardIds) {
+        ui.updateHand(cardIds);
     }
 
     /**
      * Show the field of the indicated player
      *
      * @param playerName to show the field
-     * @throws RemoteException
      */
-    @Override
-    public void showField(String playerName) throws RemoteException {
-
+    public void showField(String playerName) {
+        ui.showField(playerName);
     }
 
     /**
@@ -350,65 +456,53 @@ public class SocketClient implements NetworkClient, VirtualView {
      *
      * @param points      map of playerName, points
      * @param tablePoints
-     * @throws RemoteException
      */
-    @Override
-    public void showPoints(Map<String, Integer> points, Map<PlayerColor, Integer> tablePoints) throws RemoteException {
-
+    public void showPoints(Map<String, Integer> points, Map<PlayerColor, Integer> tablePoints) {
+        ui.showPoints(points, tablePoints);
     }
 
     /**
      * Show the possible secret objectives
      *
      * @param possibleObjectivesIds list of possible objectives ids
-     * @throws RemoteException
      */
-    @Override
-    public void showSecretObjectives(List<Integer> possibleObjectivesIds) throws RemoteException {
-
+    public void showSecretObjectives(List<Integer> possibleObjectivesIds) {
+        ui.showPossibleObjectives(possibleObjectivesIds);
     }
 
     /**
      * Show the error message
      *
      * @param error to show
-     * @throws RemoteException
      */
-    @Override
-    public void showError(String error) throws RemoteException {
-
+    public void showError(String error) {
+        ui.showError(error);
     }
 
     /**
      * Show the service message
      *
      * @param message to show
-     * @throws RemoteException
      */
-    @Override
-    public void serviceMessage(String message) throws RemoteException {
-
+    public void serviceMessage(String message) {
+        ui.showServiceMessage(message);
     }
 
     /**
      * Show the last turn notification
      *
-     * @throws RemoteException
      */
-    @Override
-    public void showLastCircle() throws RemoteException {
-
+    public void showLastCircle() {
+        ui.showLastCircle();
     }
 
     /**
      * Show the list of winners
      *
      * @param winners list of winners
-     * @throws RemoteException
      */
-    @Override
-    public void showWinners(List<String> winners) throws RemoteException {
-
+    public void showWinners(List<String> winners) {
+        ui.showWinners(winners);
     }
 
     /**
@@ -420,28 +514,20 @@ public class SocketClient implements NetworkClient, VirtualView {
      * @param position           of the played card
      * @param availablePositions list of available positions
      */
-    @Override
-    public void updateField(String playerName, int id, boolean front, Position position, List<Position> availablePositions) throws RemoteException {
-
+    public void updateField(String playerName, int id, boolean front, Position position, List<Position> availablePositions) {
+        ui.updateField(playerName, id, front, position, availablePositions);
     }
 
     /**
      * Check if the client is alive
-     *
-     * @throws RemoteException
      */
-    @Override
-    public void isAlive() throws RemoteException {
-
+    public void isAlive() {
     }
 
     /**
      * Go back to menu
-     *
-     * @throws RemoteException
      */
-    @Override
-    public void backToMenu() throws RemoteException {
-
+    public void backToMenu() {
+        ui.backToMenu();
     }
 }

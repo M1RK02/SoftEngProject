@@ -197,14 +197,6 @@ public class RmiClient extends UnicastRemoteObject implements VirtualView, Netwo
     }
 
     /**
-     * Send ui back to menu
-     */
-    @Override
-    public void backToMenu() {
-        ui.backToMenu();
-    }
-
-    /**
      * Show the roomId to the ui
      *
      * @param roomId of the room
@@ -252,7 +244,9 @@ public class RmiClient extends UnicastRemoteObject implements VirtualView, Netwo
      */
     @Override
     public void showWaitingFor(String playerName, String scene) throws RemoteException {
-        if (!playerName.equals(this.playerName)) ui.showWaitingFor(playerName, scene);
+        if (!playerName.equals(this.playerName)) {
+            ui.showWaitingFor(playerName, scene);
+        }
     }
 
     /**
@@ -445,4 +439,13 @@ public class RmiClient extends UnicastRemoteObject implements VirtualView, Netwo
     @Override
     public void isAlive() {
     }
+
+    /**
+     * Send ui back to menu
+     */
+    @Override
+    public void backToMenu() {
+        ui.backToMenu();
+    }
+
 }

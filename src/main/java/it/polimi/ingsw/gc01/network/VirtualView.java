@@ -116,10 +116,10 @@ public interface VirtualView extends Remote {
     /**
      * Show the hand
      *
-     * @param cardIds list of card ids in the hand
+     * @param handIds list of card ids in the hand
      * @throws RemoteException
      */
-    void showHand(List<Integer> cardIds) throws RemoteException;
+    void showHand(List<Integer> handIds) throws RemoteException;
 
     /**
      * Update the hand
