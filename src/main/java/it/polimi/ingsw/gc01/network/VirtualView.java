@@ -1,5 +1,6 @@
 package it.polimi.ingsw.gc01.network;
 
+import it.polimi.ingsw.gc01.model.ChatMessage;
 import it.polimi.ingsw.gc01.model.player.*;
 
 import java.io.IOException;
@@ -196,6 +197,8 @@ public interface VirtualView extends Remote {
      * @throws IOException
      */
     void updateField(String playerName, int id, boolean front, Position position, List<Position> availablePositions) throws IOException;
+
+    void updateChat(ChatMessage newChatMessage) throws RemoteException;
 
     /**
      * Check if the client is alive

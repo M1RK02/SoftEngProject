@@ -1,5 +1,6 @@
 package it.polimi.ingsw.gc01.network.rmi;
 
+import it.polimi.ingsw.gc01.model.ChatMessage;
 import it.polimi.ingsw.gc01.model.player.*;
 import it.polimi.ingsw.gc01.network.VirtualView;
 
@@ -105,4 +106,6 @@ public interface VirtualServer extends Remote {
      * @throws RemoteException
      */
     void leave(String playerName, String roomId) throws RemoteException;
+
+    void newChatMessage(String playerName, String roomId,ChatMessage newMessage)throws RemoteException;
 }

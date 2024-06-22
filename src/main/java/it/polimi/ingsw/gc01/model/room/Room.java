@@ -249,4 +249,10 @@ public class Room {
         notifier.removeObserver(playerName);
         notifier.showPlayerLeft(playerName);
     }
+
+    public void newChatMessage(ChatMessage newChatMessage){
+        chat.add(newChatMessage);
+        notifier.updateChat(newChatMessage);
+
+    }
 }

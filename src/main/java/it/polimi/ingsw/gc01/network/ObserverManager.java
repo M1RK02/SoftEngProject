@@ -1,5 +1,6 @@
 package it.polimi.ingsw.gc01.network;
 
+import it.polimi.ingsw.gc01.model.ChatMessage;
 import it.polimi.ingsw.gc01.model.cards.*;
 import it.polimi.ingsw.gc01.model.player.*;
 import it.polimi.ingsw.gc01.model.room.TablePosition;
@@ -492,6 +493,24 @@ public class ObserverManager {
             }
             if (!dead.isEmpty()) {
                 showGameError("GAME " + dead + " has left the game");
+            }
+        }
+    }
+    public void updateChat(ChatMessage newChatMessage){
+        if(newChatMessage.getRecipient().equals("ALL")){
+            synchronized (observers) {
+                for (VirtualView client : observers.values()) {
+                    try {
+                        client.updateChat(newChatMessage);
+
+                    } catch (RemoteException ignored) {
+                    }
+                }
+            }
+        } else {
+            try {
+                observers.get(newChatMessage.getRecipient()).updateChat(newChatMessage);
+            } catch (RemoteException ignored) {
             }
         }
     }

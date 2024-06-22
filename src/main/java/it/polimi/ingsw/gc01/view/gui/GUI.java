@@ -1,5 +1,6 @@
 package it.polimi.ingsw.gc01.view.gui;
 
+import it.polimi.ingsw.gc01.model.ChatMessage;
 import it.polimi.ingsw.gc01.model.player.*;
 import it.polimi.ingsw.gc01.network.NetworkClient;
 import it.polimi.ingsw.gc01.network.rmi.RmiClient;
@@ -562,5 +563,9 @@ public class GUI extends Application implements UI {
     @Override
     public void backToMenu() {
         networkClient.leave();
+    }
+
+    public void updateChat(ChatMessage newChatMessage){
+        //TODO
     }
 }

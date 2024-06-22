@@ -1,5 +1,6 @@
 package it.polimi.ingsw.gc01.network.rmi;
 
+import it.polimi.ingsw.gc01.model.ChatMessage;
 import it.polimi.ingsw.gc01.model.player.*;
 import it.polimi.ingsw.gc01.network.*;
 import it.polimi.ingsw.gc01.utils.DefaultValue;
@@ -53,6 +54,15 @@ public class RmiClient extends UnicastRemoteObject implements VirtualView, Netwo
             this.server = (VirtualServer) registry.lookup(DefaultValue.RMIServerName);
             System.out.println("Client RMI ready");
         } catch (RemoteException | NotBoundException e) {
+            System.err.println("Server RMI not working!");
+        }
+    }
+
+    @Override
+    public void newChatMessage(ChatMessage newMessage){
+        try{
+            server.newChatMessage(this.playerName, this.roomId, newMessage);
+        }catch(RemoteException e) {
             System.err.println("Server RMI not working!");
         }
     }
@@ -259,6 +269,10 @@ public class RmiClient extends UnicastRemoteObject implements VirtualView, Netwo
     @Override
     public void updateField(String playerName, int id, boolean front, Position position, List<Position> availablePositions) {
         ui.updateField(playerName, id, front, position, availablePositions);
+    }
+    @Override
+    public void updateChat(ChatMessage newChatMessage){
+        ui.updateChat(newChatMessage);
     }
 
     /**

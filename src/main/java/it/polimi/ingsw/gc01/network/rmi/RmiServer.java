@@ -1,6 +1,7 @@
 package it.polimi.ingsw.gc01.network.rmi;
 
 import it.polimi.ingsw.gc01.controller.MainController;
+import it.polimi.ingsw.gc01.model.ChatMessage;
 import it.polimi.ingsw.gc01.model.player.*;
 import it.polimi.ingsw.gc01.network.VirtualView;
 import it.polimi.ingsw.gc01.network.actions.*;
@@ -214,5 +215,9 @@ public class RmiServer implements VirtualServer {
         } catch (InterruptedException e) {
             System.err.println("L'inserimento dell'azione leave nella coda è stato interrotto.");
         }
+    }
+    @Override
+    public void newChatMessage(String playerName, String roomId,ChatMessage newMessage){
+    NewChatMessageAction newChatMessage = new NewChatMessageAction(playerName, mainController.getRooms().get(roomId), newMessage);
     }
 }

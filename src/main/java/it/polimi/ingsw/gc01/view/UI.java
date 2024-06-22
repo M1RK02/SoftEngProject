@@ -1,5 +1,6 @@
 package it.polimi.ingsw.gc01.view;
 
+import it.polimi.ingsw.gc01.model.ChatMessage;
 import it.polimi.ingsw.gc01.model.player.*;
 
 import java.util.*;
@@ -163,6 +164,8 @@ public interface UI {
      * @param drawableCardsIds the map of the ids with the positions in the table
      */
     void updateTable(Map<Integer, Integer> drawableCardsIds);
+
+    void updateChat(ChatMessage newChatMessage);
 
     /**
      * Show the common objectives

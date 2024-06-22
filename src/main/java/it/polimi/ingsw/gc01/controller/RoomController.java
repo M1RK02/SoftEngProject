@@ -1,6 +1,7 @@
 package it.polimi.ingsw.gc01.controller;
 
 import it.polimi.ingsw.gc01.controller.exceptions.*;
+import it.polimi.ingsw.gc01.model.ChatMessage;
 import it.polimi.ingsw.gc01.model.cards.*;
 import it.polimi.ingsw.gc01.model.player.*;
 import it.polimi.ingsw.gc01.model.room.*;
@@ -476,5 +477,9 @@ public class RoomController {
                 mainController.deleteRoom(room.getRoomId());
             }
         }
+    }
+
+    public void newChatMessage(ChatMessage newChatMessage){
+        room.newChatMessage(newChatMessage);
     }
 }

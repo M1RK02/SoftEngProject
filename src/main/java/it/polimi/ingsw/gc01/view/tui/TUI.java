@@ -1,6 +1,9 @@
 package it.polimi.ingsw.gc01.view.tui;
 
 import it.polimi.ingsw.gc01.model.player.*;
+import it.polimi.ingsw.gc01.model.ChatMessage;
+import it.polimi.ingsw.gc01.model.player.PlayerColor;
+import it.polimi.ingsw.gc01.model.player.Position;
 import it.polimi.ingsw.gc01.network.NetworkClient;
 import it.polimi.ingsw.gc01.network.rmi.RmiClient;
 import it.polimi.ingsw.gc01.network.socket.SocketClient;
@@ -255,6 +258,73 @@ public class TUI implements UI {
         return roomId.length() == 5;
     }
 
+    private void newChatMessage(String sender, String content, String recipient){
+        ChatMessage newMessage = new ChatMessage(sender, content, recipient);
+        networkClient.newChatMessage(newMessage);
+    }
+    private void showChat(){
+    chat.printChat();
+    int choice = 0;
+    String input;
+    Scanner scanner;
+    do {
+        System.out.println("""
+                Would you rather:
+                (1) Write a new Message
+                (2) Go Back To Game
+                """);
+        scanner = new Scanner(System.in);
+
+            input = scanner.nextLine();
+            try {
+                choice = Integer.parseInt(input);
+            } catch (Exception ignored) {
+            }
+       }while (choice != 1 && choice != 2);
+        switch (choice) {
+            case (1):
+                int playerChoice=-1;
+                Set<String> playersSet = otherFields.keySet();
+                List<String> players = new ArrayList<>(playersSet);
+                players.remove(playerName);
+                int i=0;
+
+                //richiesta
+                System.out.println("Who do you want to text:");
+                for ( i = 0; i < players.size(); i++) {
+                    System.out.println((i + 1) + ") " + players.get(i));
+                }
+                System.out.println(i+1 +") ALL");
+
+                scanner = new Scanner(System.in);
+                do {
+                 input = scanner.nextLine();
+                    try {
+                        playerChoice = Integer.parseInt(input);
+                    } catch (Exception ignored) {
+                    }
+                } while (playerChoice < 1 || playerChoice > players.size());
+                String recipient = players.get(playerChoice-1);
+
+                //System.out.println("manderai un messaggio a " + recipient);
+
+                System.out.println("Write the message to send to "+ recipient);
+                String content = scanner.nextLine();
+                newChatMessage(playerName, content, recipient);
+                break;
+            case (2):
+                System.out.println("Back to the Game!");
+                break;
+        }
+
+    }
+    @Override
+    public void updateChat(ChatMessage newChatMessage){
+        chat.addMessageToChat(newChatMessage);
+        System.out.println("New message for you!!! Open the chat when is your turn.");
+    }
+
+
     /**
      * Print the joined room
      *
@@ -397,7 +467,6 @@ public class TUI implements UI {
                 System.out.println(DefaultValue.ANSI_RED + message + DefaultValue.ANSI_RESET);
                 networkClient.leave();
                 System.exit(0);
-                break;
         }
     }
 
@@ -655,11 +724,17 @@ public class TUI implements UI {
      * Propose the choice of the card to play
      */
     private void chooseCardToPlay() {
-        System.out.println(DefaultValue.ANSI_YELLOW + "Choose which card you want to play: " + DefaultValue.ANSI_RESET);
+        System.out.println(DefaultValue.ANSI_YELLOW + "Choose which card you want to play or press 'c' to open the chat: " + DefaultValue.ANSI_RESET);
         Scanner scanner = new Scanner(System.in);
         String input = scanner.nextLine();
         while (input.isEmpty() || (!input.equals("1") && !input.equals("2") && !input.equals("3"))) {
-            System.out.println(DefaultValue.ANSI_RED + "Wrong choice" + DefaultValue.ANSI_RESET);
+
+            if(input.equals("c")){
+                showChat();
+                System.out.println(DefaultValue.ANSI_YELLOW + "Choose which card you want to play:" + DefaultValue.ANSI_RESET);
+            }else {
+                System.out.println(DefaultValue.ANSI_RED + "Wrong choice" + DefaultValue.ANSI_RESET);
+            }
             input = scanner.nextLine();
         }
         int cardSelected = Integer.parseInt(input) - 1;
