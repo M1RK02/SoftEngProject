@@ -42,7 +42,9 @@ public class GUI extends Application implements UI {
             Image icon = new Image(getClass().getResource("/images/CodexNaturalis.png").toExternalForm());
             stage.getIcons().add(icon);
             stage.setTitle("CodexNaturalis");
-
+            stage.setOnCloseRequest(event -> {
+                System.exit(0);
+            });
             stage.setScene(new Scene(root));
             stage.show();
         } catch (IOException ignored) {
