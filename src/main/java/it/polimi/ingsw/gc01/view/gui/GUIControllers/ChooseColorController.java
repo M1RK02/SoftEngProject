@@ -3,10 +3,8 @@ package it.polimi.ingsw.gc01.view.gui.GUIControllers;
 import it.polimi.ingsw.gc01.model.player.PlayerColor;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
-import javafx.scene.control.ChoiceBox;
 import javafx.scene.effect.ColorAdjust;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
+import javafx.scene.image.*;
 
 import java.util.List;
 
@@ -30,7 +28,7 @@ public class ChooseColorController extends GenericController {
 
     @FXML
     private void handleNextButton() {
-        if (choice.isEmpty()){
+        if (choice.isEmpty()) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Error");
             alert.setHeaderText("You must choose a color");
@@ -41,12 +39,11 @@ public class ChooseColorController extends GenericController {
     }
 
     @FXML
-    private void setBluePawn(){
+    private void setBluePawn() {
         if (availableColors.contains(PlayerColor.BLUE)) {
             choice = "BLUE";
-            glowButton(0.5,0,0,0);
-        }
-        else {
+            glowButton(0.5, 0, 0, 0);
+        } else {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Error");
             alert.setHeaderText("Blue is no more available");
@@ -55,12 +52,11 @@ public class ChooseColorController extends GenericController {
     }
 
     @FXML
-    private void setGreenPawn(){
+    private void setGreenPawn() {
         if (availableColors.contains(PlayerColor.GREEN)) {
             choice = "GREEN";
-            glowButton(0,0.5,0,0);
-        }
-        else {
+            glowButton(0, 0.5, 0, 0);
+        } else {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Error");
             alert.setHeaderText("Green is no more available");
@@ -69,12 +65,11 @@ public class ChooseColorController extends GenericController {
     }
 
     @FXML
-    private void setRedPawn(){
+    private void setRedPawn() {
         if (availableColors.contains(PlayerColor.RED)) {
             choice = "RED";
-            glowButton(0,0,0.5,0);
-        }
-        else {
+            glowButton(0, 0, 0.5, 0);
+        } else {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Error");
             alert.setHeaderText("RED is no more available");
@@ -83,13 +78,12 @@ public class ChooseColorController extends GenericController {
     }
 
     @FXML
-    private void setYellowPawn(){
+    private void setYellowPawn() {
         if (availableColors.contains(PlayerColor.YELLOW)) {
             choice = "YELLOW";
-            glowButton(0,0,0,0.5);
+            glowButton(0, 0, 0, 0.5);
 
-        }
-        else {
+        } else {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Error");
             alert.setHeaderText("Yellow is no more available");
@@ -97,7 +91,7 @@ public class ChooseColorController extends GenericController {
         }
     }
 
-    private void glowButton(double brightness1, double brightness2, double brightness3, double brightness4){
+    private void glowButton(double brightness1, double brightness2, double brightness3, double brightness4) {
         colorAdjustBlue.setBrightness(brightness1);
         colorAdjustGreen.setBrightness(brightness2);
         colorAdjustRed.setBrightness(brightness3);

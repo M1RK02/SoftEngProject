@@ -38,8 +38,9 @@ public interface UI {
 
     /**
      * Shows the waiting scene for every client except the one choosing
+     *
      * @param playerName of the player choosing
-     * @param scene the name of the scene waiting for
+     * @param scene      the name of the scene waiting for
      */
     void showWaitingFor(String playerName, String scene);
 
@@ -158,6 +159,7 @@ public interface UI {
 
     /**
      * Update the drawable cards on the table
+     *
      * @param drawableCardsIds the map of the ids with the positions in the table
      */
     void updateTable(Map<Integer, Integer> drawableCardsIds);

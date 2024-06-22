@@ -1,19 +1,19 @@
-package it.polimi.ingsw.gc01.network.rmi.actions;
+package it.polimi.ingsw.gc01.network.actions;
 
 import it.polimi.ingsw.gc01.controller.MainController;
 import it.polimi.ingsw.gc01.network.VirtualView;
 
 /**
- * Action to create a new game
+ * Action to join the first available game
  */
-public class CreateGameAction extends MainAction {
+public class JoinFirstGameAction extends MainAction {
     /**
-     * Create a new CreateGameAction
+     * Create a new JoinFirstGameAction
      *
      * @param playerName of the player who is creating the action
      * @param client     reference to the client
      */
-    public CreateGameAction(String playerName, VirtualView client) {
+    public JoinFirstGameAction(String playerName, VirtualView client) {
         super(playerName, client);
     }
 
@@ -23,6 +23,6 @@ public class CreateGameAction extends MainAction {
     @Override
     public void execute() {
         MainController controller = MainController.getInstance();
-        controller.createGame(getPlayerName(), getClient());
+        controller.joinFirstGame(getPlayerName(), getClient());
     }
 }

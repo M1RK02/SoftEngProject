@@ -1,4 +1,4 @@
-package it.polimi.ingsw.gc01.network.rmi.actions;
+package it.polimi.ingsw.gc01.network.actions;
 
 /**
  * General base of an action executed by the RMI Server

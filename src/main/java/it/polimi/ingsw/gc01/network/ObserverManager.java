@@ -4,7 +4,7 @@ import it.polimi.ingsw.gc01.model.cards.*;
 import it.polimi.ingsw.gc01.model.player.*;
 import it.polimi.ingsw.gc01.model.room.TablePosition;
 
-import java.rmi.RemoteException;
+import java.io.IOException;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -59,7 +59,7 @@ public class ObserverManager {
             VirtualView client = observers.get(playerName);
             try {
                 client.updateRoomId(roomId);
-            } catch (RemoteException ignored) {
+            } catch (IOException ignored) {
             }
         }
     }
@@ -69,7 +69,7 @@ public class ObserverManager {
             VirtualView client = observers.get(playerName);
             try {
                 client.showPlayers(playerNames);
-            } catch (RemoteException ignored) {
+            } catch (IOException ignored) {
             }
         }
     }
@@ -79,7 +79,7 @@ public class ObserverManager {
             for (VirtualView client : observers.values()) {
                 try {
                     client.showPlayerJoined(playerName);
-                } catch (RemoteException ignored) {
+                } catch (IOException ignored) {
                 }
             }
         }
@@ -90,7 +90,7 @@ public class ObserverManager {
             for (VirtualView client : observers.values()) {
                 try {
                     client.showPlayerLeft(playerName);
-                } catch (RemoteException ignored) {
+                } catch (IOException ignored) {
                 }
             }
         }
@@ -104,7 +104,7 @@ public class ObserverManager {
             for (VirtualView client : observers.values()) {
                 try {
                     client.startGame();
-                } catch (RemoteException ignored) {
+                } catch (IOException ignored) {
                 }
             }
         }
@@ -120,7 +120,7 @@ public class ObserverManager {
             for (VirtualView client : observers.values()) {
                 try {
                     client.updateCurrentPlayer(playerName);
-                } catch (RemoteException ignored) {
+                } catch (IOException ignored) {
                 }
             }
         }
@@ -137,7 +137,7 @@ public class ObserverManager {
             VirtualView client = observers.get(playerName);
             try {
                 client.showStarter(card.getId());
-            } catch (RemoteException ignored) {
+            } catch (IOException ignored) {
             }
         }
     }
@@ -152,7 +152,7 @@ public class ObserverManager {
             for (VirtualView client : observers.values()) {
                 try {
                     client.showWaitingFor(playerName, scene);
-                } catch (RemoteException ignored) {
+                } catch (IOException ignored) {
                 }
             }
         }
@@ -169,7 +169,7 @@ public class ObserverManager {
             VirtualView client = observers.get(playerName);
             try {
                 client.showAvailableColors(colors);
-            } catch (RemoteException ignored) {
+            } catch (IOException ignored) {
             }
         }
     }
@@ -185,7 +185,7 @@ public class ObserverManager {
             for (VirtualView client : observers.values()) {
                 try {
                     client.updateReady(playerName, ready);
-                } catch (RemoteException ignored) {
+                } catch (IOException ignored) {
                 }
             }
         }
@@ -205,7 +205,7 @@ public class ObserverManager {
             for (VirtualView client : observers.values()) {
                 try {
                     client.updateField(playerName, id, front, position, availablePositions);
-                } catch (RemoteException ignored) {
+                } catch (IOException ignored) {
                 }
             }
         }
@@ -233,7 +233,7 @@ public class ObserverManager {
             VirtualView client = observers.get(playerName);
             try {
                 client.showTable(drawableIds);
-            } catch (RemoteException ignored) {
+            } catch (IOException ignored) {
             }
         }
     }
@@ -254,7 +254,7 @@ public class ObserverManager {
             for (VirtualView client : observers.values()) {
                 try {
                     client.updateTable(drawableIds);
-                } catch (RemoteException ignored) {
+                } catch (IOException ignored) {
                 }
             }
         }
@@ -271,7 +271,7 @@ public class ObserverManager {
             for (VirtualView client : observers.values()) {
                 try {
                     client.showCommonObjectives(commonObjectivesIds);
-                } catch (RemoteException ignored) {
+                } catch (IOException ignored) {
                 }
             }
         }
@@ -289,7 +289,7 @@ public class ObserverManager {
             VirtualView client = observers.get(playerName);
             try {
                 client.showHand(handIds);
-            } catch (RemoteException ignored) {
+            } catch (IOException ignored) {
             }
         }
     }
@@ -306,7 +306,7 @@ public class ObserverManager {
             VirtualView client = observers.get(playerName);
             try {
                 client.updateHand(handIds);
-            } catch (RemoteException ignored) {
+            } catch (IOException ignored) {
             }
         }
     }
@@ -321,7 +321,7 @@ public class ObserverManager {
             for (VirtualView client : observers.values()) {
                 try {
                     client.showField(playerName);
-                } catch (RemoteException ignored) {
+                } catch (IOException ignored) {
                 }
             }
         }
@@ -337,7 +337,7 @@ public class ObserverManager {
             for (VirtualView client : observers.values()) {
                 try {
                     client.showPoints(points, tablePoints);
-                } catch (RemoteException ignored) {
+                } catch (IOException ignored) {
                 }
             }
         }
@@ -351,7 +351,7 @@ public class ObserverManager {
             for (VirtualView client : observers.values()) {
                 try {
                     client.backToMenu();
-                } catch (RemoteException ignored) {
+                } catch (IOException ignored) {
                 }
             }
         }
@@ -369,7 +369,7 @@ public class ObserverManager {
             VirtualView client = observers.get(playerName);
             try {
                 client.showSecretObjectives(possibleObjectivesIds);
-            } catch (RemoteException ignored) {
+            } catch (IOException ignored) {
             }
         }
 
@@ -386,7 +386,7 @@ public class ObserverManager {
             VirtualView client = observers.get(playerName);
             try {
                 client.showError(error);
-            } catch (RemoteException ignored) {
+            } catch (IOException ignored) {
             }
         }
     }
@@ -401,7 +401,7 @@ public class ObserverManager {
             for (VirtualView client : observers.values()) {
                 try {
                     client.showError(error);
-                } catch (RemoteException ignored) {
+                } catch (IOException ignored) {
                 }
             }
         }
@@ -417,7 +417,7 @@ public class ObserverManager {
             for (VirtualView client : observers.values()) {
                 try {
                     client.serviceMessage(message);
-                } catch (RemoteException ignored) {
+                } catch (IOException ignored) {
                 }
             }
         }
@@ -431,7 +431,7 @@ public class ObserverManager {
             for (VirtualView client : observers.values()) {
                 try {
                     client.showLastCircle();
-                } catch (RemoteException ignored) {
+                } catch (IOException ignored) {
                 }
             }
         }
@@ -447,7 +447,7 @@ public class ObserverManager {
             for (VirtualView client : observers.values()) {
                 try {
                     client.showWinners(winners);
-                } catch (RemoteException ignored) {
+                } catch (IOException ignored) {
                 }
             }
         }
@@ -464,7 +464,7 @@ public class ObserverManager {
             VirtualView client = observers.get(playerName);
             try {
                 client.serviceMessage(message);
-            } catch (RemoteException ignored) {
+            } catch (IOException ignored) {
             }
         }
     }
@@ -475,7 +475,7 @@ public class ObserverManager {
     private void heartBeat() {
         while (true) {
             try {
-                Thread.sleep(10 * 1000);
+                Thread.sleep(5 * 1000);
             } catch (InterruptedException ignored) {
             }
             String dead = "";
@@ -483,7 +483,7 @@ public class ObserverManager {
                 for (String playerName : observers.keySet()) {
                     try {
                         observers.get(playerName).isAlive();
-                    } catch (RemoteException e) {
+                    } catch (IOException e) {
                         observers.remove(playerName);
                         dead = playerName;
                         break;

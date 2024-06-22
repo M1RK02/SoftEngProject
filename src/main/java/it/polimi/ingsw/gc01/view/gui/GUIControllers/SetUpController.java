@@ -3,8 +3,7 @@ package it.polimi.ingsw.gc01.view.gui.GUIControllers;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
 
 public class SetUpController extends GenericController {
 
@@ -25,6 +24,28 @@ public class SetUpController extends GenericController {
 
     @FXML
     private ToggleGroup connectionGroup;
+
+    /**
+     * Check if the input is a valid IP address
+     *
+     * @param input string to check
+     * @return true if is a valid IP, otherwise false
+     */
+    private static boolean isValidIP(String input) {
+        List<String> parsed;
+        parsed = Arrays.stream(input.split("\\.")).toList();
+        if (parsed.size() != 4) {
+            return false;
+        }
+        for (String part : parsed) {
+            try {
+                Integer.parseInt(part);
+            } catch (NumberFormatException e) {
+                return false;
+            }
+        }
+        return true;
+    }
 
     /**
      * Mette i due toggle button nello stesso gruppo per rende cliccabile solo uno dei due
@@ -94,27 +115,5 @@ public class SetUpController extends GenericController {
         }
         String connectionType = selectedButton.getText();
         gui.connect(nickname, remoteIP, personalIP, connectionType);
-    }
-
-    /**
-     * Check if the input is a valid IP address
-     *
-     * @param input string to check
-     * @return true if is a valid IP, otherwise false
-     */
-    private static boolean isValidIP(String input) {
-        List<String> parsed;
-        parsed = Arrays.stream(input.split("\\.")).toList();
-        if (parsed.size() != 4) {
-            return false;
-        }
-        for (String part : parsed) {
-            try {
-                Integer.parseInt(part);
-            } catch (NumberFormatException e) {
-                return false;
-            }
-        }
-        return true;
     }
 }

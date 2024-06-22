@@ -5,7 +5,6 @@ import it.polimi.ingsw.gc01.network.*;
 import it.polimi.ingsw.gc01.utils.DefaultValue;
 
 import java.util.*;
-import java.util.stream.Collectors;
 
 /**
  * Class to manage the waiting room

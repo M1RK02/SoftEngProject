@@ -2,7 +2,7 @@ package it.polimi.ingsw.gc01.controller;
 
 import it.polimi.ingsw.gc01.network.VirtualView;
 
-import java.rmi.RemoteException;
+import java.io.IOException;
 import java.util.*;
 
 /**
@@ -110,7 +110,7 @@ public class MainController {
     private void sendErrorToClient(VirtualView client, String error) {
         try {
             client.showError(error);
-        } catch (RemoteException e) {
+        } catch (IOException e) {
             throw new RuntimeException(e);
         }
     }

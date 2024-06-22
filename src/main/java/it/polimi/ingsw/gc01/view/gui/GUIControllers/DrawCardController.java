@@ -1,18 +1,15 @@
 package it.polimi.ingsw.gc01.view.gui.GUIControllers;
 
 import it.polimi.ingsw.gc01.view.gui.ClientModel;
-import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
+import javafx.scene.image.*;
 import javafx.scene.text.Text;
 
 import java.util.Map;
 
-public class DrawCardController extends GenericController{
+public class DrawCardController extends GenericController {
 
     @FXML
     private ImageView resourceDeck;
@@ -38,9 +35,9 @@ public class DrawCardController extends GenericController{
     }
 
     @FXML
-    private void goBack(){
+    private void goBack() {
         ClientModel clientModel = gui.getClientModel();
-        if (gui.getPlayerName().equals(clientModel.getCurrentPlayer())){
+        if (gui.getPlayerName().equals(clientModel.getCurrentPlayer())) {
             gui.backToPlay();
         } else {
             gui.backToOtherFields();
@@ -48,13 +45,12 @@ public class DrawCardController extends GenericController{
     }
 
 
-
     @Override
     public void setAttributes(Object... o) {
         Map<Integer, Integer> drawableCardsIds = (Map<Integer, Integer>) o[0];
         boolean canDraw = (boolean) o[1];
 
-        if (!canDraw){
+        if (!canDraw) {
             resourceDeck.setDisable(true);
             resourceLeft.setDisable(true);
             resourceRight.setDisable(true);
@@ -62,7 +58,7 @@ public class DrawCardController extends GenericController{
             goldenLeft.setDisable(true);
             goldenRight.setDisable(true);
             title.setVisible(false);
-        }else {
+        } else {
             goBack.setDisable(true);
             goBack.setVisible(false);
             title.setVisible(true);
@@ -71,8 +67,7 @@ public class DrawCardController extends GenericController{
         if (drawableCardsIds.get(1) != null) {
             Image resourceDeckImage = new Image(getClass().getResourceAsStream("/images/cards/Back" + drawableCardsIds.get(1) + ".png"));
             resourceDeck.setImage(resourceDeckImage);
-        }
-        else {
+        } else {
             resourceDeck.setImage(null);
             resourceDeck.setOpacity(0);
             resourceDeck.setDisable(true);
@@ -81,8 +76,7 @@ public class DrawCardController extends GenericController{
         if (drawableCardsIds.get(2) != null) {
             Image resourceLeftImage = new Image(getClass().getResourceAsStream("/images/cards/Front" + drawableCardsIds.get(2) + ".png"));
             resourceLeft.setImage(resourceLeftImage);
-        }
-        else {
+        } else {
             resourceLeft.setImage(null);
             resourceLeft.setOpacity(0);
             resourceLeft.setDisable(true);
@@ -91,8 +85,7 @@ public class DrawCardController extends GenericController{
         if (drawableCardsIds.get(3) != null) {
             Image resourceRightImage = new Image(getClass().getResourceAsStream("/images/cards/Front" + drawableCardsIds.get(3) + ".png"));
             resourceRight.setImage(resourceRightImage);
-        }
-        else {
+        } else {
             resourceRight.setImage(null);
             resourceRight.setOpacity(0);
             resourceRight.setDisable(true);
@@ -101,8 +94,7 @@ public class DrawCardController extends GenericController{
         if (drawableCardsIds.get(4) != null) {
             Image goldenDeckImage = new Image(getClass().getResourceAsStream("/images/cards/Back" + drawableCardsIds.get(4) + ".png"));
             goldenDeck.setImage(goldenDeckImage);
-        }
-        else {
+        } else {
             goldenDeck.setImage(null);
             goldenDeck.setOpacity(0);
             goldenDeck.setDisable(true);
@@ -111,8 +103,7 @@ public class DrawCardController extends GenericController{
         if (drawableCardsIds.get(5) != null) {
             Image goldenLeftImage = new Image(getClass().getResourceAsStream("/images/cards/Front" + drawableCardsIds.get(5) + ".png"));
             goldenLeft.setImage(goldenLeftImage);
-        }
-        else {
+        } else {
             goldenLeft.setImage(null);
             goldenLeft.setOpacity(0);
             goldenLeft.setDisable(true);
@@ -121,8 +112,7 @@ public class DrawCardController extends GenericController{
         if (drawableCardsIds.get(6) != null) {
             Image goldenRightImage = new Image(getClass().getResourceAsStream("/images/cards/Front" + drawableCardsIds.get(6) + ".png"));
             goldenRight.setImage(goldenRightImage);
-        }
-        else {
+        } else {
             goldenRight.setImage(null);
             goldenRight.setOpacity(0);
             goldenRight.setDisable(true);

@@ -1,17 +1,17 @@
 package it.polimi.ingsw.gc01.network.socket;
 
 import it.polimi.ingsw.gc01.controller.MainController;
-import it.polimi.ingsw.gc01.network.rmi.actions.Action;
+import it.polimi.ingsw.gc01.network.actions.Action;
 import it.polimi.ingsw.gc01.utils.DefaultValue;
 
-import java.io.*;
+import java.io.IOException;
 import java.net.*;
 import java.util.concurrent.BlockingQueue;
 
 public class SocketServer {
+    private final MainController mainController;
+    private final BlockingQueue<Action> actions;
     private ServerSocket listenSocket;
-    private MainController mainController;
-    private BlockingQueue<Action> actions;
 
     public SocketServer(BlockingQueue<Action> actions) {
         this.actions = actions;
@@ -37,8 +37,7 @@ public class SocketServer {
                 new Thread(() -> {
                     try {
                         handler.executeClientMessages();
-                    } catch (IOException | ClassNotFoundException e) {
-                        throw new RuntimeException(e);
+                    } catch (IOException | ClassNotFoundException ignored) {
                     }
                 }).start();
             }

@@ -22,7 +22,7 @@ public class JoinByIdController extends GenericController {
             alert.showAndWait();
             return;
         }
-        if (roomId.length() != 5){
+        if (roomId.length() != 5) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Error");
             alert.setHeaderText("Room ID is not valid");

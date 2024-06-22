@@ -1,31 +1,23 @@
 package it.polimi.ingsw.gc01.network.socket;
 
-import it.polimi.ingsw.gc01.model.player.PlayerColor;
-import it.polimi.ingsw.gc01.model.player.Position;
+import it.polimi.ingsw.gc01.model.player.*;
 import it.polimi.ingsw.gc01.network.NetworkClient;
 import it.polimi.ingsw.gc01.utils.DefaultValue;
 import it.polimi.ingsw.gc01.view.UI;
 
 import java.io.*;
 import java.net.Socket;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 import static it.polimi.ingsw.gc01.network.socket.SocketClientMessage.*;
-import static it.polimi.ingsw.gc01.network.socket.SocketServerMessage.*;
 
 
 public class SocketClient implements NetworkClient {
+    private final String playerName;
+    private final UI ui;
     private ObjectInputStream input;
-
     private ObjectOutputStream output;
-
     private String roomId;
-
-    private String playerName;
-
-    private UI ui;
-
     private Socket serverSocket;
 
     public SocketClient(String playerName, UI ui) {
@@ -42,7 +34,7 @@ public class SocketClient implements NetworkClient {
             outputStream.flush();
             ObjectInputStream inputStream = new ObjectInputStream(serverSocket.getInputStream());
             this.output = outputStream;
-            this. input = inputStream;
+            this.input = inputStream;
             System.out.println("Socket client connected");
         } catch (IOException e) {
             System.out.println("Socket server not working");
@@ -130,7 +122,7 @@ public class SocketClient implements NetworkClient {
                     showWinners((List<String>) input.readObject());
                     break;
                 case UPDATE_FIELD:
-                    updateField((String) input.readObject(), (int) input.readObject(), (boolean) input.readObject(), (Position) input.readObject(),(List<Position>) input.readObject());
+                    updateField((String) input.readObject(), (int) input.readObject(), (boolean) input.readObject(), (Position) input.readObject(), (List<Position>) input.readObject());
                     break;
                 case IS_ALIVE:
                     isAlive();
@@ -147,7 +139,7 @@ public class SocketClient implements NetworkClient {
      */
     @Override
     public String getRoomId() {
-        return "";
+        return roomId;
     }
 
     /**
@@ -354,7 +346,6 @@ public class SocketClient implements NetworkClient {
 
     /**
      * Start the game
-     *
      */
     public void startGame() {
         ui.startGame();
@@ -490,7 +481,6 @@ public class SocketClient implements NetworkClient {
 
     /**
      * Show the last turn notification
-     *
      */
     public void showLastCircle() {
         ui.showLastCircle();

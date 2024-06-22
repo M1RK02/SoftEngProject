@@ -1,19 +1,18 @@
-package it.polimi.ingsw.gc01.network.rmi.actions;
+package it.polimi.ingsw.gc01.network.actions;
 
 import it.polimi.ingsw.gc01.controller.RoomController;
 
 /**
- * Action to switch ready
+ * Action to leave the room
  */
-public class SwitchReadyAction extends RoomAction {
-
+public class LeaveAction extends RoomAction {
     /**
-     * Create a new SwitchReadyAction
+     * Create a new LeaveAction
      *
      * @param playerName of the player who is creating the action
      * @param room       where the action will be executed
      */
-    public SwitchReadyAction(String playerName, RoomController room) {
+    public LeaveAction(String playerName, RoomController room) {
         super(playerName, room);
     }
 
@@ -23,6 +22,6 @@ public class SwitchReadyAction extends RoomAction {
     @Override
     public void execute() {
         RoomController controller = getRoomController();
-        controller.switchReady(getPlayerName());
+        controller.leave(getPlayerName());
     }
 }

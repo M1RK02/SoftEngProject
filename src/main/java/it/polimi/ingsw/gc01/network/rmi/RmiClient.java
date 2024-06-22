@@ -239,11 +239,9 @@ public class RmiClient extends UnicastRemoteObject implements VirtualView, Netwo
 
     /**
      * Show the waiting scene for every client except the one choosing
-     *
-     * @throws RemoteException
      */
     @Override
-    public void showWaitingFor(String playerName, String scene) throws RemoteException {
+    public void showWaitingFor(String playerName, String scene) {
         if (!playerName.equals(this.playerName)) {
             ui.showWaitingFor(playerName, scene);
         }
@@ -336,10 +334,9 @@ public class RmiClient extends UnicastRemoteObject implements VirtualView, Netwo
      * Update the drawable cards on the table
      *
      * @param drawableCardsIds the map of the ids with the positions in the table
-     * @throws RemoteException
      */
     @Override
-    public void updateTable(Map<Integer, Integer> drawableCardsIds) throws RemoteException {
+    public void updateTable(Map<Integer, Integer> drawableCardsIds) {
         ui.updateTable(drawableCardsIds);
     }
 

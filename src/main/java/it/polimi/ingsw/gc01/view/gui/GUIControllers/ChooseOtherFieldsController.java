@@ -1,14 +1,13 @@
 package it.polimi.ingsw.gc01.view.gui.GUIControllers;
 
-import it.polimi.ingsw.gc01.view.gui.ClientFieldGUI;
-import it.polimi.ingsw.gc01.view.gui.ClientModel;
+import it.polimi.ingsw.gc01.view.gui.*;
 import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 
 import java.util.Map;
 
-public class ChooseOtherFieldsController extends GenericController{
+public class ChooseOtherFieldsController extends GenericController {
 
     @FXML
     private Button player1;
@@ -21,7 +20,7 @@ public class ChooseOtherFieldsController extends GenericController{
 
 
     @FXML
-    private void chooseField(Event e){
+    private void chooseField(Event e) {
         Button button = (Button) e.getSource();
         String playerName = button.getText();
         gui.showOtherFields(playerName);
@@ -39,20 +38,20 @@ public class ChooseOtherFieldsController extends GenericController{
         player2.setDisable(true);
         player3.setVisible(false);
         player3.setDisable(true);
-        for (String playerName : fields.keySet()){
-            if (!player1.isVisible()){
+        for (String playerName : fields.keySet()) {
+            if (!player1.isVisible()) {
                 player1.setVisible(true);
                 player1.setDisable(false);
                 player1.setText(playerName);
                 continue;
             }
-            if (!player2.isVisible()){
+            if (!player2.isVisible()) {
                 player2.setVisible(true);
                 player2.setDisable(false);
                 player2.setText(playerName);
                 continue;
             }
-            if (!player3.isVisible()){
+            if (!player3.isVisible()) {
                 player3.setVisible(true);
                 player3.setDisable(false);
                 player3.setText(playerName);
@@ -62,9 +61,9 @@ public class ChooseOtherFieldsController extends GenericController{
     }
 
     @FXML
-    private void goBack(){
+    private void goBack() {
         ClientModel clientModel = gui.getClientModel();
-        if (gui.getPlayerName().equals(clientModel.getCurrentPlayer())){
+        if (gui.getPlayerName().equals(clientModel.getCurrentPlayer())) {
             gui.backToPlay();
         } else {
             gui.backToOtherFields();

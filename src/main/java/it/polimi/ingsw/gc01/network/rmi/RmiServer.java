@@ -3,13 +3,13 @@ package it.polimi.ingsw.gc01.network.rmi;
 import it.polimi.ingsw.gc01.controller.MainController;
 import it.polimi.ingsw.gc01.model.player.*;
 import it.polimi.ingsw.gc01.network.VirtualView;
-import it.polimi.ingsw.gc01.network.rmi.actions.*;
+import it.polimi.ingsw.gc01.network.actions.*;
 import it.polimi.ingsw.gc01.utils.DefaultValue;
 
 import java.rmi.*;
 import java.rmi.registry.*;
 import java.rmi.server.UnicastRemoteObject;
-import java.util.concurrent.*;
+import java.util.concurrent.BlockingQueue;
 
 /**
  * Implementation of an RMI Server

@@ -2,12 +2,10 @@ package it.polimi.ingsw.gc01.view.gui.GUIControllers;
 
 import it.polimi.ingsw.gc01.view.gui.ClientModel;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.ScrollPane;
-import javafx.scene.layout.*;
+import javafx.scene.control.*;
+import javafx.scene.layout.Pane;
 
-public class CurrentFieldController extends GenericController{
+public class CurrentFieldController extends GenericController {
     private String playerName;
     @FXML
     private Label turn;
@@ -21,7 +19,7 @@ public class CurrentFieldController extends GenericController{
         Pane pane = (Pane) o[0];
         this.playerName = (String) o[1];
         boolean canGoBack = (boolean) o[2];
-        if(!canGoBack){
+        if (!canGoBack) {
             goBack.setDisable(true);
             goBack.setVisible(false);
         }
@@ -30,9 +28,9 @@ public class CurrentFieldController extends GenericController{
     }
 
     @FXML
-    private void goBack(){
+    private void goBack() {
         ClientModel clientModel = gui.getClientModel();
-        if (gui.getPlayerName().equals(clientModel.getCurrentPlayer())){
+        if (gui.getPlayerName().equals(clientModel.getCurrentPlayer())) {
             gui.backToPlay();
         } else {
             gui.backToOtherFields();
@@ -40,22 +38,22 @@ public class CurrentFieldController extends GenericController{
     }
 
     @FXML
-    private void showTablePoints(){
+    private void showTablePoints() {
         gui.showTablePoints();
     }
 
     @FXML
-    private void showObjectives(){
+    private void showObjectives() {
         gui.showObjectives();
     }
 
     @FXML
-    private void showDrawables(){
+    private void showDrawables() {
         gui.showDrawables();
     }
 
     @FXML
-    private void showOtherFields(){
+    private void showOtherFields() {
         gui.showOtherFields();
     }
 }

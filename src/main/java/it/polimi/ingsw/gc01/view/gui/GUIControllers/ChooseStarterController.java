@@ -9,9 +9,8 @@ import javafx.scene.image.*;
 
 public class ChooseStarterController extends GenericController {
 
-    private int id;
     int choice = -1;
-
+    private int id;
     @FXML
     private ImageView starterCardFront;
     @FXML

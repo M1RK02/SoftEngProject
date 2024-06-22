@@ -44,7 +44,7 @@ public class ChooseObjectiveController extends GenericController {
             alert.showAndWait();
             return;
         }
-            gui.chooseSecretObjective(possibleObjectiveIds.get(selection));
+        gui.chooseSecretObjective(possibleObjectiveIds.get(selection));
     }
 
     @Override

@@ -4,16 +4,12 @@ import it.polimi.ingsw.gc01.view.gui.ClientModel;
 import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
-import javafx.scene.input.ClipboardContent;
-import javafx.scene.input.DragEvent;
-import javafx.scene.input.Dragboard;
-import javafx.scene.input.TransferMode;
-import javafx.scene.layout.*;
+import javafx.scene.image.*;
+import javafx.scene.input.*;
+import javafx.scene.layout.Pane;
 
 
-public class PlayController extends GenericController{
+public class PlayController extends GenericController {
     @FXML
     private Label turn;
 
@@ -54,44 +50,39 @@ public class PlayController extends GenericController{
     }
 
     @FXML
-    private void dragDetected(Event event){
+    private void dragDetected(Event event) {
         ImageView imageView = (ImageView) event.getSource();
         Dragboard db = imageView.startDragAndDrop(TransferMode.MOVE);
         ClipboardContent content = new ClipboardContent();
-        content.putImage(imageView.getImage());
-        content.putString(imageView.getId());// Carry the ID
+        content.putString(imageView.getId());
         db.setContent(content);
-
-        // Set the drag view to show the image under the mouse cursor
         db.setDragView(imageView.getImage());
-
         event.consume();
     }
 
     @FXML
-    private void showTablePoints(){
+    private void showTablePoints() {
         gui.showTablePoints();
     }
 
     @FXML
-    private void showObjectives(){
+    private void showObjectives() {
         gui.showObjectives();
     }
 
     @FXML
-    private void showDrawables(){
+    private void showDrawables() {
         gui.showDrawables();
     }
 
     @FXML
-    private void showOtherFields(){
+    private void showOtherFields() {
         gui.showOtherFields();
     }
 
 
-
     @FXML
-    private void flipCard(Event e){
+    private void flipCard(Event e) {
         ImageView card = (ImageView) e.getSource();
         String cardID = card.getId();
         if (cardID.contains("Front")) {

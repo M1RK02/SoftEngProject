@@ -1,15 +1,12 @@
 package it.polimi.ingsw.gc01.main;
 
-import com.sun.source.tree.PackageTree;
+import it.polimi.ingsw.gc01.network.actions.Action;
 import it.polimi.ingsw.gc01.network.rmi.RmiServer;
-import it.polimi.ingsw.gc01.network.rmi.actions.Action;
 import it.polimi.ingsw.gc01.network.socket.SocketServer;
 import it.polimi.ingsw.gc01.utils.DefaultValue;
 
 import java.util.*;
-import java.util.concurrent.ArrayBlockingQueue;
-import java.util.concurrent.BlockingQueue;
-import java.util.concurrent.LinkedBlockingQueue;
+import java.util.concurrent.*;
 
 /**
  * Executable class for the server
@@ -17,6 +14,7 @@ import java.util.concurrent.LinkedBlockingQueue;
 public class MainServer {
 
     private static BlockingQueue<Action> actions;
+
     /**
      * Main method, it will launch both RMI and Socket servers
      *

@@ -1,24 +1,24 @@
-package it.polimi.ingsw.gc01.network.rmi.actions;
+package it.polimi.ingsw.gc01.network.actions;
 
 import it.polimi.ingsw.gc01.controller.RoomController;
 
 /**
- * Action to flip a card
+ * Action to choose the secret objective
  */
-public class FlipCardAction extends RoomAction {
+public class ChooseSecretObjectiveAction extends RoomAction {
     /**
-     * Id of the card to flip
+     * Id of the secret objective card chosen by the player
      */
     private final int cardId;
 
     /**
-     * Create a new FlipCardAction
+     * Create a new ChooseSecretObjectiveAction
      *
      * @param playerName of the player who is creating the action
      * @param room       where the action will be executed
-     * @param cardId     of card to flip
+     * @param cardId     chosen by the player
      */
-    public FlipCardAction(String playerName, RoomController room, int cardId) {
+    public ChooseSecretObjectiveAction(String playerName, RoomController room, int cardId) {
         super(playerName, room);
         this.cardId = cardId;
     }
@@ -29,7 +29,6 @@ public class FlipCardAction extends RoomAction {
     @Override
     public void execute() {
         RoomController controller = getRoomController();
-        controller.flipCard(getPlayerName(), cardId);
+        controller.chooseSecretObjective(getPlayerName(), cardId);
     }
-
 }

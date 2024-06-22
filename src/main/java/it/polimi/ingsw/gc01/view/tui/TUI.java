@@ -1,13 +1,13 @@
 package it.polimi.ingsw.gc01.view.tui;
 
-import it.polimi.ingsw.gc01.model.player.PlayerColor;
-import it.polimi.ingsw.gc01.model.player.Position;
+import it.polimi.ingsw.gc01.model.player.*;
 import it.polimi.ingsw.gc01.network.NetworkClient;
 import it.polimi.ingsw.gc01.network.rmi.RmiClient;
 import it.polimi.ingsw.gc01.network.socket.SocketClient;
 import it.polimi.ingsw.gc01.utils.DefaultValue;
 import it.polimi.ingsw.gc01.view.UI;
 
+import java.rmi.RemoteException;
 import java.util.*;
 
 /**
@@ -163,7 +163,7 @@ public class TUI implements UI {
     private void createRMIClient(String playerName) {
         try {
             networkClient = new RmiClient(playerName, this);
-        } catch (Exception e) {
+        } catch (RemoteException e) {
             System.out.println(DefaultValue.ANSI_RED + "Cannot instance RmiClient" + DefaultValue.ANSI_RESET);
         }
     }
@@ -174,11 +174,7 @@ public class TUI implements UI {
      * @param playerName
      */
     private void createSocketClient(String playerName) {
-        try {
-            networkClient = new SocketClient(playerName, this);
-        } catch (Exception e) {
-            System.out.println(DefaultValue.ANSI_RED + "Cannot instance SocketClient" + DefaultValue.ANSI_RESET);
-        }
+        networkClient = new SocketClient(playerName, this);
     }
 
     /**
@@ -394,7 +390,8 @@ public class TUI implements UI {
             case "GAME":
                 System.out.println(DefaultValue.ANSI_RED + message + DefaultValue.ANSI_RESET);
                 networkClient.leave();
-                System.exit(0);
+                new Thread(this::askModalityToEnterGame).start();
+                break;
         }
     }
 

@@ -3,6 +3,7 @@ package it.polimi.ingsw.gc01.view.gui;
 import it.polimi.ingsw.gc01.model.player.*;
 import it.polimi.ingsw.gc01.network.NetworkClient;
 import it.polimi.ingsw.gc01.network.rmi.RmiClient;
+import it.polimi.ingsw.gc01.network.socket.SocketClient;
 import it.polimi.ingsw.gc01.utils.DefaultValue;
 import it.polimi.ingsw.gc01.view.UI;
 import it.polimi.ingsw.gc01.view.gui.GUIControllers.*;
@@ -74,18 +75,18 @@ public class GUI extends Application implements UI {
         switchToScene(SceneEnum.SETUP);
     }
 
-    public void connect(String nickName, String remoteIP, String personalIP, String connectionType) {
-        this.playerName = nickName;
+    public void connect(String playerName, String remoteIP, String personalIP, String connectionType) {
+        this.playerName = playerName;
         DefaultValue.ServerIp = remoteIP;
         if (connectionType.equals("RMI")) {
             System.setProperty("java.rmi.server.hostname", personalIP);
             try {
-                this.networkClient = new RmiClient(playerName, this);
+                networkClient = new RmiClient(playerName, this);
             } catch (RemoteException e) {
                 throw new RuntimeException(e);
             }
         } else if (connectionType.equals("SOCKET")) {
-            //TODO
+            networkClient = new SocketClient(playerName, this);
         }
 
         switchToScene(SceneEnum.MENU);
@@ -108,7 +109,6 @@ public class GUI extends Application implements UI {
         networkClient.chooseSecretObjective(id);
         clientModel.setSecretObjective(id);
     }
-
 
 
     public void joinFirstGame() {
@@ -142,10 +142,11 @@ public class GUI extends Application implements UI {
         //switchToScene(SceneEnum.WAITING_OTHERS, "Waiting for others to choose their color");
     }
 
-    public void switchToIntro(){
+    public void switchToIntro() {
         switchToScene(SceneEnum.INTRO);
     }
-    public void switchToMenu(){
+
+    public void switchToMenu() {
         switchToScene(SceneEnum.MENU);
     }
 
@@ -162,7 +163,7 @@ public class GUI extends Application implements UI {
         }
     }
 
-    private void addLobbyPlayerPanes(List<String> playerNames){
+    private void addLobbyPlayerPanes(List<String> playerNames) {
         for (int i = 0; i < playerNames.size(); i++) {
             Pane panePlayerLobby = (Pane) this.stage.getScene().getRoot().lookup("#pane" + i);
             panePlayerLobby.setVisible(true);
@@ -178,7 +179,7 @@ public class GUI extends Application implements UI {
             for (int i = 0; i < 4; i++) {
                 Pane newPane = (Pane) this.stage.getScene().getRoot().lookup("#pane" + i);
 
-                if (!newPane.isVisible()){
+                if (!newPane.isVisible()) {
                     Text nickname = (Text) this.stage.getScene().getRoot().lookup("#nickName" + i);
                     nickname.setText(playerName);
                     newPane.setVisible(true);
@@ -212,44 +213,44 @@ public class GUI extends Application implements UI {
         }
     }
 
-    public void showTablePoints(){
+    public void showTablePoints() {
         switchToScene(SceneEnum.TABLE_POINT, clientModel.getPawnPoints());
     }
 
-    public void showObjectives(){
+    public void showObjectives() {
         switchToScene(SceneEnum.OBJECTIVES, clientModel.getCommonObjective1(), clientModel.getCommonObjective2(), clientModel.getSecretObjective());
     }
 
-    public void backToPlay(){
+    public void backToPlay() {
         switchToScene(SceneEnum.PLAY, clientModel, field.generateField());
     }
 
-    public void backToOtherFields(){
+    public void backToOtherFields() {
         String currentPlayer = clientModel.getCurrentPlayer();
         switchToScene(SceneEnum.CURRENT_FIELD, otherFields.get(currentPlayer).generateField(), currentPlayer, false);
     }
 
-    public void chooseCardToDraw(int cardId){
+    public void chooseCardToDraw(int cardId) {
         networkClient.drawCard(cardId);
     }
 
-    public void chooseCardToPlay(int cardId, boolean front, Position position){
-        if(!front) {
+    public void chooseCardToPlay(int cardId, boolean front, Position position) {
+        if (!front) {
             networkClient.flipCard(cardId);
         }
         networkClient.playCard(cardId, position);
     }
 
-    public void showDrawables(){
+    public void showDrawables() {
         switchToScene(SceneEnum.DRAW_CARD, clientModel.getDrawableCardsIds(), false);
     }
 
-    public void showOtherFields(){
+    public void showOtherFields() {
         switchToScene(SceneEnum.CHOOSE_OTHER_FIELDS, otherFields, field);
     }
 
-    public void showOtherFields(String playerName){
-        if (this.playerName.equals(playerName)){
+    public void showOtherFields(String playerName) {
+        if (this.playerName.equals(playerName)) {
             switchToScene(SceneEnum.CURRENT_FIELD, field.generateField(), this.playerName, true);
         } else {
             switchToScene(SceneEnum.CURRENT_FIELD, otherFields.get(playerName).generateField(), playerName, true);
@@ -337,19 +338,21 @@ public class GUI extends Application implements UI {
             case "MAIN":
                 System.out.println(DefaultValue.ANSI_RED + message + DefaultValue.ANSI_RESET);
                 Platform.runLater(() -> switchToScene(SceneEnum.MENU));
+                Platform.runLater(() -> showAlert("Main Error", "Main Error", message));
                 break;
             case "PLAY":
                 System.out.println(DefaultValue.ANSI_RED + message + DefaultValue.ANSI_RESET);
-                //TODO
+                Platform.runLater(() -> showAlert("Play Error", "Play Error", message));
                 break;
             case "DRAW":
                 System.out.println(DefaultValue.ANSI_RED + message + DefaultValue.ANSI_RESET);
-                //TODO
+                Platform.runLater(() -> showAlert("Draw Error", "Draw Error", message));
                 break;
             case "GAME":
                 System.out.println(DefaultValue.ANSI_RED + message + DefaultValue.ANSI_RESET);
                 networkClient.leave();
-                System.exit(0);
+                Platform.runLater(() -> switchToScene(SceneEnum.MENU));
+                Platform.runLater(() -> showAlert("Game Error", "Game Error", message));
         }
     }
 
@@ -360,7 +363,7 @@ public class GUI extends Application implements UI {
      */
     @Override
     public void showServiceMessage(String message) {
-        //TODO A che cazzo serve sulla gui sto lazzaro? Manca qualcosa?
+        Platform.runLater(() -> showAlert("Service Message", "Service Message", message));
     }
 
     /**
@@ -371,7 +374,7 @@ public class GUI extends Application implements UI {
         Platform.runLater(() -> showAlert("Last Turn", "Last Turn", "This is the last turn of the game!"));
     }
 
-    private void showAlert(String title, String header, String content){
+    private void showAlert(String title, String header, String content) {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle(title);
         alert.setHeaderText(header);
@@ -386,7 +389,7 @@ public class GUI extends Application implements UI {
      */
     @Override
     public void showWinners(List<String> winners) {
-        Platform.runLater(()-> switchToScene(SceneEnum.WINNER, winners));
+        Platform.runLater(() -> switchToScene(SceneEnum.WINNER, winners));
     }
 
     /**
@@ -439,7 +442,7 @@ public class GUI extends Application implements UI {
     @Override
     public void showPoints(Map<String, Integer> points, Map<PlayerColor, Integer> tablePoints) {
         clientModel.setPoints(points);
-        clientModel.setPawnPoints(tablePoints);;
+        clientModel.setPawnPoints(tablePoints);
     }
 
     /**
@@ -506,11 +509,11 @@ public class GUI extends Application implements UI {
      */
     @Override
     public void updateField(String playerName, int id, boolean front, Position position, List<Position> availablePositions) {
-        if(playerName.equals(this.playerName)){
+        if (playerName.equals(this.playerName)) {
             field.playCard(id, front, position);
             field.setAvailablePositions(availablePositions);
         } else {
-            if(!otherFields.containsKey(playerName)){
+            if (!otherFields.containsKey(playerName)) {
                 otherFields.put(playerName, new ClientFieldGUI(this));
             }
             otherFields.get(playerName).playCard(id, front, position);

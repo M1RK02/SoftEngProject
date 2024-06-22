@@ -1,14 +1,11 @@
 package it.polimi.ingsw.gc01.view.gui.GUIControllers;
 
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.layout.VBox;
-import javafx.scene.text.Font;
 
 import java.util.List;
 
-public class WinnerController extends GenericController{
+public class WinnerController extends GenericController {
 
     @FXML
     private Label titleLabel;
@@ -22,7 +19,7 @@ public class WinnerController extends GenericController{
     private Label winner4;
 
     @FXML
-    public void backToMenu(){
+    public void backToMenu() {
         gui.switchToMenu();
     }
 

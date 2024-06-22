@@ -3,13 +3,15 @@ package it.polimi.ingsw.gc01.view.gui.GUIControllers;
 import it.polimi.ingsw.gc01.model.player.PlayerColor;
 import it.polimi.ingsw.gc01.view.gui.ClientModel;
 import javafx.fxml.FXML;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
+import javafx.scene.image.*;
 
-import java.util.HashMap;
 import java.util.Map;
 
-public class TablePointController extends GenericController{
+public class TablePointController extends GenericController {
+    int bluePoints = -1;
+    int greenPoints = -1;
+    int redPoints = -1;
+    int yellowPoints = -1;
     @FXML
     private ImageView bluePawn;
     @FXML
@@ -18,16 +20,11 @@ public class TablePointController extends GenericController{
     private ImageView redPawn;
     @FXML
     private ImageView yellowPawn;
-    int bluePoints = -1;
-    int greenPoints = -1;
-    int redPoints = -1;
-    int yellowPoints = -1;
-
 
     @FXML
-    private void goBack(){
+    private void goBack() {
         ClientModel clientModel = gui.getClientModel();
-        if (gui.getPlayerName().equals(clientModel.getCurrentPlayer())){
+        if (gui.getPlayerName().equals(clientModel.getCurrentPlayer())) {
             gui.backToPlay();
         } else {
             gui.backToOtherFields();
@@ -47,7 +44,7 @@ public class TablePointController extends GenericController{
         redPawn.setOpacity(0);
         yellowPawn.setOpacity(0);
 
-        if (pawnPoints.get(PlayerColor.BLUE) != null){
+        if (pawnPoints.get(PlayerColor.BLUE) != null) {
             bluePoints = pawnPoints.get(PlayerColor.BLUE);
             bluePawn.setOpacity(1.0);
             translate(bluePawn, bluePoints);
@@ -59,7 +56,7 @@ public class TablePointController extends GenericController{
             translate(greenPawn, greenPoints);
         }
 
-        if (pawnPoints.get(PlayerColor.RED) != null){
+        if (pawnPoints.get(PlayerColor.RED) != null) {
             redPoints = pawnPoints.get(PlayerColor.RED);
             redPawn.setOpacity(1.0);
             translate(redPawn, redPoints);
@@ -71,7 +68,7 @@ public class TablePointController extends GenericController{
         }
     }
 
-    private void translate(ImageView img, int points){
+    private void translate(ImageView img, int points) {
         int constX = 0, constY = 0;
         if (img.equals(bluePawn)) {
             constX = -10;
@@ -89,7 +86,7 @@ public class TablePointController extends GenericController{
             constX = -10;
             constY = 10;
         }
-        switch (points){
+        switch (points) {
             case -1:
                 //img.setOpacity(0.0);
                 break;

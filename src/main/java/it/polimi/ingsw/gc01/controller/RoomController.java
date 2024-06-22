@@ -377,7 +377,7 @@ public class RoomController {
             }
         }
 
-        if(card == null) {
+        if (card == null) {
             notifier.showError(playerName, "No card found");
             return;
         }
