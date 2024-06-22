@@ -38,7 +38,7 @@ public class ClientHandler implements VirtualView {
                     try {
                         actions.put(createGame);
                     } catch (InterruptedException e) {
-                        System.err.println("L'inserimento dell'azione joinGame nella coda è stato interrotto.");
+                        System.err.println("L'inserimento dell'azione createGame nella coda è stato interrotto.");
                     }
                     break;
                 case JOIN_GAME:
@@ -74,7 +74,7 @@ public class ClientHandler implements VirtualView {
                     try {
                         actions.put(switchReady);
                     } catch (InterruptedException e) {
-                        System.err.println("L'inserimento dell'azione changeReady nella coda è stato interrotto.");
+                        System.err.println("L'inserimento dell'azione switchReady nella coda è stato interrotto.");
                     }
                     break;
                 case CHOOSE_SECRET_OBJECTIVE:
