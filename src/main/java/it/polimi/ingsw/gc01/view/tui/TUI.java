@@ -396,7 +396,7 @@ public class TUI implements UI {
             case "GAME":
                 System.out.println(DefaultValue.ANSI_RED + message + DefaultValue.ANSI_RESET);
                 networkClient.leave();
-                new Thread(this::askModalityToEnterGame).start();
+                System.exit(0);
                 break;
         }
     }

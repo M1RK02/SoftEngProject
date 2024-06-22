@@ -471,7 +471,7 @@ public class RoomController {
                 mainController.deleteRoom(waitingRoom.getRoomId());
             }
         } else {
-            room.removePlayer(room.getPlayerByName(playerName));
+            room.removePlayer(playerName);
             if (room.getPlayers().isEmpty()) {
                 mainController.deleteRoom(room.getRoomId());
             }

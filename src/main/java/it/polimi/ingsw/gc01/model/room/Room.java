@@ -236,9 +236,11 @@ public class Room {
     /**
      * Remove a player from the room
      *
-     * @param player the player to remove
+     * @param playerName of the player to remove
      */
-    public void removePlayer(Player player) {
-        players.remove(player);
+    public void removePlayer(String playerName) {
+        players.remove(getPlayerByName(playerName));
+        notifier.removeObserver(playerName);
+        notifier.showPlayerLeft(playerName);
     }
 }

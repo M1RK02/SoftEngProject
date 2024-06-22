@@ -346,20 +346,16 @@ public class GUI extends Application implements UI {
         String message = error.substring(error.indexOf(" ") + 1);
         switch (type) {
             case "MAIN":
-                System.out.println(DefaultValue.ANSI_RED + message + DefaultValue.ANSI_RESET);
                 Platform.runLater(() -> switchToScene(SceneEnum.MENU));
                 Platform.runLater(() -> showAlert("Main Error", "Main Error", message));
                 break;
             case "PLAY":
-                System.out.println(DefaultValue.ANSI_RED + message + DefaultValue.ANSI_RESET);
                 Platform.runLater(() -> showAlert("Play Error", "Play Error", message));
                 break;
             case "DRAW":
-                System.out.println(DefaultValue.ANSI_RED + message + DefaultValue.ANSI_RESET);
                 Platform.runLater(() -> showAlert("Draw Error", "Draw Error", message));
                 break;
             case "GAME":
-                System.out.println(DefaultValue.ANSI_RED + message + DefaultValue.ANSI_RESET);
                 networkClient.leave();
                 Platform.runLater(() -> switchToScene(SceneEnum.MENU));
                 Platform.runLater(() -> showAlert("Game Error", "Game Error", message));
