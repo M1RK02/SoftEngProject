@@ -21,8 +21,8 @@ public class ClientChat {
             System.out.println("No messages in chat yet!");
         }else{
             int columnWidth = 50;
-            System.out.println("\n----------------------------------CHAT----------------------------------------");
-            System.out.printf("%-" + columnWidth + "s %s\n", DefaultValue.ANSI_PURPLE+ "MESSAGES FROM OTHERS", "MESSAGES FROM YOU"+DefaultValue.ANSI_RESET );
+            System.out.println("\n----------------------------------------CHAT----------------------------------------------");
+            System.out.printf("%-" + columnWidth + "s %s\n", DefaultValue.ANSI_PURPLE+ "MESSAGES FROM OTHERS", "     MESSAGES FROM YOU"+DefaultValue.ANSI_RESET );
             for (ChatMessage message : chat) {
                 List<String> wrappedLines;
 
@@ -38,7 +38,7 @@ public class ClientChat {
                     }
                 }
             }
-            System.out.println("------------------------------------------------------------------------------\n");
+            System.out.println("------------------------------------------------------------------------------------------\n");
 
         }
     }
@@ -49,8 +49,8 @@ public class ClientChat {
         while (text.length() > columnWidth) {
             int spaceIndex = text.lastIndexOf(' ', columnWidth);
             if (spaceIndex == -1) spaceIndex = columnWidth;
-            lines.add(text.substring(0, spaceIndex).trim());
-            text = text.substring(spaceIndex).trim();
+            lines.add(text.substring(0, spaceIndex));
+            text = text.substring(spaceIndex+1);
         }
         lines.add(text);
         return lines;
