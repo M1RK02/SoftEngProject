@@ -510,6 +510,7 @@ public class ObserverManager {
         } else {
             try {
                 observers.get(newChatMessage.getRecipient()).updateChat(newChatMessage);
+                observers.get(newChatMessage.getSender()).updateChat(newChatMessage);
             } catch (RemoteException ignored) {
             }
         }

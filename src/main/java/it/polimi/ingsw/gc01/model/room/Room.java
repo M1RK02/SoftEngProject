@@ -80,6 +80,7 @@ public class Room {
         starterDeck = new StarterDeck();
         commonObjectives = new ArrayList<>();
         drawableCards = new HashMap<>();
+        chat = new ArrayList<>();
         initTable();
         this.notifier = notifier;
         notifier.startGame();

@@ -263,7 +263,7 @@ public class TUI implements UI {
         networkClient.newChatMessage(newMessage);
     }
     private void showChat(){
-    chat.printChat();
+    chat.printChat(playerName);
     int choice = 0;
     String input;
     Scanner scanner;
@@ -303,10 +303,9 @@ public class TUI implements UI {
                         playerChoice = Integer.parseInt(input);
                     } catch (Exception ignored) {
                     }
-                } while (playerChoice < 1 || playerChoice > players.size());
-                String recipient = players.get(playerChoice-1);
+                } while (playerChoice < 1 || playerChoice > players.size()+1);
 
-                //System.out.println("manderai un messaggio a " + recipient);
+                String recipient = playerChoice==i+1 ? "ALL" : players.get(playerChoice-1);
 
                 System.out.println("Write the message to send to "+ recipient);
                 String content = scanner.nextLine();
@@ -314,6 +313,7 @@ public class TUI implements UI {
                 break;
             case (2):
                 System.out.println("Back to the Game!");
+
                 break;
         }
 
@@ -321,7 +321,9 @@ public class TUI implements UI {
     @Override
     public void updateChat(ChatMessage newChatMessage){
         chat.addMessageToChat(newChatMessage);
-        System.out.println("New message for you!!! Open the chat when is your turn.");
+        if(!newChatMessage.getSender().equals(playerName)) {
+            System.out.println("New message for you!!! Open the chat when is your turn.");
+        }
     }
 
 
