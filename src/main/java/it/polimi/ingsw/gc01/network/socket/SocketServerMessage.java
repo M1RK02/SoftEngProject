@@ -25,5 +25,6 @@ public enum SocketServerMessage {
     SHOW_WINNERS,
     UPDATE_FIELD,
     IS_ALIVE,
-    BACK_TO_MENU
+    BACK_TO_MENU,
+    CHAT_MESSAGE
 }

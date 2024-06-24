@@ -1,6 +1,7 @@
 package it.polimi.ingsw.gc01.network.socket;
 
 import it.polimi.ingsw.gc01.controller.MainController;
+import it.polimi.ingsw.gc01.model.ChatMessage;
 import it.polimi.ingsw.gc01.model.player.*;
 import it.polimi.ingsw.gc01.network.VirtualView;
 import it.polimi.ingsw.gc01.network.actions.*;
@@ -120,6 +121,15 @@ public class ClientHandler implements VirtualView {
                         actions.put(leave);
                     } catch (InterruptedException e) {
                         System.err.println("L'inserimento dell'azione leave nella coda è stato interrotto.");
+                    }
+                    break;
+                case CHAT_MESSAGE:
+                    ChatMessage chatMessage = (ChatMessage) input.readObject();
+                    NewChatMessageAction newChatMessage = new NewChatMessageAction(playerName, mainController.getRooms().get(roomId), chatMessage);
+                    try {
+                        actions.put(newChatMessage);
+                    } catch (InterruptedException e) {
+                        System.err.println("L'inserimento dell'azione new chat message nella coda è stato interrotto.");
                     }
                     break;
             }
@@ -409,6 +419,13 @@ public class ClientHandler implements VirtualView {
         output.writeObject(front);
         output.writeObject(position);
         output.writeObject(availablePositions);
+        output.flush();
+    }
+
+    @Override
+    public void updateChat(ChatMessage newChatMessage) throws IOException {
+        output.writeObject(CHAT_MESSAGE);
+        output.writeObject(newChatMessage);
         output.flush();
     }
 

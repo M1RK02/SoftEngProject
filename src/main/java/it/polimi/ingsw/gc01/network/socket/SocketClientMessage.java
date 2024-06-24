@@ -10,5 +10,6 @@ public enum SocketClientMessage {
     FLIP_CARD,
     PLAY_CARD,
     DRAW_CARD,
-    LEAVE
+    LEAVE,
+    CHAT_MESSAGE
 }

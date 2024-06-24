@@ -1,5 +1,6 @@
 package it.polimi.ingsw.gc01.network.socket;
 
+import it.polimi.ingsw.gc01.model.ChatMessage;
 import it.polimi.ingsw.gc01.model.player.*;
 import it.polimi.ingsw.gc01.network.NetworkClient;
 import it.polimi.ingsw.gc01.utils.DefaultValue;
@@ -129,6 +130,9 @@ public class SocketClient implements NetworkClient {
                     break;
                 case BACK_TO_MENU:
                     backToMenu();
+                    break;
+                case CHAT_MESSAGE:
+                    updateChat((ChatMessage) input.readObject());
                     break;
             }
         }
@@ -289,6 +293,17 @@ public class SocketClient implements NetworkClient {
     public void leave() {
         try {
             output.writeObject(LEAVE);
+            output.flush();
+        } catch (IOException e) {
+            System.err.println("Server socket not working!");
+        }
+    }
+
+    @Override
+    public void newChatMessage(ChatMessage newMessage) {
+        try {
+            output.writeObject(CHAT_MESSAGE);
+            output.writeObject(newMessage);
             output.flush();
         } catch (IOException e) {
             System.err.println("Server socket not working!");
@@ -519,5 +534,9 @@ public class SocketClient implements NetworkClient {
      */
     public void backToMenu() {
         ui.backToMenu();
+    }
+
+    public void updateChat(ChatMessage newChatMessage){
+        ui.updateChat(newChatMessage);
     }
 }

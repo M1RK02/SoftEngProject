@@ -1,6 +1,5 @@
 package it.polimi.ingsw.gc01.view.tui;
 
-import it.polimi.ingsw.gc01.model.player.*;
 import it.polimi.ingsw.gc01.model.ChatMessage;
 import it.polimi.ingsw.gc01.model.player.PlayerColor;
 import it.polimi.ingsw.gc01.model.player.Position;
@@ -41,6 +40,8 @@ public class TUI implements UI {
      * Ids of the cards in the hand
      */
     private List<Integer> handIds;
+
+    private ClientChat chat;
 
     /**
      * Construct a new TUI object and starts it
@@ -397,6 +398,7 @@ public class TUI implements UI {
     public void startGame() {
         field = new ClientField();
         otherFields = new HashMap<>();
+        chat = new ClientChat();
         System.out.println(DefaultValue.ANSI_PURPLE + "Game is starting!" + DefaultValue.ANSI_RESET);
     }
 
@@ -726,14 +728,14 @@ public class TUI implements UI {
      * Propose the choice of the card to play
      */
     private void chooseCardToPlay() {
-        System.out.println(DefaultValue.ANSI_YELLOW + "Choose which card you want to play or press 'c' to open the chat: " + DefaultValue.ANSI_RESET);
+        System.out.println(DefaultValue.ANSI_YELLOW + "Choose which card you want to play or press 'c' to open the chat:" + DefaultValue.ANSI_RESET);
         Scanner scanner = new Scanner(System.in);
         String input = scanner.nextLine();
         while (input.isEmpty() || (!input.equals("1") && !input.equals("2") && !input.equals("3"))) {
 
             if(input.equals("c")){
                 showChat();
-                System.out.println(DefaultValue.ANSI_YELLOW + "Choose which card you want to play:" + DefaultValue.ANSI_RESET);
+                System.out.println(DefaultValue.ANSI_YELLOW + "Choose which card you want to play or press 'c' to open the chat:" + DefaultValue.ANSI_RESET);
             }else {
                 System.out.println(DefaultValue.ANSI_RED + "Wrong choice" + DefaultValue.ANSI_RESET);
             }

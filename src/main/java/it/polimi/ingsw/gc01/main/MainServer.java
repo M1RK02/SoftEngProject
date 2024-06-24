@@ -33,7 +33,6 @@ public class MainServer {
         }
 
         System.setProperty("java.rmi.server.hostname", DefaultValue.ServerIp);
-        System.setProperty("java.socket.server.hostname", DefaultValue.ServerIp);
 
         actions = new ArrayBlockingQueue<Action>(100);
         new RmiServer(actions);

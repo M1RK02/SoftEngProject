@@ -198,7 +198,7 @@ public interface VirtualView extends Remote {
      */
     void updateField(String playerName, int id, boolean front, Position position, List<Position> availablePositions) throws IOException;
 
-    void updateChat(ChatMessage newChatMessage) throws RemoteException;
+    void updateChat(ChatMessage newChatMessage) throws IOException;
 
     /**
      * Check if the client is alive

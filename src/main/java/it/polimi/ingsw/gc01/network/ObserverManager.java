@@ -503,7 +503,7 @@ public class ObserverManager {
                     try {
                         client.updateChat(newChatMessage);
 
-                    } catch (RemoteException ignored) {
+                    } catch (IOException ignored) {
                     }
                 }
             }
@@ -511,7 +511,7 @@ public class ObserverManager {
             try {
                 observers.get(newChatMessage.getRecipient()).updateChat(newChatMessage);
                 observers.get(newChatMessage.getSender()).updateChat(newChatMessage);
-            } catch (RemoteException ignored) {
+            } catch (IOException ignored) {
             }
         }
     }

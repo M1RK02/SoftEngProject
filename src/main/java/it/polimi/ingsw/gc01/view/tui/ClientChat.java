@@ -7,10 +7,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ClientChat {
-    private List<ChatMessage> chat;
+    private final List<ChatMessage> chat;
 
-    public ClientChat(List<ChatMessage> chat){
-        this.chat = chat;
+    public ClientChat(){
+        chat = new ArrayList<>();
     }
     public void addMessageToChat(ChatMessage newMessage) {
         chat.add(newMessage);

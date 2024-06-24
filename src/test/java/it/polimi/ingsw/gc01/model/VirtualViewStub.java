@@ -121,6 +121,11 @@ public class VirtualViewStub implements VirtualView {
     }
 
     @Override
+    public void updateChat(ChatMessage newChatMessage) {
+
+    }
+
+    @Override
     public void isAlive() {
 
     }
