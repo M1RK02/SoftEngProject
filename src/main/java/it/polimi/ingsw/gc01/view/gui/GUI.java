@@ -215,7 +215,7 @@ public class GUI extends Application implements UI {
     }
 
     private void changeReady(String playerName, boolean ready) {
-        for (int i = 0; i < clientModel.getNumOfPlayers(); i++) {
+        for (int i = 0; i < 4; i++) {
             Text nickname = (Text) this.stage.getScene().getRoot().lookup("#nickName" + i);
             if (nickname != null && nickname.getText().equals(playerName)) {
                 Pane paneReady = (Pane) this.stage.getScene().getRoot().lookup("#ready" + i);
