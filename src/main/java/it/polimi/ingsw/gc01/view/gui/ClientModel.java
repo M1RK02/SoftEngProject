@@ -1,5 +1,6 @@
 package it.polimi.ingsw.gc01.view.gui;
 
+import it.polimi.ingsw.gc01.model.ChatMessage;
 import it.polimi.ingsw.gc01.model.player.PlayerColor;
 
 import java.util.*;
@@ -15,6 +16,11 @@ public class ClientModel {
     private int commonObjective1;
     private int commonObjective2;
     private int secretObjective;
+    private List<ChatMessage> messages;
+
+    public ClientModel() {
+        messages = new ArrayList<>();
+    }
 
     private Map<Integer, Integer> drawableCardsIds;
 
@@ -93,5 +99,13 @@ public class ClientModel {
 
     public void setFields(Map<String, ClientFieldGUI> fields) {
         this.fields = fields;
+    }
+
+    public List<ChatMessage> getMessages() {
+        return messages;
+    }
+
+    public void setMessages(List<ChatMessage> messages) {
+        this.messages = messages;
     }
 }

@@ -29,7 +29,6 @@ public class GUI extends Application implements UI {
     private ClientModel clientModel;
     private ClientFieldGUI field;
     private Map<String, ClientFieldGUI> otherFields;
-    private boolean isStarted = false;
 
     @Override
     public void start(Stage primaryStage) {
@@ -502,7 +501,6 @@ public class GUI extends Application implements UI {
         this.clientModel = new ClientModel();
         this.field = new ClientFieldGUI(this);
         this.otherFields = new HashMap<>();
-        isStarted = true;
     }
 
     /**
@@ -565,7 +563,13 @@ public class GUI extends Application implements UI {
         networkClient.leave();
     }
 
+    @Override
     public void updateChat(ChatMessage newChatMessage){
-        //TODO
+        clientModel.getMessages().add(newChatMessage);
+        try {
+            PlayController controller = (PlayController) loader.getController();
+            controller.setMessages(clientModel.getMessages());
+        } catch (ClassCastException ignored) {
+        }
     }
 }

@@ -12,6 +12,7 @@ public class ClientChat {
     public ClientChat(){
         chat = new ArrayList<>();
     }
+
     public void addMessageToChat(ChatMessage newMessage) {
         chat.add(newMessage);
     }
