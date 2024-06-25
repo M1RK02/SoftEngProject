@@ -1,8 +1,9 @@
 package it.polimi.ingsw.gc01.view.gui.GUIControllers;
 
-import it.polimi.ingsw.gc01.model.ChatMessage;
 import it.polimi.ingsw.gc01.view.gui.ClientModel;
 import javafx.animation.TranslateTransition;
+import javafx.application.Platform;
+import javafx.collections.*;
 import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
@@ -10,9 +11,6 @@ import javafx.scene.image.*;
 import javafx.scene.input.*;
 import javafx.scene.layout.Pane;
 import javafx.util.Duration;
-
-import java.util.List;
-
 
 public class PlayController extends GenericController {
     @FXML
@@ -35,17 +33,25 @@ public class PlayController extends GenericController {
     private Pane chat;
 
     @FXML
-    private ListView messagesView;
+    private ListView<String> messagesView;
 
     @FXML
-    private TextField newMessage;
+    private TextField messageField;
 
     @Override
     public void setAttributes(Object... o) {
         ClientModel clientModel = (ClientModel) o[0];
         Pane pane = (Pane) o[1];
         String currentPlayer = clientModel.getCurrentPlayer();
-        setMessages(clientModel.getMessages());
+        ObservableList<String> messages = clientModel.getMessages();
+        messagesView.setItems(messages);
+        messages.addListener((ListChangeListener<String>) change -> {
+            while (change.next()) {
+                if (change.wasAdded()) {
+                    Platform.runLater(() -> messagesView.scrollTo(messages.size()-1));
+                }
+            }
+        });
         turn.setText("Turn: " + currentPlayer);
         points.setText("Points: " + clientModel.getPoints().get(currentPlayer));
         scrollPane.setContent(pane);
@@ -61,13 +67,6 @@ public class PlayController extends GenericController {
         handLeft.setId("Front" + clientModel.getHandIDs().get(0));
         handCenter.setId("Front" + clientModel.getHandIDs().get(1));
         handRight.setId("Front" + clientModel.getHandIDs().get(2));
-    }
-
-    public void setMessages(List<ChatMessage> messages) {
-        messagesView.getItems().clear();
-        for(ChatMessage message : messages) {
-            messagesView.getItems().add(message.getContent());
-        }
     }
 
     @FXML
@@ -138,7 +137,12 @@ public class PlayController extends GenericController {
 
     @FXML
     private void sendMessage() {
-        //PRENDERE IL DESTINATARIO DAL MENU BUTTON
-        //MANDARE IL MESSAGGIO
+        //TODO prendere anche il destinatario
+        String recipient = "ALL";
+        String newMessage = messageField.getText();
+        if (!newMessage.isEmpty()) {
+            gui.newChatMessage(newMessage, recipient);
+        }
+        messageField.setText("");
     }
 }

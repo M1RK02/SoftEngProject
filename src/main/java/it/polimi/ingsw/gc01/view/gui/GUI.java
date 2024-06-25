@@ -565,11 +565,11 @@ public class GUI extends Application implements UI {
 
     @Override
     public void updateChat(ChatMessage newChatMessage){
-        clientModel.getMessages().add(newChatMessage);
-        try {
-            PlayController controller = (PlayController) loader.getController();
-            controller.setMessages(clientModel.getMessages());
-        } catch (ClassCastException ignored) {
-        }
+        Platform.runLater(() -> clientModel.getMessages().add(newChatMessage.getContent()));
+    }
+
+    public void newChatMessage(String content, String recipient){
+        ChatMessage newMessage = new ChatMessage(playerName, content, recipient);
+        networkClient.newChatMessage(newMessage);
     }
 }

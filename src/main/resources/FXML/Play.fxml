@@ -57,13 +57,9 @@
                </font>
             </Label>
             <Button layoutX="254.0" layoutY="6.0" mnemonicParsing="false" onAction="#hideChat" text="CHIUDI" />
-            <ScrollPane layoutY="40.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="640.0" prefWidth="320.0" vvalue="1.0">
-               <content>
-                  <ListView fx:id="messagesView" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="318.0" />
-               </content>
-            </ScrollPane>
+            <ListView fx:id="messagesView" layoutY="40.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="640.0" prefWidth="320.0" />
             <MenuButton layoutY="680.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="40.0" prefWidth="80.0" text="To?" />
-            <TextField fx:id="newMessage" layoutX="80.0" layoutY="680.0" prefHeight="40.0" prefWidth="200.0" />
+            <TextField fx:id="messageField" layoutX="80.0" layoutY="680.0" onAction="#sendMessage" prefHeight="40.0" prefWidth="200.0" />
             <Button layoutX="280.0" layoutY="680.0" mnemonicParsing="false" onAction="#sendMessage" text="&gt;">
                <font>
                   <Font size="20.0" />

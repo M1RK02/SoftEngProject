@@ -259,10 +259,11 @@ public class TUI implements UI {
         return roomId.length() == 5;
     }
 
-    private void newChatMessage(String sender, String content, String recipient){
-        ChatMessage newMessage = new ChatMessage(sender, content, recipient);
+    private void newChatMessage(String content, String recipient){
+        ChatMessage newMessage = new ChatMessage(playerName, content, recipient);
         networkClient.newChatMessage(newMessage);
     }
+
     private void showChat(){
     chat.printChat(playerName);
     int choice = 0;
@@ -310,7 +311,7 @@ public class TUI implements UI {
 
                 System.out.println("Write the message to send to "+ recipient);
                 String content = scanner.nextLine();
-                newChatMessage(playerName, content, recipient);
+                newChatMessage(content, recipient);
                 break;
             case (2):
                 System.out.println("Back to the Game!");
