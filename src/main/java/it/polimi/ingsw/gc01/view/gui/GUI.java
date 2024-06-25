@@ -565,7 +565,9 @@ public class GUI extends Application implements UI {
 
     @Override
     public void updateChat(ChatMessage newChatMessage){
-        Platform.runLater(() -> clientModel.getMessages().add(newChatMessage.getContent()));
+        String message = newChatMessage.getContent();
+        //TODO al posto del conte mettere la stringa come vogliamo che si veda quindi magari, player name + cazzi
+        Platform.runLater(() -> clientModel.getMessages().add(message));
     }
 
     public void newChatMessage(String content, String recipient){

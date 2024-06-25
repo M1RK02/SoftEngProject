@@ -137,7 +137,7 @@ public class PlayController extends GenericController {
 
     @FXML
     private void sendMessage() {
-        //TODO prendere anche il destinatario
+        //TODO prendere anche il destinatario dal menu di selezione
         String recipient = "ALL";
         String newMessage = messageField.getText();
         if (!newMessage.isEmpty()) {

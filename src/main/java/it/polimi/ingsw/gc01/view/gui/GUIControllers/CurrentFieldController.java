@@ -56,4 +56,6 @@ public class CurrentFieldController extends GenericController {
     private void showOtherFields() {
         gui.showOtherFields();
     }
+
+    //TODO aggiungere chat anche qua
 }
