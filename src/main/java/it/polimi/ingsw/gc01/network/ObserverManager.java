@@ -347,10 +347,10 @@ public class ObserverManager {
     }
 
     /**
-     * Show the points to every client
+     * Notifies all registered observers to display the points and corresponding colors for each player.
      *
-     * @param points map of playerName, points
-     * @param tablePoints a map containing the total points of players at the table, with player colors as keys and their points as values
+     * @param points A map where keys are player names and values are their respective points.
+     * @param colors A map where keys are PlayerColor enum values and values are strings representing color names.
      */
     public void showPoints(Map<String, Integer> points, Map<PlayerColor, String> colors) {
         synchronized (observers) {

@@ -320,6 +320,11 @@ public class TUI implements UI {
         }
 
     }
+
+    /**
+     *
+     * @param newChatMessage ChatMessage t
+     */
     @Override
     public void updateChat(ChatMessage newChatMessage){
         chat.addMessageToChat(newChatMessage);

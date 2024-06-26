@@ -30,10 +30,18 @@ public class ChatMessage implements Serializable {
         return sender;
     }
 
+    /**
+     *
+     * @return content of the message
+     */
     public String getContent() {
         return content;
     }
 
+    /**
+     *
+     * @return recipient of the message
+     */
     public String getRecipient() {
         return recipient;
     }

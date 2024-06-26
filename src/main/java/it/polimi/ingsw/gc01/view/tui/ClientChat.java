@@ -5,18 +5,30 @@ import it.polimi.ingsw.gc01.utils.DefaultValue;
 
 import java.util.ArrayList;
 import java.util.List;
-
+/**
+ * Represents a client-side chat interface that manages chat messages.
+ */
 public class ClientChat {
     private final List<ChatMessage> chat;
-
+    /**
+     * Constructs a new ClientChat instance with an empty chat message list.
+     */
     public ClientChat(){
         chat = new ArrayList<>();
     }
-
+    /**
+     * Adds a new message to the chat.
+     *
+     * @param newMessage The ChatMessage object to add to the chat.
+     */
     public void addMessageToChat(ChatMessage newMessage) {
         chat.add(newMessage);
     }
-
+    /**
+     * Prints the chat messages to the console, formatted and wrapped based on the provided playerName.
+     *
+     * @param playerName The name of the player viewing the chat, used for formatting purposes.
+     */
     public void printChat(String playerName){
         if(chat.isEmpty()){
             System.out.println("No messages in chat yet!");
@@ -44,7 +56,13 @@ public class ClientChat {
         }
     }
 
-
+    /**
+     * Wraps the given text into lines of the specified column width.
+     *
+     * @param text The text to wrap into lines.
+     * @param columnWidth The width of each line in characters.
+     * @return A list of strings where each string represents a wrapped line of text.
+     */
     public List<String> wrapText(String text, int columnWidth) {
         List<String> lines = new ArrayList<>();
         while (text.length() > columnWidth) {

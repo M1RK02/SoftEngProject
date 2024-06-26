@@ -80,9 +80,19 @@ public class ClientModel {
         this.points = points;
     }
 
+    /**
+     * Returns the mapping of player colors to corresponding strings.
+     *
+     * @return A map where keys are PlayerColor enum values and values are strings representing color names.
+     */
     public Map<PlayerColor, String> getColors() {
         return colors;
     }
+    /**
+     * Sets the mapping of player colors to corresponding strings.
+     *
+     * @param colors A map where keys are PlayerColor enum values and values are strings representing color names.
+     */
     public void setColors(Map<PlayerColor, String> colors) {
         this.colors = colors;
     }

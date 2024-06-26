@@ -1,5 +1,8 @@
 package it.polimi.ingsw.gc01.view.gui;
 
+/**
+ * Enumeration of the scenes
+ */
 public enum SceneEnum {
     INTRO("/FXML/Intro.fxml"),
     SETUP("/FXML/SetUp.fxml"),
