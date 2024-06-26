@@ -2,6 +2,7 @@ package it.polimi.ingsw.gc01.view.gui;
 
 import it.polimi.ingsw.gc01.model.player.PlayerColor;
 import javafx.collections.*;
+import javafx.scene.text.TextFlow;
 
 import java.util.*;
 
@@ -16,18 +17,18 @@ public class ClientModel {
     private int commonObjective1;
     private int commonObjective2;
     private int secretObjective;
-    private ObservableList<String> messages;
+    private ObservableList<TextFlow> messages;
+    private Map<Integer, Integer> drawableCardsIds;
+    private List<String> otherPlayers;
 
     public ClientModel() {
         messages = FXCollections.observableArrayList();
+        otherPlayers = new ArrayList<>();
     }
-
-    private Map<Integer, Integer> drawableCardsIds;
 
     public Map<Integer, Integer> getDrawableCardsIds() {
         return drawableCardsIds;
     }
-
     public void setDrawableCardsIds(Map<Integer, Integer> drawableCardsIds) {
         this.drawableCardsIds = drawableCardsIds;
     }
@@ -35,7 +36,6 @@ public class ClientModel {
     public String getCurrentPlayer() {
         return currentPlayer;
     }
-
     public void setCurrentPlayer(String currentPlayer) {
         this.currentPlayer = currentPlayer;
     }
@@ -43,7 +43,6 @@ public class ClientModel {
     public Map<String, Integer> getPoints() {
         return points;
     }
-
     public void setPoints(Map<String, Integer> points) {
         this.points = points;
     }
@@ -51,7 +50,6 @@ public class ClientModel {
     public Map<PlayerColor, Integer> getPawnPoints() {
         return pawnPoints;
     }
-
     public void setPawnPoints(Map<PlayerColor, Integer> pawnPoints) {
         this.pawnPoints = pawnPoints;
     }
@@ -101,7 +99,14 @@ public class ClientModel {
         this.fields = fields;
     }
 
-    public ObservableList<String> getMessages() {
+    public ObservableList<TextFlow> getMessages() {
         return messages;
+    }
+
+    public List<String> getOtherPlayers() {
+        return otherPlayers;
+    }
+    public void addOtherPlayers(String playerName) {
+        this.otherPlayers.add(playerName);
     }
 }

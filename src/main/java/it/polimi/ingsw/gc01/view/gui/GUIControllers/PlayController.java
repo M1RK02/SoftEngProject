@@ -10,30 +10,30 @@ import javafx.scene.control.*;
 import javafx.scene.image.*;
 import javafx.scene.input.*;
 import javafx.scene.layout.Pane;
+import javafx.scene.text.TextFlow;
 import javafx.util.Duration;
+
+import java.util.List;
 
 public class PlayController extends GenericController {
     @FXML
     private Label turn;
-
     @FXML
     private Label points;
-
     @FXML
     private ScrollPane scrollPane;
-
     @FXML
     private ImageView handLeft;
     @FXML
     private ImageView handCenter;
     @FXML
     private ImageView handRight;
-
     @FXML
     private Pane chat;
-
     @FXML
-    private ListView<String> messagesView;
+    private ListView<TextFlow> messagesView;
+    @FXML
+    private MenuButton playersChoice;
 
     @FXML
     private TextField messageField;
@@ -43,9 +43,10 @@ public class PlayController extends GenericController {
         ClientModel clientModel = (ClientModel) o[0];
         Pane pane = (Pane) o[1];
         String currentPlayer = clientModel.getCurrentPlayer();
-        ObservableList<String> messages = clientModel.getMessages();
+        ObservableList<TextFlow> messages = clientModel.getMessages();
+        List<String> otherPlayers = clientModel.getOtherPlayers();
         messagesView.setItems(messages);
-        messages.addListener((ListChangeListener<String>) change -> {
+        messages.addListener((ListChangeListener<TextFlow>) change -> {
             while (change.next()) {
                 if (change.wasAdded()) {
                     Platform.runLater(() -> messagesView.scrollTo(messages.size()-1));
@@ -67,6 +68,15 @@ public class PlayController extends GenericController {
         handLeft.setId("Front" + clientModel.getHandIDs().get(0));
         handCenter.setId("Front" + clientModel.getHandIDs().get(1));
         handRight.setId("Front" + clientModel.getHandIDs().get(2));
+
+        playersChoice.getItems().clear();
+        playersChoice.getItems().add(new MenuItem("ALL"));
+        for (String player : otherPlayers) {
+            playersChoice.getItems().add(new MenuItem(player));
+        }
+        //Quando si seleziona un giocatore, il menu viene aggiornato con il nome del giocatore selezionato
+        playersChoice.getItems().forEach(item -> item.setOnAction(event -> playersChoice.setText(item.getText())));
+
     }
 
     @FXML
@@ -138,7 +148,7 @@ public class PlayController extends GenericController {
     @FXML
     private void sendMessage() {
         //TODO prendere anche il destinatario dal menu di selezione
-        String recipient = "ALL";
+        String recipient = playersChoice.getText();
         String newMessage = messageField.getText();
         if (!newMessage.isEmpty()) {
             gui.newChatMessage(newMessage, recipient);

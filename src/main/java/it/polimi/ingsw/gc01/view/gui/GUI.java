@@ -14,7 +14,9 @@ import javafx.scene.*;
 import javafx.scene.control.Alert;
 import javafx.scene.image.Image;
 import javafx.scene.layout.Pane;
+import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
+import javafx.scene.text.TextFlow;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -520,6 +522,7 @@ public class GUI extends Application implements UI {
         } else {
             if (!otherFields.containsKey(playerName)) {
                 otherFields.put(playerName, new ClientFieldGUI(this));
+                clientModel.addOtherPlayers(playerName);
             }
             otherFields.get(playerName).playCard(id, front, position);
         }
@@ -565,9 +568,34 @@ public class GUI extends Application implements UI {
 
     @Override
     public void updateChat(ChatMessage newChatMessage){
-        String message = newChatMessage.getContent();
-        //TODO al posto del conte mettere la stringa come vogliamo che si veda quindi magari, player name + cazzi
-        Platform.runLater(() -> clientModel.getMessages().add(message));
+        StringBuilder prefix = new StringBuilder();
+
+        if (newChatMessage.getSender().equals(playerName)) {
+            prefix.append("[YOU");
+        } else {
+            prefix.append("[").append(newChatMessage.getSender());
+        }
+
+        if (newChatMessage.getRecipient().equals("ALL")) {
+            prefix.append("] ");
+        } else {
+            if (newChatMessage.getRecipient().equals(playerName))
+                prefix.append(" to YOU] ");
+            else
+                prefix.append(" to ").append(newChatMessage.getRecipient()).append("] ");
+        }
+        Text prefixText = new Text(prefix.toString());
+        if (newChatMessage.getRecipient().equals("ALL")){
+            prefixText.setFill(Color.ORANGE);
+        } else {
+            prefixText.setFill(Color.ROYALBLUE);
+        }
+
+        Text contentText = new Text(": " + newChatMessage.getContent());
+
+        TextFlow textFlow = new TextFlow(prefixText, contentText);
+
+        Platform.runLater(() -> clientModel.getMessages().add(textFlow));
     }
 
     public void newChatMessage(String content, String recipient){
