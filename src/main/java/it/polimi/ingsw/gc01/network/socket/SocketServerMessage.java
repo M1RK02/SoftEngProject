@@ -1,5 +1,8 @@
 package it.polimi.ingsw.gc01.network.socket;
 
+/**
+ * Socket Messages from server to Client
+ */
 public enum SocketServerMessage {
     UPDATE_ROOM_ID,
     SHOW_PLAYERS,

@@ -8,6 +8,9 @@ import javafx.scene.image.*;
 
 import java.util.Map;
 
+/**
+ * Controller to view the table points, in order to see which how many points has every player
+ */
 public class TablePointController extends GenericController {
     int bluePoints = -1;
     int greenPoints = -1;

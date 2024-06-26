@@ -7,6 +7,9 @@ import javafx.scene.image.*;
 
 import java.util.List;
 
+/**
+ * Controller to choose Objective card
+ */
 public class ChooseObjectiveController extends GenericController {
     int selection = -1;
     private List<Integer> possibleObjectiveIds;

@@ -3,6 +3,9 @@ package it.polimi.ingsw.gc01.view.gui.GUIControllers;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 
+/**
+ * Controller that manages joining a room knowing the Id
+ */
 public class JoinByIdController extends GenericController {
     @FXML
     private Button nextButton;

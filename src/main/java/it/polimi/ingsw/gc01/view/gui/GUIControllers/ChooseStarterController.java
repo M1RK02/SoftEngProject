@@ -6,7 +6,9 @@ import javafx.scene.control.Alert;
 import javafx.scene.effect.ColorAdjust;
 import javafx.scene.image.*;
 
-
+/**
+ * Controller to choose the starter card
+ */
 public class ChooseStarterController extends GenericController {
 
     int choice = -1;

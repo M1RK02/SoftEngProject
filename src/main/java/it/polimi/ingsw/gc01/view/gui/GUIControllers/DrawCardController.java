@@ -9,6 +9,9 @@ import javafx.scene.text.Text;
 
 import java.util.Map;
 
+/**
+ * Controller which allows the player to chose which card to draw
+ */
 public class DrawCardController extends GenericController {
 
     @FXML

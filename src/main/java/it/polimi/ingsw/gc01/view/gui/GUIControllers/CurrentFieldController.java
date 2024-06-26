@@ -13,7 +13,9 @@ import javafx.scene.text.TextFlow;
 import javafx.util.Duration;
 
 import java.util.List;
-
+/**
+ * Controller that manages the view when is not your turn
+ */
 public class CurrentFieldController extends GenericController {
     private String playerName;
     @FXML

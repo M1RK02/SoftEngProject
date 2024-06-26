@@ -1,5 +1,8 @@
 package it.polimi.ingsw.gc01.network.socket;
 
+/**
+ * Socket Client Messages to the server
+ */
 public enum SocketClientMessage {
     CREATE_GAME,
     JOIN_GAME,

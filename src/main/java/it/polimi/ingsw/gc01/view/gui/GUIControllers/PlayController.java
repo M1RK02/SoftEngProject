@@ -15,6 +15,9 @@ import javafx.util.Duration;
 
 import java.util.List;
 
+/**
+ * Controls the action of playing a card on the player's field
+ */
 public class PlayController extends GenericController {
     @FXML
     private Label turn;

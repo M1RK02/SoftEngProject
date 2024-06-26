@@ -75,6 +75,10 @@ public interface NetworkClient {
      */
     void leave();
 
+    /**
+     * adds new message to the room Chat
+     * @param newMessage new message to be added to the roomChat
+     */
     void newChatMessage(ChatMessage newMessage);
 
 }

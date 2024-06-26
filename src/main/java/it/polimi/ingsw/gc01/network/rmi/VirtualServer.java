@@ -107,5 +107,12 @@ public interface VirtualServer extends Remote {
      */
     void leave(String playerName, String roomId) throws RemoteException;
 
+    /**
+     * Asks server to add a new message to the room chat
+     * @param playerName Player who sent the message
+     * @param roomId room of which the message has to be added
+     * @param newMessage message to bed added to the ChatMessage List of the room
+     * @throws RemoteException remote exception
+     */
     void newChatMessage(String playerName, String roomId,ChatMessage newMessage)throws RemoteException;
 }

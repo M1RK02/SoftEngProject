@@ -12,7 +12,9 @@ import java.util.*;
 
 import static it.polimi.ingsw.gc01.network.socket.SocketClientMessage.*;
 
-
+/**
+ * Socket Client
+ */
 public class SocketClient implements NetworkClient {
     private final String playerName;
     private final UI ui;
@@ -21,6 +23,11 @@ public class SocketClient implements NetworkClient {
     private String roomId;
     private Socket serverSocket;
 
+    /**
+     * Constructs a Socket Client
+     * @param playerName name of the player
+     * @param ui user interface of the Client
+     */
     public SocketClient(String playerName, UI ui) {
         this.ui = ui;
         this.playerName = playerName;
@@ -28,6 +35,10 @@ public class SocketClient implements NetworkClient {
         run();
     }
 
+    /**
+     * Establishes a connection to the server using a socket and initializes input and output streams.
+     *  *
+     */
     private void connect() {
         try {
             serverSocket = new Socket(DefaultValue.ServerIp, DefaultValue.Default_Socket_port);
@@ -42,6 +53,9 @@ public class SocketClient implements NetworkClient {
         }
     }
 
+    /**
+     * Starts a new thread to execute server messages.
+     */
     public void run() {
         new Thread(() -> {
             try {
@@ -52,6 +66,11 @@ public class SocketClient implements NetworkClient {
         }).start();
     }
 
+    /**
+     * Processes incoming messages from the server and performs corresponding actions based on the message type.
+     * @throws IOException IOException if an I/O error occurs while reading from the input stream.
+     * @throws ClassNotFoundException if a class of a serialized object cannot be found.
+     */
     public void executeServerMessage() throws IOException, ClassNotFoundException {
         SocketServerMessage message = null;
         while ((message = (SocketServerMessage) input.readObject()) != null) {
@@ -524,6 +543,10 @@ public class SocketClient implements NetworkClient {
         ui.backToMenu();
     }
 
+    /**
+     * Asks UI to update the room Chat
+     * @param newChatMessage new Message to be added to the chat
+     */
     public void updateChat(ChatMessage newChatMessage){
         ui.updateChat(newChatMessage);
     }

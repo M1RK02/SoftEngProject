@@ -251,6 +251,11 @@ public class Room {
         notifier.showPlayerLeft(playerName);
     }
 
+    /**
+     * Adds the newChatMessage to the ChatMessages List
+     * Notifies the Client that the chat has been updated
+     * @param newChatMessage
+     */
     public void newChatMessage(ChatMessage newChatMessage){
         chat.add(newChatMessage);
         notifier.updateChat(newChatMessage);

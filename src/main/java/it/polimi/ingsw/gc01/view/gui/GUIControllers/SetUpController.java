@@ -5,6 +5,9 @@ import javafx.scene.control.*;
 
 import java.util.*;
 
+/**
+ * Allows the player to choose his nickname, the server IP and the type of connection he wants to use
+ */
 public class SetUpController extends GenericController {
 
     @FXML

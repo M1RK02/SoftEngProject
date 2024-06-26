@@ -3,6 +3,9 @@ package it.polimi.ingsw.gc01.view.gui.GUIControllers;
 import javafx.fxml.FXML;
 import javafx.scene.text.Text;
 
+/**
+ * Controller of the waiting room, where player can set themselves ready or not
+ */
 public class WaitingRoomController extends GenericController {
     @FXML
     private Text roomId;

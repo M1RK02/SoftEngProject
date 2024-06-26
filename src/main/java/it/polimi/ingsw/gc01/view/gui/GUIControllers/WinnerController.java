@@ -5,6 +5,9 @@ import javafx.scene.control.Label;
 
 import java.util.List;
 
+/**
+ * Controller that shows the final scene when one or more players win
+ */
 public class WinnerController extends GenericController {
 
     @FXML

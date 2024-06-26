@@ -8,11 +8,18 @@ import java.io.IOException;
 import java.net.*;
 import java.util.concurrent.BlockingQueue;
 
+/**
+ * Server that uses Socket connection type
+ */
 public class SocketServer {
     private final MainController mainController;
     private final BlockingQueue<Action> actions;
     private ServerSocket listenSocket;
 
+    /**
+     * Creates a SocketServer
+     * @param actions list of action to be executed by the serve
+     */
     public SocketServer(BlockingQueue<Action> actions) {
         this.actions = actions;
         this.mainController = MainController.getInstance();
@@ -20,6 +27,10 @@ public class SocketServer {
         acceptConnections();
     }
 
+    /**
+     *Initializes a server socket to listen for incoming connections on the specified port.
+     *
+     */
     private void bind() {
         try {
             listenSocket = new ServerSocket(DefaultValue.Default_Socket_port);
@@ -29,6 +40,9 @@ public class SocketServer {
         }
     }
 
+    /**
+     * Accepts incoming client connections and starts a new thread to handle each connection.
+     */
     public void acceptConnections() {
         Socket clientSocket;
         try {

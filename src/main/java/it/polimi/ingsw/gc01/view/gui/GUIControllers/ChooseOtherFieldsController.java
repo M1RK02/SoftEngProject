@@ -7,6 +7,9 @@ import javafx.scene.control.Button;
 
 import java.util.Map;
 
+/**
+ * Controller to choose the player's field to view
+ */
 public class ChooseOtherFieldsController extends GenericController {
 
     @FXML

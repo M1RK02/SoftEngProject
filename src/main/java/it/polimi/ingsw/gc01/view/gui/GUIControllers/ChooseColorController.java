@@ -8,6 +8,9 @@ import javafx.scene.image.*;
 
 import java.util.List;
 
+/**
+ * Controller
+ */
 public class ChooseColorController extends GenericController {
 
     @FXML

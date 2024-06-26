@@ -13,6 +13,9 @@ import java.util.concurrent.BlockingQueue;
 
 import static it.polimi.ingsw.gc01.network.socket.SocketServerMessage.*;
 
+/**
+ * Classes which handles Client requests for Socket connection
+ */
 public class ClientHandler implements VirtualView {
     private final ObjectInputStream input;
     private final ObjectOutputStream output;
@@ -21,6 +24,13 @@ public class ClientHandler implements VirtualView {
     private String playerName;
     private String roomId;
 
+    /**
+     * Constructs a ClientHandler for a Client
+     * @param mainController main controller
+     * @param actions actions to be executed by the server
+     * @param clientSocket  clientSocket
+     * @throws IOException exception
+     */
     public ClientHandler(MainController mainController, BlockingQueue<Action> actions, Socket clientSocket) throws IOException {
         this.actions = actions;
         this.mainController = mainController;
@@ -28,6 +38,11 @@ public class ClientHandler implements VirtualView {
         this.output = new ObjectOutputStream(clientSocket.getOutputStream());
     }
 
+    /**
+     * Processes incoming messages from the client and enqueues corresponding actions that will be executed by server
+     * @throws IOException IOException if an I/O error occurs while reading from the input stream.
+     * @throws ClassNotFoundException  ClassNotFoundException if a class of a serialized object cannot be found.
+     */
     public void executeClientMessages() throws IOException, ClassNotFoundException {
         SocketClientMessage message;
         int cardId;

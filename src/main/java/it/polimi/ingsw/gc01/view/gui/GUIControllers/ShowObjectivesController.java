@@ -4,6 +4,9 @@ import it.polimi.ingsw.gc01.view.gui.ClientModel;
 import javafx.fxml.FXML;
 import javafx.scene.image.*;
 
+/**
+ * Controller that allowes the player to view the common objectives to achieve to make extra points
+ */
 public class ShowObjectivesController extends GenericController {
     @FXML
     private ImageView commonObjective1;
