@@ -12,7 +12,7 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="720.0" prefWidth="1280.0" styleClass="woodenBackground" stylesheets="@../style.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.polimi.ingsw.gc01.view.gui.GUIControllers.PlayController">
+<AnchorPane prefHeight="720.0" prefWidth="1280.0" styleClass="woodenBackground" stylesheets="@../style.css" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.polimi.ingsw.gc01.view.gui.GUIControllers.PlayController">
    <children>
       <Pane fx:id="turnContainer" layoutX="5.0" layoutY="4.0" prefHeight="69.0" prefWidth="118.0">
          <children>
@@ -32,7 +32,7 @@
       <Button alignment="CENTER_RIGHT" layoutX="-40.0" layoutY="160.0" mnemonicParsing="false" onMouseClicked="#showObjectives" prefHeight="50.0" prefWidth="180.0" styleClass="record-sales6" stylesheets="@../style.css" text="Objectives" />
       <Button alignment="CENTER_RIGHT" layoutX="-40.0" layoutY="230.0" mnemonicParsing="false" onMouseClicked="#showDrawables" prefHeight="50.0" prefWidth="180.0" styleClass="record-sales7" stylesheets="@../style.css" text="Table" />
       <Button alignment="CENTER_RIGHT" layoutX="-40.0" layoutY="300.0" mnemonicParsing="false" onMouseClicked="#showOtherFields" prefHeight="50.0" prefWidth="180.0" styleClass="record-sales8" stylesheets="@../style.css" text="Other Fields" />
-      <Button alignment="CENTER_RIGHT" layoutX="-40.0" layoutY="370.0" mnemonicParsing="false" onAction="#showChat" prefHeight="50.0" prefWidth="180.0" styleClass="record-sales8" stylesheets="@../style.css" text="Chat" />
+      <Button alignment="CENTER_RIGHT" layoutX="-40.0" layoutY="370.0" mnemonicParsing="false" onAction="#showChat" prefHeight="50.0" prefWidth="180.0" styleClass="record-sales9" stylesheets="@../style.css" text="Chat" />
       <ScrollPane fx:id="scrollPane" hbarPolicy="NEVER" layoutX="349.0" layoutY="29.0" prefHeight="491.0" prefWidth="909.0" stylesheets="@../style.css" vbarPolicy="NEVER">
          <cursor>
             <Cursor fx:constant="HAND" />
@@ -49,7 +49,7 @@
          <cursor>
             <Cursor fx:constant="HAND" />
          </cursor></ImageView>
-      <Pane fx:id="chat" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="320.0" style="-fx-background-color: grey;" translateX="-320.0">
+      <Pane fx:id="chat" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="320.0" style="-fx-background-color: grey;" styleClass="chatBackground" stylesheets="@../style.css" translateX="-320.0">
          <children>
             <Label text="CHATTTTTTTT">
                <font>
@@ -57,7 +57,7 @@
                </font>
             </Label>
             <Button layoutX="254.0" layoutY="6.0" mnemonicParsing="false" onAction="#hideChat" text="CHIUDI" />
-            <ListView fx:id="messagesView" layoutY="40.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="640.0" prefWidth="320.0" />
+            <ListView fx:id="messagesView" layoutY="40.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="640.0" prefWidth="320.0" stylesheets="@../style.css" />
             <MenuButton fx:id="playersChoice" layoutY="680.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="40.0" prefWidth="80.0" text="ALL" />
             <TextField fx:id="messageField" layoutX="80.0" layoutY="680.0" onAction="#sendMessage" prefHeight="40.0" prefWidth="200.0" />
             <Button layoutX="280.0" layoutY="680.0" mnemonicParsing="false" onAction="#sendMessage" text="&gt;">

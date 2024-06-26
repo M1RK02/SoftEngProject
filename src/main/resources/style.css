@@ -327,7 +327,37 @@
     -fx-padding: 10 15 13 15;
     -fx-background-insets: 2 0 0 0,2 0 3 0, 2 0 4 0, 2 0 5 0;
 }
-.record-sales8 Text {
+.record-sales9 Text {
+    -fx-fill: white;
+    -fx-effect: dropshadow( gaussian , #a30000 , 0,0,0,2 );
+}
+
+.record-sales9 {
+    -fx-padding: 8 15 15 15;
+    -fx-background-insets: 0,0 0 5 0, 0 0 6 0, 0 0 7 0;
+    -fx-background-radius: 8;
+    -fx-background-color:
+            linear-gradient(from 0% 93% to 0% 100%, #56e7af 0%, #00e1ff 100%),
+            #56e773,
+            #80ee94,
+            radial-gradient(center 50% 50%, radius 100%, #55addc, #19ffe4);
+    -fx-effect: dropshadow( gaussian , rgba(0,0,0,0.75) , 4,0,0,1 );
+    -fx-font-weight: bold;
+    -fx-font-size:22;
+}
+.record-sales9:hover {
+    -fx-background-color:
+            linear-gradient(from 0% 93% to 0% 100%, #abb020 0%, #a69c5e 100%),
+            #b0a920,
+            #a6825e,
+            radial-gradient(center 50% 50%, radius 100%, #96b020, #6e9a00);
+    -fx-font-size:22px !important;
+}
+.record-sales9:pressed {
+    -fx-padding: 10 15 13 15;
+    -fx-background-insets: 2 0 0 0,2 0 3 0, 2 0 4 0, 2 0 5 0;
+}
+.record-sales9 Text {
     -fx-fill: white;
     -fx-effect: dropshadow( gaussian , #a30000 , 0,0,0,2 );
 }
@@ -487,6 +517,21 @@
     -fx-background-image: url("images/wooden_background_1920x1080.png");
     -fx-background-repeat: stretch;
     -fx-background-size: cover;
+}
+
+.chatBackground{
+    -fx-background-image: url("images/chatBackground.png");
+}
+
+.list-view{
+    -fx-background-color: transparent;
+    -fx-vbar-policy: never;
+}
+
+.list-cell{
+    -fx-background-color: transparent;
+    -fx-font-size: 20px;
+    -fx-font-weight: bold;
 }
 
 .titleTxt{

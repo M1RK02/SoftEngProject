@@ -590,9 +590,8 @@ public class GUI extends Application implements UI {
         } else {
             prefixText.setFill(Color.ROYALBLUE);
         }
-
         Text contentText = new Text(": " + newChatMessage.getContent());
-
+        contentText.setFill(Color.WHITE);
         TextFlow textFlow = new TextFlow(prefixText, contentText);
 
         Platform.runLater(() -> clientModel.getMessages().add(textFlow));
