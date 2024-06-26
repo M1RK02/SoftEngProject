@@ -688,7 +688,7 @@ public class GUI extends Application implements UI {
         if (newChatMessage.getRecipient().equals("ALL")){
             prefixText.setFill(Color.ORANGE);
         } else {
-            prefixText.setFill(Color.ROYALBLUE);
+            prefixText.setFill(Color.BLUE);
         }
         Text contentText = new Text(": " + newChatMessage.getContent());
         contentText.setFill(Color.WHITE);

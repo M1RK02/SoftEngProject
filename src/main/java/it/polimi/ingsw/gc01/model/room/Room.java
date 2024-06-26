@@ -228,20 +228,11 @@ public class Room {
      * @return the list of winners
      */
     public List<Player> getWinners() {
-        List<Player> winners = new ArrayList<>();
         int maxTotalPoints = players.stream().mapToInt(Player::getTotalPoints).max().orElse(0);
-        int maxObjectivePoints = players.stream().mapToInt(Player::getObjectivePoints).max().orElse(0);
-        for (Player player : players) {
-            if (player.getTotalPoints() == maxTotalPoints) {
-                if (player.getObjectivePoints() == maxObjectivePoints) {
-                    winners.add(player);
-                    //TODO questo non va bene così dio cane
-                }
-            }
-        }
-        return winners;
+        List<Player> possibleWinners = players.stream().filter(player -> player.getTotalPoints() == maxTotalPoints).toList();
+        int maxObjectivePoints = possibleWinners.stream().mapToInt(Player::getObjectivePoints).max().orElse(0);
+        return possibleWinners.stream().filter(player -> player.getObjectivePoints() == maxObjectivePoints).toList();
     }
-
 
     /**
      * Remove a player from the room

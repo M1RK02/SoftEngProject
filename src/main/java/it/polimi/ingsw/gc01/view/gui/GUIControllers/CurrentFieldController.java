@@ -17,7 +17,6 @@ import java.util.List;
  * Controller that manages the view when is not your turn
  */
 public class CurrentFieldController extends GenericController {
-    private String playerName;
     @FXML
     private Label turn;
     @FXML
@@ -36,7 +35,7 @@ public class CurrentFieldController extends GenericController {
     @Override
     public void setAttributes(Object... o) {
         Pane pane = (Pane) o[0];
-        this.playerName = (String) o[1];
+        String playerName = (String) o[1];
         boolean canGoBack = (boolean) o[2];
 
         if (!canGoBack) {
@@ -44,8 +43,11 @@ public class CurrentFieldController extends GenericController {
             goBack.setVisible(false);
         }
         scrollPane.setContent(pane);
-        //todo qui non dovrebbe esserci turn mi sa
-        turn.setText("Turn: " + playerName);
+        if(gui.getClientModel().getCurrentPlayer().equals(playerName)){
+            turn.setText("Turn: " + playerName);
+        } else {
+            turn.setText("Field: " + playerName);
+        }
 
         List<String> otherPlayers = gui.getClientModel().getOtherPlayers();
         ObservableList<TextFlow> messages = gui.getClientModel().getMessages();
@@ -69,8 +71,7 @@ public class CurrentFieldController extends GenericController {
 
     @FXML
     private void goBack() {
-        ClientModel clientModel = gui.getClientModel();
-        if (gui.getPlayerName().equals(clientModel.getCurrentPlayer())) {
+        if (gui.getPlayerName().equals(gui.getClientModel().getCurrentPlayer())) {
             gui.backToPlay();
         } else {
             gui.backToOtherFields();
