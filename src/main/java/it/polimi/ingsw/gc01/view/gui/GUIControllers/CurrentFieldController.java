@@ -44,6 +44,7 @@ public class CurrentFieldController extends GenericController {
             goBack.setVisible(false);
         }
         scrollPane.setContent(pane);
+        //todo qui non dovrebbe esserci turn mi sa
         turn.setText("Turn: " + playerName);
 
         List<String> otherPlayers = gui.getClientModel().getOtherPlayers();
