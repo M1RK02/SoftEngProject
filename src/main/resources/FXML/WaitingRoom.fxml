@@ -9,7 +9,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" styleClass="woodenBackground" stylesheets="@../style.css" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.polimi.ingsw.gc01.view.gui.GUIControllers.WaitingRoomController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" styleClass="woodenBackground" stylesheets="@../style.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.polimi.ingsw.gc01.view.gui.GUIControllers.WaitingRoomController">
     <children>
       <Pane layoutX="326.0" layoutY="128.0" prefHeight="720.0" prefWidth="1280.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
@@ -23,7 +23,7 @@
                       <Font name="Arial Black" size="24.0" />
                   </font>
               </Text>
-              <Button layoutX="1003.0" layoutY="621.0" mnemonicParsing="false" onAction="#handleReadyButton" prefHeight="88.0" prefWidth="253.0" styleClass="record-sales" stylesheets="@../style.css" text="READY">
+              <Button layoutX="1003.0" layoutY="621.0" mnemonicParsing="false" onAction="#handleReadyButton" prefHeight="88.0" prefWidth="253.0" styleClass="record-sales" stylesheets="@../style.css" text="READY" textFill="WHITE">
                   <font>
                       <Font size="24.0" />
                   </font>

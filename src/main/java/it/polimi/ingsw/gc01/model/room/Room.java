@@ -232,8 +232,11 @@ public class Room {
         int maxTotalPoints = players.stream().mapToInt(Player::getTotalPoints).max().orElse(0);
         int maxObjectivePoints = players.stream().mapToInt(Player::getObjectivePoints).max().orElse(0);
         for (Player player : players) {
-            if (player.getTotalPoints() == maxTotalPoints && player.getObjectivePoints() == maxObjectivePoints) {
-                winners.add(player);
+            if (player.getTotalPoints() == maxTotalPoints) {
+                if (player.getObjectivePoints() == maxObjectivePoints) {
+                    winners.add(player);
+                    //TODO questo non va bene così dio cane
+                }
             }
         }
         return winners;
