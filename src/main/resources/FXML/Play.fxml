@@ -51,16 +51,16 @@
          </cursor></ImageView>
       <Pane fx:id="chat" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="320.0" style="-fx-background-color: grey;" styleClass="chatBackground" stylesheets="@../style.css" translateX="-320.0">
          <children>
-            <Label text="CHATTTTTTTT">
+            <Label alignment="CENTER" layoutX="110.0" prefHeight="38.0" prefWidth="91.0" text="CHAT" textFill="WHITE">
                <font>
-                  <Font size="33.0" />
+                  <Font name="Arial Black" size="25.0" />
                </font>
             </Label>
-            <Button layoutX="254.0" layoutY="6.0" mnemonicParsing="false" onAction="#hideChat" text="CHIUDI" />
+            <Button layoutX="280.0" mnemonicParsing="false" onAction="#hideChat" prefHeight="40.0" prefWidth="40.0" styleClass="closeButton" stylesheets="@../style.css" />
             <ListView fx:id="messagesView" layoutY="40.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="640.0" prefWidth="320.0" stylesheets="@../style.css" />
-            <MenuButton fx:id="playersChoice" layoutY="680.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="40.0" prefWidth="80.0" text="ALL" />
+            <MenuButton fx:id="playersChoice" layoutY="680.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="40.0" prefWidth="80.0" stylesheets="@../style.css" text="AB" />
             <TextField fx:id="messageField" layoutX="80.0" layoutY="680.0" onAction="#sendMessage" prefHeight="40.0" prefWidth="200.0" />
-            <Button layoutX="280.0" layoutY="680.0" mnemonicParsing="false" onAction="#sendMessage" text="&gt;">
+            <Button layoutX="280.0" layoutY="680.0" mnemonicParsing="false" onAction="#sendMessage" prefHeight="40.0" prefWidth="40.0" rotate="180.0" styleClass="sendButton" stylesheets="@../style.css">
                <font>
                   <Font size="20.0" />
                </font>

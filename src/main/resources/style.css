@@ -560,3 +560,24 @@
 .scroll-pane {
     -fx-background-color: transparent;
 }
+
+.closeButton {
+    -fx-background-image: url("images/RedXMark.png");
+    -fx-background-repeat: stretch;
+    -fx-background-size: cover;
+    -fx-background-color: transparent;
+}
+.closeButton:hover {
+    -fx-opacity: 0.8;
+}
+
+.sendButton {
+    -fx-background-image: url("images/arrow.png");
+    -fx-background-repeat: stretch;
+    -fx-background-size: 30 30;
+    -fx-background-position: center;
+    -fx-background-color: grey;
+}
+.sendButton:hover {
+    -fx-opacity: 0.8;
+}
