@@ -3,6 +3,7 @@ package it.polimi.ingsw.gc01.view.gui.GUIControllers;
 import it.polimi.ingsw.gc01.model.player.PlayerColor;
 import it.polimi.ingsw.gc01.view.gui.ClientModel;
 import javafx.fxml.FXML;
+import javafx.scene.control.Label;
 import javafx.scene.image.*;
 
 import java.util.Map;
@@ -20,6 +21,23 @@ public class TablePointController extends GenericController {
     private ImageView redPawn;
     @FXML
     private ImageView yellowPawn;
+    @FXML
+    private ImageView pawn1;
+    @FXML
+    private ImageView pawn2;
+    @FXML
+    private ImageView pawn3;
+    @FXML
+    private ImageView pawn4;
+    @FXML
+    private Label player1;
+    @FXML
+    private Label player2;
+    @FXML
+    private Label player3;
+    @FXML
+    private Label player4;
+
 
     @FXML
     private void goBack() {
@@ -34,15 +52,35 @@ public class TablePointController extends GenericController {
     @Override
     public void setAttributes(Object... o) {
         ClientModel clientModel = (ClientModel) o[0];
-        bluePawn.setImage(new Image(getClass().getResourceAsStream("/images/pawns/BluePawn.png")));
-        greenPawn.setImage(new Image(getClass().getResourceAsStream("/images/pawns/GreenPawn.png")));
-        redPawn.setImage(new Image(getClass().getResourceAsStream("/images/pawns/RedPawn.png")));
-        yellowPawn.setImage(new Image(getClass().getResourceAsStream("/images/pawns/YellowPawn.png")));
+        Image blue = new Image(getClass().getResourceAsStream("/images/pawns/BluePawn.png"));
+        Image green = new Image(getClass().getResourceAsStream("/images/pawns/GreenPawn.png"));
+        Image red = new Image(getClass().getResourceAsStream("/images/pawns/RedPawn.png"));
+        Image yellow = new Image(getClass().getResourceAsStream("/images/pawns/YellowPawn.png"));
+
+        bluePawn.setImage(blue);
+        greenPawn.setImage(green);
+        redPawn.setImage(red);
+        yellowPawn.setImage(yellow);
+
+        pawn1.setImage(blue);
+        pawn2.setImage(green);
+        pawn3.setImage(red);
+        pawn4.setImage(yellow);
 
         bluePawn.setOpacity(0);
         greenPawn.setOpacity(0);
         redPawn.setOpacity(0);
         yellowPawn.setOpacity(0);
+
+        pawn1.setOpacity(0);
+        pawn2.setOpacity(0);
+        pawn3.setOpacity(0);
+        pawn4.setOpacity(0);
+
+        player1.setText("");
+        player2.setText("");
+        player3.setText("");
+        player4.setText("");
 
         Map<PlayerColor, String> colors = clientModel.getColors();
         Map<String, Integer> points = clientModel.getPoints();
@@ -51,23 +89,31 @@ public class TablePointController extends GenericController {
             bluePoints = points.get(colors.get(PlayerColor.BLUE));
             bluePawn.setOpacity(1.0);
             translate(bluePawn, bluePoints);
+            pawn1.setOpacity(1.0);
+            player1.setText(colors.get(PlayerColor.BLUE));
         }
 
         if (colors.get(PlayerColor.GREEN) != null) {
             greenPoints = points.get(colors.get(PlayerColor.GREEN));
             greenPawn.setOpacity(1.0);
             translate(greenPawn, greenPoints);
+            pawn2.setOpacity(1.0);
+            player2.setText(colors.get(PlayerColor.GREEN));
         }
 
         if (colors.get(PlayerColor.RED) != null) {
             redPoints = points.get(colors.get(PlayerColor.RED));
             redPawn.setOpacity(1.0);
             translate(redPawn, redPoints);
+            pawn3.setOpacity(1.0);
+            player3.setText(colors.get(PlayerColor.RED));
         }
         if (colors.get(PlayerColor.YELLOW) != null) {
             yellowPoints = points.get(colors.get(PlayerColor.YELLOW));
             yellowPawn.setOpacity(1.0);
             translate(yellowPawn, yellowPoints);
+            pawn4.setOpacity(1.0);
+            player4.setText(colors.get(PlayerColor.YELLOW));
         }
     }
 

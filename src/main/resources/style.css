@@ -526,6 +526,7 @@
 .list-view{
     -fx-background-color: transparent;
     -fx-vbar-policy: never;
+    -fx-hbar-policy: never;
 }
 
 .list-cell{

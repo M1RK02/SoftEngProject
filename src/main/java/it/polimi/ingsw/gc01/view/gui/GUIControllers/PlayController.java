@@ -34,7 +34,6 @@ public class PlayController extends GenericController {
     private ListView<TextFlow> messagesView;
     @FXML
     private MenuButton playersChoice;
-
     @FXML
     private TextField messageField;
 
@@ -147,7 +146,6 @@ public class PlayController extends GenericController {
 
     @FXML
     private void sendMessage() {
-        //TODO prendere anche il destinatario dal menu di selezione
         String recipient = playersChoice.getText();
         String newMessage = messageField.getText();
         if (!newMessage.isEmpty()) {

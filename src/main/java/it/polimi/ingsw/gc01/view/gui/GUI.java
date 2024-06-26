@@ -138,12 +138,10 @@ public class GUI extends Application implements UI {
             networkClient.flipCard(cardId);
             networkClient.playCard(cardId, new Position(0, 0));
         }
-        //switchToScene(SceneEnum.WAITING_OTHERS, "Waiting for others to choose their starter");
     }
 
     public void chooseColor(String color) {
         networkClient.chooseColor(PlayerColor.valueOf(color));
-        //switchToScene(SceneEnum.WAITING_OTHERS, "Waiting for others to choose their color");
     }
 
     public void switchToIntro() {
@@ -593,6 +591,7 @@ public class GUI extends Application implements UI {
         Text contentText = new Text(": " + newChatMessage.getContent());
         contentText.setFill(Color.WHITE);
         TextFlow textFlow = new TextFlow(prefixText, contentText);
+        textFlow.setMaxWidth(290);
 
         Platform.runLater(() -> clientModel.getMessages().add(textFlow));
     }
