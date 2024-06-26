@@ -12,10 +12,6 @@
           <option name="goals">
             <list>
               <option value="clean" />
-              <option value="validate" />
-              <option value="compile" />
-              <option value="test" />
-              <option value="package" />
               <option value="verify" />
             </list>
           </option>
