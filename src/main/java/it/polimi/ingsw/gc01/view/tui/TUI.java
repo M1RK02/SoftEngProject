@@ -439,7 +439,7 @@ public class TUI implements UI {
      * @param points map of playerName, points
      */
     @Override
-    public void showPoints(Map<String, Integer> points, Map<PlayerColor, Integer> tablePoints) {
+    public void showPoints(Map<String, Integer> points, Map<PlayerColor, String> colors) {
         System.out.println(DefaultValue.ANSI_BLUE + "-> Points:" + DefaultValue.ANSI_RESET);
         for (String playerName : points.keySet()) {
             System.out.println(DefaultValue.ANSI_BLUE + playerName + ": " + points.get(playerName) + " points" + DefaultValue.ANSI_RESET);

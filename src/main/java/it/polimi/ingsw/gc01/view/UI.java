@@ -103,8 +103,9 @@ public interface UI {
      * Show the points for each player in the room
      *
      * @param points map of playerName, points
+     * @param colors map of color, playerName
      */
-    void showPoints(Map<String, Integer> points, Map<PlayerColor, Integer> tablePoints);
+    void showPoints(Map<String, Integer> points, Map<PlayerColor, String> colors);
 
     /**
      * Show the hand to the player

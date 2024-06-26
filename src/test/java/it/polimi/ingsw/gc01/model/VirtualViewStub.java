@@ -86,7 +86,7 @@ public class VirtualViewStub implements VirtualView {
     }
 
     @Override
-    public void showPoints(Map<String, Integer> points, Map<PlayerColor, Integer> tablePoints) {
+    public void showPoints(Map<String, Integer> points, Map<PlayerColor, String> colors) {
 
     }
 

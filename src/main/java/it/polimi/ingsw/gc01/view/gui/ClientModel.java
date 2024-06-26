@@ -10,7 +10,7 @@ public class ClientModel {
 
     private String currentPlayer;
     private Map<String, Integer> points;
-    private Map<PlayerColor, Integer> pawnPoints;
+    private Map<PlayerColor, String> colors;
     private List<Integer> handIDs;
     private Map<String, ClientFieldGUI> fields;
     private int numOfPlayers = 0;
@@ -47,11 +47,11 @@ public class ClientModel {
         this.points = points;
     }
 
-    public Map<PlayerColor, Integer> getPawnPoints() {
-        return pawnPoints;
+    public Map<PlayerColor, String> getColors() {
+        return colors;
     }
-    public void setPawnPoints(Map<PlayerColor, Integer> pawnPoints) {
-        this.pawnPoints = pawnPoints;
+    public void setColors(Map<PlayerColor, String> colors) {
+        this.colors = colors;
     }
 
     public void setCommonObjectives(int commonObjective1, int commonObjective2) {

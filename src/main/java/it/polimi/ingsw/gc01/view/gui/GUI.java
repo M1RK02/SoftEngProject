@@ -226,7 +226,7 @@ public class GUI extends Application implements UI {
     }
 
     public void showTablePoints() {
-        switchToScene(SceneEnum.TABLE_POINT, clientModel.getPawnPoints());
+        switchToScene(SceneEnum.TABLE_POINT, clientModel);
     }
 
     public void showObjectives() {
@@ -448,9 +448,9 @@ public class GUI extends Application implements UI {
      * @param points map of playerName, points
      */
     @Override
-    public void showPoints(Map<String, Integer> points, Map<PlayerColor, Integer> tablePoints) {
+    public void showPoints(Map<String, Integer> points, Map<PlayerColor, String> colors) {
         clientModel.setPoints(points);
-        clientModel.setPawnPoints(tablePoints);
+        clientModel.setColors(colors);
     }
 
     /**

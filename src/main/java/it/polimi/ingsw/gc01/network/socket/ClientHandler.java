@@ -334,14 +334,14 @@ public class ClientHandler implements VirtualView {
     /**
      * Show the points for each player
      *
-     * @param points      map of playerName, points
-     * @param tablePoints
+     * @param points     map of playerName, points
+     * @param colors    map of color, playerName
      */
     @Override
-    public void showPoints(Map<String, Integer> points, Map<PlayerColor, Integer> tablePoints) throws IOException {
+    public void showPoints(Map<String, Integer> points, Map<PlayerColor, String> colors) throws IOException {
         output.writeObject(SHOW_PONTS);
         output.writeObject(points);
-        output.writeObject(tablePoints);
+        output.writeObject(colors);
         output.flush();
     }
 

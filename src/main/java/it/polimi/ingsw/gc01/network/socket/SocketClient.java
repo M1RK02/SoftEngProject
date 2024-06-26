@@ -105,7 +105,7 @@ public class SocketClient implements NetworkClient {
                     showField((String) input.readObject());
                     break;
                 case SHOW_PONTS:
-                    showPoints((Map<String, Integer>) input.readObject(), (Map<PlayerColor, Integer>) input.readObject());
+                    showPoints((Map<String, Integer>) input.readObject(), (Map<PlayerColor, String>) input.readObject());
                     break;
                 case SHOW_SECRET_OBJECTIVES:
                     showSecretObjectives((List<Integer>) input.readObject());
@@ -461,10 +461,10 @@ public class SocketClient implements NetworkClient {
      * Show the points for each player
      *
      * @param points      map of playerName, points
-     * @param tablePoints
+     * @param colors map of colors, playerName
      */
-    public void showPoints(Map<String, Integer> points, Map<PlayerColor, Integer> tablePoints) {
-        ui.showPoints(points, tablePoints);
+    public void showPoints(Map<String, Integer> points, Map<PlayerColor, String> colors) {
+        ui.showPoints(points, colors);
     }
 
     /**

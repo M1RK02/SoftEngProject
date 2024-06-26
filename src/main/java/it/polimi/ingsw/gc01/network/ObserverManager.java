@@ -333,11 +333,11 @@ public class ObserverManager {
      *
      * @param points map of playerName, points
      */
-    public void showPoints(Map<String, Integer> points, Map<PlayerColor, Integer> tablePoints) {
+    public void showPoints(Map<String, Integer> points, Map<PlayerColor, String> colors) {
         synchronized (observers) {
             for (VirtualView client : observers.values()) {
                 try {
-                    client.showPoints(points, tablePoints);
+                    client.showPoints(points, colors);
                 } catch (IOException ignored) {
                 }
             }
