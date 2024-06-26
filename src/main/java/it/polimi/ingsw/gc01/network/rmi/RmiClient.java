@@ -417,17 +417,6 @@ public class RmiClient extends UnicastRemoteObject implements VirtualView, Netwo
     }
 
     /**
-     * Show the service message
-     *
-     * @param message to show
-     */
-    @Override
-    public void serviceMessage(String message) {
-        ui.showServiceMessage(message);
-    }
-
-
-    /**
      * Show the last turn notification
      */
     @Override

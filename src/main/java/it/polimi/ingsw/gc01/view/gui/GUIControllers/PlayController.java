@@ -39,8 +39,8 @@ public class PlayController extends GenericController {
 
     @Override
     public void setAttributes(Object... o) {
-        ClientModel clientModel = (ClientModel) o[0];
-        Pane pane = (Pane) o[1];
+        Pane pane = (Pane) o[0];
+        ClientModel clientModel = gui.getClientModel();
         String currentPlayer = clientModel.getCurrentPlayer();
         ObservableList<TextFlow> messages = clientModel.getMessages();
         List<String> otherPlayers = clientModel.getOtherPlayers();

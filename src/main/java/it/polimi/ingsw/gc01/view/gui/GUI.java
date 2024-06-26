@@ -224,7 +224,7 @@ public class GUI extends Application implements UI {
     }
 
     public void showTablePoints() {
-        switchToScene(SceneEnum.TABLE_POINT, clientModel);
+        switchToScene(SceneEnum.TABLE_POINT);
     }
 
     public void showObjectives() {
@@ -232,7 +232,7 @@ public class GUI extends Application implements UI {
     }
 
     public void backToPlay() {
-        switchToScene(SceneEnum.PLAY, clientModel, field.generateField());
+        switchToScene(SceneEnum.PLAY, field.generateField());
     }
 
     public void backToOtherFields() {
@@ -459,7 +459,7 @@ public class GUI extends Application implements UI {
     @Override
     public void showHand(List<Integer> handIds) {
         clientModel.setHandIDs(handIds);
-        Platform.runLater(() -> switchToScene(SceneEnum.PLAY, clientModel, field.generateField()));
+        Platform.runLater(() -> switchToScene(SceneEnum.PLAY, field.generateField()));
     }
 
     /**
@@ -591,7 +591,7 @@ public class GUI extends Application implements UI {
         Text contentText = new Text(": " + newChatMessage.getContent());
         contentText.setFill(Color.WHITE);
         TextFlow textFlow = new TextFlow(prefixText, contentText);
-        textFlow.setMaxWidth(290);
+        textFlow.setMaxWidth(280);
 
         Platform.runLater(() -> clientModel.getMessages().add(textFlow));
     }

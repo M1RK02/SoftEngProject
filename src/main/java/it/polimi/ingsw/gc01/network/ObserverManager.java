@@ -409,22 +409,6 @@ public class ObserverManager {
     }
 
     /**
-     * Show service message to every client
-     *
-     * @param message to show
-     */
-    public void serviceMessage(String message) {
-        synchronized (observers) {
-            for (VirtualView client : observers.values()) {
-                try {
-                    client.serviceMessage(message);
-                } catch (IOException ignored) {
-                }
-            }
-        }
-    }
-
-    /**
      * Show last turn to every client
      */
     public void showLastCircle() {
@@ -450,22 +434,6 @@ public class ObserverManager {
                     client.showWinners(winners);
                 } catch (IOException ignored) {
                 }
-            }
-        }
-    }
-
-    /**
-     * Show service message to the indicated client
-     *
-     * @param playerName of the client
-     * @param message    to show
-     */
-    public void addressedServiceMessage(String playerName, String message) {
-        synchronized (observers) {
-            VirtualView client = observers.get(playerName);
-            try {
-                client.serviceMessage(message);
-            } catch (IOException ignored) {
             }
         }
     }

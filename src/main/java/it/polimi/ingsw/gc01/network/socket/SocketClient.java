@@ -113,9 +113,6 @@ public class SocketClient implements NetworkClient {
                 case SHOW_ERROR:
                     showError((String) input.readObject());
                     break;
-                case SERVICE_MESSAGE:
-                    serviceMessage((String) input.readObject());
-                    break;
                 case SHOW_LAST_CIRCLE:
                     showLastCircle();
                     break;
@@ -483,15 +480,6 @@ public class SocketClient implements NetworkClient {
      */
     public void showError(String error) {
         ui.showError(error);
-    }
-
-    /**
-     * Show the service message
-     *
-     * @param message to show
-     */
-    public void serviceMessage(String message) {
-        ui.showServiceMessage(message);
     }
 
     /**

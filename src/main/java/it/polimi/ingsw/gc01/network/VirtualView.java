@@ -165,14 +165,6 @@ public interface VirtualView extends Remote {
     void showError(String error) throws IOException;
 
     /**
-     * Show the service message
-     *
-     * @param message to show
-     * @throws IOException
-     */
-    void serviceMessage(String message) throws IOException;
-
-    /**
      * Show the last turn notification
      *
      * @throws IOException

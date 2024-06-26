@@ -20,7 +20,6 @@ public enum SocketServerMessage {
     SHOW_PONTS,
     SHOW_SECRET_OBJECTIVES,
     SHOW_ERROR,
-    SERVICE_MESSAGE,
     SHOW_LAST_CIRCLE,
     SHOW_WINNERS,
     UPDATE_FIELD,

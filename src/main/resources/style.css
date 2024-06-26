@@ -525,8 +525,13 @@
 
 .list-view{
     -fx-background-color: transparent;
-    -fx-vbar-policy: never;
-    -fx-hbar-policy: never;
+}
+
+.list-view .scroll-bar:vertical,
+.list-view .scroll-bar:horizontal {
+    -fx-opacity: 0;
+    -fx-max-width: 0;
+    -fx-max-height: 0;
 }
 
 .list-cell{

@@ -101,11 +101,6 @@ public class VirtualViewStub implements VirtualView {
     }
 
     @Override
-    public void serviceMessage(String message) {
-
-    }
-
-    @Override
     public void showLastCircle() {
 
     }

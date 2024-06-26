@@ -370,18 +370,6 @@ public class ClientHandler implements VirtualView {
     }
 
     /**
-     * Show the service message
-     *
-     * @param message to show
-     */
-    @Override
-    public void serviceMessage(String message) throws IOException {
-        output.writeObject(SERVICE_MESSAGE);
-        output.writeObject(message);
-        output.flush();
-    }
-
-    /**
      * Show the last turn notification
      */
     @Override

@@ -51,7 +51,7 @@ public class TablePointController extends GenericController {
 
     @Override
     public void setAttributes(Object... o) {
-        ClientModel clientModel = (ClientModel) o[0];
+        ClientModel clientModel = gui.getClientModel();
         Image blue = new Image(getClass().getResourceAsStream("/images/pawns/BluePawn.png"));
         Image green = new Image(getClass().getResourceAsStream("/images/pawns/GreenPawn.png"));
         Image red = new Image(getClass().getResourceAsStream("/images/pawns/RedPawn.png"));
