@@ -440,9 +440,16 @@ public class TUI implements UI {
      */
     @Override
     public void showPoints(Map<String, Integer> points, Map<PlayerColor, String> colors) {
-        System.out.println(DefaultValue.ANSI_BLUE + "-> Points:" + DefaultValue.ANSI_RESET);
-        for (String playerName : points.keySet()) {
-            System.out.println(DefaultValue.ANSI_BLUE + playerName + ": " + points.get(playerName) + " points" + DefaultValue.ANSI_RESET);
+        System.out.println(DefaultValue.ANSI_PURPLE + "-> Points:" + DefaultValue.ANSI_RESET);
+        for(PlayerColor color : colors.keySet()) {
+            String textColor;
+            switch(color) {
+                case BLUE -> textColor = DefaultValue.ANSI_BLUE;
+                case YELLOW -> textColor = DefaultValue.ANSI_YELLOW;
+                case RED -> textColor = DefaultValue.ANSI_RED;
+                default -> textColor = DefaultValue.ANSI_GREEN;
+            }
+            System.out.println(textColor + colors.get(color) + ": " + points.get(colors.get(color)) + " points" + DefaultValue.ANSI_RESET);
         }
     }
 
