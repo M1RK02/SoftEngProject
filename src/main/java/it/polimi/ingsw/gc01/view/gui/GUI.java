@@ -500,16 +500,6 @@ public class GUI extends Application implements UI {
     }
 
     /**
-     * Show a service message
-     *
-     * @param message to show
-     */
-    @Override
-    public void showServiceMessage(String message) {
-        Platform.runLater(() -> showAlert("Service Message", "Service Message", message));
-    }
-
-    /**
      * Show that is the last turn
      */
     @Override

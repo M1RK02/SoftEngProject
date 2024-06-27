@@ -187,13 +187,6 @@ public class Player {
     }
 
     /**
-     * @return The observer manager associated with the player to update view
-     */
-    public ObserverManager getNotifier() {
-        return notifier;
-    }
-
-    /**
      * When called, change the readiness of the player and notifies the view
      */
     public void switchReady() {

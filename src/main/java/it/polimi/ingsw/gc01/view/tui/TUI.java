@@ -486,16 +486,6 @@ public class TUI implements UI {
     }
 
     /**
-     * Print the service message
-     *
-     * @param message to show
-     */
-    @Override
-    public void showServiceMessage(String message) {
-        System.out.println(message);
-    }
-
-    /**
      * Print the notification for the last turn
      */
     @Override

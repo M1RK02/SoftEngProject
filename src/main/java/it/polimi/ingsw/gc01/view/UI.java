@@ -53,13 +53,6 @@ public interface UI {
     void showError(String error);
 
     /**
-     * Show a service message
-     *
-     * @param message to show
-     */
-    void showServiceMessage(String message);
-
-    /**
      * Show that is the last turn
      */
     void showLastCircle();
