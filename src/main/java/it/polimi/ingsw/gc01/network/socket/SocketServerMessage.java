@@ -20,7 +20,7 @@ public enum SocketServerMessage {
     SHOW_HAND,
     UPDATE_HAND,
     SHOW_FIELD,
-    SHOW_PONTS,
+    SHOW_POINTS,
     SHOW_SECRET_OBJECTIVES,
     SHOW_ERROR,
     SHOW_LAST_CIRCLE,

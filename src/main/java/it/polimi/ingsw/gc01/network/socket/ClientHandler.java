@@ -354,7 +354,7 @@ public class ClientHandler implements VirtualView {
      */
     @Override
     public void showPoints(Map<String, Integer> points, Map<PlayerColor, String> colors) throws IOException {
-        output.writeObject(SHOW_PONTS);
+        output.writeObject(SHOW_POINTS);
         output.writeObject(points);
         output.writeObject(colors);
         output.flush();

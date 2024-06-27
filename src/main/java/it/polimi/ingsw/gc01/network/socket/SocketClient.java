@@ -123,7 +123,7 @@ public class SocketClient implements NetworkClient {
                 case SHOW_FIELD:
                     showField((String) input.readObject());
                     break;
-                case SHOW_PONTS:
+                case SHOW_POINTS:
                     showPoints((Map<String, Integer>) input.readObject(), (Map<PlayerColor, String>) input.readObject());
                     break;
                 case SHOW_SECRET_OBJECTIVES:
