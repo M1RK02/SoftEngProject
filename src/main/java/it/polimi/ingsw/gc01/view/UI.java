@@ -166,6 +166,11 @@ public interface UI {
      */
     void updateTable(Map<Integer, Integer> drawableCardsIds);
 
+    /**
+     * Update the chat
+     *
+     * @param newChatMessage the new message to add to the chat
+     */
     void updateChat(ChatMessage newChatMessage);
 
     /**

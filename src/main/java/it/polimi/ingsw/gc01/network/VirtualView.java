@@ -46,6 +46,7 @@ public interface VirtualView extends Remote {
     /**
      * Show the waiting scene for every client except the one choosing
      * @param playerName the name of the client who should not see the waiting scene
+     * @param scene scene to switch to
      * @throws IOException
      *  */
     void showWaitingFor(String playerName, String scene) throws IOException;

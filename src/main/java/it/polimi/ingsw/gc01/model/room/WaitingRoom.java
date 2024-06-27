@@ -92,6 +92,7 @@ public class WaitingRoom {
      * Add the player to the waiting room (the check for max size will be done by the controller)
      *
      * @param playerName chosen player name
+     * @param client virtual view linked to the player
      */
     public void addPlayer(String playerName, VirtualView client) {
         players.add(new Player(playerName, notifier));

@@ -21,11 +21,6 @@ public class WinnerController extends GenericController {
     @FXML
     private Label winner4;
 
-    @FXML
-    public void backToMenu() {
-        gui.switchToMenu();
-    }
-
     @Override
     public void setAttributes(Object... o) {
         List<String> winners = (List<String>) o[0];
@@ -49,7 +44,13 @@ public class WinnerController extends GenericController {
                 }
             }
         }
+    }
 
-
+    /**
+     * Method to go back to menu
+     */
+    @FXML
+    public void backToMenu() {
+        gui.switchToMenu();
     }
 }
