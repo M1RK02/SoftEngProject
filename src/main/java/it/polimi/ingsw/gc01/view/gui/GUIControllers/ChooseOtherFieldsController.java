@@ -21,18 +21,9 @@ public class ChooseOtherFieldsController extends GenericController {
     @FXML
     private Button player4;
 
-
-    @FXML
-    private void chooseField(Event e) {
-        Button button = (Button) e.getSource();
-        String playerName = button.getText();
-        gui.showOtherFields(playerName);
-    }
-
     @Override
     public void setAttributes(Object... o) {
         Map<String, ClientFieldGUI> fields = (Map<String, ClientFieldGUI>) o[0];
-        ClientFieldGUI myField = (ClientFieldGUI) o[1];
         player4.setText(gui.getPlayerName());
 
         player1.setVisible(false);
@@ -41,6 +32,7 @@ public class ChooseOtherFieldsController extends GenericController {
         player2.setDisable(true);
         player3.setVisible(false);
         player3.setDisable(true);
+
         for (String playerName : fields.keySet()) {
             if (!player1.isVisible()) {
                 player1.setVisible(true);
@@ -60,13 +52,22 @@ public class ChooseOtherFieldsController extends GenericController {
                 player3.setText(playerName);
             }
         }
+    }
 
+    @FXML
+    private void chooseField(Event e) {
+        Button button = (Button) e.getSource();
+        String playerName = button.getText();
+        if(playerName.equals(gui.getPlayerName()) && playerName.equals(gui.getClientModel().getCurrentPlayer())) {
+            gui.backToPlay();
+        } else {
+            gui.showOtherFields(playerName);
+        }
     }
 
     @FXML
     private void goBack() {
-        ClientModel clientModel = gui.getClientModel();
-        if (gui.getPlayerName().equals(clientModel.getCurrentPlayer())) {
+        if (gui.getPlayerName().equals(gui.getClientModel().getCurrentPlayer())) {
             gui.backToPlay();
         } else {
             gui.backToOtherFields();
