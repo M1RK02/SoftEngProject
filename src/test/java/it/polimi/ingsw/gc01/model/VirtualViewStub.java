@@ -3,7 +3,6 @@ package it.polimi.ingsw.gc01.model;
 import it.polimi.ingsw.gc01.model.player.*;
 import it.polimi.ingsw.gc01.network.VirtualView;
 
-import java.rmi.RemoteException;
 import java.util.*;
 
 public class VirtualViewStub implements VirtualView {
@@ -12,97 +11,127 @@ public class VirtualViewStub implements VirtualView {
     public String error;
 
     @Override
-    public void updateRoomId(String roomId) throws RemoteException {
+    public void updateRoomId(String roomId) {
         this.roomId = roomId;
     }
 
     @Override
-    public void updateCurrentPlayer(String playerName) throws RemoteException {
+    public void showPlayers(Map<String, Boolean> playersAlreadyIn) {
 
     }
 
     @Override
-    public void showStarter(int cardId) throws RemoteException {
+    public void showPlayerJoined(String playerName) {
 
     }
 
     @Override
-    public void showAvailableColors(List<PlayerColor> availableColors) throws RemoteException {
+    public void showPlayerLeft(String playerName) {
 
     }
 
     @Override
-    public void updateReady(String playerName, boolean ready) throws RemoteException {
+    public void showWaitingFor(String playerName, String scene) {
 
     }
 
     @Override
-    public void showCommonObjectives(List<Integer> objectivesIds) throws RemoteException {
+    public void updateCurrentPlayer(String playerName) {
 
     }
 
     @Override
-    public void showTable(Map<Integer, Integer> drawableCardsIds) throws RemoteException {
+    public void showStarter(int cardId) {
 
     }
 
     @Override
-    public void showHand(List<Integer> cardIds) throws RemoteException {
+    public void showAvailableColors(List<PlayerColor> availableColors) {
 
     }
 
     @Override
-    public void showField(String playerName) throws RemoteException {
+    public void updateReady(String playerName, boolean ready) {
 
     }
 
     @Override
-    public void showPoints(Map<String, Integer> points) throws RemoteException {
+    public void showCommonObjectives(List<Integer> objectivesIds) {
 
     }
 
     @Override
-    public void showSecretObjectives(List<Integer> possibleObjectivesIds) throws RemoteException {
+    public void showTable(Map<Integer, Integer> drawableCardsIds) {
 
     }
 
     @Override
-    public void showError(String error) throws RemoteException {
+    public void updateTable(Map<Integer, Integer> drawableCardsIds) {
+
+    }
+
+    @Override
+    public void showHand(List<Integer> cardIds) {
+
+    }
+
+    @Override
+    public void updateHand(List<Integer> cardIds) {
+
+    }
+
+    @Override
+    public void showField(String playerName) {
+
+    }
+
+    @Override
+    public void showPoints(Map<String, Integer> points, Map<PlayerColor, String> colors) {
+
+    }
+
+    @Override
+    public void showSecretObjectives(List<Integer> possibleObjectivesIds) {
+
+    }
+
+    @Override
+    public void showError(String error) {
         this.error = error;
     }
 
     @Override
-    public void serviceMessage(String message) throws RemoteException {
+    public void showLastCircle() {
 
     }
 
     @Override
-    public void showLastCircle() throws RemoteException {
+    public void showWinners(List<String> winners) {
 
     }
 
     @Override
-    public void showWinners(List<String> winners) throws RemoteException {
+    public void updateField(String playerName, int id, boolean front, Position position, List<Position> availablePositions) {
 
     }
 
     @Override
-    public void updateField(String playerName, int id, boolean front, Position position, List<Position> availablePositions) throws RemoteException {
+    public void updateChat(ChatMessage newChatMessage) {
 
     }
 
     @Override
-    public void isAlive() throws RemoteException {
+    public void isAlive() {
 
     }
 
     @Override
-    public void backToMenu() throws RemoteException {
+    public void backToMenu() {
 
     }
 
     @Override
-    public void startGame() throws RemoteException {
+    public void startGame() {
 
     }
 }

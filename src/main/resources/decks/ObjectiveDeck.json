@@ -1,0 +1,114 @@
+[
+  {
+    "strategy": {
+      "stairColor": "RED"
+    },
+    "id": 87,
+    "info": "test"
+  },
+  {
+    "strategy": {
+      "stairColor": "GREEN"
+    },
+    "id": 88,
+    "info": "test"
+  },
+  {
+    "strategy": {
+      "stairColor": "BLUE"
+    },
+    "id": 89,
+    "info": "test"
+  },
+  {
+    "strategy": {
+      "stairColor": "PURPLE"
+    },
+    "id": 90,
+    "info": "test"
+  },
+  {
+    "strategy": {
+      "bodyColor": "RED"
+    },
+    "id": 91,
+    "info": "test"
+  },
+  {
+    "strategy": {
+      "bodyColor": "GREEN"
+    },
+    "id": 92,
+    "info": "test"
+  },
+  {
+    "strategy": {
+      "bodyColor": "BLUE"
+    },
+    "id": 93,
+    "info": "test"
+  },
+  {
+    "strategy": {
+      "bodyColor": "PURPLE"
+    },
+    "id": 94,
+    "info": "test"
+  },
+  {
+    "strategy": {
+      "resource": "FUNGI"
+    },
+    "id": 95,
+    "info": "test"
+  },
+  {
+    "strategy": {
+      "resource": "PLANT"
+    },
+    "id": 96,
+    "info": "test"
+  },
+  {
+    "strategy": {
+      "resource": "ANIMAL"
+    },
+    "id": 97,
+    "info": "test"
+  },
+  {
+    "strategy": {
+      "resource": "INSECT"
+    },
+    "id": 98,
+    "info": "test"
+  },
+  {
+    "strategy": {
+      "threePoint": true
+    },
+    "id": 99,
+    "info": "test"
+  },
+  {
+    "strategy": {
+      "item": "MANUSCRIPT"
+    },
+    "id": 100,
+    "info": "test"
+  },
+  {
+    "strategy": {
+      "item": "INKWELL"
+    },
+    "id": 101,
+    "info": "test"
+  },
+  {
+    "strategy": {
+      "item": "QUILL"
+    },
+    "id": 102,
+    "info": "test"
+  }
+]

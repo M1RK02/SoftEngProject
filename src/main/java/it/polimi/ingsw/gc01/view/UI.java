@@ -1,5 +1,6 @@
 package it.polimi.ingsw.gc01.view;
 
+import it.polimi.ingsw.gc01.model.ChatMessage;
 import it.polimi.ingsw.gc01.model.player.*;
 
 import java.util.*;
@@ -16,18 +17,40 @@ public interface UI {
     void showRoom(String roomId);
 
     /**
+     * Shows the players in the room
+     *
+     * @param playersAlreadyIn map with key the player name and value the ready status
+     */
+    void showPlayers(Map<String, Boolean> playersAlreadyIn);
+
+    /**
+     * Shows the players that has just joined
+     *
+     * @param playerName the names of the players that has just joined
+     */
+    void showPlayerJoined(String playerName);
+
+    /**
+     * Shows the players that has just left
+     *
+     * @param playerName the names of the players that has just left
+     */
+    void showPlayerLeft(String playerName);
+
+    /**
+     * Shows the waiting scene for every client except the one choosing
+     *
+     * @param playerName of the player choosing
+     * @param scene      the name of the scene waiting for
+     */
+    void showWaitingFor(String playerName, String scene);
+
+    /**
      * Shows an error
      *
      * @param error to show
      */
     void showError(String error);
-
-    /**
-     * Show a service message
-     *
-     * @param message to show
-     */
-    void showServiceMessage(String message);
 
     /**
      * Show that is the last turn
@@ -73,8 +96,9 @@ public interface UI {
      * Show the points for each player in the room
      *
      * @param points map of playerName, points
+     * @param colors map of color, playerName
      */
-    void showPoints(Map<String, Integer> points);
+    void showPoints(Map<String, Integer> points, Map<PlayerColor, String> colors);
 
     /**
      * Show the hand to the player
@@ -82,6 +106,13 @@ public interface UI {
      * @param handIds list of card ids in the hand
      */
     void showHand(List<Integer> handIds);
+
+    /**
+     * Update the hand of the player
+     *
+     * @param handIds list of card ids in the hand
+     */
+    void updateHand(List<Integer> handIds);
 
     /**
      * Show possible secret objective
@@ -120,6 +151,20 @@ public interface UI {
      * @param drawableCardsIds map of drawable cards
      */
     void showTable(Map<Integer, Integer> drawableCardsIds);
+
+    /**
+     * Update the drawable cards on the table
+     *
+     * @param drawableCardsIds the map of the ids with the positions in the table
+     */
+    void updateTable(Map<Integer, Integer> drawableCardsIds);
+
+    /**
+     * Update the chat
+     *
+     * @param newChatMessage the new message to add to the chat
+     */
+    void updateChat(ChatMessage newChatMessage);
 
     /**
      * Show the common objectives

@@ -1,10 +1,11 @@
 package it.polimi.ingsw.gc01.network;
 
+import it.polimi.ingsw.gc01.model.ChatMessage;
 import it.polimi.ingsw.gc01.model.cards.*;
 import it.polimi.ingsw.gc01.model.player.*;
 import it.polimi.ingsw.gc01.model.room.TablePosition;
 
-import java.rmi.RemoteException;
+import java.io.IOException;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -59,7 +60,55 @@ public class ObserverManager {
             VirtualView client = observers.get(playerName);
             try {
                 client.updateRoomId(roomId);
-            } catch (RemoteException ignored) {
+            } catch (IOException ignored) {
+            }
+        }
+    }
+
+    /**
+     * Displays the list of players to a specific client.
+     *
+     * @param playerName       the name of the player to whom the list of players will be shown
+     * @param playersAlreadyIn a map containing the names of players already in the game and their ready status
+     */
+    public void showPlayers(String playerName, Map<String, Boolean> playersAlreadyIn) {
+        synchronized (observers) {
+            VirtualView client = observers.get(playerName);
+            try {
+                client.showPlayers(playersAlreadyIn);
+            } catch (IOException ignored) {
+            }
+        }
+    }
+
+    /**
+     * Displays the list of joined players to a specific client.
+     *
+     * @param playerName the name of the player to whom the list of Joined players will be shown
+     */
+    public void showPlayerJoined(String playerName) {
+        synchronized (observers) {
+            for (VirtualView client : observers.values()) {
+                try {
+                    client.showPlayerJoined(playerName);
+                } catch (IOException ignored) {
+                }
+            }
+        }
+    }
+
+    /**
+     * Notifies all clients that a player has left the game.
+     *
+     * @param playerName the name of the player who has left the game
+     */
+    public void showPlayerLeft(String playerName) {
+        synchronized (observers) {
+            for (VirtualView client : observers.values()) {
+                try {
+                    client.showPlayerLeft(playerName);
+                } catch (IOException ignored) {
+                }
             }
         }
     }
@@ -72,7 +121,7 @@ public class ObserverManager {
             for (VirtualView client : observers.values()) {
                 try {
                     client.startGame();
-                } catch (RemoteException ignored) {
+                } catch (IOException ignored) {
                 }
             }
         }
@@ -88,7 +137,7 @@ public class ObserverManager {
             for (VirtualView client : observers.values()) {
                 try {
                     client.updateCurrentPlayer(playerName);
-                } catch (RemoteException ignored) {
+                } catch (IOException ignored) {
                 }
             }
         }
@@ -105,7 +154,24 @@ public class ObserverManager {
             VirtualView client = observers.get(playerName);
             try {
                 client.showStarter(card.getId());
-            } catch (RemoteException ignored) {
+            } catch (IOException ignored) {
+            }
+        }
+    }
+
+    /**
+     * Show to every client except the playing one to wait
+     *
+     * @param playerName of the player
+     * @param scene      the scene for which the player is waiting
+     */
+    public void showWaitingFor(String playerName, String scene) {
+        synchronized (observers) {
+            for (VirtualView client : observers.values()) {
+                try {
+                    client.showWaitingFor(playerName, scene);
+                } catch (IOException ignored) {
+                }
             }
         }
     }
@@ -121,7 +187,7 @@ public class ObserverManager {
             VirtualView client = observers.get(playerName);
             try {
                 client.showAvailableColors(colors);
-            } catch (RemoteException ignored) {
+            } catch (IOException ignored) {
             }
         }
     }
@@ -137,7 +203,7 @@ public class ObserverManager {
             for (VirtualView client : observers.values()) {
                 try {
                     client.updateReady(playerName, ready);
-                } catch (RemoteException ignored) {
+                } catch (IOException ignored) {
                 }
             }
         }
@@ -157,7 +223,7 @@ public class ObserverManager {
             for (VirtualView client : observers.values()) {
                 try {
                     client.updateField(playerName, id, front, position, availablePositions);
-                } catch (RemoteException ignored) {
+                } catch (IOException ignored) {
                 }
             }
         }
@@ -185,7 +251,35 @@ public class ObserverManager {
             VirtualView client = observers.get(playerName);
             try {
                 client.showTable(drawableIds);
-            } catch (RemoteException ignored) {
+            } catch (IOException ignored) {
+            }
+        }
+    }
+
+    /**
+     * Updates the table with drawable cards for all clients.
+     *
+     * @param drawableCards a map containing positions of drawable cards and their corresponding {@link ResourceCard} objects
+     *                      *                     as {@code TablePosition} keys and {@code ResourceCard} values
+     */
+    public void updateTable(Map<TablePosition, ResourceCard> drawableCards) {
+        Map<Integer, Integer> drawableIds = new HashMap<>();
+        for (TablePosition position : drawableCards.keySet()) {
+            switch (position) {
+                case RESOURCEDECK -> drawableIds.put(1, drawableCards.get(TablePosition.RESOURCEDECK).getId());
+                case RESOURCELEFT -> drawableIds.put(2, drawableCards.get(TablePosition.RESOURCELEFT).getId());
+                case RESOURCERIGHT -> drawableIds.put(3, drawableCards.get(TablePosition.RESOURCERIGHT).getId());
+                case GOLDENDECK -> drawableIds.put(4, drawableCards.get(TablePosition.GOLDENDECK).getId());
+                case GOLDENLEFT -> drawableIds.put(5, drawableCards.get(TablePosition.GOLDENLEFT).getId());
+                case GOLDENRIGHT -> drawableIds.put(6, drawableCards.get(TablePosition.GOLDENRIGHT).getId());
+            }
+        }
+        synchronized (observers) {
+            for (VirtualView client : observers.values()) {
+                try {
+                    client.updateTable(drawableIds);
+                } catch (IOException ignored) {
+                }
             }
         }
     }
@@ -201,7 +295,7 @@ public class ObserverManager {
             for (VirtualView client : observers.values()) {
                 try {
                     client.showCommonObjectives(commonObjectivesIds);
-                } catch (RemoteException ignored) {
+                } catch (IOException ignored) {
                 }
             }
         }
@@ -219,7 +313,24 @@ public class ObserverManager {
             VirtualView client = observers.get(playerName);
             try {
                 client.showHand(handIds);
-            } catch (RemoteException ignored) {
+            } catch (IOException ignored) {
+            }
+        }
+    }
+
+    /**
+     * Update the hand to the indicated client
+     *
+     * @param playerName of the client
+     * @param hand       list of cards in the hand
+     */
+    public void updateHand(String playerName, List<PlayableCard> hand) {
+        List<Integer> handIds = hand.stream().map(PlayableCard::getId).collect(Collectors.toList());
+        synchronized (observers) {
+            VirtualView client = observers.get(playerName);
+            try {
+                client.updateHand(handIds);
+            } catch (IOException ignored) {
             }
         }
     }
@@ -234,23 +345,24 @@ public class ObserverManager {
             for (VirtualView client : observers.values()) {
                 try {
                     client.showField(playerName);
-                } catch (RemoteException ignored) {
+                } catch (IOException ignored) {
                 }
             }
         }
     }
 
     /**
-     * Show the points to every client
+     * Notifies all registered observers to display the points and corresponding colors for each player.
      *
-     * @param points map of playerName, points
+     * @param points A map where keys are player names and values are their respective points.
+     * @param colors A map where keys are PlayerColor enum values and values are strings representing color names.
      */
-    public void showPoints(Map<String, Integer> points) {
+    public void showPoints(Map<String, Integer> points, Map<PlayerColor, String> colors) {
         synchronized (observers) {
             for (VirtualView client : observers.values()) {
                 try {
-                    client.showPoints(points);
-                } catch (RemoteException ignored) {
+                    client.showPoints(points, colors);
+                } catch (IOException ignored) {
                 }
             }
         }
@@ -264,7 +376,7 @@ public class ObserverManager {
             for (VirtualView client : observers.values()) {
                 try {
                     client.backToMenu();
-                } catch (RemoteException ignored) {
+                } catch (IOException ignored) {
                 }
             }
         }
@@ -282,7 +394,7 @@ public class ObserverManager {
             VirtualView client = observers.get(playerName);
             try {
                 client.showSecretObjectives(possibleObjectivesIds);
-            } catch (RemoteException ignored) {
+            } catch (IOException ignored) {
             }
         }
 
@@ -299,7 +411,7 @@ public class ObserverManager {
             VirtualView client = observers.get(playerName);
             try {
                 client.showError(error);
-            } catch (RemoteException ignored) {
+            } catch (IOException ignored) {
             }
         }
     }
@@ -314,23 +426,7 @@ public class ObserverManager {
             for (VirtualView client : observers.values()) {
                 try {
                     client.showError(error);
-                } catch (RemoteException ignored) {
-                }
-            }
-        }
-    }
-
-    /**
-     * Show service message to every client
-     *
-     * @param message to show
-     */
-    public void serviceMessage(String message) {
-        synchronized (observers) {
-            for (VirtualView client : observers.values()) {
-                try {
-                    client.serviceMessage(message);
-                } catch (RemoteException ignored) {
+                } catch (IOException ignored) {
                 }
             }
         }
@@ -344,7 +440,7 @@ public class ObserverManager {
             for (VirtualView client : observers.values()) {
                 try {
                     client.showLastCircle();
-                } catch (RemoteException ignored) {
+                } catch (IOException ignored) {
                 }
             }
         }
@@ -360,24 +456,8 @@ public class ObserverManager {
             for (VirtualView client : observers.values()) {
                 try {
                     client.showWinners(winners);
-                } catch (RemoteException ignored) {
+                } catch (IOException ignored) {
                 }
-            }
-        }
-    }
-
-    /**
-     * Show service message to the indicated client
-     *
-     * @param playerName of the client
-     * @param message    to show
-     */
-    public void addressedServiceMessage(String playerName, String message) {
-        synchronized (observers) {
-            VirtualView client = observers.get(playerName);
-            try {
-                client.serviceMessage(message);
-            } catch (RemoteException ignored) {
             }
         }
     }
@@ -388,7 +468,7 @@ public class ObserverManager {
     private void heartBeat() {
         while (true) {
             try {
-                Thread.sleep(10 * 1000);
+                Thread.sleep(5 * 1000);
             } catch (InterruptedException ignored) {
             }
             String dead = "";
@@ -396,7 +476,7 @@ public class ObserverManager {
                 for (String playerName : observers.keySet()) {
                     try {
                         observers.get(playerName).isAlive();
-                    } catch (RemoteException e) {
+                    } catch (IOException e) {
                         observers.remove(playerName);
                         dead = playerName;
                         break;
@@ -405,6 +485,31 @@ public class ObserverManager {
             }
             if (!dead.isEmpty()) {
                 showGameError("GAME " + dead + " has left the game");
+            }
+        }
+    }
+
+    /**
+     * Updates the chat with a new chat message.
+     *
+     * @param newChatMessage chat Message to be added to the ClientChat
+     */
+    public void updateChat(ChatMessage newChatMessage) {
+        if (newChatMessage.getRecipient().equals("ALL")) {
+            synchronized (observers) {
+                for (VirtualView client : observers.values()) {
+                    try {
+                        client.updateChat(newChatMessage);
+
+                    } catch (IOException ignored) {
+                    }
+                }
+            }
+        } else {
+            try {
+                observers.get(newChatMessage.getRecipient()).updateChat(newChatMessage);
+                observers.get(newChatMessage.getSender()).updateChat(newChatMessage);
+            } catch (IOException ignored) {
             }
         }
     }

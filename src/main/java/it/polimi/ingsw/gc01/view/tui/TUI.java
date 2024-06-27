@@ -1,11 +1,14 @@
 package it.polimi.ingsw.gc01.view.tui;
 
+import it.polimi.ingsw.gc01.model.ChatMessage;
 import it.polimi.ingsw.gc01.model.player.*;
 import it.polimi.ingsw.gc01.network.NetworkClient;
 import it.polimi.ingsw.gc01.network.rmi.RmiClient;
+import it.polimi.ingsw.gc01.network.socket.SocketClient;
 import it.polimi.ingsw.gc01.utils.DefaultValue;
 import it.polimi.ingsw.gc01.view.UI;
 
+import java.rmi.RemoteException;
 import java.util.*;
 
 /**
@@ -36,6 +39,8 @@ public class TUI implements UI {
      * Ids of the cards in the hand
      */
     private List<Integer> handIds;
+
+    private ClientChat chat;
 
     /**
      * Construct a new TUI object and starts it
@@ -161,7 +166,7 @@ public class TUI implements UI {
     private void createRMIClient(String playerName) {
         try {
             networkClient = new RmiClient(playerName, this);
-        } catch (Exception e) {
+        } catch (RemoteException e) {
             System.out.println(DefaultValue.ANSI_RED + "Cannot instance RmiClient" + DefaultValue.ANSI_RESET);
         }
     }
@@ -172,9 +177,7 @@ public class TUI implements UI {
      * @param playerName
      */
     private void createSocketClient(String playerName) {
-        System.out.println(DefaultValue.ANSI_YELLOW + "Socket is currently work in progress..." + DefaultValue.ANSI_RESET);
-        System.out.println("Defaulting to RMI...\n");
-        createRMIClient(playerName);
+        networkClient = new SocketClient(playerName, this);
     }
 
     /**
@@ -255,6 +258,80 @@ public class TUI implements UI {
         return roomId.length() == 5;
     }
 
+    private void newChatMessage(String content, String recipient) {
+        ChatMessage newMessage = new ChatMessage(playerName, content, recipient);
+        networkClient.newChatMessage(newMessage);
+    }
+
+    private void showChat() {
+        chat.printChat(playerName);
+        int choice = 0;
+        String input;
+        Scanner scanner;
+        do {
+            System.out.println("""
+                    Would you rather:
+                    (1) Write a new Message
+                    (2) Go Back To Game
+                    """);
+            scanner = new Scanner(System.in);
+
+            input = scanner.nextLine();
+            try {
+                choice = Integer.parseInt(input);
+            } catch (Exception ignored) {
+            }
+        } while (choice != 1 && choice != 2);
+        switch (choice) {
+            case (1):
+                int playerChoice = -1;
+                Set<String> playersSet = otherFields.keySet();
+                List<String> players = new ArrayList<>(playersSet);
+                players.remove(playerName);
+                int i = 0;
+
+                //richiesta
+                System.out.println("Who do you want to text:");
+                for (i = 0; i < players.size(); i++) {
+                    System.out.println((i + 1) + ") " + players.get(i));
+                }
+                System.out.println(i + 1 + ") ALL");
+
+                scanner = new Scanner(System.in);
+                do {
+                    input = scanner.nextLine();
+                    try {
+                        playerChoice = Integer.parseInt(input);
+                    } catch (Exception ignored) {
+                    }
+                } while (playerChoice < 1 || playerChoice > players.size() + 1);
+
+                String recipient = playerChoice == i + 1 ? "ALL" : players.get(playerChoice - 1);
+
+                System.out.println("Write the message to send to " + recipient);
+                String content = scanner.nextLine();
+                newChatMessage(content, recipient);
+                break;
+            case (2):
+                System.out.println("Back to the Game!");
+
+                break;
+        }
+
+    }
+
+    /**
+     * @param newChatMessage ChatMessage t
+     */
+    @Override
+    public void updateChat(ChatMessage newChatMessage) {
+        chat.addMessageToChat(newChatMessage);
+        if (!newChatMessage.getSender().equals(playerName)) {
+            System.out.println("New message for you!!! Open the chat when is your turn.");
+        }
+    }
+
+
     /**
      * Print the joined room
      *
@@ -267,12 +344,65 @@ public class TUI implements UI {
     }
 
     /**
+     * Print the players in the room
+     *
+     * @param playersAlreadyIn map with key the player name and value the ready status
+     */
+    @Override
+    public void showPlayers(Map<String, Boolean> playersAlreadyIn) {
+        StringBuilder message = new StringBuilder(DefaultValue.ANSI_BLUE + "[Current players in the room: ");
+        StringBuilder ready = new StringBuilder(DefaultValue.ANSI_YELLOW + "[Ready players: ");
+        for (String names : playersAlreadyIn.keySet()) {
+            message.append("- ").append(names).append(" ");
+            if (playersAlreadyIn.get(names)) {
+                ready.append("- ").append(names).append(" ");
+            }
+        }
+        message.append("]\n" + DefaultValue.ANSI_RESET);
+        ready.append("]\n" + DefaultValue.ANSI_RESET);
+        System.out.println(message);
+        System.out.println(ready);
+    }
+
+    /**
+     * Shows the players that has just joined
+     *
+     * @param playerName the names of the players that has just joined
+     */
+    @Override
+    public void showPlayerJoined(String playerName) {
+        System.out.println(DefaultValue.ANSI_GREEN + "-> " + playerName + " joined!" + DefaultValue.ANSI_RESET);
+    }
+
+    /**
+     * Shows the players that has just left
+     *
+     * @param playerName the names of the players that has just left
+     */
+    @Override
+    public void showPlayerLeft(String playerName) {
+        System.out.println(DefaultValue.ANSI_RED + "-> " + playerName + " left the room!" + DefaultValue.ANSI_RESET);
+    }
+
+    /**
+     * Shows the waiting scene for every client except the one choosing
+     *
+     * @param playerName of the player choosing
+     * @param scene      the name of the scene waiting for
+     */
+    @Override
+    public void showWaitingFor(String playerName, String scene) {
+
+    }
+
+    /**
      * Print the notification for the game start
      */
     @Override
     public void startGame() {
         field = new ClientField();
         otherFields = new HashMap<>();
+        chat = new ClientChat();
         System.out.println(DefaultValue.ANSI_PURPLE + "Game is starting!" + DefaultValue.ANSI_RESET);
     }
 
@@ -312,10 +442,17 @@ public class TUI implements UI {
      * @param points map of playerName, points
      */
     @Override
-    public void showPoints(Map<String, Integer> points) {
-        System.out.println(DefaultValue.ANSI_BLUE + "-> Points:" + DefaultValue.ANSI_RESET);
-        for (String playerName : points.keySet()) {
-            System.out.println(DefaultValue.ANSI_BLUE + playerName + ": " + points.get(playerName) + " points" + DefaultValue.ANSI_RESET);
+    public void showPoints(Map<String, Integer> points, Map<PlayerColor, String> colors) {
+        System.out.println(DefaultValue.ANSI_PURPLE + "-> Points:" + DefaultValue.ANSI_RESET);
+        for (PlayerColor color : colors.keySet()) {
+            String textColor;
+            switch (color) {
+                case BLUE -> textColor = DefaultValue.ANSI_BLUE;
+                case YELLOW -> textColor = DefaultValue.ANSI_YELLOW;
+                case RED -> textColor = DefaultValue.ANSI_RED;
+                default -> textColor = DefaultValue.ANSI_GREEN;
+            }
+            System.out.println(textColor + colors.get(color) + ": " + points.get(colors.get(color)) + " points" + DefaultValue.ANSI_RESET);
         }
     }
 
@@ -346,16 +483,6 @@ public class TUI implements UI {
                 networkClient.leave();
                 System.exit(0);
         }
-    }
-
-    /**
-     * Print the service message
-     *
-     * @param message to show
-     */
-    @Override
-    public void showServiceMessage(String message) {
-        System.out.println(message);
     }
 
     /**
@@ -602,11 +729,17 @@ public class TUI implements UI {
      * Propose the choice of the card to play
      */
     private void chooseCardToPlay() {
-        System.out.println(DefaultValue.ANSI_YELLOW + "Choose which card you want to play: " + DefaultValue.ANSI_RESET);
+        System.out.println(DefaultValue.ANSI_YELLOW + "Choose which card you want to play or press 'c' to open the chat:" + DefaultValue.ANSI_RESET);
         Scanner scanner = new Scanner(System.in);
         String input = scanner.nextLine();
         while (input.isEmpty() || (!input.equals("1") && !input.equals("2") && !input.equals("3"))) {
-            System.out.println(DefaultValue.ANSI_RED + "Wrong choice" + DefaultValue.ANSI_RESET);
+
+            if (input.equals("c")) {
+                showChat();
+                System.out.println(DefaultValue.ANSI_YELLOW + "Choose which card you want to play or press 'c' to open the chat:" + DefaultValue.ANSI_RESET);
+            } else {
+                System.out.println(DefaultValue.ANSI_RED + "Wrong choice" + DefaultValue.ANSI_RESET);
+            }
             input = scanner.nextLine();
         }
         int cardSelected = Integer.parseInt(input) - 1;
@@ -682,6 +815,24 @@ public class TUI implements UI {
     }
 
     /**
+     * Update the drawable cards on the table
+     *
+     * @param drawableCardsIds the map of the ids with the positions in the table
+     */
+    @Override
+    public void updateTable(Map<Integer, Integer> drawableCardsIds) {
+    }
+
+    /**
+     * Update the hand of the player
+     *
+     * @param handIds list of card ids in the hand
+     */
+    @Override
+    public void updateHand(List<Integer> handIds) {
+    }
+
+    /**
      * Propose the choice of the card to draw
      */
     private void chooseCardToDraw() {
@@ -724,4 +875,6 @@ public class TUI implements UI {
         System.out.println(DefaultValue.ANSI_GREEN + "\n\n-> Going back to menu\n" + DefaultValue.ANSI_RESET);
         new Thread(this::askModalityToEnterGame).start();
     }
+
+
 }

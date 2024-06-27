@@ -1,6 +1,7 @@
 package it.polimi.ingsw.gc01.controller;
 
 import it.polimi.ingsw.gc01.controller.exceptions.*;
+import it.polimi.ingsw.gc01.model.ChatMessage;
 import it.polimi.ingsw.gc01.model.cards.*;
 import it.polimi.ingsw.gc01.model.player.*;
 import it.polimi.ingsw.gc01.model.room.*;
@@ -126,6 +127,7 @@ public class RoomController {
         currentPlayer.getHand().add(room.getStarterDeck().pick());
         currentPlayer.getHand().get(0).setFront(true);
         ObserverManager notifier = room.getNotifier();
+        notifier.showWaitingFor(currentPlayer.getName(), "STARTER_SELECTION");
         notifier.showStarter(currentPlayer.getName(), (StarterCard) currentPlayer.getHand().getFirst());
     }
 
@@ -135,6 +137,7 @@ public class RoomController {
     private void showAvailableColors() {
         Player currentPlayer = room.getCurrentPlayer();
         ObserverManager notifier = room.getNotifier();
+        notifier.showWaitingFor(currentPlayer.getName(), "COLOR_SELECTION");
         notifier.showAvailableColor(currentPlayer.getName(), room.getAvailableColors());
     }
 
@@ -144,6 +147,7 @@ public class RoomController {
     private void showObjective() {
         Player currentPlayer = room.getCurrentPlayer();
         ObserverManager notifier = room.getNotifier();
+        notifier.showWaitingFor(currentPlayer.getName(), "OBJECTIVE_SELECTION");
         notifier.showSecretObjectives(currentPlayer.getName(), currentPlayer.getPossibleObjectives());
     }
 
@@ -162,10 +166,12 @@ public class RoomController {
     private void showPoints() {
         ObserverManager notifier = room.getNotifier();
         Map<String, Integer> points = new HashMap<>();
+        Map<PlayerColor, String> colors = new HashMap<>();
         for (Player player : room.getPlayers()) {
             points.put(player.getName(), player.getPoints());
+            colors.put(player.getColor(), player.getName());
         }
-        notifier.showPoints(points);
+        notifier.showPoints(points, colors);
     }
 
     /**
@@ -372,15 +378,16 @@ public class RoomController {
             }
         }
 
-        if (card != null) {
-            if (card.isFront()) {
-                if (card instanceof GoldenCard) {
-                    if (!((GoldenCard) card).checkRequirements(room.getCurrentPlayer())) {
-                        notifier.showError(playerName, "PLAY You don't have the required items");
-                        return;
-                    } else {
-                        player.playCard(card, position);
-                    }
+        if (card == null) {
+            notifier.showError(playerName, "No card found");
+            return;
+        }
+
+        if (card.isFront()) {
+            if (card instanceof GoldenCard) {
+                if (!((GoldenCard) card).checkRequirements(room.getCurrentPlayer())) {
+                    notifier.showError(playerName, "PLAY You don't have the required items");
+                    return;
                 } else {
                     player.playCard(card, position);
                 }
@@ -388,7 +395,7 @@ public class RoomController {
                 player.playCard(card, position);
             }
         } else {
-            notifier.showError(playerName, "No card found");
+            player.playCard(card, position);
         }
 
         if (card instanceof StarterCard || state.equals(GameState.LAST_CIRCLE)) {
@@ -446,6 +453,10 @@ public class RoomController {
             }
         }
 
+        notifier.updateHand(player.getName(), player.getHand());
+        notifier.updateTable(room.getDrawableCards());
+
+
         nextPlayer();
     }
 
@@ -461,10 +472,19 @@ public class RoomController {
                 mainController.deleteRoom(waitingRoom.getRoomId());
             }
         } else {
-            room.removePlayer(room.getPlayerByName(playerName));
+            room.removePlayer(playerName);
             if (room.getPlayers().isEmpty()) {
                 mainController.deleteRoom(room.getRoomId());
             }
         }
+    }
+
+    /**
+     * Passes to the room the newChatMessage to add on the ChatMessage List
+     *
+     * @param newChatMessage
+     */
+    public void newChatMessage(ChatMessage newChatMessage) {
+        room.newChatMessage(newChatMessage);
     }
 }

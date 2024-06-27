@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+<AnchorPane xmlns:fx="http://javafx.com/fxml/1" prefHeight="720.0" prefWidth="1280.0" styleClass="woodenBackground"
+            stylesheets="@../style.css" xmlns="http://javafx.com/javafx/21"
+            fx:controller="it.polimi.ingsw.gc01.view.gui.GUIControllers.SetUpController">
+    <children>
+        <Pane layoutX="311.0" layoutY="42.0" opacity="0.8" prefHeight="650.0" prefWidth="800.0"
+              style="-fx-background-color: black; -fx-border-radius: 10 10 0 0; -fx-border-width: 5;"
+              AnchorPane.bottomAnchor="50.0" AnchorPane.leftAnchor="250.0" AnchorPane.rightAnchor="250.0"
+              AnchorPane.topAnchor="50.0">
+            <children>
+                <Label layoutX="100.0" layoutY="150.0" text="Nickname" textFill="WHITE">
+                    <font>
+                        <Font name="Arial Black" size="30.0"/>
+                    </font>
+                </Label>
+                <Label layoutX="100.0" layoutY="250.0" text="Remote IP" textFill="WHITE">
+                    <font>
+                        <Font name="Arial Black" size="30.0"/>
+                    </font>
+                </Label>
+                <Label layoutX="100.0" layoutY="350.0" text="Personal IP" textFill="WHITE">
+                    <font>
+                        <Font name="Arial Black" size="30.0"/>
+                    </font>
+                </Label>
+                <TextField fx:id="nicknameField" layoutX="360.0" layoutY="150.0" prefHeight="60.0" prefWidth="260.0">
+                    <font>
+                        <Font name="Arial Black" size="20.0"/>
+                    </font>
+                </TextField>
+                <Label layoutX="150.0" layoutY="440.0" text="Choose Comunication Type:" textFill="WHITE">
+                    <font>
+                        <Font name="Arial Black" size="30.0"/>
+                    </font>
+                </Label>
+                <Button layoutX="348.0" layoutY="570.0" mnemonicParsing="false" onAction="#handleNextButtonAction"
+                        styleClass="bevel-grey" stylesheets="@../style.css" text="NEXT">
+                    <cursor>
+                        <Cursor fx:constant="HAND"/>
+                    </cursor>
+                </Button>
+                <ToggleButton fx:id="rmiToggleButton" layoutX="200.0" layoutY="500.0" mnemonicParsing="false"
+                              prefHeight="50.0" prefWidth="150.0" styleClass="ipad-dark-grey"
+                              stylesheets="@../style.css" text="RMI">
+                    <toggleGroup>
+                        <ToggleGroup fx:id="connectionGroup"/>
+                    </toggleGroup>
+                    <cursor>
+                        <Cursor fx:constant="HAND"/>
+                    </cursor>
+                </ToggleButton>
+                <ToggleButton fx:id="socketToggleButton" layoutX="400.0" layoutY="500.0" mnemonicParsing="false"
+                              prefHeight="50.0" prefWidth="150.0" styleClass="ipad-dark-grey"
+                              stylesheets="@../style.css" text="SOCKET" toggleGroup="$connectionGroup">
+                    <cursor>
+                        <Cursor fx:constant="HAND"/>
+                    </cursor>
+                </ToggleButton>
+                <Text fill="WHITE" layoutX="280.0" layoutY="75.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Setup"
+                      wrappingWidth="186.8525390625">
+                    <font>
+                        <Font name="Arial Black" size="59.0"/>
+                    </font>
+                </Text>
+                <TextField fx:id="remoteIPField" layoutX="360.0" layoutY="250.0" prefHeight="60.0" prefWidth="260.0">
+                    <font>
+                        <Font name="Arial Black" size="20.0"/>
+                    </font>
+                </TextField>
+                <TextField fx:id="personalIPField" layoutX="360.0" layoutY="350.0" prefHeight="60.0" prefWidth="260.0">
+                    <font>
+                        <Font name="Arial Black" size="20.0"/>
+                    </font>
+                </TextField>
+            </children>
+        </Pane>
+    </children>
+</AnchorPane>

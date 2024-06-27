@@ -1,5 +1,6 @@
 package it.polimi.ingsw.gc01.network.rmi;
 
+import it.polimi.ingsw.gc01.model.ChatMessage;
 import it.polimi.ingsw.gc01.model.player.*;
 import it.polimi.ingsw.gc01.network.*;
 import it.polimi.ingsw.gc01.utils.DefaultValue;
@@ -34,7 +35,7 @@ public class RmiClient extends UnicastRemoteObject implements VirtualView, Netwo
     /**
      * Construct a new RmiClient object and connect it to the server
      *
-     * @param playerName of the player
+     * @param playerName    of the player
      * @param userInterface chosen by the player
      * @throws RemoteException
      */
@@ -49,10 +50,19 @@ public class RmiClient extends UnicastRemoteObject implements VirtualView, Netwo
      */
     private void connect() {
         try {
-            Registry registry = LocateRegistry.getRegistry(DefaultValue.ServerIp, DefaultValue.RMIPort);
+            Registry registry = LocateRegistry.getRegistry(DefaultValue.ServerIp, DefaultValue.Default_RMI_port);
             this.server = (VirtualServer) registry.lookup(DefaultValue.RMIServerName);
             System.out.println("Client RMI ready");
         } catch (RemoteException | NotBoundException e) {
+            System.err.println("Server RMI not working!");
+        }
+    }
+
+    @Override
+    public void newChatMessage(ChatMessage newMessage) {
+        try {
+            server.newChatMessage(this.playerName, this.roomId, newMessage);
+        } catch (RemoteException e) {
             System.err.println("Server RMI not working!");
         }
     }
@@ -197,14 +207,6 @@ public class RmiClient extends UnicastRemoteObject implements VirtualView, Netwo
     }
 
     /**
-     * Send ui back to menu
-     */
-    @Override
-    public void backToMenu() {
-        ui.backToMenu();
-    }
-
-    /**
      * Show the roomId to the ui
      *
      * @param roomId of the room
@@ -213,6 +215,46 @@ public class RmiClient extends UnicastRemoteObject implements VirtualView, Netwo
     public void updateRoomId(String roomId) {
         this.roomId = roomId;
         ui.showRoom(roomId);
+    }
+
+    /**
+     * Show the players in the room
+     *
+     * @param playersAlreadyIn map with key the player name and value the ready status
+     */
+    @Override
+    public void showPlayers(Map<String, Boolean> playersAlreadyIn) {
+        ui.showPlayers(playersAlreadyIn);
+    }
+
+    /**
+     * Show the player that has just joined
+     *
+     * @param playerName the names of the player that has just joined
+     */
+    @Override
+    public void showPlayerJoined(String playerName) {
+        ui.showPlayerJoined(playerName);
+    }
+
+    /**
+     * Show the player that has just left
+     *
+     * @param playerName the names of the player that has just left
+     */
+    @Override
+    public void showPlayerLeft(String playerName) {
+        ui.showPlayerLeft(playerName);
+    }
+
+    /**
+     * Show the waiting scene for every client except the one choosing
+     */
+    @Override
+    public void showWaitingFor(String playerName, String scene) {
+        if (!playerName.equals(this.playerName)) {
+            ui.showWaitingFor(playerName, scene);
+        }
     }
 
     /**
@@ -227,6 +269,11 @@ public class RmiClient extends UnicastRemoteObject implements VirtualView, Netwo
     @Override
     public void updateField(String playerName, int id, boolean front, Position position, List<Position> availablePositions) {
         ui.updateField(playerName, id, front, position, availablePositions);
+    }
+
+    @Override
+    public void updateChat(ChatMessage newChatMessage) {
+        ui.updateChat(newChatMessage);
     }
 
     /**
@@ -266,6 +313,7 @@ public class RmiClient extends UnicastRemoteObject implements VirtualView, Netwo
     public void showAvailableColors(List<PlayerColor> availableColors) {
         ui.showAvailableColors(availableColors);
     }
+
     /**
      * Update readiness of a player
      *
@@ -298,6 +346,16 @@ public class RmiClient extends UnicastRemoteObject implements VirtualView, Netwo
     }
 
     /**
+     * Update the drawable cards on the table
+     *
+     * @param drawableCardsIds the map of the ids with the positions in the table
+     */
+    @Override
+    public void updateTable(Map<Integer, Integer> drawableCardsIds) {
+        ui.updateTable(drawableCardsIds);
+    }
+
+    /**
      * Show the hand
      *
      * @param handIds list of card ids in the hand
@@ -305,6 +363,17 @@ public class RmiClient extends UnicastRemoteObject implements VirtualView, Netwo
     @Override
     public void showHand(List<Integer> handIds) {
         ui.showHand(handIds);
+    }
+
+    /**
+     * Update the hand
+     *
+     * @param cardIds list of card ids in the hand
+     * @throws RemoteException
+     */
+    @Override
+    public void updateHand(List<Integer> cardIds) throws RemoteException {
+        ui.updateHand(cardIds);
     }
 
     /**
@@ -321,10 +390,11 @@ public class RmiClient extends UnicastRemoteObject implements VirtualView, Netwo
      * Show the points for each player
      *
      * @param points map of playerName, points
+     * @param colors map of colors, playerName
      */
     @Override
-    public void showPoints(Map<String, Integer> points) {
-        ui.showPoints(points);
+    public void showPoints(Map<String, Integer> points, Map<PlayerColor, String> colors) {
+        ui.showPoints(points, colors);
     }
 
     /**
@@ -346,17 +416,6 @@ public class RmiClient extends UnicastRemoteObject implements VirtualView, Netwo
     public void showError(String error) {
         ui.showError(error);
     }
-
-    /**
-     * Show the service message
-     *
-     * @param message to show
-     */
-    @Override
-    public void serviceMessage(String message) {
-        ui.showServiceMessage(message);
-    }
-
 
     /**
      * Show the last turn notification
@@ -382,4 +441,13 @@ public class RmiClient extends UnicastRemoteObject implements VirtualView, Netwo
     @Override
     public void isAlive() {
     }
+
+    /**
+     * Send ui back to menu
+     */
+    @Override
+    public void backToMenu() {
+        ui.backToMenu();
+    }
+
 }

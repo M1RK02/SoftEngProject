@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+<AnchorPane xmlns:fx="http://javafx.com/fxml/1" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
+            prefHeight="720.0" prefWidth="1280.0" styleClass="woodenBackground"
+            stylesheets="@../style.css" xmlns="http://javafx.com/javafx/21"
+            fx:controller="it.polimi.ingsw.gc01.view.gui.GUIControllers.WaitingRoomController">
+    <children>
+        <Pane layoutX="326.0" layoutY="128.0" prefHeight="720.0" prefWidth="1280.0" AnchorPane.bottomAnchor="0.0"
+              AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <children>
+                <Text fill="WHITE" layoutX="43.0" layoutY="681.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Room ID:"
+                      wrappingWidth="285.10619354248047">
+                    <font>
+                        <Font name="Arial Black" size="24.0"/>
+                    </font>
+                </Text>
+                <Text fx:id="roomId" fill="WHITE" layoutX="210.0" layoutY="681.0" strokeType="OUTSIDE" strokeWidth="0.0"
+                      text="XXXXX">
+                    <font>
+                        <Font name="Arial Black" size="24.0"/>
+                    </font>
+                </Text>
+                <Button layoutX="1003.0" layoutY="621.0" mnemonicParsing="false" onAction="#handleReadyButton"
+                        prefHeight="88.0" prefWidth="253.0" styleClass="record-sales" stylesheets="@../style.css"
+                        text="READY" textFill="WHITE">
+                    <font>
+                        <Font size="24.0"/>
+                    </font>
+                    <cursor>
+                        <Cursor fx:constant="HAND"/>
+                    </cursor>
+                </Button>
+                <Button layoutX="18.0" layoutY="15.0" mnemonicParsing="false" onAction="#handleLeaveButton"
+                        prefHeight="53.0" prefWidth="148.0" styleClass="record-sales5" stylesheets="@../style.css"
+                        text="LEAVE">
+                    <cursor>
+                        <Cursor fx:constant="HAND"/>
+                    </cursor>
+                </Button>
+                <Pane layoutX="122.0" layoutY="105.0" opacity="0.7" prefHeight="477.0" prefWidth="1058.0"
+                      style="-fx-background-color: black; -fx-border-radius: 10 10 0 0; -fx-border-width: 5;"/>
+                <Pane fx:id="pane0" layoutX="163.0" layoutY="180.0" prefHeight="330.0" prefWidth="210.0"
+                      style="-fx-background-color: white;">
+                    <children>
+                        <ImageView fitHeight="330.0" fitWidth="210.0" pickOnBounds="true">
+                            <image>
+                                <Image url="@../images/wildcards/PlantWildcard.jpg"/>
+                            </image>
+                        </ImageView>
+                        <Pane layoutY="20.0" opacity="0.8" prefHeight="47.0" prefWidth="211.0"
+                              style="-fx-background-color: black;">
+                            <children>
+                                <Text fx:id="nickName0" fill="WHITE" layoutX="9.0" layoutY="33.0" strokeType="OUTSIDE"
+                                      strokeWidth="0.0" text="name" textAlignment="CENTER"
+                                      wrappingWidth="190.28251939390032">
+                                    <font>
+                                        <Font name="Arial Black" size="25.0"/>
+                                    </font>
+                                </Text>
+                            </children>
+                        </Pane>
+                    </children>
+                </Pane>
+                <Pane fx:id="pane1" layoutX="418.0" layoutY="181.0" prefHeight="330.0" prefWidth="210.0"
+                      style="-fx-background-color: white;">
+                    <children>
+                        <ImageView fitHeight="330.0" fitWidth="210.0" pickOnBounds="true">
+                            <image>
+                                <Image url="@../images/wildcards/FungiWildcard.jpg"/>
+                            </image>
+                        </ImageView>
+                        <Pane layoutX="-1.0" layoutY="20.0" opacity="0.8" prefHeight="47.0" prefWidth="211.0"
+                              style="-fx-background-color: black;">
+                            <children>
+                                <Text fx:id="nickName1" fill="WHITE" layoutX="9.0" layoutY="33.0" strokeType="OUTSIDE"
+                                      strokeWidth="0.0" text="name" textAlignment="CENTER"
+                                      wrappingWidth="190.28251939390032">
+                                    <font>
+                                        <Font name="Arial Black" size="25.0"/>
+                                    </font>
+                                </Text>
+                            </children>
+                        </Pane>
+                    </children>
+                </Pane>
+                <Pane fx:id="pane2" layoutX="676.0" layoutY="180.0" prefHeight="330.0" prefWidth="210.0"
+                      style="-fx-background-color: white;">
+                    <children>
+                        <ImageView fitHeight="330.0" fitWidth="210.0" pickOnBounds="true">
+                            <image>
+                                <Image url="@../images/wildcards/AnimalWildcard.jpg"/>
+                            </image>
+                        </ImageView>
+                        <Pane layoutY="21.0" opacity="0.8" prefHeight="47.0" prefWidth="211.0"
+                              style="-fx-background-color: black;">
+                            <children>
+                                <Text fx:id="nickName2" fill="WHITE" layoutX="9.0" layoutY="33.0" strokeType="OUTSIDE"
+                                      strokeWidth="0.0" text="name" textAlignment="CENTER"
+                                      wrappingWidth="190.28251939390032">
+                                    <font>
+                                        <Font name="Arial Black" size="25.0"/>
+                                    </font>
+                                </Text>
+                            </children>
+                        </Pane>
+                    </children>
+                </Pane>
+                <Pane fx:id="pane3" layoutX="925.0" layoutY="180.0" prefHeight="330.0" prefWidth="210.0"
+                      style="-fx-background-color: white;">
+                    <children>
+                        <ImageView fitHeight="330.0" fitWidth="210.0" pickOnBounds="true">
+                            <image>
+                                <Image url="@../images/wildcards/InsectWildcard.jpg"/>
+                            </image>
+                        </ImageView>
+                        <Pane layoutY="21.0" opacity="0.8" prefHeight="47.0" prefWidth="211.0"
+                              style="-fx-background-color: black;">
+                            <children>
+                                <Text fx:id="nickName3" fill="WHITE" layoutX="9.0" layoutY="33.0" strokeType="OUTSIDE"
+                                      strokeWidth="0.0" text="name" textAlignment="CENTER"
+                                      wrappingWidth="190.28251939390032">
+                                    <font>
+                                        <Font name="Arial Black" size="25.0"/>
+                                    </font>
+                                </Text>
+                            </children>
+                        </Pane>
+                    </children>
+                </Pane>
+                <Pane fx:id="ready0" layoutX="162.0" layoutY="411.0" prefHeight="70.0" prefWidth="211.0"
+                      style="-fx-background-color: #25DE00;">
+                    <children>
+                        <Text fill="WHITE" layoutX="36.0" layoutY="50.0" strokeType="OUTSIDE" strokeWidth="0.0"
+                              text="Ready!">
+                            <font>
+                                <Font name="Arial Black" size="40.0"/>
+                            </font>
+                        </Text>
+                    </children>
+                </Pane>
+                <Pane fx:id="ready1" layoutX="417.0" layoutY="411.0" prefHeight="70.0" prefWidth="211.0"
+                      style="-fx-background-color: #25DE00;">
+                    <children>
+                        <Text fill="WHITE" layoutX="36.0" layoutY="50.0" strokeType="OUTSIDE" strokeWidth="0.0"
+                              text="Ready!">
+                            <font>
+                                <Font name="Arial Black" size="40.0"/>
+                            </font>
+                        </Text>
+                    </children>
+                </Pane>
+                <Pane fx:id="ready2" layoutX="676.0" layoutY="411.0" prefHeight="70.0" prefWidth="211.0"
+                      style="-fx-background-color: #25DE00;">
+                    <children>
+                        <Text fill="WHITE" layoutX="36.0" layoutY="50.0" strokeType="OUTSIDE" strokeWidth="0.0"
+                              text="Ready!">
+                            <font>
+                                <Font name="Arial Black" size="40.0"/>
+                            </font>
+                        </Text>
+                    </children>
+                </Pane>
+                <Pane fx:id="ready3" layoutX="925.0" layoutY="411.0" prefHeight="70.0" prefWidth="211.0"
+                      style="-fx-background-color: #25DE00;">
+                    <children>
+                        <Text fill="WHITE" layoutX="36.0" layoutY="50.0" strokeType="OUTSIDE" strokeWidth="0.0"
+                              text="Ready!">
+                            <font>
+                                <Font name="Arial Black" size="40.0"/>
+                            </font>
+                        </Text>
+                    </children>
+                </Pane>
+            </children>
+        </Pane>
+    </children>
+</AnchorPane>

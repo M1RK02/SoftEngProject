@@ -1,0 +1,1012 @@
+Id,Nome,Libreria delle forme,ID pagina,Contenuto da,Gruppo,Sorgente di linea,Destinazione linea,Freccia sorgente,Freccia di destinazione,Stato,Area di testo 1,Area di testo 2,Area di testo 3,Commenti
+1,Documento,,,,,,,,,,UML GC01,,,
+2,Pagina,,,,,,,,,,Class Diagram,,,
+3,Pacchetto,UML,2,,,,,,,,View,,,
+4,Pacchetto,UML,2,,,,,,,,Tui,,,
+5,Pacchetto,UML,2,,,,,,,,Model,,,
+6,Pacchetto,UML,2,,,,,,,,Network,,,
+7,Pacchetto,UML,2,,,,,,,,Controller,,,
+8,Pacchetto,UML,2,,,,,,,,RMI,,,
+9,Pacchetto,UML,2,,,,,,,,Socket,,,
+10,MinimalTextBlock,Standard,2,,,,,,,,,,,
+11,Classe,UML,2,,,,,,,,"<<interface>>
+VirtualView extends Remote","updateRoomId(roomId: String) throws IOException: void
+showPlayers(playersAlreadyIn: Map<String, Boolean>) throws IOException: void
+showPlayerJoined(playerName: String) throws IOException: void
+showPlayerLeft(playerName: String) throws IOException: void
+showWaitingFor(playerName: String, scene String) throws IOException: void
+startGame() throws IOException: void
+updateCurrentPlayer(playerName: String) throws IOException: void
+showAvailableColors(availableColors: List<PLayerColor>) throws IOException: void
+showStarter(cardId: int) throws IOException: void 
+updateReady(playerName: String, ready: boolean) throws IOException: void
+showCommonObjectives(objectiveIds: List<Integer>) throws IOException: void
+showTable(drawableCardsIds: Map<Integer, Integer>) throws IOException: void
+updateTable(drawableCardsIds: Map<Integer, Integer>) throws IOException: void
+showHand(cardIds: List<Integer>) throws IOException: void
+updateHand(cardIds: List<Integer>) throws IOException: void
+showField(playerName: String) throws IOException: void
+updateField(playerName: String, id: int, front: boolean, position: Position, availablePositions: List<Position>) throws IOException: void
+showPoints(points: Map<String, Integer>, colors: Map<PlayerColor, String>) throws IOException: void
+showSecretObjectives(possibleObjectiveIds: List<Integer>) throws IOException: void
+showError(error: String) throws IOException: void
+showLastCircle() throws IOException: void
+showWinners(winners: List<String>) throws IOException: void
+updateChat(newChatMessage: ChatMessage) thows IOException: void isAlive() throws IOException: void
+backToMenu() throws IOException: void",,
+12,Classe,UML,2,,,,,,,,"<<interface>> 
+ NetworkClient","getRoomId(): String
+createGame(): void
+joinGame(roomId: String): void
+joinFirstGame(): void
+chooseColor(color: PlayerColor): void
+switchReady(): void
+chooseSecretObjective(cardId: int): void
+flipCard(cardId: int): void 
+playCard(cardId: int, position: Position): void
+drawCard(choice: int): void
+leave() : void
+newChatMessage(newMessage: ChatMessage): void",,
+13,Classe,UML,2,,,,,,,,RmiClient,"​- playerName: String
+- server: VirtualServer
+- roomId: String
+- ui: UI","​- connect (): void
+
++ getRoomId(): String
+ 
++ createGame(): void
++ joinGame(roomId: String): void
++ joinFirstGame(): void
+
++ startGame(): void
++ chooseColor(color: PlayerColor): void
++ switchReady(): void
++ chooseSecretObjective(cardId: int): void
++ flipCard(cardId: int): void 
++ playCard(cardId: int, position: Position): void
++ drawCard(choice: int): void
++ leave(): void
++ backToMenu(): void
+
++ updateRoomId(roomId: String): void
++ showPlayers(playersAlreadyIn: Map<String, Boolean>): void
++ showPlayerJoined(playerName: String): void
++ showPlayerLeft(playerName: String): void
++ showWaitingFor(playerName: String, scene: String): void
++ updateField(playerName: String, id: int, front: boolean, position: Position, availablePositions: List<Position>): void
++ updateCurrentPlayer(playerName: String): void
++ updateChat(chatMessage: ChatMessage): void
++ showAvailableColors(availableColors: List<PLayerColor>): void
++ showStarter(cardId: int): void
+ 
++ updateReady(playerName: String, ready: boolean): void
++ showCommonObjectives(objectiveIds: List<Integer>): void
++ showTable(drawableCardsIds: Map<Integer, Integer>): void
++ showHand(handIds: List<Integer>) : void
++ showPoints(points: Map<String, Integer>, colors: Map<PlayerColor, String>): void
++ showField(playerName: String): void
++ showSecretObjectives(possibleObjectiveIds: List<Integer>): void
++ showError(error: String): void
++ showLastCircle(): void
++ showWinners(winners: List<String): void + isAlive():void
++ newChatMessage(chatMessage: ChatMessage): void",
+14,Classe,UML,2,,,,,,,,RmiServer,"​- mainController: MainController
+- actions: BlockingQueue<Action>","​- bind(): void
+
++ createGame(playerName: String, client: VirtualView): void
++ joinGame(playerName: String, client: VirtualView, roomId: String): void
++ joinFirstGame(playerName: String, client: VirtualView): void
+
++ chooseColor(playerName: String, roomId: String, color: PlayerColor): void
++ switchReady(playerName: String, roomId: String): void
++ chooseSecretObjective(playerName: String, roomId: String, cardId: int): void
++ flipCard(playerName: String, roomId: String, cardId: int): void 
++ playCard(playerName: String, roomId: String, cardId: int, position: Position): void
++ drawCard(playerName: String, roomId: String, choice: int): void
++ leave(playerName: String, roomId: String): void
++ newChatMessage(newChatMessage: ChatMessage): void",
+15,Classe,UML,2,,,,,,,,"<<interface>>
+VirtualServer extends Remote","createGame(playerName: String, client: VirtualView) throws RemoteException: void
+joinGame(playerName: String, client: VirtualView, roomId: String) throws RemoteException: void
+joinFirstGame(playerName: String, client: VirtualView) throws RemoteException: void
+
+chooseColor(playerName: String, roomId: String, color: PlayerColor) throws RemoteException: void
+switchReady (playerName: String, roomId: String) throws RemoteException: void
+chooseSecretObjective(playerName: String, roomId: String, cardId: int) throws RemoteException: void
+flipCard(playerName: String, roomId: String, cardId: int) throws RemoteException: void 
+playCard(playerName: String, roomId: String, cardId: int, position: Position) throws RemoteException: void
+drawCard(playerName: String, roomId: String, choice: int) throws RemoteException: void
+leave(playerName: String, roomId: String) throws RemoteException: void
+newChatMessage(playerName: String, roomId: String, newChatMessage: ChatMessage) throws RemoteException: void",,
+16,Classe,UML,2,,,,,,,,"<<abstractClass>>
+MainAction",​- client: VirtualView,​+ getClient(): VirtualView,
+17,Classe,UML,2,,,,,,,,CreateGameAction,,​+ execute(): void,
+18,Classe,UML,2,,,,,,,,JoinGameAction,​- roomId: String,​+ execute(): void,
+19,Classe,UML,2,,,,,,,,JoinFirstGameAction,,​+ execute(): void,
+20,Classe,UML,2,,,,,,,,LeaveAction,,​+ execute(): void,
+21,Classe,UML,2,,,,,,,,SocketClient,"​- input: ObjectInputStream
+- output: ObjectOutputStream
+- roomId: String
+- playerName: String
+- ui: UI
+- serverSocker: Socker","​+ connect(): void
++ run(): void
++ executeServerMessage() throws IOException, ClassNotFoundException: void
+
++ getRoomId(): String
++ createGame(): void
++ joinGame(roomId: String): void
++ joinFirstGame(): void
++ chooseColor(color: PlayerColor): void
++ switchReady(): void
++ chooseSecretObjective(cardId: int): void
++ flipCard(cardId: int): void 
++ playCard(cardId: int, position: Position): void
++ drawCard(choice: int): void
++ leave() : void
++ newChatMessage(newMessage: ChatMessage): void
+
++ updateRoomId(roomId: String): void
++ showPlayers(playersAlreadyIn: Map<String, Boolean>): void
++ showPlayerJoined(playerName: String): void
++ showPlayerLeft(playerName: String): void
++ showWaitingFor(playerName: String, scene String): void
++ startGame(): void
++ updateCurrentPlayer(playerName: String): void
++ showAvailableColors(availableColors: List<PlayerColor>): void
++ showStarter(cardId: int): void 
++ updateReady(playerName: String, ready: boolean): void
++ showCommonObjectives(objectiveIds: List<Integer>): void
++ showTable(drawableCardsIds: Map<Integer, Integer>): void
++ updateTable(drawableCardsIds: Map<Integer, Integer>): void
++ showHand(cardIds: List<Integer>): void
++ showField(playerName: String): void
++ updateField(playerName: String, id: int, front: boolean, position: Position, availablePositions: List <Position>): void
++ showPoints(points: Map<String, Integer>, colors: Map<PlayerColor, String>): void
++ showSecretObjectives(possibleObjectiveIds: List<Integer>): void
++ showError(error: String): void
++ showLastCircle(): void
++ showWinners(winners: List<String): void
++ updateChat(newChatMessage: ChatMessage): void + isAlive(): void
++ backToMenu(): void",
+22,Classe,UML,2,,,,,,,,ClientHandler,"​- input: ObjectInputStream
+- output: ObjectOutputStream
+- mainController: MainController
+- actions: BlockingQueue<Action>
+- playerName: String
+- roomId: String","​+ executeClientMessages(): void
+
++ updateRoomId(roomId: String) throws IOException: void
++ showPlayers(playersAlreadyIn: Map<String, Boolean>) throws IOException: void
++ showPlayerJoined(playerName: String) throws IOException: void
++ showPlayerLeft(playerName: String) throws IOException: void
++ showWaitingFor(playerName: String, scene: String) throws IOException: void
++ startGame() throws IOException: void
++ updateCurrentPlayer(playerName: String) throws IOException: void
++ showAvailableColors(availableColors: List<PLayerColor>) throws IOException: void
++ showStarter(cardId: int) throws IOException: void 
++ updateReady(playerName: String, ready: boolean) throws IOException: void
++ showCommonObjectives(objectiveIds: List<Integer>) throws IOException: void
++ showTable(drawableCardsIds: Map<Integer, Integer>) throws IOException: void
++ updateTable(drawableCardsIds: Map<Integer, Integer>) throws IOException: void
++ showHand(cardIds: List<Integer>) throws IOException: void
++ updateHand(cardIds: List<Integer>) throws IOException: void
++ showField(playerName: String) throws IOException: void
++ updateField(playerName: String, id: int, front: boolean, position: Position, availablePositions: List <Position>) throws IOException: void
++ showPoints(points: Map<String, Integer>, colors: Map<PlayerColor, String>) throws IOException: void
++ showSecretObjectives(possibleObjectiveIds: List<Integer>) throws IOException: void
++ showError(error: String) throws IOException: void
++ showLastCircle() throws IOException: void
++ showWinners(winners: List<String>) throws IOException: void
++ updateChat(newChatMessage: ChatMessage) thows IOException: void + isAlive() throws IOException: void
++ backToMenu() throws IOException: void",
+23,Classe,UML,2,,,,,,,,SocketServer,"​- listenSocket: ServerSocket
+- mainController: MainController
+- actions: BlockingQueue<Action>","​+ bind (): void
++ acceptConnections (): void",
+24,Classe,UML,2,,,,,,,,RoomController,"​- mainController: MainController
+- waitingRoom: WaitingRoom
+- room: Room
+- state: GameState ","​+ getRoom(): Room
++ getWaitingRoom(): WaitingRoom
++ getState(): GameState
++ setState(state: GameState): void
++ getRoomId(): String
+
++ addPlayer(playerName: String, client: VirtualView) throws PlayerAlreadyInException, MaxPlayersInException: void
+
+- prepareGame(): void
+- distributeCards(): void
+- giveStarter(): void
+
+- showAvailableColors(): void
+- showObjective(): void
+- showField(): void
+- showPoints(): void
+- showHand(): void
+
++ nextPlayer(): void
+- calculateStrategy(): void
+- hasOneReachedRequiredPoints(): boolean
+- areDecksEmpty(): boolean 
++ endGame(): void
+
++ chooseColor(playerName: String, color: PlayerColor): void
++ switchReady (playerName: String): void
++ chooseSecretObjective(playerName: String, cardId: int): void
++ flipCard(playerName: String, cardId: int): void 
++ playCard(playerName: String, cardId: int, position: Position): void
++ drawCard(playerName: String, position: TablePosition): void
++ leave(playerName: String): void
+
++ newChatMessage(newChatMessage: ChatMessage): void",
+25,Classe,UML,2,,,,,,,,"<<enumeration>>
+GameState","WAITING
+STARTER_SELECTION
+COLOR_SELECTION
+OBJECTIVE_SELECTION
+RUNNING
+LAST_CIRCLE
+ENDED",,
+26,Classe,UML,2,,,,,,,,MainController,"​- instance: MainController
+- rooms: Map<String, RoomController> ","​+ getInstance(): MainController
++ getRooms(): Map<String, RoomController>
+
++ createGame(playerName: String, client: VirtualView): void
++ joinGame(playerName: String, client: VirtualView, roomId: String): void
++ joinFirstGame(playerName: String, client: VirtualView): void
+
++ sendErrorToClient(client: VirtualView, error: String)
+
++ deleteRoom(roomId: String): void",
+27,Classe,UML,2,,,,,,,,ObserverManager,"​- observers: Map<String, VirtualView>","​+ addObserver (playerName: String, client: VirtualClient): void
++ removeObserver(playerName: String): void
+
++ updateRoomId (playerName: String, roomId: String): void
++ showPlayers(playerName: String, playersAlreadyIn: Map<String, Boolean>): void
++ showPlayerJoined(playerName: String): void
++ showPlayerLeft(playerName: String): void
++ startGame(): void
++ updateCurrentPlayer (playerName: String): void
++ showStarter(playerName: String, card: StarterCard): void
++ showWaitingFor(playerName: String, colors: List<PlayerColor>): void
++ showAvailableColor(playerName: String, colors: List<PlayerColor>): void 
++ updateReady(playerName: String, ready: boolean): void
++ updateField(playerName: String, id: int, front: boolean,  position: Position, availablePositions: List<Position>)
++ showCommonObjectives(commonObjectives: List<ObjectiveCards>): void
++ showTable(currentPlayer: Player, drawableCards: Map<TablePosition, ResourceCard>): void
++ updateTable(drawableCards: Map<TablePosition, ResourceCard>): void
++ showHand(playerName: String, hand: List<PlayableCard>): void
++ updateHand(playerName: String, hand: List<PLayableCard>): void
++ showField(playerName: String): void
++ showPoints(points: Map<String, Integer>, colors: Map<PlayerColor, String>): void
++ backToMenu(): void
++ showSecretObjectives(playerName: String, possibleObjectives: List<ObjectiveCard>): void
++ showError(playerName: String, error: String): void
++ showGameError(error: String): void
++ showLastCircle(): void
++ showWinners(winners: List<String>): void
++ updateChat(newChatMessage: ChatMessage): void
+
+- heartBeat(): void",
+28,Classe,UML,2,,,,,,,,"<<abstractClass>>
+RoomAction",​- room: RoomController,​+ getRoomController(): RoomController,
+29,Classe,UML,2,,,,,,,,FlipCardAction,​- cardId: int ,​+ execute(): void,
+30,Classe,UML,2,,,,,,,,PlayCardAction,"​- cardId: int
+- position: Postion",​+ execute(): void,
+31,Classe,UML,2,,,,,,,,DrawCardAction,​- position: TablePosition,​+ execute(): void,
+32,Classe,UML,2,,,,,,,,"<<abstractClass>>
+Action",​- playerName: String,"​+ getPlayerName(): String
++ execute(): void",
+33,MinimalTextBlock,Standard,2,,,,,,,,,,,
+34,Classe,UML,2,,,,,,,,ChooseColorAction,​- color: PlayerColor,​+ execute(): void,
+35,Classe,UML,2,,,,,,,,SwitchReadyAction,,​+ execute(): void,
+36,Classe,UML,2,,,,,,,,Room,"​- roomId: String
+- players: List<Player>
+- availableColors: List<PlayerColor> 
+- goldenDeck: GoldenDeck
+- resourceDeck: ResourceDeck
+- objectiveDeck: ObjectiveDeck
+- starterDeck: StarterDeck
+- commonObjectives: List<ObjectiveCard>
+- drawableCards: Map<TablePosition, ResourceCard>
+- notifier: ObserverManager
+- currentPlayer: Player","​- initTable(): void
+
++ getRoomId(): String
++ getPlayers(): List<Player>
++ getAvailableColors(): List<PlayerColor>
++ getCurrentPlayer(): Player
++ setCurrentPlayer(currentPlayer:Player): void
++ getStarterDeck(): StarterDeck
++ getResourceDeck(): ResourceDeck
++ getGoldenDeck(): GoldenDeck
++ getObjectiveDeck(): ObjectiveDeck
++ getCommonObjectives(): List<ObjectiveCard>
++ getNotifier(): ObserverManager
+
++ getPlayerByName(playerName: String): Player
++ getNextPlayer(): Player
++ getDrawableCards(): Map<TablePosition, ResourceCard>
++ getWinners(): List<Player>
++ removePlayer(playerName: String): void + newChatMessage(newChatMessage: ChatMessage): void",
+37,Classe,UML,2,,,,,,,,Deck,​- deck: List<Card>,"​+ isEmpty(): boolean
+
++ shuffle(): void
+
++ pick(): Card
++ get(): Card
++ pickbyId(id: int): Card",
+38,Classe,UML,2,,,,,,,,ObjectiveCard,​- strategy: Strategy,​+ calculatePoints(player: Player): int,
+39,Classe,UML,2,,,,,,,,PlaybleCard,"​- corners: Map<CornerPosition, Corner>
+- front: boolean","​+ getCorners(): Map<CornerPosition, Corner>
++ isFront(): boolean
++ setFront(front: boolean): void",
+40,Classe,UML,2,,,,,,,,Corner,"​- resource: CardResource
+- covered: boolean","​+ getResource(): CardResource
++ isCovered(): boolean
++ cover(): void",
+41,Classe,UML,2,,,,,,,,Player,"​- name: String
+- resources: Map<PlayerResource, Integer>
+- hand: List<PlayableCard>
+- field: Field
+- possibleObjectives: List<ObjectiveCard>
+- notifier: ObserverManager
+- color: PlayerColor
+- points: int
+- objectivePoints: int
+- secretObjective: ObjectiveCard
+- ready: boolean","​- initResources(): Map<PlayerResource, Integer>
+
++ getName(): String
++ getColor(): PlayerColor
++ getPoints(): int
++ getObjectivePoints(): int
++ getTotalPoints(): int
++ getResources(): Map<PlayerResource, Integer>
++ getHand(): List<PlayableCard>
++ getField(): Field
++ getSecretObjective(): ObjectiveCard
++ getPossibleObjectives(): List<ObjectiveCard> 
++ isReady(): boolean
+
++ setColor(color: PlayerColor): void
++ setSecretObjective(secretObjective: ObjectiveCard): void
++ switchReady(): void
+
++ addPoints(playerPoints: int): void
++ addObjectivePoints(objectivePoints: int): void
++ addResource(resource: PlayerResource): void
++ removeResource(resource: PlayerResource): void
++ playCard(card: PlayableCard, position: Position): void
+
+- updatePoints(card: ResourceCard, position: Position): void
+- addCenterResources(card: StarterCard): void
+- addCornerResource(corners: Map<CornerPosition, Corner>): void
+- coverAdjacentCorners(adjacentCard: Map<CornerPosition, PlayableCard>): void
+- updateAvailablePosition(corners: Map<CornerPosition, Corner>, adjacentCard: Map<CornerPosition, PlayableCard>, position: Position): void
+- checkPositionAvailability(corners: Map<CornerPosition, Corner>, cornerPosition: CornerPosition, position: Position): void",
+42,Classe,UML,2,,,,,,,,ResourcesCard,"​- color: CardColor
+- score: int","​+ getColor(): CardColor
++ getScore(): int",
+43,Classe,UML,2,,,,,,,,StarterCard,"​- centerResources: Set<Resources>
+- backCorners: Map<CornerPosition, Corner>","​+ getCenterResources(): Set<Resource>
++ getBackCorners(): Map<CornerPosition, Corner>",
+44,Classe,UML,2,,,,,,,,"<<enumeration>>
+Resource","ANIMAL
+PLANT
+FUNGI
+INSECT",,
+45,Classe,UML,2,,,,,,,,GoldenCard,"​- requirements: Map<Resource, Integer>
+- scoreCondition: ScoreCondition","​+ checkRequirments(player: Player): boolean
++ calculatePoints(player: Player, position: Position): int
++ getRequirements(): Map<Resource, Integer>
++ getScoreCondition(): ScoreCondition",
+46,Classe,UML,2,,,,,,,,"<<enumeration>>
+Item","QUILL
+INKWELL
+MANUSCRIPT",,
+47,Classe,UML,2,,,,,,,,"<<enumeration>>
+CornerValue","EMPTY
+FULL",,
+48,Classe,UML,2,,,,,,,,"<<interface>>
+PlayerResource",,,
+49,Classe,UML,2,,,,,,,,"<<interface>>
+CardResource",,,
+50,Classe,UML,2,,,,,,,,"<<enumeration>>
+ConditionType","EMPTY
+CORNER",,
+51,Classe,UML,2,,,,,,,,"<<enumeration>>
+CornerPosition","TOP_LEFT
+TOP_RIGHT
+BOTTOM_LEFT
+BOTTOM_RIGHT",,
+52,Classe,UML,2,,,,,,,,"<<interface>>
+Strategy",​+ check(player: Player): int,,
+53,Classe,UML,2,,,,,,,,"<<enumeration>>
+CardColor","GREEN 
+BLUE
+RED
+PURPLE",,
+54,Classe,UML,2,,,,,,,,"<<enumeration>>
+PlayerColor","RED
+BLUE
+GREEN
+YELLOW",,
+55,Classe,UML,2,,,,,,,,Field,"​- positions: Map<Position, PlayableCard>
+- availablePositions: Set<Position>
+- unavailablePositions: Set<Position>","​+ getPositions(): Map<Position, PlayableCard>
++ getAvailablePositions(): Set<Position>
++ getUnavailablePositions(): Set<Position>
+
++ getAdjacentCards(position: Position): Map<CornerPosition, PlayableCard>",
+56,Classe,UML,2,,,,,,,,Position,"​- x: int
+- y: int","​+ getX(): int
++ getY(): int",
+57,Classe,UML,2,,,,,,,,WaitingRoom,"​- roomId: String
+- players: List<Player>
+- notifier: ObserverManager","​- generateRoomId(): String
+
++ getRoomId(): String
++ getPlayers(): List<Player>
++ getNotifier(): ObserverManager
+
++ addPlayer(playerName: String, client: VirtualView): void
++ removePlayer(playerName: String): void
+
++ getPlayerByName(playerName: String): Player
++ readyToStart(): boolean",
+58,Classe,UML,2,,,,,,,,StairStrategy,​- stairColor: CardColor,"​+ getStairColor(): CardColor
++ check(player: Player): int
+
+- getLowerCard(field: Map<Position, PlayableCard>, position: Position): Position
+- gatChainIfRight(field: Map<Position, PlayableCard>, position: Position): Set<Position>",
+59,Classe,UML,2,,,,,,,,LStrategy,"​- bodyColor: CardColor
+- leafColor: CardColor","​- getCorrispondigLeafColor(bodyColor: CardColor): CardColor
+ 
++ getBodyColor(): CardColor
++ check(player: Player): int
+
+- getLeafCandidates(field: Map<Position, PlayableCard>): List<Position>
+- getBodyIfRight(field: Map<Position, PlayableCard>, position: Position): List<Position>",
+60,Classe,UML,2,,,,,,,,ItemStrategy,​- item: Item,"​+ getItem(): Item
++ check(player: Player): int",
+61,Classe,UML,2,,,,,,,,ResourceStrategy,​- resource: Resource,"​+ getResource(): Resource
++ check(player: Player): int",
+62,Classe,UML,2,,,,,,,,Card,"​- id: int
+- info: String","​+ getId(): int
++ getInfo(): String",
+63,Classe,UML,2,,,,,,,,"<<interface>>
+ScoreCondition",,,
+64,Classe,UML,2,,,,,,,,GoldenDeck,,"​+ pick(): GoldenCard
++ get(): GoldenCard
++ pickbyId(id: int): GoldenCard",
+65,Classe,UML,2,,,,,,,,ThreeStrategy,,​+ check(player: Player): int,
+66,Classe,UML,2,,,,,,,,ObjectiveDeck,,"​+ pick(): ObjectiveCard
++ get(): ObjectiveCard
++ pickbyId(id: int): ObjectiveCard",
+67,Classe,UML,2,,,,,,,,ResourceDeck,,"​+ pick(): ResourceCard
++ get(): ResourceCard
++ pickbyId(id: int): ResourceCard",
+68,Classe,UML,2,,,,,,,,StarterDeck,,"​+ pick(): StarterCard
++ get(): StarterCard
++ pickbyId(id: int): StarterCard",
+69,Classe,UML,2,,,,,,,,"<<enumeration>>
+TablePosition","RESOURCEDECK
+RESOURCELEFT
+RESOURCERIGHT
+GOLDENDECK
+GOLDENLEFT
+GOLDENRIGHT",,
+70,Classe,UML,2,,,,,,,,ChooseSecretObjectiveAction,​- cardId: int,​+ execute(): void,
+71,Classe,UML,2,,,,,,,,ClientDeck,"​- deck: Map<Integer,Card> ","​+ generateCardById(id: Integer, front: boolean): String[]
+- getTypeById(id: int): String
+- generateResourceCardById(id: int, front boolean): String[]
+- generateResourceCardFrontById(id: int): String[]
+- generateResourceCardBackById(id: int): String[]
+- generateGoldenCardById(id: int, front: boolean): String[]
+- generateGoldenCardFrontById(id: int): String[]
+- generateGoldenCardBackById(id: int): String[]
+- generateStarterCardById(id: int, front: boolean): String[]
+- generateStarterCardFrontById(id: int): String[]
+- generateStarterCardBackById(id: int): String[]
+- generateObjectiveCardById(id: int): String[]
++ generateAvailablePosition(index: int): String[]
+- generateEmptySpace(): String[]
+- generateEmptyCard(): String[]
+- getSymbolByColor(color: CardColor): char",
+72,Classe,UML,2,,,,,,,,ClientField,"​- cards: List<Integer>
+- side: Map<Integer, Boolean>
+- field: Map<Integer, Position> - clientDeck: ClientDeck - availablePositions: List<Position>","​+ getAvailablePosition(): List<Position>
++ setAvailablePosition(availablePositions: List<Position>): void
+
++ playCard(id: int, front: boolean, position: Position): void
++ printUsedField(): void
+
+- generateField(): String[]
+- realX(x: int): int
+- realY(y: int): int",
+73,Classe,UML,2,,,,,,,,<<interface>> UI,"showRoom(roomId: String): void
+showPlayers(playersAlreadyIn: Map<String, Boolean>): void
+showPlayerJoined(playerName: String): void
+showPlayerLeft(playerName: String): void
+showWaitingFor(playerName: String, scene: String): void
+showError(error: String): void
+showLastCircle(): void showWinners(winners: List<String>): void
+showStarter(cardId: int): void
+showAvailableColors(availableColors: List<PlayerColor>): void
+showCurrentPlayer(playerName: String): void
+showField(playerName: String): void
+showPoints(points: Map<String, Integer>, colors: Map<PlayerColor, String>): void
+showHand(handIds: List<Integer>): void
+updateHand(handIds: List<Integer>): void
+showPossibleObjectives(possibleObjectiveIds: List<Integer>): void
+updateReady(playerName: String, ready: boolean): void
+startGame(): void
+updateField(playerName: String, id: int, front: boolean, position: Position, availablePositions: List<Position>): void
+showTable(drawableCardsIds: Map<Integer, Integer>): void
+updateTable(drawableCardsIds: Map<Integer, Integer>): void
+updateChat(newChatMessage: ChatMessage): void
+showCommonObjectives(objectivesIds: List<Integer>): void backToMenu(): void",,
+74,Classe,UML,2,,,,,,,,TUI,"​- clientDeck: ClientDeck
+- playerName: String
+- field: ClientField
+- otherFields: Map<String, ClientField>
+- networkClient: NetworkClient
+- handIds: List<Integer>
+- chat: ClientChat","​- isValidIP(input: String): boolean
++ start(): void
+- askPlayerName(): String
+- askServerIP(): void
+- askPlayerIP(): void
+- createRMIClient(playerName: String): void
+- createSocketClient(playerName: String): void
+- askModalityToEnterGame(): void
+- askReady(): void 
+- checkRoomId(roomId: String): void
+- chooseStarter(cardId: int): void
+- chooseColor(availableColors: List<PlayerColor>): void
+- chooseSecret(obj1: int, obj2: int): void
+- chooseCardToPlay(): void
+- chooseCardToDraw(): void
+- newChatMessage() : void
+- showChat(): void
+ 
+
++ showRoom(roomId: String): void
++ showPlayers(playersAlreadyIn: Map<String, Boolean>): void
++ showPlayerJoined(playerName: String): void
++ showPlayerLeft(playerName: String): void
++ showWaitingFor(playerName: String, scene: String): void
++ showError(error: String): void
++ showLastCircle(): void + showWinenrs(winners: List<String): void
++ showStarter(cardId: int): void
++ showAvailableColors(availableColors: List<PlayerColor>): void
++ showCurrentPlayer(playerName: String): void
++ showField(playerName: String): void
++ showPoints(points: Map<String, Integer>, colors: Map<PlayerColor, String>): void
++ showHand(handIds: List<Integer>): void
++ showPossibleObjectives(possibleObjectiveIds: List<Integer>): void
++ updateReady(playerName: String, ready: boolean): void
++ updateChat(newChatMessage: chatMessage): void
++ startGame(): void
++ updateField(playerName: String, id: int, front: boolean, position: Position, availablePositions: List<Position>): void
++ updateTable(drawableCardsIds: Map<Integer, Integer>): void
++ updateHand(handIds: List<Integer>): void
++ showTable(drawableCardsIds: Map<Integer, Integer>): void
++ showCommonObjectives(objectivesIds: List<Integer>): void + backToMenu(): void",
+75,Classe,UML,2,,,,,,,,NewChatMessageAction,​- newMessage : ChatMessage,​+ execute(): void,
+76,Pacchetto,UML,2,,,,,,,,GUI,,,
+77,Classe,UML,2,,,,,,,,ChatMessage,"​- sender: String
+- content: String
+- recipient: String","​+ getSender(): String
++ getContent(): String
++ getRecipient(): String",
+78,Classe,UML,2,,,,,,,,ClientChat,​- chat: List<ChatMessage>,"​+ addMessageToChat(newMessage: ChatMessage): void
++ printChat(playerName: String): void
++ wrapText(text: String, columnWidth: int): List<String>",
+79,Classe,UML,2,,,,,,,,"<<SocketClientMessage>>
+","CREATE_GAME
+JOIN_GAME
+JOIN_FIRST_GAME
+CHOOSE_COLOR
+SWITCH_READY
+CHOOSE_SECRET_OBJECTIVE
+FLIP_CARD
+PLAY_CARD
+DRAW_CARD
+LEAVE
+CHAT_MESSAGE",,
+80,Classe,UML,2,,,,,,,,"<<SocketServerMessage>>
+","UPDATE_ROOM_ID
+SHOW_PLAYERS
+SHOW_PLAYER_JOINED
+SHOW_PLAYER_LEFT
+SHOW_WAITING_FOR
+START_GAME
+UPDATE_CURRENT_PLAYER
+SHOW_STARTER
+SHOW_AVAILABLE_COLORS
+UPDATE_READY
+SHOW_COMMON_OBJECTIVES
+SHOW_TABLE
+UPDATE_TABLE
+SHOW_HAND
+UPDATE_HAND
+SHOW_FIELD
+SHOW_POINTS
+SHOW_SECRET_OBJECTIVES
+SHOW_ERROR
+SHOW_LAST_CIRCLE
+SHOW_WINNERS
+UPDATE_FIELD
+IS_ALIVE
+BACK_TO_MENU
+CHAT_MESSAGE",,
+81,Classe,UML,2,,,,,,,,MainServer,​- actions: BlockingQueue<Action>,"​+ main(args: String[]) 
+- isValidIp(input: String): Boolean
+- executeActions(): void",
+82,Classe,UML,2,,,,,,,,GUI,"​- playerName: String
+- networkClient: NetworkClient
+- stage: Stage
+- loader: FXMLLoader
+- clientModel: ClientModel 
+- field: ClientFieldGUI
+- otherFields: Map<String, ClientFieldGUI>","​+ start(primaryStage: Stage): void
+- switchToScene(sceneName: SceneEnum, attribute: Object...): void
++ getPlayerName(): String
++ getClientModel(): ClientModel
++ play(): void
++ connect(playerName: String, remoteIP: String, personalIP: String, connectionType: String): void
++ leave(): void
++ goBackFromJoinById(): void
++ createGame(): void
++ chooseSecretObjective(id: int): void
++ joinFirstGame(): void
++ askRoomId(): void
++ joinGame(): void
++ setReady(): void
++ chooseStarter(choice: int, cardId: int): void
++ chooseColor(color: String): void
++ switchToIntro(): void
++ switchToMenu(): void
+- hidePanesInLobby(): void
+- addLobbyPlayerPanes(): void
+- showLastJoined(playerName: String): void
+- removePlayerCard(playerName: String): void
+- changeReady(playerName: String, ready: boolean): void
++ showTablePoints(): void
++ showObjectives(): void
++ backToPlay(): void
++ backToOtherFields: void
++ chooseCardToDraw(cardId: int): void
++ chooseCardToPlay(cardId: int, front: boolean, position: Position): void
++ showDrawables(): void
++ showOtherFields(): void
++ showOtherFields(playerName: String): void
+- showAlert(title: String, header: String, content: String): void
++ newChatMessage(content: String, recipient: String): void
+
++ showRoom(roomId: String): void
++ showPlayers(playersAlreadyIn: Map<String, Boolean>): void
++ showPlayerJoined(playerName: String): void
++ showPlayerLeft(playerName: String): void
++ showWaitingFor(playerName: String, scene: String): void
++ showError(error: String): void
++ showLastCircle(): void + showWinners(winners: List<String>): void
++ showStarter(cardId: int): void
++ showAvailableColors(availableColors: List<PlayerColor>): void
++ showCurrentPlayer(playerName: String): void
++ showField(playerName: String): void
++ showPoints(points: Map<String, Integer>, colors: Map<PlayerColor, String>): void
++ showHand(handIds: List<Integer>): void
++ updateHand(handIds: List<Integer>): void
++ showPossibleObjectives(possibleObjectiveIds: List<Integer>): void
++ updateReady(playerName: String, ready: boolean): void
++ startGame(): void
++ updateField(playerName: String, id: int, front: boolean, position: Position, availablePositions: List<Position>): void
++ showTable(drawableCardsIds: Map<Integer, Integer>): void
++ updateTable(drawableCardsIds: Map<Integer, Integer>): void
++ showCommonObjectives(objectivesIds: List<Integer>): void + backToMenu(): void
++ updateChat(newChatMessage: ChatMessage): void",
+83,Classe,UML,2,,,,,,,,MainClient,,"​+ main(args: String[]) 
+- printTitlte(): void - askUI(): int",
+84,Classe,UML,2,,,,,,,,ClientFieldGUI,"​- gui: GUI
+- cards: List<Integer>
+- side: Map<Integer, Boolean>
+- field: Map<Integer, Position>
+- scaleFactor: int
+- cardWidth: double
+- cardHeight: double
+- horizontalGap: double
+- verticalGap: double
+- availablePosition: List<Position>
+- maxY: int
+- minX: int","​+ getAvailablePositions(): List<Position>
++ setAvailablePositions(availablePosition: List<Position>): void
++ playCard(id: int, front: boolean, position: Position): void
++ generateField(): Pane
+- realX(x: int): double
+- realY(y: int): double",
+85,Classe,UML,2,,,,,,,,ClientModel,"​- currentPlayer: String
+- points: Map<String, Integer>
+- colors: Map<PlayerColor, String>
+- handIds: List<Integer>
+- fields: Map<String, ClientFieldGUI>
+- numOfPlayers: int
+- commonObjective1: int
+- commonObjective2: int
+- secretObjective: int
+- messages: ObservableList<TextFlow>
+- drawableCardsIds: Map<Integer, Integer>
+- otherPlayers: List<String>","​+ getDrawableCardsIds(): Map<Integer, Integer>
++ setDrawableCardsIds(drawableCardsIds: Map<Integer, Integer>): void
++ getCurrentPlayer(): String
++ setCurrentPlayer(currentPlayer: String): void
++ getPoints(): Map<String, Integer>
++ setPoints(points: Map<String, Integer>): void
++ getColors(): Map<PlayerColor, String>
++ setColors(colors: Map<PlayerColor, String>): void
++ setCommonObjectives(commonObjectives1: int, commonObjectives2: int): void
++ getCommonObjective1(): void
++ getCommonObjective2(): void
++ getSecretObjective(): void
++ setSecretObjective(secretObjective: int): void
++ getNumOfPlayers(): int
++ setNumOfPlayers(int numOfPlayers): void
++ getHandIDs(): List<Integer>
++ setHandIDs(handIDs: List<Integer>): void
++ getFields(): Map<String, ClientFieldGUI>
++ setFields(fields: Map<String, ClientFieldGUI>): void
++ getMessages(): ObservableList<TextFlow>
++ getOtherPlayers(): List<String>
++ addOtherPlayers(playerName: String): void",
+86,Classe,UML,2,,,,,,,,<<SceneEnum>>,"INTRO(path: ""/FXML/Intro.fxml"")
+SETUP(path: ""/FXML/SetUp.fxml"")
+MENU(path: ""/FXML/Menu.fxml"")
+JOIN_BY_ID(path: ""/FXML/JoinById.fxml"")
+WAITING_ROOM(path: ""/FXML/WaitingRoom.fxml"")
+CHOOSE_STARTER(path: ""/FXML/ChooseStarter.fxml"")
+CHOOSE_COLOR(path: ""/FXML/ChooseColor.fxml"")
+CHOOSE_OBJECTIVE(path: ""/FXML/ChooseObjective.fxml"")
+WAITING_OTHERS(path: ""/FXML/WaitingOthers.fxml"")
+PLAY(path: ""/FXML/Play.fxml"")
+DRAW_CARD(path: ""/FXML/DrawCard.fxml"")
+CURRENT_FIELD(path: ""/FXML/CurrentField.fxml"")
+CHOOSE_OTHER_FIELDS(path: ""/FXML/ChooseOtherFields.fxml"")
+TABLE_POINT(path: ""/FXML/TablePoint.fxml"")
+OBJECTIVES(path: ""/FXML/ShowObjectives.fxml"")
+WINNER(path: ""/FXML/Winner.fxml"")",​+ path(): String,
+87,Linea,,2,,,13,12,None,Generalization,,,,,
+88,Linea,,2,,,14,15,None,Generalization,,,,,
+89,Linea,,2,,,11,27,Open Arrow,None,,,,,
+90,Linea,,2,,,13,15,None,Open Arrow,,Actions,,,
+91,Linea,,2,,,13,11,None,Generalization,,,,,
+92,Linea,,2,,,21,23,None,Open Arrow,,Connection,,,
+93,Linea,,2,,,25,24,Open Arrow,None,,,,,
+94,Linea,,2,,,24,26,None,Composition,,0..*,,,
+95,Linea,,2,,,30,28,None,Equilateral Arrow,,,,,
+96,Linea,,2,,,31,28,None,None,,,,,
+97,Linea,,2,,,29,28,None,Generalization,,,,,
+98,Linea,,2,,,28,32,None,Equilateral Arrow,,,,,
+99,Linea,,2,,,16,32,None,Generalization,,,,,
+100,Linea,,2,,,21,12,None,Generalization,,,,,
+101,Linea,,2,,,20,28,None,Generalization,,,,,
+102,Linea,,2,,,34,28,None,Generalization,,,,,
+103,Linea,,2,,,35,28,None,Generalization,,,,,
+104,Linea,,2,,,17,16,None,Generalization,,,,,
+105,Linea,,2,,,18,16,None,Generalization,,,,,
+106,Linea,,2,,,19,16,None,Generalization,,,,,
+107,Linea,,2,,,41,36,None,Composition,,2..4,,,
+108,Linea,,2,,,39,62,None,Generalization,,,,,
+109,Linea,,2,,,44,111,None,None,,,,,
+110,Linea,,2,,,40,39,None,Composition,,4,,,
+111,Linea,,2,,,46,48,None,Generalization,,,,,
+112,Linea,,2,,,38,62,None,Generalization,,,,,
+113,Linea,,2,,,43,39,None,Generalization,,,,,
+114,Linea,,2,,,42,39,None,Generalization,,,,,
+115,Linea,,2,,,45,42,None,Generalization,,,,,
+116,Linea,,2,,,56,55,None,Composition,,0..*,,,
+117,Linea,,2,,,57,36,None,Open Arrow,,,,,
+118,Linea,,2,,,41,55,None,Open Arrow,,,,,
+119,Linea,,2,,,42,53,None,Open Arrow,,,,,
+120,Linea,,2,,,45,63,None,Open Arrow,,,,,
+121,Linea,,2,,,40,51,None,Open Arrow,,,,,
+122,Linea,,2,,,38,52,None,Open Arrow,,,,,
+123,Linea,,2,,,40,49,None,Open Arrow,,,,,
+124,Linea,,2,,,41,48,None,Open Arrow,,,,,
+125,Linea,,2,,,128,60,None,None,,,,,
+126,Linea,,2,,,41,54,None,Open Arrow,,,,,
+127,Linea,,2,,,44,49,None,Generalization,,,,,
+128,Linea,,2,,,52,59,Generalization,None,,,,,
+129,Linea,,2,,,130,61,None,None,,,,,
+130,Linea,,2,,,52,58,Generalization,None,,,,,
+131,Linea,,2,,,46,63,None,Generalization,,,,,
+132,Linea,,2,,,50,131,None,None,,,,,
+133,Linea,,2,,,64,37,None,Generalization,,,,,
+134,Linea,,2,,,129,65,None,None,,,,,
+135,Linea,,2,,,66,37,None,Generalization,,,,,
+136,Linea,,2,,,67,37,None,Generalization,,,,,
+137,Linea,,2,,,68,37,None,Generalization,,,,,
+138,Linea,,2,,,62,37,None,Composition,,0..40,,,
+139,Linea,,2,,,47,127,None,None,,,,,
+140,Linea,,2,,,46,127,None,None,,,,,
+141,Linea,,2,,,36,69,None,Open Arrow,,,,,
+142,Linea,,2,,,70,28,None,Generalization,,,,,
+143,Linea,,2,,,27,36,Open Arrow,None,,,,,
+144,Linea,,2,,,24,36,None,Open Arrow,,,,,
+145,Linea,,2,,,23,22,None,Open Arrow,,Create for each connection,,,
+146,Linea,,2,,,22,91,None,None,,,,,
+147,Linea,,2,,,21,22,Open Arrow,None,,Updates,,,
+148,Linea,,2,,,21,22,None,Open Arrow,,Actions,,,
+149,Linea,,2,,,74,73,None,Generalization,,,,,
+150,Linea,,2,,,74,72,None,Open Arrow,,,,,
+151,Linea,,2,,,71,72,Open Arrow,None,,,,,
+152,Linea,,2,,,74,12,None,Open Arrow,,,,,
+153,Linea,,2,,,74,71,None,Open Arrow,,,,,
+154,Linea,,2,,,12,73,None,Open Arrow,,,,,
+155,Linea,,2,,,74,78,None,Open Arrow,,,,,
+156,Linea,,2,,,21,79,None,Open Arrow,,,,,
+157,Linea,,2,,,80,22,Open Arrow,None,,,,,
+158,Linea,,2,,,81,23,None,Open Arrow,,,,,
+159,Linea,,2,,,81,32,None,Open Arrow,,,,,
+160,Linea,,2,,,82,73,None,Generalization,,,,,
+161,Linea,,2,,,75,28,None,Generalization,,,,,
+162,Linea,,2,,,82,84,None,Open Arrow,,,,,
+163,Linea,,2,,,84,82,None,Open Arrow,,,,,
+164,Linea,,2,,,82,85,None,Open Arrow,,,,,
+165,Linea,,2,,,82,86,None,Open Arrow,,,,,
+166,Linea,,2,,,83,73,None,Open Arrow,,,,,
+167,Linea,,2,,,81,14,None,Open Arrow,,,,,
+168,Linea,,2,,,81,26,None,Open Arrow,,Execute actions,,,
+169,Pagina,,,,,,,,,,Sequence Diagram,,,
+170,MinimalTextBlock,Standard,169,,,,,,,,Connection Example RMI,,,
+171,MinimalTextBlock,Standard,169,,,,,,,,Action Exemple RMI,,,
+172,Oggetto,UML,169,,,,,,,,UI,,,
+173,Attivazione,UML,169,,,,,,,,,,,
+174,Oggetto,UML,169,,,,,,,,User,,,
+175,Oggetto,UML,169,,,,,,,,DefaultValue,,,
+176,Oggetto,UML,169,,,,,,,,System,,,
+177,Attivazione,UML,169,,,,,,,,,,,
+178,Oggetto,UML,169,,,,,,,,RmiClient,,,
+179,Attivazione,UML,169,,,,,,,,,,,
+180,Attivazione,UML,169,,,,,,,,,,,
+181,Attivazione,UML,169,,,,,,,,,,,
+182,Attivazione,UML,169,,,,,,,,,,,
+183,Attivazione,UML,169,,,,,,,,,,,
+184,Oggetto,UML,169,,,,,,,,UI,,,
+185,Attivazione,UML,169,,,,,,,,,,,
+186,Oggetto,UML,169,,,,,,,,RmiClient,,,
+187,Oggetto,UML,169,,,,,,,,RmiServer,,,
+188,Oggetto,UML,169,,,,,,,,CreateGameAction,,,
+189,Attivazione,UML,169,,,,,,,,,,,
+190,Oggetto,UML,169,,,,,,,,actions,,,
+191,Attivazione,UML,169,,,,,,,,,,,
+192,Attivazione,UML,169,,,,,,,,,,,
+193,Attivazione,UML,169,,,,,,,,,,,
+194,Oggetto,UML,169,,,,,,,,MainServer,,,
+195,Attivazione,UML,169,,,,,,,,,,,
+196,Oggetto,UML,169,,,,,,,,Thread,,,
+197,Oggetto,UML,169,,,,,,,,actions,,,
+198,Oggetto,UML,169,,,,,,,,Action,,,
+199,Attivazione,UML,169,,,,,,,,,,,
+200,Attivazione,UML,169,,,,,,,,,,,
+201,Attivazione,UML,169,,,,,,,,,,,
+202,Oggetto,UML,169,,,,,,,,LocateRegistry,,,
+203,Attivazione,UML,169,,,,,,,,,,,
+204,Oggetto,UML,169,,,,,,,,VirtualServer,,,
+205,Attivazione,UML,169,,,,,,,,,,,
+206,MinimalTextBlock,Standard,169,,,,,,,,Connection Example  SOCKET,,,
+207,Oggetto,UML,169,,,,,,,,UI,,,
+208,Attivazione,UML,169,,,,,,,,,,,
+209,Oggetto,UML,169,,,,,,,,User,,,
+210,Oggetto,UML,169,,,,,,,,DefaultValue,,,
+211,Attivazione,UML,169,,,,,,,,,,,
+212,Oggetto,UML,169,,,,,,,,SocketClient,,,
+213,Attivazione,UML,169,,,,,,,,,,,
+214,Attivazione,UML,169,,,,,,,,,,,
+215,Attivazione,UML,169,,,,,,,,,,,
+216,Attivazione,UML,169,,,,,,,,,,,
+217,Oggetto,UML,169,,,,,,,,Socket,,,
+218,Attivazione,UML,169,,,,,,,,,,,
+219,MinimalTextBlock,Standard,169,,,,,,,,Action Exemple SOCKET,,,
+220,Oggetto,UML,169,,,,,,,,UI,,,
+221,Attivazione,UML,169,,,,,,,,,,,
+222,Oggetto,UML,169,,,,,,,,SocketClient,,,
+223,Oggetto,UML,169,,,,,,,,ObjectOutputStream,,,
+224,Oggetto,UML,169,,,,,,,,CreateGameAction,,,
+225,Attivazione,UML,169,,,,,,,,,,,
+226,Oggetto,UML,169,,,,,,,,actions,,,
+227,Attivazione,UML,169,,,,,,,,,,,
+228,Attivazione,UML,169,,,,,,,,,,,
+229,Attivazione,UML,169,,,,,,,,,,,
+230,Oggetto,UML,169,,,,,,,,MainServer,,,
+231,Attivazione,UML,169,,,,,,,,,,,
+232,Oggetto,UML,169,,,,,,,,Thread,,,
+233,Oggetto,UML,169,,,,,,,,actions,,,
+234,Oggetto,UML,169,,,,,,,,Action,,,
+235,Attivazione,UML,169,,,,,,,,,,,
+236,Attivazione,UML,169,,,,,,,,,,,
+237,Attivazione,UML,169,,,,,,,,,,,
+238,MinimalTextBlock,Standard,169,,,,,,,,,,,
+239,Oggetto,UML,169,,,,,,,,ClientHandler,,,
+240,Attivazione,UML,169,,,,,,,,,,,
+241,Linea,,169,,,172,,None,None,,,,,
+242,Linea,,169,,,174,,None,None,,,,,
+243,Linea,,169,,,175,,None,None,,,,,
+244,Linea,,169,,,176,,None,None,,,,,
+245,Linea,,169,,,173,177,None,Arrow,,askPlayerName(),,,
+246,Linea,,169,,,177,173,None,Arrow,,playerName,,,
+247,Linea,,169,,,178,,None,None,,,,,
+248,Linea,,169,,,173,,Arrow,CircleClosed,,UI selected,,,
+249,Linea,,169,,,173,,None,Arrow,,askServerIP(),,,
+250,Linea,,169,,,173,,None,Arrow,,askPlayerIP(),,,
+251,Linea,,169,,,179,180,None,Arrow,,ServerIp = input,,,
+252,Linea,,169,,,181,182,None,Arrow,,"setProperty(""java.rmi.server.hostname"", input)",,,
+253,Linea,,169,,,173,183,None,Arrow,,createRMIClient(playerName),,,
+254,Linea,,169,,,183,173,None,Arrow,,networkClient,,,
+255,Linea,,169,,,184,,None,None,,,,,
+256,Linea,,169,,,186,,None,None,,,,,
+257,Linea,,169,,,187,,None,None,,,,,
+258,Linea,,169,,,188,,None,None,,,,,
+259,Linea,,169,,,185,189,None,Arrow,,networkClient.createGame(),,,
+260,Linea,,169,,,190,,None,None,,,,,
+261,Linea,,169,,,185,,Arrow,CircleClosed,,CreateGame selected,,,
+262,Linea,,169,,,189,191,None,Arrow,,"createGame(playerName, RmiClient)",,,
+263,Linea,,169,,,191,192,None,Arrow,,"new CreateGameAction(playerName, client)",,,
+264,Linea,,169,,,192,191,None,Arrow,,createGame,,,
+265,Linea,,169,,,191,193,None,Arrow,,put(createGame),,,
+266,Linea,,169,,,194,,None,None,,,,,
+267,Linea,,169,,,196,,None,None,,,,,
+268,Linea,,169,,,197,,None,None,,,,,
+269,Linea,,169,,,198,,None,None,,,,,
+270,Linea,,169,,,195,199,None,Arrow,, new Thread(),,,
+271,Linea,,169,,,195,,Arrow,CircleClosed,,executeActions(),,,
+272,Linea,,169,,,199,201,None,Arrow,,take(),,,
+273,Linea,,169,,,201,199,None,Arrow,,action,,,
+274,Linea,,169,,,199,200,None,Arrow,,action.execute(),,,
+275,Linea,,169,,,202,,None,None,,,,,
+276,Linea,,169,,,183,203,None,Arrow,,"getRegistry(DefaultValue.ServerIp, DefaultValue.RMIPort)",,,
+277,Linea,,169,,,203,183,None,Arrow,,registry,,,
+278,Linea,,169,,,204,,None,None,,,,,
+279,Linea,,169,,,183,205,None,Arrow,,(VirtualServer) registry.lookup(DefaultValue.RMIServerName),,,
+280,Linea,,169,,,205,183,None,Arrow,,server,,,
+281,Linea,,169,,,207,,None,None,,,,,
+282,Linea,,169,,,209,,None,None,,,,,
+283,Linea,,169,,,210,,None,None,,,,,
+284,Linea,,169,,,208,211,None,Arrow,,askPlayerName(),,,
+285,Linea,,169,,,211,208,None,Arrow,,playerName,,,
+286,Linea,,169,,,212,,None,None,,,,,
+287,Linea,,169,,,208,,Arrow,CircleClosed,,UI selected,,,
+288,Linea,,169,,,208,,None,Arrow,,askServerIP(),,,
+289,Linea,,169,,,208,,None,Arrow,,askPlayerIP(),,,
+290,Linea,,169,,,213,214,None,Arrow,,ServerIp = input,,,
+291,Linea,,169,,,208,216,None,Arrow,,createSocketClient(playerName),,,
+292,Linea,,169,,,216,208,None,Arrow,,networkClient,,,
+293,Linea,,169,,,217,,None,None,,,,,
+294,Linea,,169,,,216,218,None,Arrow,,getOutputStream(),,,
+295,Linea,,169,,,218,216,None,Arrow,,output,,,
+296,Linea,,169,,,220,,None,None,,,,,
+297,Linea,,169,,,222,,None,None,,,,,
+298,Linea,,169,,,223,,None,None,,,,,
+299,Linea,,169,,,224,,None,None,,,,,
+300,Linea,,169,,,221,225,None,Arrow,,networkClient.createGame(),,,
+301,Linea,,169,,,226,,None,None,,,,,
+302,Linea,,169,,,221,,Arrow,CircleClosed,,CreateGame selected,,,
+303,Linea,,169,,,225,227,None,Arrow,,writeObject(CREATE_GAME),,,
+304,Linea,,169,,,240,228,None,Arrow,,"new CreateGameAction(playerName, client)",,,
+305,Linea,,169,,,228,240,None,Arrow,,createGame,,,
+306,Linea,,169,,,240,229,None,Arrow,,put(createGame),,,
+307,Linea,,169,,,230,,None,None,,,,,
+308,Linea,,169,,,232,,None,None,,,,,
+309,Linea,,169,,,233,,None,None,,,,,
+310,Linea,,169,,,234,,None,None,,,,,
+311,Linea,,169,,,231,235,None,Arrow,, new Thread(),,,
+312,Linea,,169,,,231,,Arrow,CircleClosed,,executeActions(),,,
+313,Linea,,169,,,235,237,None,Arrow,,take(),,,
+314,Linea,,169,,,237,235,None,Arrow,,action,,,
+315,Linea,,169,,,235,236,None,Arrow,,action.execute(),,,
+316,Linea,,169,,,216,218,None,Arrow,,getInputStream(),,,
+317,Linea,,169,,,218,216,None,Arrow,,input,,,
+318,Linea,,169,,,,,Arrow,CircleClosed,,executeClientMessages(),,,
+319,Linea,,169,,,239,,None,None,,,,,

@@ -1,7 +1,9 @@
 package it.polimi.ingsw.gc01.main;
 
 import it.polimi.ingsw.gc01.utils.DefaultValue;
+import it.polimi.ingsw.gc01.view.gui.GUI;
 import it.polimi.ingsw.gc01.view.tui.TUI;
+import javafx.application.Application;
 
 import java.util.Scanner;
 
@@ -23,9 +25,8 @@ public class MainClient {
                 new TUI();
             }
             case 2 -> {
-                System.out.println(DefaultValue.ANSI_YELLOW + "\nGUI is currently work in progress..." + DefaultValue.ANSI_RESET);
-                System.out.println("Defaulting to TUI...\n");
-                new TUI();
+                System.out.println("\nStarting GUI...\n");
+                Application.launch(GUI.class);
             }
         }
     }

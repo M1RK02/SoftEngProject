@@ -92,18 +92,19 @@ public class WaitingRoom {
      * Add the player to the waiting room (the check for max size will be done by the controller)
      *
      * @param playerName chosen player name
+     * @param client     virtual view linked to the player
      */
     public void addPlayer(String playerName, VirtualView client) {
         players.add(new Player(playerName, notifier));
         notifier.addObserver(playerName, client);
         notifier.updateRoomId(playerName, roomId);
-        StringBuilder message = new StringBuilder(DefaultValue.ANSI_BLUE + "[Current players in the room: ");
-        for (Player p : players) {
-            message.append("- ").append(p.getName()).append(" ");
+        List<String> playerNames = players.stream().map(Player::getName).toList();
+        Map<String, Boolean> playersAlreadyIn = new HashMap<>();
+        for (String name : playerNames) {
+            playersAlreadyIn.put(name, getPlayerByName(name).isReady());
         }
-        message.append("]\n" + DefaultValue.ANSI_RESET);
-        notifier.addressedServiceMessage(playerName, String.valueOf(message));
-        notifier.serviceMessage(DefaultValue.ANSI_GREEN + "-> " + playerName + " joined!" + DefaultValue.ANSI_RESET);
+        notifier.showPlayers(playerName, playersAlreadyIn);
+        notifier.showPlayerJoined(playerName);
     }
 
     /**
@@ -114,7 +115,7 @@ public class WaitingRoom {
     public void removePlayer(String playerName) {
         players.remove(getPlayerByName(playerName));
         notifier.removeObserver(playerName);
-        notifier.serviceMessage(DefaultValue.ANSI_RED + "-> " + playerName + " left the room!" + DefaultValue.ANSI_RESET);
+        notifier.showPlayerLeft(playerName);
     }
 
     /**

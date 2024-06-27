@@ -1,5 +1,6 @@
 package it.polimi.ingsw.gc01.model.room;
 
+import it.polimi.ingsw.gc01.model.ChatMessage;
 import it.polimi.ingsw.gc01.model.cards.*;
 import it.polimi.ingsw.gc01.model.decks.*;
 import it.polimi.ingsw.gc01.model.player.*;
@@ -57,6 +58,11 @@ public class Room {
     private Player currentPlayer;
 
     /**
+     * Chat of the Room
+     */
+    private final List<ChatMessage> chat;
+
+    /**
      * Constructs a new Room object
      *
      * @param roomId   The ID of the room.
@@ -74,10 +80,12 @@ public class Room {
         starterDeck = new StarterDeck();
         commonObjectives = new ArrayList<>();
         drawableCards = new HashMap<>();
+        chat = new ArrayList<>();
         initTable();
         this.notifier = notifier;
         notifier.startGame();
         notifier.updateCurrentPlayer(currentPlayer.getName());
+        notifier.updateTable(drawableCards);
     }
 
     /**
@@ -220,24 +228,32 @@ public class Room {
      * @return the list of winners
      */
     public List<Player> getWinners() {
-        List<Player> winners = new ArrayList<>();
         int maxTotalPoints = players.stream().mapToInt(Player::getTotalPoints).max().orElse(0);
-        int maxObjectivePoints = players.stream().mapToInt(Player::getObjectivePoints).max().orElse(0);
-        for (Player player : players) {
-            if (player.getTotalPoints() == maxTotalPoints && player.getObjectivePoints() == maxObjectivePoints) {
-                winners.add(player);
-            }
-        }
-        return winners;
+        List<Player> possibleWinners = players.stream().filter(player -> player.getTotalPoints() == maxTotalPoints).toList();
+        int maxObjectivePoints = possibleWinners.stream().mapToInt(Player::getObjectivePoints).max().orElse(0);
+        return possibleWinners.stream().filter(player -> player.getObjectivePoints() == maxObjectivePoints).toList();
     }
-
 
     /**
      * Remove a player from the room
      *
-     * @param player the player to remove
+     * @param playerName of the player to remove
      */
-    public void removePlayer(Player player) {
-        players.remove(player);
+    public void removePlayer(String playerName) {
+        players.remove(getPlayerByName(playerName));
+        notifier.removeObserver(playerName);
+        notifier.showPlayerLeft(playerName);
+    }
+
+    /**
+     * Adds the newChatMessage to the ChatMessages List
+     * Notifies the Client that the chat has been updated
+     *
+     * @param newChatMessage
+     */
+    public void newChatMessage(ChatMessage newChatMessage) {
+        chat.add(newChatMessage);
+        notifier.updateChat(newChatMessage);
+
     }
 }

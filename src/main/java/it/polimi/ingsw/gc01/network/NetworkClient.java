@@ -1,5 +1,6 @@
 package it.polimi.ingsw.gc01.network;
 
+import it.polimi.ingsw.gc01.model.ChatMessage;
 import it.polimi.ingsw.gc01.model.player.*;
 
 /**
@@ -73,4 +74,12 @@ public interface NetworkClient {
      * Leave the current room
      */
     void leave();
+
+    /**
+     * adds new message to the room Chat
+     *
+     * @param newMessage new message to be added to the roomChat
+     */
+    void newChatMessage(ChatMessage newMessage);
+
 }

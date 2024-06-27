@@ -1,15 +1,10 @@
 package it.polimi.ingsw.gc01.controller;
 
 import it.polimi.ingsw.gc01.model.VirtualViewStub;
-import it.polimi.ingsw.gc01.model.cards.GoldenCard;
-import it.polimi.ingsw.gc01.model.cards.ResourceCard;
-import it.polimi.ingsw.gc01.model.player.Player;
-import it.polimi.ingsw.gc01.model.player.PlayerColor;
-import it.polimi.ingsw.gc01.model.player.Position;
-import it.polimi.ingsw.gc01.model.room.Room;
-import it.polimi.ingsw.gc01.model.room.TablePosition;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import it.polimi.ingsw.gc01.model.cards.*;
+import it.polimi.ingsw.gc01.model.player.*;
+import it.polimi.ingsw.gc01.model.room.*;
+import org.junit.jupiter.api.*;
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -20,8 +15,9 @@ class RoomControllerRunningTest {
     private static VirtualViewStub client;
     private static RoomController controller;
     private static List<String> playerNames;
+
     @BeforeEach
-    void setup(){
+    void setup() {
         controller = new RoomController();
         client = new VirtualViewStub();
         playerNames = new ArrayList<>();
@@ -43,12 +39,12 @@ class RoomControllerRunningTest {
         //Playing starters
         assertEquals(controller.getRoom().getCurrentPlayer().getName(), playerNames.get(0));
         assertEquals(0, controller.getRoom().getCurrentPlayer().getField().getPositions().values().stream().toList().size());
-        controller.playCard(controller.getRoom().getCurrentPlayer().getName(), controller.getRoom().getCurrentPlayer().getHand().getFirst().getId(), new Position(0,0));
+        controller.playCard(controller.getRoom().getCurrentPlayer().getName(), controller.getRoom().getCurrentPlayer().getHand().getFirst().getId(), new Position(0, 0));
         assertEquals(1, controller.getRoom().getPlayers().get(0).getField().getPositions().values().stream().toList().size());
 
         assertEquals(controller.getRoom().getCurrentPlayer().getName(), playerNames.get(1));
         assertEquals(0, controller.getRoom().getCurrentPlayer().getField().getPositions().values().stream().toList().size());
-        controller.playCard(controller.getRoom().getCurrentPlayer().getName(), controller.getRoom().getCurrentPlayer().getHand().getFirst().getId(), new Position(0,0));
+        controller.playCard(controller.getRoom().getCurrentPlayer().getName(), controller.getRoom().getCurrentPlayer().getHand().getFirst().getId(), new Position(0, 0));
         assertEquals(1, controller.getRoom().getPlayers().get(1).getField().getPositions().values().stream().toList().size());
 
         assertEquals(GameState.COLOR_SELECTION, controller.getState());
@@ -84,16 +80,16 @@ class RoomControllerRunningTest {
     }
 
     @Test
-    void playAndDraw(){
+    void playAndDraw() {
         Room room = controller.getRoom();
-        while (controller.getState().equals(GameState.RUNNING)){
+        while (controller.getState().equals(GameState.RUNNING)) {
             Player currentPlayer = controller.getRoom().getCurrentPlayer();
             assertEquals(3, currentPlayer.getHand().size());
             Random random = new Random();
             int x = random.nextInt(3);
-            if (currentPlayer.getHand().get(x) instanceof GoldenCard){
-                if (!((GoldenCard) currentPlayer.getHand().get(x)).checkRequirements(currentPlayer)){
-                    if (currentPlayer.getHand().get(x).isFront()){
+            if (currentPlayer.getHand().get(x) instanceof GoldenCard) {
+                if (!((GoldenCard) currentPlayer.getHand().get(x)).checkRequirements(currentPlayer)) {
+                    if (currentPlayer.getHand().get(x).isFront()) {
                         controller.flipCard(currentPlayer.getName(), currentPlayer.getHand().get(x).getId());
                     }
                 }
@@ -102,24 +98,23 @@ class RoomControllerRunningTest {
             assertEquals(2, currentPlayer.getHand().size());
 
             TablePosition position = getRandomDrawable();
-            if (position != null){
+            if (position != null) {
                 controller.drawCard(currentPlayer.getName(), position);
                 assertEquals(3, currentPlayer.getHand().size());
-            }
-            else {
+            } else {
                 controller.nextPlayer();
             }
 
-            if (room.getResourceDeck().isEmpty() && room.getGoldenDeck().isEmpty() && currentPlayer.equals(room.getPlayers().get(0))){
+            if (room.getResourceDeck().isEmpty() && room.getGoldenDeck().isEmpty() && currentPlayer.equals(room.getPlayers().get(0))) {
                 assertEquals(GameState.LAST_CIRCLE, controller.getState());
             }
         }
 
-        while (controller.getState().equals(GameState.LAST_CIRCLE) ){
+        while (controller.getState().equals(GameState.LAST_CIRCLE)) {
             Player currentPlayer = controller.getRoom().getCurrentPlayer();
-            if (currentPlayer.getHand().get(0) instanceof GoldenCard){
-                if (!((GoldenCard) currentPlayer.getHand().get(0)).checkRequirements(currentPlayer)){
-                    if (currentPlayer.getHand().get(0).isFront()){
+            if (currentPlayer.getHand().get(0) instanceof GoldenCard) {
+                if (!((GoldenCard) currentPlayer.getHand().get(0)).checkRequirements(currentPlayer)) {
+                    if (currentPlayer.getHand().get(0).isFront()) {
                         controller.flipCard(currentPlayer.getName(), currentPlayer.getHand().get(0).getId());
                     }
                 }
@@ -132,16 +127,14 @@ class RoomControllerRunningTest {
 
 
     /**
-     *
      * @return a random position between the set of AvailablePosition from each player field
      */
-    private Position getRandomAvaliablePosition(){
+    private Position getRandomAvaliablePosition() {
         Set<Position> availablePosition = controller.getRoom().getCurrentPlayer().getField().getAvailablePositions();
         int size = availablePosition.size();
         int item = new Random().nextInt(size);
         int i = 0;
-        for(Position p : availablePosition)
-        {
+        for (Position p : availablePosition) {
             if (i == item)
                 return p;
             i++;
@@ -149,7 +142,7 @@ class RoomControllerRunningTest {
         return null;
     }
 
-    private TablePosition getRandomDrawable(){
+    private TablePosition getRandomDrawable() {
         Set<TablePosition> availablePosition = Arrays.stream(TablePosition.values()).collect(Collectors.toSet());
         int size = availablePosition.size();
         int item = new Random().nextInt(size);
@@ -158,27 +151,25 @@ class RoomControllerRunningTest {
 
 
         Map<TablePosition, ResourceCard> drawableCards = controller.getRoom().getDrawableCards();
-        for (TablePosition pos : TablePosition.values()){
-            if (drawableCards.get(pos) == null){
+        for (TablePosition pos : TablePosition.values()) {
+            if (drawableCards.get(pos) == null) {
                 deckEmpty = true;
             }
         }
 
-        if (deckEmpty){
-            for (TablePosition pos : TablePosition.values()){
-                if (drawableCards.get(pos) != null){
+        if (deckEmpty) {
+            for (TablePosition pos : TablePosition.values()) {
+                if (drawableCards.get(pos) != null) {
                     return pos;
                 }
             }
         }
 
-        for(TablePosition p : availablePosition)
-        {
-            if (i == item){
-                if (drawableCards.get(p) == null){
+        for (TablePosition p : availablePosition) {
+            if (i == item) {
+                if (drawableCards.get(p) == null) {
                     return null;
-                }
-                else {
+                } else {
                     return p;
                 }
             }

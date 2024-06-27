@@ -1,15 +1,16 @@
 package it.polimi.ingsw.gc01.network.rmi;
 
 import it.polimi.ingsw.gc01.controller.MainController;
+import it.polimi.ingsw.gc01.model.ChatMessage;
 import it.polimi.ingsw.gc01.model.player.*;
 import it.polimi.ingsw.gc01.network.VirtualView;
-import it.polimi.ingsw.gc01.network.rmi.actions.*;
+import it.polimi.ingsw.gc01.network.actions.*;
 import it.polimi.ingsw.gc01.utils.DefaultValue;
 
 import java.rmi.*;
 import java.rmi.registry.*;
 import java.rmi.server.UnicastRemoteObject;
-import java.util.concurrent.*;
+import java.util.concurrent.BlockingQueue;
 
 /**
  * Implementation of an RMI Server
@@ -27,11 +28,10 @@ public class RmiServer implements VirtualServer {
     /**
      * Construct a RmiServer object, bind it and lunch the action executors
      */
-    public RmiServer() {
+    public RmiServer(BlockingQueue<Action> actions) {
         this.mainController = MainController.getInstance();
-        actions = new ArrayBlockingQueue<Action>(100);
+        this.actions = actions;
         bind();
-        executeActions();
     }
 
     /**
@@ -39,31 +39,13 @@ public class RmiServer implements VirtualServer {
      */
     private void bind() {
         try {
-            VirtualServer stub = (VirtualServer) UnicastRemoteObject.exportObject(this, DefaultValue.RMIPort);
-            Registry registry = LocateRegistry.createRegistry(DefaultValue.RMIPort);
+            VirtualServer stub = (VirtualServer) UnicastRemoteObject.exportObject(this, DefaultValue.Default_RMI_port);
+            Registry registry = LocateRegistry.createRegistry(DefaultValue.Default_RMI_port);
             registry.bind(DefaultValue.RMIServerName, stub);
             System.out.println("Server RMI ready");
         } catch (RemoteException | AlreadyBoundException e) {
             System.out.println("Server RMI not working!");
         }
-    }
-
-    /**
-     * A thread is created to take actions from the Queue and call their execute method that
-     * is going to modify the model of the game
-     */
-    private void executeActions() {
-        new Thread(() -> {
-            try {
-                while (true) {
-                    //Spila le action e le esegue
-                    Action action = actions.take();
-                    action.execute();
-                }
-            } catch (InterruptedException e) {
-                System.err.println("Il thread che esegue le Action è stato interrotto");
-            }
-        }).start();
     }
 
     /**
@@ -232,6 +214,16 @@ public class RmiServer implements VirtualServer {
             actions.put(leave);
         } catch (InterruptedException e) {
             System.err.println("L'inserimento dell'azione leave nella coda è stato interrotto.");
+        }
+    }
+
+    @Override
+    public void newChatMessage(String playerName, String roomId, ChatMessage newMessage) {
+        NewChatMessageAction newChatMessage = new NewChatMessageAction(playerName, mainController.getRooms().get(roomId), newMessage);
+        try {
+            actions.put(newChatMessage);
+        } catch (InterruptedException e) {
+            System.err.println("L'inserimento dell'azione new chat message nella coda è stato interrotto.");
         }
     }
 }

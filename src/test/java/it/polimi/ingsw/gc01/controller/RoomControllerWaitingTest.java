@@ -1,15 +1,11 @@
 package it.polimi.ingsw.gc01.controller;
 
-import it.polimi.ingsw.gc01.controller.exceptions.GameInProgressException;
-import it.polimi.ingsw.gc01.controller.exceptions.MaxPlayersInException;
-import it.polimi.ingsw.gc01.controller.exceptions.PlayerAlreadyInException;
+import it.polimi.ingsw.gc01.controller.exceptions.*;
 import it.polimi.ingsw.gc01.model.VirtualViewStub;
 import it.polimi.ingsw.gc01.network.ObserverManager;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -19,8 +15,9 @@ class RoomControllerWaitingTest {
     private static ObserverManager observer;
     private static RoomController controller;
     private static List<String> playerNames;
+
     @BeforeEach
-    void setup(){
+    void setup() {
         controller = new RoomController();
         client = new VirtualViewStub();
         observer = new ObserverManager();
@@ -33,7 +30,7 @@ class RoomControllerWaitingTest {
     }
 
     @Test
-    void addPlayerAndLeave(){
+    void addPlayerAndLeave() {
         assertEquals(0, controller.getWaitingRoom().getPlayers().size());
         controller.addPlayer(playerNames.get(0), client);
         assertEquals(1, controller.getWaitingRoom().getPlayers().size());
@@ -60,7 +57,7 @@ class RoomControllerWaitingTest {
 
 
     @Test
-    void switchReadyAndStart(){
+    void switchReadyAndStart() {
         assertNull(controller.getRoom());
         controller.addPlayer(playerNames.get(0), client);
         assertFalse(controller.getWaitingRoom().getPlayerByName(playerNames.get(0)).isReady());
@@ -81,8 +78,6 @@ class RoomControllerWaitingTest {
         assertEquals(0, controller.getWaitingRoom().getPlayers().size());
 
     }
-
-
 
 
 }

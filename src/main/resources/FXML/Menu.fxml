@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<AnchorPane xmlns:fx="http://javafx.com/fxml/1" prefHeight="720.0" prefWidth="1280.0" styleClass="woodenBackground"
+            stylesheets="@../style.css" xmlns="http://javafx.com/javafx/21"
+            fx:controller="it.polimi.ingsw.gc01.view.gui.GUIControllers.MenuController">
+    <children>
+        <Pane layoutX="395.0" layoutY="229.0" prefHeight="720.0" prefWidth="1282.0" AnchorPane.bottomAnchor="0.0"
+              AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <children>
+                <Button fx:id="createGameButton" layoutX="-55.0" layoutY="207.0" mnemonicParsing="false"
+                        onAction="#actionCreateNewGame" prefHeight="103.0" prefWidth="509.0" styleClass="record-sales4"
+                        stylesheets="@../style.css" text="Create new game">
+                    <cursor>
+                        <Cursor fx:constant="HAND"/>
+                    </cursor>
+                </Button>
+                <Button layoutX="-18.0" layoutY="329.0" mnemonicParsing="false" onAction="#actionJoinRandomGame"
+                        prefHeight="103.0" prefWidth="422.0" styleClass="record-sales2" stylesheets="@../style.css"
+                        text="Join a random game">
+                    <cursor>
+                        <Cursor fx:constant="HAND"/>
+                    </cursor>
+                </Button>
+                <Button layoutX="-60.0" layoutY="450.0" mnemonicParsing="false" onAction="#actionJoinGame"
+                        prefHeight="104.0" prefWidth="394.0" styleClass="record-sales3" stylesheets="@../style.css"
+                        text="Join a game by ID">
+                    <cursor>
+                        <Cursor fx:constant="HAND"/>
+                    </cursor>
+                </Button>
+                <Button layoutX="-64.0" layoutY="570.0" mnemonicParsing="false" onAction="#actionExit"
+                        prefHeight="102.0" prefWidth="333.0" styleClass="record-sales5" stylesheets="@../style.css"
+                        text="Exit">
+                    <cursor>
+                        <Cursor fx:constant="HAND"/>
+                    </cursor>
+                </Button>
+                <Pane layoutX="-4.0" layoutY="-1.0" opacity="0.7" prefHeight="113.0" prefWidth="1288.0"
+                      style="-fx-background-color: black;">
+                    <children>
+                        <ImageView fitHeight="112.0" fitWidth="601.0" layoutX="369.0" layoutY="4.0" pickOnBounds="true"
+                                   preserveRatio="true">
+                            <image>
+                                <Image url="@../images/CodexTitle.png"/>
+                            </image>
+                        </ImageView>
+                    </children>
+                </Pane>
+                <ImageView fitHeight="366.0" fitWidth="185.0" layoutX="864.0" layoutY="334.0" pickOnBounds="true"
+                           preserveRatio="true">
+                    <image>
+                        <Image url="@../images/Scoreboard.png"/>
+                    </image>
+                </ImageView>
+                <ImageView fitHeight="90.0" fitWidth="134.0" layoutX="675.0" layoutY="355.0" pickOnBounds="true"
+                           preserveRatio="true">
+                    <image>
+                        <Image url="@../images/cards/Back89.png"/>
+                    </image>
+                </ImageView>
+                <ImageView fitHeight="90.0" fitWidth="134.0" layoutX="679.0" layoutY="464.0" pickOnBounds="true"
+                           preserveRatio="true">
+                    <image>
+                        <Image url="@../images/cards/Front98.png"/>
+                    </image>
+                </ImageView>
+                <ImageView fitHeight="90.0" fitWidth="134.0" layoutX="1204.0" layoutY="198.0" pickOnBounds="true"
+                           preserveRatio="true">
+                    <image>
+                        <Image url="@../images/cards/Back85.png"/>
+                    </image>
+                </ImageView>
+                <ImageView fitHeight="90.0" fitWidth="134.0" layoutX="1100.0" layoutY="251.0" pickOnBounds="true"
+                           preserveRatio="true">
+                    <image>
+                        <Image url="@../images/cards/Front27.png"/>
+                    </image>
+                </ImageView>
+                <ImageView fitHeight="90.0" fitWidth="134.0" layoutX="1099.0" layoutY="144.0" pickOnBounds="true"
+                           preserveRatio="true">
+                    <image>
+                        <Image url="@../images/cards/Front3.png"/>
+                    </image>
+                </ImageView>
+            </children>
+        </Pane>
+    </children>
+</AnchorPane>
