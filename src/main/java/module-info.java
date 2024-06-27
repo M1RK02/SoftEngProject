@@ -1,6 +1,7 @@
 module it.polimi.ingsw.gc01 {
-    requires javafx.controls;
     requires javafx.fxml;
+    requires javafx.controls;
+    requires javafx.graphics;
     requires com.google.gson;
     requires java.rmi;
     requires jdk.compiler;
