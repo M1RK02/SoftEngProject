@@ -11,12 +11,11 @@ public class NewChatMessageAction extends RoomAction {
     private final ChatMessage newChatMessage;
 
     /**
-     *
-     * @param playerName player who sent the message
-     * @param room room of the game the player is playing in
+     * @param playerName     player who sent the message
+     * @param room           room of the game the player is playing in
      * @param newChatMessage the new message to be added to the chat of the game
      */
-    public NewChatMessageAction(String playerName, RoomController room,ChatMessage newChatMessage){
+    public NewChatMessageAction(String playerName, RoomController room, ChatMessage newChatMessage) {
         super(playerName, room);
         this.newChatMessage = newChatMessage;
     }
@@ -24,7 +23,7 @@ public class NewChatMessageAction extends RoomAction {
     /**
      * Execute the action
      */
-    public void execute(){
+    public void execute() {
         RoomController controller = getRoomController();
         controller.newChatMessage(newChatMessage);
     }

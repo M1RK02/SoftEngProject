@@ -1,11 +1,8 @@
 package it.polimi.ingsw.gc01.view.gui.GUIControllers;
 
-import it.polimi.ingsw.gc01.view.gui.ClientModel;
-import it.polimi.ingsw.gc01.view.gui.GUI;
 import javafx.animation.TranslateTransition;
 import javafx.application.Platform;
-import javafx.collections.ListChangeListener;
-import javafx.collections.ObservableList;
+import javafx.collections.*;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.layout.Pane;
@@ -13,6 +10,7 @@ import javafx.scene.text.TextFlow;
 import javafx.util.Duration;
 
 import java.util.List;
+
 /**
  * Controller that manages the view when is not your turn
  */
@@ -43,7 +41,7 @@ public class CurrentFieldController extends GenericController {
             goBack.setVisible(false);
         }
         scrollPane.setContent(pane);
-        if(gui.getClientModel().getCurrentPlayer().equals(playerName)){
+        if (gui.getClientModel().getCurrentPlayer().equals(playerName)) {
             turn.setText("Turn: " + playerName);
         } else {
             turn.setText("Field: " + playerName);
@@ -55,7 +53,7 @@ public class CurrentFieldController extends GenericController {
         messages.addListener((ListChangeListener<TextFlow>) change -> {
             while (change.next()) {
                 if (change.wasAdded()) {
-                    Platform.runLater(() -> messagesView.scrollTo(messages.size()-1));
+                    Platform.runLater(() -> messagesView.scrollTo(messages.size() - 1));
                 }
             }
         });

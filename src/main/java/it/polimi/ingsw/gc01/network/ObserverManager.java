@@ -67,7 +67,8 @@ public class ObserverManager {
 
     /**
      * Displays the list of players to a specific client.
-     * @param playerName the name of the player to whom the list of players will be shown
+     *
+     * @param playerName       the name of the player to whom the list of players will be shown
      * @param playersAlreadyIn a map containing the names of players already in the game and their ready status
      */
     public void showPlayers(String playerName, Map<String, Boolean> playersAlreadyIn) {
@@ -82,6 +83,7 @@ public class ObserverManager {
 
     /**
      * Displays the list of joined players to a specific client.
+     *
      * @param playerName the name of the player to whom the list of Joined players will be shown
      */
     public void showPlayerJoined(String playerName) {
@@ -97,6 +99,7 @@ public class ObserverManager {
 
     /**
      * Notifies all clients that a player has left the game.
+     *
      * @param playerName the name of the player who has left the game
      */
     public void showPlayerLeft(String playerName) {
@@ -158,8 +161,9 @@ public class ObserverManager {
 
     /**
      * Show to every client except the playing one to wait
+     *
      * @param playerName of the player
-     * @param scene the scene for which the player is waiting
+     * @param scene      the scene for which the player is waiting
      */
     public void showWaitingFor(String playerName, String scene) {
         synchronized (observers) {
@@ -254,8 +258,9 @@ public class ObserverManager {
 
     /**
      * Updates the table with drawable cards for all clients.
+     *
      * @param drawableCards a map containing positions of drawable cards and their corresponding {@link ResourceCard} objects
-     *  *                     as {@code TablePosition} keys and {@code ResourceCard} values
+     *                      *                     as {@code TablePosition} keys and {@code ResourceCard} values
      */
     public void updateTable(Map<TablePosition, ResourceCard> drawableCards) {
         Map<Integer, Integer> drawableIds = new HashMap<>();
@@ -486,10 +491,11 @@ public class ObserverManager {
 
     /**
      * Updates the chat with a new chat message.
+     *
      * @param newChatMessage chat Message to be added to the ClientChat
      */
-    public void updateChat(ChatMessage newChatMessage){
-        if(newChatMessage.getRecipient().equals("ALL")){
+    public void updateChat(ChatMessage newChatMessage) {
+        if (newChatMessage.getRecipient().equals("ALL")) {
             synchronized (observers) {
                 for (VirtualView client : observers.values()) {
                     try {

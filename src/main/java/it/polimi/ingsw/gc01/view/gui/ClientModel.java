@@ -20,9 +20,10 @@ public class ClientModel {
     private int commonObjective1;
     private int commonObjective2;
     private int secretObjective;
-    private ObservableList<TextFlow> messages;
+    private final ObservableList<TextFlow> messages;
     private Map<Integer, Integer> drawableCardsIds;
-    private List<String> otherPlayers;
+    private final List<String> otherPlayers;
+
     /**
      * Constructs a new ClientModel instance with an empty list of messages and other players.
      */
@@ -39,6 +40,7 @@ public class ClientModel {
     public Map<Integer, Integer> getDrawableCardsIds() {
         return drawableCardsIds;
     }
+
     /**
      * Sets the map of drawable card IDs.
      *
@@ -47,6 +49,7 @@ public class ClientModel {
     public void setDrawableCardsIds(Map<Integer, Integer> drawableCardsIds) {
         this.drawableCardsIds = drawableCardsIds;
     }
+
     /**
      * Retrieves the name of the current player.
      *
@@ -55,6 +58,7 @@ public class ClientModel {
     public String getCurrentPlayer() {
         return currentPlayer;
     }
+
     /**
      * Sets the name of the current player.
      *
@@ -63,6 +67,7 @@ public class ClientModel {
     public void setCurrentPlayer(String currentPlayer) {
         this.currentPlayer = currentPlayer;
     }
+
     /**
      * Retrieves the map of points scored by players.
      *
@@ -71,6 +76,7 @@ public class ClientModel {
     public Map<String, Integer> getPoints() {
         return points;
     }
+
     /**
      * Sets the map of points scored by players.
      *
@@ -88,6 +94,7 @@ public class ClientModel {
     public Map<PlayerColor, String> getColors() {
         return colors;
     }
+
     /**
      * Sets the mapping of player colors to corresponding strings.
      *
@@ -96,6 +103,7 @@ public class ClientModel {
     public void setColors(Map<PlayerColor, String> colors) {
         this.colors = colors;
     }
+
     /**
      * Sets the common objectives.
      *
@@ -106,6 +114,7 @@ public class ClientModel {
         this.commonObjective1 = commonObjective1;
         this.commonObjective2 = commonObjective2;
     }
+
     /**
      * Retrieves the value of the first common objective.
      *
@@ -114,6 +123,7 @@ public class ClientModel {
     public int getCommonObjective1() {
         return commonObjective1;
     }
+
     /**
      * Retrieves the value of the second common objective.
      *
@@ -122,6 +132,7 @@ public class ClientModel {
     public int getCommonObjective2() {
         return commonObjective2;
     }
+
     /**
      * Retrieves the value of the secret objective.
      *
@@ -130,6 +141,7 @@ public class ClientModel {
     public int getSecretObjective() {
         return secretObjective;
     }
+
     /**
      * Sets the value of the secret objective.
      *
@@ -138,6 +150,7 @@ public class ClientModel {
     public void setSecretObjective(int secretObjective) {
         this.secretObjective = secretObjective;
     }
+
     /**
      * Retrieves the number of players in the game.
      *
@@ -146,6 +159,7 @@ public class ClientModel {
     public int getNumOfPlayers() {
         return numOfPlayers;
     }
+
     /**
      * Sets the number of players in the game.
      *
@@ -154,6 +168,7 @@ public class ClientModel {
     public void setNumOfPlayers(int numOfPlayers) {
         this.numOfPlayers = numOfPlayers;
     }
+
     /**
      * Retrieves the list of hand card IDs.
      *
@@ -162,6 +177,7 @@ public class ClientModel {
     public List<Integer> getHandIDs() {
         return handIDs;
     }
+
     /**
      * Sets the list of hand card IDs.
      *
@@ -170,6 +186,7 @@ public class ClientModel {
     public void setHandIDs(List<Integer> handIDs) {
         this.handIDs = handIDs;
     }
+
     /**
      * Retrieves the map of game fields.
      *
@@ -178,6 +195,7 @@ public class ClientModel {
     public Map<String, ClientFieldGUI> getFields() {
         return fields;
     }
+
     /**
      * Sets the map of game fields.
      *
@@ -186,6 +204,7 @@ public class ClientModel {
     public void setFields(Map<String, ClientFieldGUI> fields) {
         this.fields = fields;
     }
+
     /**
      * Retrieves the observable list of messages.
      *
@@ -194,6 +213,7 @@ public class ClientModel {
     public ObservableList<TextFlow> getMessages() {
         return messages;
     }
+
     /**
      * Retrieves the list of other players' names.
      *
@@ -202,6 +222,7 @@ public class ClientModel {
     public List<String> getOtherPlayers() {
         return otherPlayers;
     }
+
     /**
      * Adds a player's name to the list of other players.
      *

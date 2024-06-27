@@ -59,10 +59,10 @@ public class RmiClient extends UnicastRemoteObject implements VirtualView, Netwo
     }
 
     @Override
-    public void newChatMessage(ChatMessage newMessage){
-        try{
+    public void newChatMessage(ChatMessage newMessage) {
+        try {
             server.newChatMessage(this.playerName, this.roomId, newMessage);
-        }catch(RemoteException e) {
+        } catch (RemoteException e) {
             System.err.println("Server RMI not working!");
         }
     }
@@ -270,8 +270,9 @@ public class RmiClient extends UnicastRemoteObject implements VirtualView, Netwo
     public void updateField(String playerName, int id, boolean front, Position position, List<Position> availablePositions) {
         ui.updateField(playerName, id, front, position, availablePositions);
     }
+
     @Override
-    public void updateChat(ChatMessage newChatMessage){
+    public void updateChat(ChatMessage newChatMessage) {
         ui.updateChat(newChatMessage);
     }
 

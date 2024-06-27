@@ -26,9 +26,10 @@ public class ClientHandler implements VirtualView {
 
     /**
      * Constructs a ClientHandler for a Client
+     *
      * @param mainController main controller
-     * @param actions actions to be executed by the server
-     * @param clientSocket  clientSocket
+     * @param actions        actions to be executed by the server
+     * @param clientSocket   clientSocket
      * @throws IOException exception
      */
     public ClientHandler(MainController mainController, BlockingQueue<Action> actions, Socket clientSocket) throws IOException {
@@ -40,8 +41,9 @@ public class ClientHandler implements VirtualView {
 
     /**
      * Processes incoming messages from the client and enqueues corresponding actions that will be executed by server
-     * @throws IOException IOException if an I/O error occurs while reading from the input stream.
-     * @throws ClassNotFoundException  ClassNotFoundException if a class of a serialized object cannot be found.
+     *
+     * @throws IOException            IOException if an I/O error occurs while reading from the input stream.
+     * @throws ClassNotFoundException ClassNotFoundException if a class of a serialized object cannot be found.
      */
     public void executeClientMessages() throws IOException, ClassNotFoundException {
         SocketClientMessage message;
@@ -349,8 +351,8 @@ public class ClientHandler implements VirtualView {
     /**
      * Show the points for each player
      *
-     * @param points     map of playerName, points
-     * @param colors    map of color, playerName
+     * @param points map of playerName, points
+     * @param colors map of color, playerName
      */
     @Override
     public void showPoints(Map<String, Integer> points, Map<PlayerColor, String> colors) throws IOException {

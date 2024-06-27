@@ -28,6 +28,7 @@ public class ClientFieldGUI {
 
     /**
      * Constructs the ClientFieldGUI
+     *
      * @param gui user intergace of the Client
      */
     public ClientFieldGUI(GUI gui) {
@@ -40,7 +41,6 @@ public class ClientFieldGUI {
     }
 
     /**
-     *
      * @return the available positions where to place the Playable Cards in the field
      */
     public List<Position> getAvailablePositions() {
@@ -49,6 +49,7 @@ public class ClientFieldGUI {
 
     /**
      * Sets the available positions to place a card
+     *
      * @param availablePositions available positions where to place the Playable Cards in the field
      */
     public void setAvailablePositions(List<Position> availablePositions) {
@@ -58,8 +59,9 @@ public class ClientFieldGUI {
     /**
      * Plays a card by adding it to the player's cards collection, setting its side,
      * and placing it on the game field at a specified position.
-     * @param id the identifier of the card to be played
-     * @param front {@code true} if the card is played on the front, {@code false} otherwise
+     *
+     * @param id       the identifier of the card to be played
+     * @param front    {@code true} if the card is played on the front, {@code false} otherwise
      * @param position the position on the game field where the card is placed
      */
     public void playCard(int id, boolean front, Position position) {
@@ -70,8 +72,8 @@ public class ClientFieldGUI {
 
     /**
      * Generates a graphical representation of the game field as a JavaFX Pane.
-     * @return a JavaFX Pane representing the generated game field with graphical elements
      *
+     * @return a JavaFX Pane representing the generated game field with graphical elements
      */
     public Pane generateField() {
         Pane fieldPane = new Pane();
@@ -136,6 +138,7 @@ public class ClientFieldGUI {
 
     /**
      * Converts the logical x-coordinate to the graphical x-coordinate on the game field.
+     *
      * @param x the logical x-coordinate to be converted
      * @return the corresponding graphical x-coordinate
      */
@@ -145,6 +148,7 @@ public class ClientFieldGUI {
 
     /**
      * Converts the logical y-coordinate to the graphical y-coordinate on the game field.
+     *
      * @param y the logical y-coordinate to be converted
      * @return the corresponding graphical y-coordinate
      */

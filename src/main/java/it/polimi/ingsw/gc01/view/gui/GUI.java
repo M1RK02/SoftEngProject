@@ -15,8 +15,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.image.Image;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
-import javafx.scene.text.Text;
-import javafx.scene.text.TextFlow;
+import javafx.scene.text.*;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -35,8 +34,10 @@ public class GUI extends Application implements UI {
     private ClientModel clientModel;
     private ClientFieldGUI field;
     private Map<String, ClientFieldGUI> otherFields;
+
     /**
      * JavaFX start method, initializes GUI and displays the intro scene.
+     *
      * @param primaryStage The primary stage for this application, onto which the application scene can be set.
      */
     @Override
@@ -59,8 +60,10 @@ public class GUI extends Application implements UI {
         } catch (IOException ignored) {
         }
     }
+
     /**
      * Switches the scene to the specified scene name with optional attributes.
+     *
      * @param sceneName The SceneEnum value representing the scene to switch to.
      * @param attribute Optional attributes to pass to the scene controller.
      */
@@ -77,31 +80,38 @@ public class GUI extends Application implements UI {
         } catch (IOException ignored) {
         }
     }
+
     /**
      * Retrieves the player's name.
+     *
      * @return The player's name.
      */
     public String getPlayerName() {
         return playerName;
     }
+
     /**
      * Retrieves the client model.
+     *
      * @return The client model.
      */
     public ClientModel getClientModel() {
         return clientModel;
     }
+
     /**
      * Starts the game setup process by switching to the setup scene.
      */
     public void play() {
         switchToScene(SceneEnum.SETUP);
     }
+
     /**
      * Connects the client to the server with the specified player name, remote IP, personal IP, and connection type.
-     * @param playerName The player's name.
-     * @param remoteIP The remote IP address.
-     * @param personalIP The personal IP address.
+     *
+     * @param playerName     The player's name.
+     * @param remoteIP       The remote IP address.
+     * @param personalIP     The personal IP address.
      * @param connectionType The type of connection (RMI or SOCKET).
      */
     public void connect(String playerName, String remoteIP, String personalIP, String connectionType) {
@@ -120,6 +130,7 @@ public class GUI extends Application implements UI {
 
         switchToScene(SceneEnum.MENU);
     }
+
     /**
      * Leaves the current game and switches back to the menu scene.
      */
@@ -127,53 +138,64 @@ public class GUI extends Application implements UI {
         networkClient.leave();
         switchToScene(SceneEnum.MENU);
     }
+
     /**
      * Goes back from the join by ID scene to the menu scene.
      */
     public void goBackFromJoinById() {
         switchToScene(SceneEnum.MENU);
     }
+
     /**
      * Instructs the network client to create a new game.
      */
     public void createGame() {
         networkClient.createGame();
     }
+
     /**
      * Chooses the secret objective with the specified ID.
+     *
      * @param id The ID of the secret objective.
      */
     public void chooseSecretObjective(int id) {
         networkClient.chooseSecretObjective(id);
         clientModel.setSecretObjective(id);
     }
+
     /**
      * Joins the first available game.
      */
     public void joinFirstGame() {
         networkClient.joinFirstGame();
     }
+
     /**
      * Switches to the join by ID scene.
      */
     public void askRoomId() {
         switchToScene(SceneEnum.JOIN_BY_ID);
     }
+
     /**
      * Joins the game with the specified room ID.
+     *
      * @param roomId The ID of the room to join.
      */
     public void joinGame(String roomId) {
         networkClient.joinGame(roomId);
     }
+
     /**
      * Sets the player's readiness status.
      */
     public void setReady() {
         networkClient.switchReady();
     }
+
     /**
      * Chooses the starter card with the specified choice and card ID.
+     *
      * @param choice The choice of starter card.
      * @param cardId The ID of the starter card.
      */
@@ -185,19 +207,23 @@ public class GUI extends Application implements UI {
             networkClient.playCard(cardId, new Position(0, 0));
         }
     }
+
     /**
      * Chooses the player's color.
+     *
      * @param color The chosen color.
      */
     public void chooseColor(String color) {
         networkClient.chooseColor(PlayerColor.valueOf(color));
     }
+
     /**
      * Switches to the intro scene.
      */
     public void switchToIntro() {
         switchToScene(SceneEnum.INTRO);
     }
+
     /**
      * Switches to the menu scene.
      */
@@ -218,12 +244,14 @@ public class GUI extends Application implements UI {
             paneReady.setVisible(false);
         }
     }
+
     /**
      * Adds lobby player panes for players already in the lobby.
+     *
      * @param playersAlreadyIn Map with key as player name and value as ready status.
      */
     private void addLobbyPlayerPanes(Map<String, Boolean> playersAlreadyIn) {
-        List<String> playerNames = playersAlreadyIn.keySet().stream().toList();;
+        List<String> playerNames = playersAlreadyIn.keySet().stream().toList();
         for (int i = 0; i < playerNames.size(); i++) {
             Pane panePlayerLobby = (Pane) this.stage.getScene().getRoot().lookup("#pane" + i);
             panePlayerLobby.setVisible(true);
@@ -238,8 +266,10 @@ public class GUI extends Application implements UI {
             }
         }
     }
+
     /**
      * Shows the last player who joined the lobby.
+     *
      * @param playerName The name of the player who just joined.
      */
     private void showLastJoined(String playerName) {
@@ -258,8 +288,10 @@ public class GUI extends Application implements UI {
             }
         }
     }
+
     /**
      * Removes the player's card from the lobby.
+     *
      * @param playerName The name of the player who left.
      */
     private void removePlayerCard(String playerName) {
@@ -275,10 +307,12 @@ public class GUI extends Application implements UI {
 
         }
     }
+
     /**
      * Changes the readiness status of a player in the lobby.
+     *
      * @param playerName The name of the player whose readiness status is to be changed.
-     * @param ready The new readiness status (true if ready, false otherwise).
+     * @param ready      The new readiness status (true if ready, false otherwise).
      */
     private void changeReady(String playerName, boolean ready) {
         for (int i = 0; i < 4; i++) {
@@ -289,12 +323,14 @@ public class GUI extends Application implements UI {
             }
         }
     }
+
     /**
      * Switches the scene to the table points scene.
      */
     public void showTablePoints() {
         switchToScene(SceneEnum.TABLE_POINT);
     }
+
     /**
      * Switches the scene to show the objectives with specified common and secret objectives.
      */
@@ -308,6 +344,7 @@ public class GUI extends Application implements UI {
     public void backToPlay() {
         switchToScene(SceneEnum.PLAY, field.generateField());
     }
+
     /**
      * Switches the scene back to the other fields scene.
      */
@@ -315,17 +352,21 @@ public class GUI extends Application implements UI {
         String currentPlayer = clientModel.getCurrentPlayer();
         switchToScene(SceneEnum.CURRENT_FIELD, otherFields.get(currentPlayer).generateField(), currentPlayer, false);
     }
+
     /**
      * Chooses a card to draw from the network client.
+     *
      * @param cardId The ID of the card to draw.
      */
     public void chooseCardToDraw(int cardId) {
         networkClient.drawCard(cardId);
     }
+
     /**
      * Chooses a card to play from the network client.
-     * @param cardId The ID of the card to play.
-     * @param front True if the card should be played on the front side, false if flipped.
+     *
+     * @param cardId   The ID of the card to play.
+     * @param front    True if the card should be played on the front side, false if flipped.
      * @param position The position to play the card.
      */
     public void chooseCardToPlay(int cardId, boolean front, Position position) {
@@ -334,21 +375,25 @@ public class GUI extends Application implements UI {
         }
         networkClient.playCard(cardId, position);
     }
+
     /**
      * Switches the scene to show the drawable cards.
      */
     public void showDrawables() {
         switchToScene(SceneEnum.DRAW_CARD, clientModel.getDrawableCardsIds(), false);
     }
+
     /**
      * Switches the scene to show the other fields.
      */
     public void showOtherFields() {
         switchToScene(SceneEnum.CHOOSE_OTHER_FIELDS, otherFields, field);
     }
+
     /**
      * Switches the scene to show the current field of the specified player.
      * If the player is the current player, shows their own field; otherwise, shows the other player's field.
+     *
      * @param playerName The name of the player whose field to show.
      */
     public void showOtherFields(String playerName) {
@@ -471,6 +516,7 @@ public class GUI extends Application implements UI {
     public void showLastCircle() {
         Platform.runLater(() -> showAlert("Last Turn", "Last Turn", "This is the last turn of the game!"));
     }
+
     /**
      * Displays an alert dialog with the specified title, header, and content.
      *
@@ -661,13 +707,14 @@ public class GUI extends Application implements UI {
     public void backToMenu() {
         networkClient.leave();
     }
+
     /**
      * Updates the chat display with a new message.
      *
      * @param newChatMessage The ChatMessage object containing the sender, recipient, and content of the message.
      */
     @Override
-    public void updateChat(ChatMessage newChatMessage){
+    public void updateChat(ChatMessage newChatMessage) {
         StringBuilder prefix = new StringBuilder();
 
         if (newChatMessage.getSender().equals(playerName)) {
@@ -685,7 +732,7 @@ public class GUI extends Application implements UI {
                 prefix.append(" to ").append(newChatMessage.getRecipient()).append("] ");
         }
         Text prefixText = new Text(prefix.toString());
-        if (newChatMessage.getRecipient().equals("ALL")){
+        if (newChatMessage.getRecipient().equals("ALL")) {
             prefixText.setFill(Color.ORANGE);
         } else {
             prefixText.setFill(Color.CYAN);
@@ -697,13 +744,14 @@ public class GUI extends Application implements UI {
 
         Platform.runLater(() -> clientModel.getMessages().add(textFlow));
     }
+
     /**
      * Sends a new chat message to the network client.
      *
      * @param content   The content of the chat message.
      * @param recipient The recipient of the chat message ("ALL" for all players or a specific player's name).
      */
-    public void newChatMessage(String content, String recipient){
+    public void newChatMessage(String content, String recipient) {
         ChatMessage newMessage = new ChatMessage(playerName, content, recipient);
         networkClient.newChatMessage(newMessage);
     }

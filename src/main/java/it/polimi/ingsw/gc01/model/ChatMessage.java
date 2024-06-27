@@ -11,19 +11,17 @@ public class ChatMessage implements Serializable {
     private final String recipient;
 
     /**
-     *
-     * @param sender sender of the message
-     * @param content content of the message
+     * @param sender    sender of the message
+     * @param content   content of the message
      * @param recipient recipient of the message
      */
-    public ChatMessage(String sender, String content, String recipient){
+    public ChatMessage(String sender, String content, String recipient) {
         this.sender = sender;
         this.content = content;
         this.recipient = recipient;
     }
 
     /**
-     *
      * @return sender of the message
      */
     public String getSender() {
@@ -31,7 +29,6 @@ public class ChatMessage implements Serializable {
     }
 
     /**
-     *
      * @return content of the message
      */
     public String getContent() {
@@ -39,7 +36,6 @@ public class ChatMessage implements Serializable {
     }
 
     /**
-     *
      * @return recipient of the message
      */
     public String getRecipient() {

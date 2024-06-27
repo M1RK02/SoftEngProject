@@ -216,8 +216,9 @@ public class RmiServer implements VirtualServer {
             System.err.println("L'inserimento dell'azione leave nella coda è stato interrotto.");
         }
     }
+
     @Override
-    public void newChatMessage(String playerName, String roomId, ChatMessage newMessage){
+    public void newChatMessage(String playerName, String roomId, ChatMessage newMessage) {
         NewChatMessageAction newChatMessage = new NewChatMessageAction(playerName, mainController.getRooms().get(roomId), newMessage);
         try {
             actions.put(newChatMessage);

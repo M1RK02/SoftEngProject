@@ -1,66 +1,87 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.Cursor?>
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.control.ListView?>
-<?import javafx.scene.control.MenuButton?>
-<?import javafx.scene.control.ScrollPane?>
-<?import javafx.scene.control.TextField?>
-<?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.Pane?>
-<?import javafx.scene.text.Font?>
-
-<AnchorPane prefHeight="720.0" prefWidth="1280.0" styleClass="woodenBackground" stylesheets="@../style.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.polimi.ingsw.gc01.view.gui.GUIControllers.PlayController">
-   <children>
-      <Pane fx:id="turnContainer" layoutX="5.0" layoutY="4.0" prefHeight="69.0" prefWidth="118.0">
-         <children>
-            <Label fx:id="points" layoutX="3.0" layoutY="40.0" text="Points:" textFill="WHITE">
-               <font>
-                  <Font name="Arial Black" size="18.0" />
-               </font>
-            </Label>
-            <Label fx:id="turn" layoutX="4.0" layoutY="5.0" text="Turn:" textFill="WHITE">
-               <font>
-                  <Font name="Arial Black" size="18.0" />
-               </font>
-            </Label>
-         </children>
-      </Pane>
-      <Button alignment="CENTER_RIGHT" layoutX="-40.0" layoutY="90.0" mnemonicParsing="false" onMouseClicked="#showTablePoints" prefHeight="50.0" prefWidth="180.0" styleClass="record-sales5" stylesheets="@../style.css" text="ScoreBoard" />
-      <Button alignment="CENTER_RIGHT" layoutX="-40.0" layoutY="160.0" mnemonicParsing="false" onMouseClicked="#showObjectives" prefHeight="50.0" prefWidth="180.0" styleClass="record-sales6" stylesheets="@../style.css" text="Objectives" />
-      <Button alignment="CENTER_RIGHT" layoutX="-40.0" layoutY="230.0" mnemonicParsing="false" onMouseClicked="#showDrawables" prefHeight="50.0" prefWidth="180.0" styleClass="record-sales7" stylesheets="@../style.css" text="Table" />
-      <Button alignment="CENTER_RIGHT" layoutX="-40.0" layoutY="300.0" mnemonicParsing="false" onMouseClicked="#showOtherFields" prefHeight="50.0" prefWidth="180.0" styleClass="record-sales8" stylesheets="@../style.css" text="Other Fields" />
-      <Button alignment="CENTER_RIGHT" layoutX="-40.0" layoutY="370.0" mnemonicParsing="false" onAction="#showChat" prefHeight="50.0" prefWidth="180.0" styleClass="record-sales9" stylesheets="@../style.css" text="Chat" />
-      <ScrollPane fx:id="scrollPane" hbarPolicy="NEVER" layoutX="349.0" layoutY="29.0" prefHeight="491.0" prefWidth="909.0" stylesheets="@../style.css" vbarPolicy="NEVER">
-         <cursor>
-            <Cursor fx:constant="HAND" />
-         </cursor></ScrollPane>
-      <ImageView fx:id="handRight" fitHeight="150.0" fitWidth="225.0" layoutX="981.0" layoutY="541.0" onDragDetected="#dragDetected" onMouseClicked="#flipCard" pickOnBounds="true" preserveRatio="true">
-         <cursor>
-            <Cursor fx:constant="HAND" />
-         </cursor></ImageView>
-      <ImageView fx:id="handCenter" fitHeight="150.0" fitWidth="225.0" layoutX="721.0" layoutY="541.0" onDragDetected="#dragDetected" onMouseClicked="#flipCard" pickOnBounds="true" preserveRatio="true">
-         <cursor>
-            <Cursor fx:constant="HAND" />
-         </cursor></ImageView>
-      <ImageView fx:id="handLeft" fitHeight="150.0" fitWidth="225.0" layoutX="461.0" layoutY="541.0" onDragDetected="#dragDetected" onMouseClicked="#flipCard" pickOnBounds="true" preserveRatio="true">
-         <cursor>
-            <Cursor fx:constant="HAND" />
-         </cursor></ImageView>
-      <Pane fx:id="chat" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="320.0" style="-fx-background-color: grey;" styleClass="chatBackground" stylesheets="@../style.css" translateX="-320.0">
-         <children>
-            <Label alignment="CENTER" layoutX="110.0" prefHeight="38.0" prefWidth="91.0" text="CHAT" textFill="WHITE">
-               <font>
-                  <Font name="Arial Black" size="25.0" />
-               </font>
-            </Label>
-            <Button layoutX="280.0" mnemonicParsing="false" onAction="#hideChat" prefHeight="40.0" prefWidth="40.0" styleClass="closeButton" stylesheets="@../style.css" />
-            <ListView fx:id="messagesView" layoutY="40.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="640.0" prefWidth="320.0" stylesheets="@../style.css" />
-            <MenuButton fx:id="playersChoice" layoutY="680.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="40.0" prefWidth="80.0" stylesheets="@../style.css" text="ALL" />
-            <TextField fx:id="messageField" layoutX="80.0" layoutY="680.0" onAction="#sendMessage" prefHeight="40.0" prefWidth="240.0" />
-         </children>
-      </Pane>
-   </children>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+<AnchorPane xmlns:fx="http://javafx.com/fxml/1" prefHeight="720.0" prefWidth="1280.0" styleClass="woodenBackground"
+            stylesheets="@../style.css" xmlns="http://javafx.com/javafx/21"
+            fx:controller="it.polimi.ingsw.gc01.view.gui.GUIControllers.PlayController">
+    <children>
+        <Pane fx:id="turnContainer" layoutX="5.0" layoutY="4.0" prefHeight="69.0" prefWidth="118.0">
+            <children>
+                <Label fx:id="points" layoutX="3.0" layoutY="40.0" text="Points:" textFill="WHITE">
+                    <font>
+                        <Font name="Arial Black" size="18.0"/>
+                    </font>
+                </Label>
+                <Label fx:id="turn" layoutX="4.0" layoutY="5.0" text="Turn:" textFill="WHITE">
+                    <font>
+                        <Font name="Arial Black" size="18.0"/>
+                    </font>
+                </Label>
+            </children>
+        </Pane>
+        <Button alignment="CENTER_RIGHT" layoutX="-40.0" layoutY="90.0" mnemonicParsing="false"
+                onMouseClicked="#showTablePoints" prefHeight="50.0" prefWidth="180.0" styleClass="record-sales5"
+                stylesheets="@../style.css" text="ScoreBoard"/>
+        <Button alignment="CENTER_RIGHT" layoutX="-40.0" layoutY="160.0" mnemonicParsing="false"
+                onMouseClicked="#showObjectives" prefHeight="50.0" prefWidth="180.0" styleClass="record-sales6"
+                stylesheets="@../style.css" text="Objectives"/>
+        <Button alignment="CENTER_RIGHT" layoutX="-40.0" layoutY="230.0" mnemonicParsing="false"
+                onMouseClicked="#showDrawables" prefHeight="50.0" prefWidth="180.0" styleClass="record-sales7"
+                stylesheets="@../style.css" text="Table"/>
+        <Button alignment="CENTER_RIGHT" layoutX="-40.0" layoutY="300.0" mnemonicParsing="false"
+                onMouseClicked="#showOtherFields" prefHeight="50.0" prefWidth="180.0" styleClass="record-sales8"
+                stylesheets="@../style.css" text="Other Fields"/>
+        <Button alignment="CENTER_RIGHT" layoutX="-40.0" layoutY="370.0" mnemonicParsing="false" onAction="#showChat"
+                prefHeight="50.0" prefWidth="180.0" styleClass="record-sales9" stylesheets="@../style.css" text="Chat"/>
+        <ScrollPane fx:id="scrollPane" hbarPolicy="NEVER" layoutX="349.0" layoutY="29.0" prefHeight="491.0"
+                    prefWidth="909.0" stylesheets="@../style.css" vbarPolicy="NEVER">
+            <cursor>
+                <Cursor fx:constant="HAND"/>
+            </cursor>
+        </ScrollPane>
+        <ImageView fx:id="handRight" fitHeight="150.0" fitWidth="225.0" layoutX="981.0" layoutY="541.0"
+                   onDragDetected="#dragDetected" onMouseClicked="#flipCard" pickOnBounds="true" preserveRatio="true">
+            <cursor>
+                <Cursor fx:constant="HAND"/>
+            </cursor>
+        </ImageView>
+        <ImageView fx:id="handCenter" fitHeight="150.0" fitWidth="225.0" layoutX="721.0" layoutY="541.0"
+                   onDragDetected="#dragDetected" onMouseClicked="#flipCard" pickOnBounds="true" preserveRatio="true">
+            <cursor>
+                <Cursor fx:constant="HAND"/>
+            </cursor>
+        </ImageView>
+        <ImageView fx:id="handLeft" fitHeight="150.0" fitWidth="225.0" layoutX="461.0" layoutY="541.0"
+                   onDragDetected="#dragDetected" onMouseClicked="#flipCard" pickOnBounds="true" preserveRatio="true">
+            <cursor>
+                <Cursor fx:constant="HAND"/>
+            </cursor>
+        </ImageView>
+        <Pane fx:id="chat" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
+              prefHeight="720.0" prefWidth="320.0" style="-fx-background-color: grey;" styleClass="chatBackground"
+              stylesheets="@../style.css" translateX="-320.0">
+            <children>
+                <Label alignment="CENTER" layoutX="110.0" prefHeight="38.0" prefWidth="91.0" text="CHAT"
+                       textFill="WHITE">
+                    <font>
+                        <Font name="Arial Black" size="25.0"/>
+                    </font>
+                </Label>
+                <Button layoutX="280.0" mnemonicParsing="false" onAction="#hideChat" prefHeight="40.0" prefWidth="40.0"
+                        styleClass="closeButton" stylesheets="@../style.css"/>
+                <ListView fx:id="messagesView" layoutY="40.0" maxHeight="-Infinity" maxWidth="-Infinity"
+                          minHeight="-Infinity" minWidth="-Infinity" prefHeight="640.0" prefWidth="320.0"
+                          stylesheets="@../style.css"/>
+                <MenuButton fx:id="playersChoice" layoutY="680.0" maxHeight="-Infinity" maxWidth="-Infinity"
+                            minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="40.0"
+                            prefWidth="80.0" stylesheets="@../style.css" text="ALL"/>
+                <TextField fx:id="messageField" layoutX="80.0" layoutY="680.0" onAction="#sendMessage" prefHeight="40.0"
+                           prefWidth="240.0"/>
+            </children>
+        </Pane>
+    </children>
 </AnchorPane>

@@ -1,8 +1,7 @@
 package it.polimi.ingsw.gc01.view.tui;
 
 import it.polimi.ingsw.gc01.model.ChatMessage;
-import it.polimi.ingsw.gc01.model.player.PlayerColor;
-import it.polimi.ingsw.gc01.model.player.Position;
+import it.polimi.ingsw.gc01.model.player.*;
 import it.polimi.ingsw.gc01.network.NetworkClient;
 import it.polimi.ingsw.gc01.network.rmi.RmiClient;
 import it.polimi.ingsw.gc01.network.socket.SocketClient;
@@ -259,57 +258,57 @@ public class TUI implements UI {
         return roomId.length() == 5;
     }
 
-    private void newChatMessage(String content, String recipient){
+    private void newChatMessage(String content, String recipient) {
         ChatMessage newMessage = new ChatMessage(playerName, content, recipient);
         networkClient.newChatMessage(newMessage);
     }
 
-    private void showChat(){
-    chat.printChat(playerName);
-    int choice = 0;
-    String input;
-    Scanner scanner;
-    do {
-        System.out.println("""
-                Would you rather:
-                (1) Write a new Message
-                (2) Go Back To Game
-                """);
-        scanner = new Scanner(System.in);
+    private void showChat() {
+        chat.printChat(playerName);
+        int choice = 0;
+        String input;
+        Scanner scanner;
+        do {
+            System.out.println("""
+                    Would you rather:
+                    (1) Write a new Message
+                    (2) Go Back To Game
+                    """);
+            scanner = new Scanner(System.in);
 
             input = scanner.nextLine();
             try {
                 choice = Integer.parseInt(input);
             } catch (Exception ignored) {
             }
-       }while (choice != 1 && choice != 2);
+        } while (choice != 1 && choice != 2);
         switch (choice) {
             case (1):
-                int playerChoice=-1;
+                int playerChoice = -1;
                 Set<String> playersSet = otherFields.keySet();
                 List<String> players = new ArrayList<>(playersSet);
                 players.remove(playerName);
-                int i=0;
+                int i = 0;
 
                 //richiesta
                 System.out.println("Who do you want to text:");
-                for ( i = 0; i < players.size(); i++) {
+                for (i = 0; i < players.size(); i++) {
                     System.out.println((i + 1) + ") " + players.get(i));
                 }
-                System.out.println(i+1 +") ALL");
+                System.out.println(i + 1 + ") ALL");
 
                 scanner = new Scanner(System.in);
                 do {
-                 input = scanner.nextLine();
+                    input = scanner.nextLine();
                     try {
                         playerChoice = Integer.parseInt(input);
                     } catch (Exception ignored) {
                     }
-                } while (playerChoice < 1 || playerChoice > players.size()+1);
+                } while (playerChoice < 1 || playerChoice > players.size() + 1);
 
-                String recipient = playerChoice==i+1 ? "ALL" : players.get(playerChoice-1);
+                String recipient = playerChoice == i + 1 ? "ALL" : players.get(playerChoice - 1);
 
-                System.out.println("Write the message to send to "+ recipient);
+                System.out.println("Write the message to send to " + recipient);
                 String content = scanner.nextLine();
                 newChatMessage(content, recipient);
                 break;
@@ -322,13 +321,12 @@ public class TUI implements UI {
     }
 
     /**
-     *
      * @param newChatMessage ChatMessage t
      */
     @Override
-    public void updateChat(ChatMessage newChatMessage){
+    public void updateChat(ChatMessage newChatMessage) {
         chat.addMessageToChat(newChatMessage);
-        if(!newChatMessage.getSender().equals(playerName)) {
+        if (!newChatMessage.getSender().equals(playerName)) {
             System.out.println("New message for you!!! Open the chat when is your turn.");
         }
     }
@@ -446,9 +444,9 @@ public class TUI implements UI {
     @Override
     public void showPoints(Map<String, Integer> points, Map<PlayerColor, String> colors) {
         System.out.println(DefaultValue.ANSI_PURPLE + "-> Points:" + DefaultValue.ANSI_RESET);
-        for(PlayerColor color : colors.keySet()) {
+        for (PlayerColor color : colors.keySet()) {
             String textColor;
-            switch(color) {
+            switch (color) {
                 case BLUE -> textColor = DefaultValue.ANSI_BLUE;
                 case YELLOW -> textColor = DefaultValue.ANSI_YELLOW;
                 case RED -> textColor = DefaultValue.ANSI_RED;
@@ -746,10 +744,10 @@ public class TUI implements UI {
         String input = scanner.nextLine();
         while (input.isEmpty() || (!input.equals("1") && !input.equals("2") && !input.equals("3"))) {
 
-            if(input.equals("c")){
+            if (input.equals("c")) {
                 showChat();
                 System.out.println(DefaultValue.ANSI_YELLOW + "Choose which card you want to play or press 'c' to open the chat:" + DefaultValue.ANSI_RESET);
-            }else {
+            } else {
                 System.out.println(DefaultValue.ANSI_RED + "Wrong choice" + DefaultValue.ANSI_RESET);
             }
             input = scanner.nextLine();

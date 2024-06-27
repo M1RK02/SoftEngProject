@@ -481,9 +481,10 @@ public class RoomController {
 
     /**
      * Passes to the room the newChatMessage to add on the ChatMessage List
+     *
      * @param newChatMessage
      */
-    public void newChatMessage(ChatMessage newChatMessage){
+    public void newChatMessage(ChatMessage newChatMessage) {
         room.newChatMessage(newChatMessage);
     }
 }

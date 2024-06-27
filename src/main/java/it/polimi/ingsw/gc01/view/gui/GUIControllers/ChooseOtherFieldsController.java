@@ -1,6 +1,6 @@
 package it.polimi.ingsw.gc01.view.gui.GUIControllers;
 
-import it.polimi.ingsw.gc01.view.gui.*;
+import it.polimi.ingsw.gc01.view.gui.ClientFieldGUI;
 import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -58,7 +58,7 @@ public class ChooseOtherFieldsController extends GenericController {
     private void chooseField(Event e) {
         Button button = (Button) e.getSource();
         String playerName = button.getText();
-        if(playerName.equals(gui.getPlayerName()) && playerName.equals(gui.getClientModel().getCurrentPlayer())) {
+        if (playerName.equals(gui.getPlayerName()) && playerName.equals(gui.getClientModel().getCurrentPlayer())) {
             gui.backToPlay();
         } else {
             gui.showOtherFields(playerName);

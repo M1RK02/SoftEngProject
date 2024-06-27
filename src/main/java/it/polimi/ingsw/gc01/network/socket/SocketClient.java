@@ -25,8 +25,9 @@ public class SocketClient implements NetworkClient {
 
     /**
      * Constructs a Socket Client
+     *
      * @param playerName name of the player
-     * @param ui user interface of the Client
+     * @param ui         user interface of the Client
      */
     public SocketClient(String playerName, UI ui) {
         this.ui = ui;
@@ -37,7 +38,7 @@ public class SocketClient implements NetworkClient {
 
     /**
      * Establishes a connection to the server using a socket and initializes input and output streams.
-     *  *
+     * *
      */
     private void connect() {
         try {
@@ -68,7 +69,8 @@ public class SocketClient implements NetworkClient {
 
     /**
      * Processes incoming messages from the server and performs corresponding actions based on the message type.
-     * @throws IOException IOException if an I/O error occurs while reading from the input stream.
+     *
+     * @throws IOException            IOException if an I/O error occurs while reading from the input stream.
      * @throws ClassNotFoundException if a class of a serialized object cannot be found.
      */
     public void executeServerMessage() throws IOException, ClassNotFoundException {
@@ -476,7 +478,7 @@ public class SocketClient implements NetworkClient {
     /**
      * Show the points for each player
      *
-     * @param points      map of playerName, points
+     * @param points map of playerName, points
      * @param colors map of colors, playerName
      */
     public void showPoints(Map<String, Integer> points, Map<PlayerColor, String> colors) {
@@ -545,9 +547,10 @@ public class SocketClient implements NetworkClient {
 
     /**
      * Asks UI to update the room Chat
+     *
      * @param newChatMessage new Message to be added to the chat
      */
-    public void updateChat(ChatMessage newChatMessage){
+    public void updateChat(ChatMessage newChatMessage) {
         ui.updateChat(newChatMessage);
     }
 }

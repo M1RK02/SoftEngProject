@@ -51,7 +51,7 @@ public class PlayController extends GenericController {
         messages.addListener((ListChangeListener<TextFlow>) change -> {
             while (change.next()) {
                 if (change.wasAdded()) {
-                    Platform.runLater(() -> messagesView.scrollTo(messages.size()-1));
+                    Platform.runLater(() -> messagesView.scrollTo(messages.size() - 1));
                 }
             }
         });

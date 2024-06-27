@@ -18,6 +18,7 @@ public class SocketServer {
 
     /**
      * Creates a SocketServer
+     *
      * @param actions list of action to be executed by the serve
      */
     public SocketServer(BlockingQueue<Action> actions) {
@@ -28,8 +29,7 @@ public class SocketServer {
     }
 
     /**
-     *Initializes a server socket to listen for incoming connections on the specified port.
-     *
+     * Initializes a server socket to listen for incoming connections on the specified port.
      */
     private void bind() {
         try {

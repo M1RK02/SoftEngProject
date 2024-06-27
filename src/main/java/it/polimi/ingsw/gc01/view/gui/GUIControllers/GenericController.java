@@ -16,7 +16,6 @@ public abstract class GenericController {
     }
 
     /**
-     *
      * @param o attributes to be set
      */
     public void setAttributes(Object... o) {

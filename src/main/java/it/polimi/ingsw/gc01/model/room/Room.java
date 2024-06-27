@@ -60,7 +60,7 @@ public class Room {
     /**
      * Chat of the Room
      */
-    private  List<ChatMessage> chat;
+    private final List<ChatMessage> chat;
 
     /**
      * Constructs a new Room object
@@ -248,9 +248,10 @@ public class Room {
     /**
      * Adds the newChatMessage to the ChatMessages List
      * Notifies the Client that the chat has been updated
+     *
      * @param newChatMessage
      */
-    public void newChatMessage(ChatMessage newChatMessage){
+    public void newChatMessage(ChatMessage newChatMessage) {
         chat.add(newChatMessage);
         notifier.updateChat(newChatMessage);
 
