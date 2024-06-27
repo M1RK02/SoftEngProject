@@ -59,12 +59,7 @@
             <Button layoutX="280.0" mnemonicParsing="false" onAction="#hideChat" prefHeight="40.0" prefWidth="40.0" styleClass="closeButton" stylesheets="@../style.css" />
             <ListView fx:id="messagesView" layoutY="40.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="640.0" prefWidth="320.0" stylesheets="@../style.css" />
             <MenuButton fx:id="playersChoice" layoutY="680.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="40.0" prefWidth="80.0" stylesheets="@../style.css" text="ALL" />
-            <TextField fx:id="messageField" layoutX="80.0" layoutY="680.0" onAction="#sendMessage" prefHeight="40.0" prefWidth="200.0" />
-            <Button layoutX="280.0" layoutY="680.0" mnemonicParsing="false" onAction="#sendMessage" prefHeight="40.0" prefWidth="40.0" rotate="180.0" styleClass="sendButton" stylesheets="@../style.css">
-               <font>
-                  <Font size="20.0" />
-               </font>
-            </Button>
+            <TextField fx:id="messageField" layoutX="80.0" layoutY="680.0" onAction="#sendMessage" prefHeight="40.0" prefWidth="240.0" />
          </children>
       </Pane>
    </children>

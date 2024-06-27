@@ -24,13 +24,14 @@ This are the [requirements](documents/requirements.pdf), the [rulebook](document
 We have implemented the following features:
 | Feature | Implemented |
 |:------- |:----------- |
+| Complete rules | :heavy_check_mark: |
 | TUI | :heavy_check_mark: |
+| GUI | :heavy_check_mark: |
 | RMI | :heavy_check_mark: |
+| Socket | :heavy_check_mark: |
 | Multiple Games | :heavy_check_mark: |
-| GUI | :x: |
-| Socket | :x: |
+| Chat | :heavy_check_mark: |
 | Resilience to clients disconnections | :x: |
-| Chat | :x: |
 | Persistence | :x: |
 
 # How to Use
@@ -50,4 +51,4 @@ This software uses the following open source packages:
 - [Gson](https://github.com/google/gson)
 
 ## Disclaimer
-NOTA: Codex Naturalis è un gioco da tavolo sviluppato ed edito da Cranio Creations Srl. I contenuti grafici di questo progetto riconducibili al prodotto editoriale da tavolo sono utilizzati previa approvazione di Cranio Creations Srl a solo scopo didattico. È vietata la distribuzione, la copia o la riproduzione dei contenuti e immagini in qualsiasi forma al di fuori del progetto, così come la redistribuzione e la pubblicazione dei contenuti e immagini a fini diversi da quello sopracitato. È inoltre vietato l'utilizzo commerciale di suddetti contenuti.
+NOTE: Codex Naturalis is a board game developed and published by Cranio Creations Srl. The graphic contents of this project that are attributable to the board game product are used with the prior approval of Cranio Creations Srl for educational purposes only. The distribution, copying or reproduction of the content and images in any form outside of this project is prohibited, as is the redistribution and publication of the content and images for purposes other than those stated above. The commercial use of said contents is also prohibited.
